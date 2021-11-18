@@ -105,14 +105,14 @@ paths:
       - $ref: '#/components/parameters/RegulatoryReportingID'
       - $ref: '#/components/parameters/AuthoringID'
       requestBody:
-        $ref: '#/components/requestBodies/Consolidation'
+        $ref: '#/components/requestBodies/CaptureAuthoringRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Consolidation'
+                $ref: '#/components/schemas/CaptureAuthoringResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -165,7 +165,7 @@ paths:
       - $ref: '#/components/parameters/RegulatoryReportingID'
       - $ref: '#/components/parameters/ConsolidationID'
       requestBody:
-        $ref: '#/components/requestBodies/Consolidation'
+        $ref: '#/components/requestBodies/UpdateConsolidationRequest'
       responses:
         200:
           description: Success
@@ -226,7 +226,7 @@ paths:
       - $ref: '#/components/parameters/RegulatoryReportingID'
       - $ref: '#/components/parameters/EnquiriesID'
       requestBody:
-        $ref: '#/components/requestBodies/Enquiries'
+        $ref: '#/components/requestBodies/UpdateEnquiriesRequest'
       responses:
         200:
           description: Success
@@ -258,7 +258,7 @@ paths:
       - $ref: '#/components/parameters/RegulatoryReportingID'
       - $ref: '#/components/parameters/EnquiriesID'
       requestBody:
-        $ref: '#/components/requestBodies/Enquiries'
+        $ref: '#/components/requestBodies/CaptureEnquiriesRequest'
       responses:
         200:
           description: Success
@@ -400,6 +400,34 @@ components:
               type: object
             EnquiryTransactionRecords:
               type: string
+    CaptureAuthoringRequest:
+      type: object
+      properties:
+        Consolidation:
+          type: object
+          properties:
+            SourceTransactionRecords:
+              type: string
+    CaptureAuthoringResponse:
+      type: object
+      properties:
+        Consolidation:
+          type: object
+          properties:
+            SourceTransactionRecords:
+              type: string
+    UpdateConsolidationRequest:
+      type: object
+      properties:
+        Consolidation:
+          type: object
+          properties:
+            SourceBusinessUnitOrEmployeeReference:
+              type: object
+            SourceProductandServiceReference:
+              type: object
+            SourceTransactionRecords:
+              type: string
     RetrieveAuthoringResponse:
       type: object
       properties:
@@ -434,6 +462,26 @@ components:
               type: object
             RegulatoryReportDocumentReference:
               type: object
+    UpdateEnquiriesRequest:
+      type: object
+      properties:
+        Enquiries:
+          type: object
+          properties:
+            EnquiryBusinessUnitReference:
+              type: object
+            EnquiryProductandServiceReference:
+              type: object
+            EnquiryTransactionRecords:
+              type: string
+    CaptureEnquiriesRequest:
+      type: object
+      properties:
+        Enquiries:
+          type: object
+          properties:
+            EnquiryTransactionRecords:
+              type: string
     RetrieveEnquiriesResponse:
       type: object
       properties:
@@ -507,18 +555,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateRegulatoryComplianceAdministrativePlanRequest'
-    Consolidation:
+    CaptureAuthoringRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Consolidation'
-    Enquiries:
+            $ref: '#/components/schemas/CaptureAuthoringRequest'
+    UpdateConsolidationRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Enquiries'
+            $ref: '#/components/schemas/UpdateConsolidationRequest'
+    UpdateEnquiriesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateEnquiriesRequest'
+    CaptureEnquiriesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureEnquiriesRequest'
   responses:
     HTTPError:
       description: Bad Request

@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/OpenItemProcedure'
+        $ref: '#/components/requestBodies/InitiateOpenItemProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OpenItemProcedure'
+                $ref: '#/components/schemas/InitiateOpenItemProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -170,7 +170,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Repayment'
+                $ref: '#/components/schemas/InitiateRepaymentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -261,7 +261,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OpenItemProcedure'
+                $ref: '#/components/schemas/RetrieveRepaymentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -336,6 +336,60 @@ components:
           type: string
         message:
           type: string
+    InitiateOpenItemProcedureRequest:
+      type: object
+      properties:
+        OpenItemProcedure:
+          type: object
+          properties:
+            OpenItemType:
+              type: string
+            OpenItemDescription:
+              type: string
+            ProductInstanceReference:
+              type: object
+            PartyReference:
+              type: object
+            LoanRepaymentSchedule:
+              type: string
+            LoanOutstandingBalance:
+              type: string
+            LoanTerminationDate:
+              type: string
+    InitiateOpenItemProcedureResponse:
+      type: object
+      properties:
+        OpenItemProcedure:
+          type: object
+          properties:
+            RepaymentStatement:
+              type: string
+    InitiateRepaymentResponse:
+      type: object
+      properties:
+        Repayment:
+          type: object
+          properties:
+            TransactionDate:
+              type: string
+    RetrieveRepaymentResponse:
+      type: object
+      properties:
+        OpenItemProcedure:
+          type: object
+          properties:
+            OpenItemType:
+              type: string
+            OpenItemDescription:
+              type: string
+            ProductInstanceReference:
+              type: object
+            PartyReference:
+              type: object
+            LoanRepaymentSchedule:
+              type: string
+            LoanOutstandingBalance:
+              type: string
   parameters:
     OpenItemManagementID:
       name: openitemmanagementId
@@ -362,6 +416,12 @@ components:
       schema:
         type: string
   requestBodies:
+    InitiateOpenItemProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateOpenItemProcedureRequest'
     OpenItemProcedure:
       required: true
       content:

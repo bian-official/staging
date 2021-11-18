@@ -16,14 +16,14 @@ paths:
       operationId: Evaluate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/FraudEvaluationAssessment'
+        $ref: '#/components/requestBodies/EvaluateFraudEvaluationAssessmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FraudEvaluationAssessment'
+                $ref: '#/components/schemas/EvaluateFraudEvaluationAssessmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -164,6 +164,40 @@ components:
           type: string
         message:
           type: string
+    EvaluateFraudEvaluationAssessmentRequest:
+      type: object
+      properties:
+        FraudEvaluationAssessment:
+          type: object
+          properties:
+            ProductProductionSessionReference:
+              type: object
+            FraudEvaluationTestProfile:
+              type: string
+            FraudEvaluationEnsembleTechniqueType:
+              type: string
+            FraudEvaluationEnsembleTechniqueDefinition:
+              type: string
+            FraudEvaluationTransactionConsolidationRecord:
+              type: string
+    EvaluateFraudEvaluationAssessmentResponse:
+      type: object
+      properties:
+        FraudEvaluationAssessment:
+          type: object
+          properties:
+            ProductProductionSessionReference:
+              type: object
+            FraudEvaluationTestProfile:
+              type: string
+            FraudEvaluationEnsembleTechniqueType:
+              type: string
+            FraudEvaluationEnsembleTechniqueDefinition:
+              type: string
+            FraudEvaluationProductionAnomalyRecord:
+              type: string
+            FraudEvaluationProductionAnomalyProductionTransactionReference:
+              type: object
   parameters:
     FraudEvaluationID:
       name: fraudevaluationId
@@ -190,12 +224,12 @@ components:
       schema:
         type: string
   requestBodies:
-    FraudEvaluationAssessment:
+    EvaluateFraudEvaluationAssessmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/FraudEvaluationAssessment'
+            $ref: '#/components/schemas/EvaluateFraudEvaluationAssessmentRequest'
   responses:
     HTTPError:
       description: Bad Request

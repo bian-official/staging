@@ -16,14 +16,14 @@ paths:
       operationId: Create
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CollateralAssetAdministrativePlan'
+        $ref: '#/components/requestBodies/CreateCollateralAssetAdministrativePlanRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CollateralAssetAdministrativePlan'
+                $ref: '#/components/schemas/CreateCollateralAssetAdministrativePlanResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Valuation'
+                $ref: '#/components/schemas/CreateValuationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -173,7 +173,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Valuation'
+                $ref: '#/components/schemas/RequestValuationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -232,7 +232,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Maintenance'
+                $ref: '#/components/schemas/CreateMaintenanceResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -410,6 +410,58 @@ components:
           type: string
         message:
           type: string
+    CreateCollateralAssetAdministrativePlanRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetRecord:
+              type: string
+            CollateralAssetType:
+              type: string
+            CollateralAssetProperties:
+              type: string
+            CollateralAssetDescription:
+              type: string
+            CollateralAssetTitle:
+              type: string
+            CollateralAssetOwnership:
+              type: string
+            CollateralAssetInterestedParties:
+              type: string
+            CollateralAssetLocation:
+              type: string
+            CollateralAssetJurisdiction:
+              type: string
+            CollateralAssetDocumentType:
+              type: string
+            CollateralAssetInsuranceReference:
+              type: object
+            CollateralAssetPledgedDate:
+              type: string
+            CollateralAssetValuationSchedule:
+              type: string
+            CollateralAssetMaintenanceSchedule:
+              type: string
+            CollateralAssetStatus:
+              type: string
+    CreateCollateralAssetAdministrativePlanResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetReference:
+              type: object
+            CollateralAssetRecord:
+              type: string
+            CollateralAssetDocumentReference:
+              type: object
+            CollateralAssetValuationHistory:
+              type: string
+            CollateralAssetStatus:
+              type: string
     CreateValuationRequest:
       type: object
       properties:
@@ -458,6 +510,14 @@ components:
             CollateralAssetValuationServiceReference:
               type: object
             CollateralAssetLoantoValueRatio:
+              type: string
+    CreateValuationResponse:
+      type: object
+      properties:
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationDate:
               type: string
     UpdateValuationRequest:
       type: object
@@ -509,6 +569,14 @@ components:
             CollateralAssetValuationServiceReference:
               type: object
             CollateralAssetLoantoValueRatio:
+              type: string
+    RequestValuationResponse:
+      type: object
+      properties:
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationDate:
               type: string
     RetrieveValuationResponse:
       type: object
@@ -608,6 +676,16 @@ components:
               type: string
             CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
               type: object
+    CreateMaintenanceResponse:
+      type: object
+      properties:
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetVerificationandComplianceRecord:
+              type: string
+            CollateralAssetMaintenanceOrSafekeepingFees:
+              type: string
     UpdateMaintenanceRequest:
       type: object
       properties:
@@ -745,6 +823,12 @@ components:
       schema:
         type: string
   requestBodies:
+    CreateCollateralAssetAdministrativePlanRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCollateralAssetAdministrativePlanRequest'
     CollateralAssetAdministrativePlan:
       required: true
       content:

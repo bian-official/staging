@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LeadandOpportunityProcedure'
+                $ref: '#/components/schemas/InitiateLeadandOpportunityProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Development'
+                $ref: '#/components/schemas/InitiateDevelopmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -166,14 +166,14 @@ paths:
       - $ref: '#/components/parameters/LeadandOpportunityManagementID'
       - $ref: '#/components/parameters/DevelopmentID'
       requestBody:
-        $ref: '#/components/requestBodies/Development'
+        $ref: '#/components/requestBodies/ExecuteDevelopmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Development'
+                $ref: '#/components/schemas/ExecuteDevelopmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -197,14 +197,14 @@ paths:
       - $ref: '#/components/parameters/LeadandOpportunityManagementID'
       - $ref: '#/components/parameters/DevelopmentID'
       requestBody:
-        $ref: '#/components/requestBodies/Development'
+        $ref: '#/components/requestBodies/RequestDevelopmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Development'
+                $ref: '#/components/schemas/RequestDevelopmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -299,6 +299,14 @@ components:
           type: string
         message:
           type: string
+    InitiateLeadandOpportunityProcedureResponse:
+      type: object
+      properties:
+        LeadandOpportunityProcedure:
+          type: object
+          properties:
+            DateOrTimeOrLocation:
+              type: string
     InitiateDevelopmentRequest:
       type: object
       properties:
@@ -328,6 +336,94 @@ components:
           properties:
             DocumentDirectoryEntryInstanceReference:
               type: object
+    InitiateDevelopmentResponse:
+      type: object
+      properties:
+        Development:
+          type: object
+          properties:
+            CustomerContactRecordReference:
+              type: object
+            CorrespondenceInstanceReference:
+              type: object
+            CorrespondenceContent:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DocumentContent:
+              type: string
+            LeadDevelopmentWorkProducts:
+              type: string
+            LeadDevelopmentTaskResult:
+              type: string
+    ExecuteDevelopmentRequest:
+      type: object
+      properties:
+        Development:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DateOrTimeOrLocation:
+              type: string
+    ExecuteDevelopmentResponse:
+      type: object
+      properties:
+        Development:
+          type: object
+          properties:
+            CustomerContactRecordReference:
+              type: object
+            CorrespondenceInstanceReference:
+              type: object
+            CorrespondenceContent:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DocumentContent:
+              type: string
+            LeadDevelopmentWorkProducts:
+              type: string
+            LeadDevelopmentTaskResult:
+              type: string
+            DateOrTimeOrLocation:
+              type: string
+    RequestDevelopmentRequest:
+      type: object
+      properties:
+        Development:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DateOrTimeOrLocation:
+              type: string
+    RequestDevelopmentResponse:
+      type: object
+      properties:
+        Development:
+          type: object
+          properties:
+            CustomerContactRecordReference:
+              type: object
+            CorrespondenceInstanceReference:
+              type: object
+            CorrespondenceContent:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DocumentContent:
+              type: string
+            LeadDevelopmentWorkProducts:
+              type: string
+            LeadDevelopmentTaskResult:
+              type: string
+            DateOrTimeOrLocation:
+              type: string
     RetrieveDevelopmentResponse:
       type: object
       properties:
@@ -405,6 +501,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Development'
+    ExecuteDevelopmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteDevelopmentRequest'
+    RequestDevelopmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestDevelopmentRequest'
   responses:
     HTTPError:
       description: Bad Request

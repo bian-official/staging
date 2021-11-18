@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Customer Access Entitlement
-  description: This service domain maintains the details of the allowed channel/device based access to products and services that the customer has in place. &nbsp;This profile is referenced in servicing and fulfillment activity and may include customer preferences and access limits/constraints that span multiple products.
+  description: This service domain maintains the details of the allowed channel/device based access to products and services that the customer has in place.  This profile is referenced in servicing and fulfillment activity and may include customer preferences and access limits/constraints that span multiple products.
   version: 10.0.0
 servers:
 - description: SwaggerHub API Auto Mocking
@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerAccessProfileAgreement'
+                $ref: '#/components/schemas/EvaluateCustomerAccessProfileAgreementResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -83,7 +83,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerAccessProfileAgreement'
+                $ref: '#/components/schemas/RequestCustomerAccessProfileAgreementResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -255,14 +255,14 @@ paths:
       - $ref: '#/components/parameters/CustomerAccessEntitlementID'
       - $ref: '#/components/parameters/PreferencesID'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerAccessProfileAgreement'
+        $ref: '#/components/requestBodies/UpdatePreferencesRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerAccessProfileAgreement'
+                $ref: '#/components/schemas/UpdatePreferencesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -360,6 +360,34 @@ components:
           type: string
         message:
           type: string
+    EvaluateCustomerAccessProfileAgreementResponse:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerChannelAccessProfileRecord:
+              type: string
+            CustomerAccessAgreementValidFromOrToDate:
+              type: string
+            CustomerAccessAgreementSignaturesOrResponsibleParties:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+    RequestCustomerAccessProfileAgreementResponse:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerChannelAccessProfileRecord:
+              type: string
+            CustomerAccessAgreementValidFromOrToDate:
+              type: string
+            CustomerAccessAgreementSignaturesOrResponsibleParties:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
     EvaluateRestrictionsRequest:
       type: object
       properties:
@@ -539,6 +567,30 @@ components:
               type: string
             ChannelAccessPreferenceProfile:
               type: string
+    UpdatePreferencesRequest:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            CustomerChannelAccessProfileRecord:
+              type: string
+            CustomerAccessAgreementValidFromOrToDate:
+              type: string
+    UpdatePreferencesResponse:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            CustomerChannelAccessProfileRecord:
+              type: string
+            CustomerAccessAgreementValidFromOrToDate:
+              type: string
     RetrievePreferencesResponse:
       type: object
       properties:
@@ -618,6 +670,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/EvaluatePreferencesRequest'
+    UpdatePreferencesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePreferencesRequest'
   responses:
     HTTPError:
       description: Bad Request

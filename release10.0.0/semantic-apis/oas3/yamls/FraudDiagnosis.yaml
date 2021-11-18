@@ -16,14 +16,14 @@ paths:
       operationId: Evaluate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/FraudDiagnosisAnalysis'
+        $ref: '#/components/requestBodies/EvaluateFraudDiagnosisAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FraudDiagnosisAnalysis'
+                $ref: '#/components/schemas/EvaluateFraudDiagnosisAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/FraudDiagnosisID'
       requestBody:
-        $ref: '#/components/requestBodies/FraudDiagnosisAnalysis'
+        $ref: '#/components/requestBodies/UpdateFraudDiagnosisAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FraudDiagnosisAnalysis'
+                $ref: '#/components/schemas/UpdateFraudDiagnosisAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -163,7 +163,7 @@ paths:
       - $ref: '#/components/parameters/FraudDiagnosisID'
       - $ref: '#/components/parameters/AnalystReviewID'
       requestBody:
-        $ref: '#/components/requestBodies/AnalystReview'
+        $ref: '#/components/requestBodies/RequestAnalystReviewRequest'
       responses:
         200:
           description: Success
@@ -267,6 +267,74 @@ components:
           type: string
         message:
           type: string
+    EvaluateFraudDiagnosisAnalysisRequest:
+      type: object
+      properties:
+        FraudDiagnosisAnalysis:
+          type: object
+          properties:
+            ProductProductionSessionReference:
+              type: object
+            FraudDiagnosisEvaluationProfile:
+              type: string
+            FraudDiagnosisTransactionConsolidationRecord:
+              type: string
+            FraudEvaluationProductionAnomalyRecord:
+              type: string
+            FraudEvaluationProductionAnomalyProductionTransactionReference:
+              type: object
+    EvaluateFraudDiagnosisAnalysisResponse:
+      type: object
+      properties:
+        FraudDiagnosisAnalysis:
+          type: object
+          properties:
+            FraudDiagnosisEvaluationProfile:
+              type: string
+            FraudDiagnosisDetermination:
+              type: string
+            FraudDiagnosisRecommendation:
+              type: string
+    UpdateFraudDiagnosisAnalysisRequest:
+      type: object
+      properties:
+        FraudDiagnosisAnalysis:
+          type: object
+          properties:
+            ProductProductionSessionReference:
+              type: object
+            FraudDiagnosisEvaluationProfile:
+              type: string
+            FraudDiagnosisTransactionConsolidationRecord:
+              type: string
+            FraudEvaluationProductionAnomalyRecord:
+              type: string
+            FraudEvaluationProductionAnomalyProductionTransactionReference:
+              type: object
+    UpdateFraudDiagnosisAnalysisResponse:
+      type: object
+      properties:
+        FraudDiagnosisAnalysis:
+          type: object
+          properties:
+            ProductProductionSessionReference:
+              type: object
+            FraudDiagnosisEvaluationProfile:
+              type: string
+            FraudDiagnosisTransactionConsolidationRecord:
+              type: string
+            FraudEvaluationProductionAnomalyRecord:
+              type: string
+            FraudEvaluationProductionAnomalyProductionTransactionReference:
+              type: object
+    RequestAnalystReviewRequest:
+      type: object
+      properties:
+        AnalystReview:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
   parameters:
     FraudDiagnosisID:
       name: frauddiagnosisId
@@ -301,18 +369,24 @@ components:
       schema:
         type: string
   requestBodies:
-    FraudDiagnosisAnalysis:
+    EvaluateFraudDiagnosisAnalysisRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/FraudDiagnosisAnalysis'
-    AnalystReview:
+            $ref: '#/components/schemas/EvaluateFraudDiagnosisAnalysisRequest'
+    UpdateFraudDiagnosisAnalysisRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AnalystReview'
+            $ref: '#/components/schemas/UpdateFraudDiagnosisAnalysisRequest'
+    RequestAnalystReviewRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestAnalystReviewRequest'
   responses:
     HTTPError:
       description: Bad Request

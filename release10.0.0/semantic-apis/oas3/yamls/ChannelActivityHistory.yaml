@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelActivityLog'
+                $ref: '#/components/schemas/InitiateChannelActivityLogResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -105,14 +105,14 @@ paths:
       - $ref: '#/components/parameters/ChannelActivityHistoryID'
       - $ref: '#/components/parameters/EventID'
       requestBody:
-        $ref: '#/components/requestBodies/Event'
+        $ref: '#/components/requestBodies/UpdateEventRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Event'
+                $ref: '#/components/schemas/UpdateEventResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -136,7 +136,7 @@ paths:
       - $ref: '#/components/parameters/ChannelActivityHistoryID'
       - $ref: '#/components/parameters/EventID'
       requestBody:
-        $ref: '#/components/requestBodies/Event'
+        $ref: '#/components/requestBodies/CaptureEventRequest'
       responses:
         200:
           description: Success
@@ -255,6 +255,164 @@ components:
           type: string
         message:
           type: string
+    InitiateChannelActivityLogResponse:
+      type: object
+      properties:
+        ChannelActivityLog:
+          type: object
+          properties:
+            Date:
+              type: string
+    UpdateEventRequest:
+      type: object
+      properties:
+        Event:
+          type: object
+          properties:
+            EmployeeReference:
+              type: object
+            ProductReference:
+              type: object
+            ProductInstanceReference:
+              type: object
+            CustomerContactRecordReference:
+              type: object
+            CustomerContactRecordCustomerReference:
+              type: object
+            CustomerContactRecordContactDevice:
+              type: string
+            CustomerContactRecordAuthenticationStatus:
+              type: string
+            CustomerContactRecordRoutingSelectionStatus:
+              type: string
+            CustomerContactRecordMenuSelection:
+              type: string
+            CustomerContactRecordServicingRequest:
+              type: string
+            CustomerContactRecordServicingEventHistory:
+              type: string
+            CustomerContactRecordServicingPositionReference:
+              type: object
+            CustomerContactRecordServicingResourceReference:
+              type: object
+            CustomerContactRecordActivityRecord:
+              type: string
+            CustomerSessionDialogueReference:
+              type: object
+            CustomerSessionDialogueRecord:
+              type: string
+            CustomerContactRecordDuration:
+              type: string
+            CustomerContactActivityRecord:
+              type: string
+            CustomerContactResult:
+              type: string
+            ChannelActivityHistoryReportReference:
+              type: object
+            ChannelActivityHistoryReportFromOrto:
+              type: string
+            TransactionAuthorizationResult:
+              type: string
+    UpdateEventResponse:
+      type: object
+      properties:
+        Event:
+          type: object
+          properties:
+            EmployeeReference:
+              type: object
+            ProductReference:
+              type: object
+            ProductInstanceReference:
+              type: object
+            CustomerContactRecordReference:
+              type: object
+            CustomerContactRecordCustomerReference:
+              type: object
+            CustomerContactRecordContactDevice:
+              type: string
+            CustomerContactRecordAuthenticationStatus:
+              type: string
+            CustomerContactRecordRoutingSelectionStatus:
+              type: string
+            CustomerContactRecordMenuSelection:
+              type: string
+            CustomerContactRecordServicingRequest:
+              type: string
+            CustomerContactRecordServicingEventHistory:
+              type: string
+            CustomerContactRecordServicingPositionReference:
+              type: object
+            CustomerContactRecordServicingResourceReference:
+              type: object
+            CustomerContactRecordActivityRecord:
+              type: string
+            CustomerSessionDialogueReference:
+              type: object
+            CustomerSessionDialogueRecord:
+              type: string
+            CustomerContactRecordDuration:
+              type: string
+            CustomerContactActivityRecord:
+              type: string
+            CustomerContactResult:
+              type: string
+            ChannelActivityHistoryReportReference:
+              type: object
+            ChannelActivityHistoryReportFromOrto:
+              type: string
+            TransactionAuthorizationResult:
+              type: string
+    CaptureEventRequest:
+      type: object
+      properties:
+        Event:
+          type: object
+          properties:
+            EmployeeReference:
+              type: object
+            ProductReference:
+              type: object
+            ProductInstanceReference:
+              type: object
+            CustomerContactRecordReference:
+              type: object
+            CustomerContactRecordCustomerReference:
+              type: object
+            CustomerContactRecordContactDevice:
+              type: string
+            CustomerContactRecordAuthenticationStatus:
+              type: string
+            CustomerContactRecordRoutingSelectionStatus:
+              type: string
+            CustomerContactRecordMenuSelection:
+              type: string
+            CustomerContactRecordServicingRequest:
+              type: string
+            CustomerContactRecordServicingEventHistory:
+              type: string
+            CustomerContactRecordServicingPositionReference:
+              type: object
+            CustomerContactRecordServicingResourceReference:
+              type: object
+            CustomerContactRecordActivityRecord:
+              type: string
+            CustomerSessionDialogueReference:
+              type: object
+            CustomerSessionDialogueRecord:
+              type: string
+            CustomerContactRecordDuration:
+              type: string
+            CustomerContactActivityRecord:
+              type: string
+            CustomerContactResult:
+              type: string
+            ChannelActivityHistoryReportReference:
+              type: object
+            ChannelActivityHistoryReportFromOrto:
+              type: string
+            TransactionAuthorizationResult:
+              type: string
     RetrieveEventResponse:
       type: object
       properties:
@@ -336,12 +494,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ChannelActivityLog'
-    Event:
+    UpdateEventRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Event'
+            $ref: '#/components/schemas/UpdateEventRequest'
+    CaptureEventRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureEventRequest'
   responses:
     HTTPError:
       description: Bad Request

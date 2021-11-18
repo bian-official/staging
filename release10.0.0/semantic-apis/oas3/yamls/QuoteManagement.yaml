@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Quote Management
-  description: This service domain handles the procedure used by traders to obtain and selecting quotes from market makers
+  description: 'This service domain handles the procedure used by traders to obtain and selecting quotes from market makers '
   version: 10.0.0
 servers:
 - description: SwaggerHub API Auto Mocking
@@ -17,14 +17,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/QuoteManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/QuotationProcedure'
+        $ref: '#/components/requestBodies/ControlQuotationProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/ControlQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -47,14 +47,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/QuoteManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/QuotationProcedure'
+        $ref: '#/components/requestBodies/ExchangeQuotationProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/ExchangeQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -77,14 +77,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/QuoteManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/QuotationProcedure'
+        $ref: '#/components/requestBodies/ExecuteQuotationProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/ExecuteQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -106,14 +106,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/QuotationProcedure'
+        $ref: '#/components/requestBodies/InitiateQuotationProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/InitiateQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -141,7 +141,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/NotifyQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -164,14 +164,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/QuoteManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/QuotationProcedure'
+        $ref: '#/components/requestBodies/RequestQuotationProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/RequestQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -199,7 +199,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/RetrieveQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -222,14 +222,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/QuoteManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/QuotationProcedure'
+        $ref: '#/components/requestBodies/UpdateQuotationProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuotationProcedure'
+                $ref: '#/components/schemas/UpdateQuotationProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -700,9 +700,9 @@ components:
         QuotationProcedureServiceType:
           type: string
         QuotationProcedureProductandServiceType:
-          type: string
+          type: object
         QuotationProcedureProductandServiceInstance:
-          type: string
+          type: object
         QuotationProcedureTransactionType:
           type: string
         QuotationProcedureTransaction:
@@ -767,6 +767,742 @@ components:
           type: string
         message:
           type: string
+    ControlQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    ControlQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    ExchangeQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    ExchangeQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    ExecuteQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    ExecuteQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    InitiateQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    InitiateQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    NotifyQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    NotifyQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    RequestQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    RequestQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    RetrieveQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    RetrieveQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    UpdateQuotationProcedureRequest:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
+    UpdateQuotationProcedureResponse:
+      type: object
+      properties:
+        QuotationProcedure:
+          type: object
+          properties:
+            QuotationProcedureParameterType:
+              type: string
+            QuotationProcedureSelectedOption:
+              type: string
+            QuotationProcedureRequest:
+              type: string
+            QuotationProcedureSchedule:
+              type: object
+            QuotationProcedureStatus:
+              type: string
+            QuotationProcedureAssociatedPartyReference:
+              type: object
+            QuotationProcedureBusinessUnitReference:
+              type: object
+            QuotationProcedureServiceProviderReference:
+              type: object
+            QuotationProcedureFinancialFacilityReference:
+              type: string
+            QuotationProcedureEmployeeReference:
+              type: object
+            QuotationProcedureCustomerReference:
+              type: object
+            QuotationProcedureType:
+              type: string
+            QuotationProcedureServiceProviderSchedule:
+              type: object
+            QuotationProcedureServiceType:
+              type: string
+            QuotationProcedureProductandServiceType:
+              type: object
+            QuotationProcedureProductandServiceInstance:
+              type: object
+            QuotationProcedureTransactionType:
+              type: string
+            QuotationProcedureFinancialTransactionArrangement:
+              type: string
+            QuotationProcedureCustomerAgreementReference:
+              type: string
+            QuotationProcedureReference:
+              type: string
   parameters:
     QuoteManagementID:
       name: quotemanagementId
@@ -801,12 +1537,54 @@ components:
       schema:
         type: string
   requestBodies:
-    QuotationProcedure:
+    ControlQuotationProcedureRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/QuotationProcedure'
+            $ref: '#/components/schemas/ControlQuotationProcedureRequest'
+    ExchangeQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExchangeQuotationProcedureRequest'
+    ExecuteQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteQuotationProcedureRequest'
+    InitiateQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateQuotationProcedureRequest'
+    NotifyQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotifyQuotationProcedureRequest'
+    RequestQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestQuotationProcedureRequest'
+    RetrieveQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveQuotationProcedureRequest'
+    UpdateQuotationProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateQuotationProcedureRequest'
     MarketQuoteRequestWorkstep:
       required: true
       content:

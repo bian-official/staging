@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/IssuedDeviceAllocation'
+        $ref: '#/components/requestBodies/InitiateIssuedDeviceAllocationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IssuedDeviceAllocation'
+                $ref: '#/components/schemas/InitiateIssuedDeviceAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -166,14 +166,14 @@ paths:
       - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
       - $ref: '#/components/parameters/PasswordAssignmentID'
       requestBody:
-        $ref: '#/components/requestBodies/PasswordAssignment'
+        $ref: '#/components/requestBodies/CapturePasswordAssignmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PasswordAssignment'
+                $ref: '#/components/schemas/CapturePasswordAssignmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -287,14 +287,14 @@ paths:
       - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
       - $ref: '#/components/parameters/QuestionAssignmentID'
       requestBody:
-        $ref: '#/components/requestBodies/QuestionAssignment'
+        $ref: '#/components/requestBodies/CaptureQuestionAssignmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuestionAssignment'
+                $ref: '#/components/schemas/CaptureQuestionAssignmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -378,14 +378,14 @@ paths:
       - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
       - $ref: '#/components/parameters/DeviceAssignmentID'
       requestBody:
-        $ref: '#/components/requestBodies/DeviceAssignment'
+        $ref: '#/components/requestBodies/CaptureDeviceAssignmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceAssignment'
+                $ref: '#/components/schemas/CaptureDeviceAssignmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -559,14 +559,14 @@ paths:
       - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
       - $ref: '#/components/parameters/ReaderAssignmentID'
       requestBody:
-        $ref: '#/components/requestBodies/ReaderAssignment'
+        $ref: '#/components/requestBodies/CaptureReaderAssignmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReaderAssignment'
+                $ref: '#/components/schemas/CaptureReaderAssignmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -763,6 +763,36 @@ components:
           type: string
         message:
           type: string
+    InitiateIssuedDeviceAllocationRequest:
+      type: object
+      properties:
+        IssuedDeviceAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            ProductInstanceReference:
+              type: object
+            IssuedDeviceType:
+              type: string
+            AssociatedPermissions:
+              type: string
+            ValidFrom-ToDate:
+              type: string
+    InitiateIssuedDeviceAllocationResponse:
+      type: object
+      properties:
+        IssuedDeviceAllocation:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+            AssociatedPermissions:
+              type: string
+            IssueDate:
+              type: string
+            ValidFrom-ToDate:
+              type: string
     InitiatePasswordAssignmentRequest:
       type: object
       properties:
@@ -853,6 +883,22 @@ components:
           properties:
             PasswordValue:
               type: string
+            UsageLog:
+              type: string
+    CapturePasswordAssignmentRequest:
+      type: object
+      properties:
+        PasswordAssignment:
+          type: object
+          properties:
+            UsageLog:
+              type: string
+    CapturePasswordAssignmentResponse:
+      type: object
+      properties:
+        PasswordAssignment:
+          type: object
+          properties:
             UsageLog:
               type: string
     InitiateQuestionAssignmentRequest:
@@ -949,6 +995,22 @@ components:
               type: string
             UsageLog:
               type: string
+    CaptureQuestionAssignmentRequest:
+      type: object
+      properties:
+        QuestionAssignment:
+          type: object
+          properties:
+            UsageLog:
+              type: string
+    CaptureQuestionAssignmentResponse:
+      type: object
+      properties:
+        QuestionAssignment:
+          type: object
+          properties:
+            UsageLog:
+              type: string
     RetrieveQuestionAssignmentResponse:
       type: object
       properties:
@@ -1038,6 +1100,22 @@ components:
               type: string
             IssuedDeviceConfiguration:
               type: string
+            UsageLog:
+              type: string
+    CaptureDeviceAssignmentRequest:
+      type: object
+      properties:
+        DeviceAssignment:
+          type: object
+          properties:
+            UsageLog:
+              type: string
+    CaptureDeviceAssignmentResponse:
+      type: object
+      properties:
+        DeviceAssignment:
+          type: object
+          properties:
             UsageLog:
               type: string
     RetrieveDeviceAssignmentResponse:
@@ -1215,6 +1293,22 @@ components:
               type: string
             UsageLog:
               type: string
+    CaptureReaderAssignmentRequest:
+      type: object
+      properties:
+        ReaderAssignment:
+          type: object
+          properties:
+            UsageLog:
+              type: string
+    CaptureReaderAssignmentResponse:
+      type: object
+      properties:
+        ReaderAssignment:
+          type: object
+          properties:
+            UsageLog:
+              type: string
     RetrieveReaderAssignmentResponse:
       type: object
       properties:
@@ -1369,6 +1463,12 @@ components:
       schema:
         type: string
   requestBodies:
+    InitiateIssuedDeviceAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceAllocationRequest'
     IssuedDeviceAllocation:
       required: true
       content:
@@ -1387,12 +1487,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdatePasswordAssignmentRequest'
-    PasswordAssignment:
+    CapturePasswordAssignmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PasswordAssignment'
+            $ref: '#/components/schemas/CapturePasswordAssignmentRequest'
     InitiateQuestionAssignmentRequest:
       required: true
       content:
@@ -1405,24 +1505,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateQuestionAssignmentRequest'
-    QuestionAssignment:
+    CaptureQuestionAssignmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/QuestionAssignment'
+            $ref: '#/components/schemas/CaptureQuestionAssignmentRequest'
     UpdateDeviceAssignmentRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateDeviceAssignmentRequest'
-    DeviceAssignment:
+    CaptureDeviceAssignmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DeviceAssignment'
+            $ref: '#/components/schemas/CaptureDeviceAssignmentRequest'
     UpdateBiometricAssignmentRequest:
       required: true
       content:
@@ -1435,12 +1535,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateReaderAssignmentRequest'
-    ReaderAssignment:
+    CaptureReaderAssignmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ReaderAssignment'
+            $ref: '#/components/schemas/CaptureReaderAssignmentRequest'
     InitiateChequesAssignmentRequest:
       required: true
       content:

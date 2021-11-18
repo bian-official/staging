@@ -226,14 +226,14 @@ paths:
       - $ref: '#/components/parameters/ContactCenterOperationsID'
       - $ref: '#/components/parameters/AssignmentID'
       requestBody:
-        $ref: '#/components/requestBodies/Assignment'
+        $ref: '#/components/requestBodies/RequestAssignmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Assignment'
+                $ref: '#/components/schemas/RequestAssignmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -552,6 +552,26 @@ components:
           type: string
         message:
           type: string
+    RequestAssignmentRequest:
+      type: object
+      properties:
+        Assignment:
+          type: object
+          properties:
+            AssignmentCustomerServicingRepresentative:
+              type: string
+            CustomerContactSessionProcedureInstanceReference:
+              type: object
+    RequestAssignmentResponse:
+      type: object
+      properties:
+        Assignment:
+          type: object
+          properties:
+            AssignmentCustomerServicingRepresentative:
+              type: string
+            CustomerContactSessionProcedureInstanceReference:
+              type: object
   parameters:
     ContactCenterOperationsID:
       name: contactcenteroperationsId
@@ -598,6 +618,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Assignment'
+    RequestAssignmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestAssignmentRequest'
     PeakLoad:
       required: true
       content:

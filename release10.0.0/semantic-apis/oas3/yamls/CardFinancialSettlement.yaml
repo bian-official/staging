@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CardFinancialSettlementProcedure'
+        $ref: '#/components/requestBodies/InitiateCardFinancialSettlementProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardFinancialSettlementProcedure'
+                $ref: '#/components/schemas/InitiateCardFinancialSettlementProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/CardFinancialSettlementID'
       requestBody:
-        $ref: '#/components/requestBodies/CardFinancialSettlementProcedure'
+        $ref: '#/components/requestBodies/UpdateCardFinancialSettlementProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardFinancialSettlementProcedure'
+                $ref: '#/components/schemas/UpdateCardFinancialSettlementProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -105,14 +105,14 @@ paths:
       - $ref: '#/components/parameters/CardFinancialSettlementID'
       - $ref: '#/components/parameters/ConsolidationID'
       requestBody:
-        $ref: '#/components/requestBodies/Consolidation'
+        $ref: '#/components/requestBodies/UpdateConsolidationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Consolidation'
+                $ref: '#/components/schemas/UpdateConsolidationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -408,6 +408,120 @@ components:
           type: string
         message:
           type: string
+    InitiateCardFinancialSettlementProcedureRequest:
+      type: object
+      properties:
+        CardFinancialSettlementProcedure:
+          type: object
+          properties:
+            NetworkReference:
+              type: object
+            CardFinancialSettlementProcessType:
+              type: string
+            CardFinancialSettlementServiceSchedule:
+              type: string
+            ParticipantAcquirerBankReference:
+              type: object
+            ParticipantIssuerBankReference:
+              type: object
+    InitiateCardFinancialSettlementProcedureResponse:
+      type: object
+      properties:
+        CardFinancialSettlementProcedure:
+          type: object
+          properties:
+            CardFinancialSettlementProcessDateOrTime:
+              type: string
+            CardFinancialSettlementServiceSchedule:
+              type: string
+    UpdateCardFinancialSettlementProcedureRequest:
+      type: object
+      properties:
+        CardFinancialSettlementProcedure:
+          type: object
+          properties:
+            CardFinancialSettlementProcessType:
+              type: string
+            CardFinancialSettlementProcessDateOrTime:
+              type: string
+            CardFinancialSettlementServiceSchedule:
+              type: string
+            ParticipantAcquirerBankReference:
+              type: object
+            ParticipantIssuerBankReference:
+              type: object
+    UpdateCardFinancialSettlementProcedureResponse:
+      type: object
+      properties:
+        CardFinancialSettlementProcedure:
+          type: object
+          properties:
+            CardFinancialSettlementProcessType:
+              type: string
+            CardFinancialSettlementProcessDateOrTime:
+              type: string
+            CardFinancialSettlementServiceSchedule:
+              type: string
+            ParticipantAcquirerBankReference:
+              type: object
+            ParticipantIssuerBankReference:
+              type: object
+    UpdateConsolidationRequest:
+      type: object
+      properties:
+        Consolidation:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+            CardTransactionProductInstanceReference:
+              type: object
+            CardTransactionIssuingBankReference:
+              type: object
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+            CardTransactionType:
+              type: string
+            CardTransactionCurrency:
+              type: string
+            CardTransactionAmountType:
+              type: string
+            CardTransactionMerchantReference:
+              type: object
+            CardTransactionLocationReference:
+              type: object
+            CardTransactionProductandServiceReference:
+              type: object
+            CardTransactionDateOrTime:
+              type: string
+    UpdateConsolidationResponse:
+      type: object
+      properties:
+        Consolidation:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+            CardTransactionProductInstanceReference:
+              type: object
+            CardTransactionIssuingBankReference:
+              type: object
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+            CardTransactionType:
+              type: string
+            CardTransactionCurrency:
+              type: string
+            CardTransactionAmountType:
+              type: string
+            CardTransactionMerchantReference:
+              type: object
+            CardTransactionLocationReference:
+              type: object
+            CardTransactionProductandServiceReference:
+              type: object
+            CardTransactionDateOrTime:
+              type: string
     RetrieveConsolidationResponse:
       type: object
       properties:
@@ -638,18 +752,24 @@ components:
       schema:
         type: string
   requestBodies:
-    CardFinancialSettlementProcedure:
+    InitiateCardFinancialSettlementProcedureRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CardFinancialSettlementProcedure'
-    Consolidation:
+            $ref: '#/components/schemas/InitiateCardFinancialSettlementProcedureRequest'
+    UpdateCardFinancialSettlementProcedureRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Consolidation'
+            $ref: '#/components/schemas/UpdateCardFinancialSettlementProcedureRequest'
+    UpdateConsolidationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateConsolidationRequest'
     Processing:
       required: true
       content:

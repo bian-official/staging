@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/PaymentExecutionProcedure'
+        $ref: '#/components/requestBodies/InitiatePaymentExecutionProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaymentExecutionProcedure'
+                $ref: '#/components/schemas/InitiatePaymentExecutionProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/PaymentExecutionID'
       requestBody:
-        $ref: '#/components/requestBodies/PaymentExecutionProcedure'
+        $ref: '#/components/requestBodies/UpdatePaymentExecutionProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaymentExecutionProcedure'
+                $ref: '#/components/schemas/UpdatePaymentExecutionProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -81,7 +81,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaymentExecutionProcedure'
+                $ref: '#/components/schemas/RetrievePaymentExecutionProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -214,6 +214,164 @@ components:
           type: string
         message:
           type: string
+    InitiatePaymentExecutionProcedureRequest:
+      type: object
+      properties:
+        PaymentExecutionProcedure:
+          type: object
+          properties:
+            PaymentTransactionInitiatorReference:
+              type: object
+            PaymentOrderReference:
+              type: object
+            PayerReference:
+              type: object
+            PayerBankReference:
+              type: object
+            PayerProductInstanceReference:
+              type: object
+            PayeeReference:
+              type: object
+            PayeeBankReference:
+              type: object
+            PayeeProductInstanceReference:
+              type: object
+            Amount:
+              type: string
+            Currency:
+              type: string
+            DateType:
+              type: string
+            WashAccountReference:
+              type: object
+            IntermediaryAccountReference:
+              type: object
+            PaymentMechanismType:
+              type: string
+    InitiatePaymentExecutionProcedureResponse:
+      type: object
+      properties:
+        PaymentExecutionProcedure:
+          type: object
+          properties:
+            ACHAccessServiceSessionReference:
+              type: object
+            ACHAccessSchedule:
+              type: string
+            CorrespondentServiceSessionReference:
+              type: object
+            CorrespondentServiceAccessSchedule:
+              type: string
+    UpdatePaymentExecutionProcedureRequest:
+      type: object
+      properties:
+        PaymentExecutionProcedure:
+          type: object
+          properties:
+            PaymentTransactionInitiatorReference:
+              type: object
+            PaymentOrderReference:
+              type: object
+            PayerReference:
+              type: object
+            PayerBankReference:
+              type: object
+            PayerProductInstanceReference:
+              type: object
+            PayeeReference:
+              type: object
+            PayeeBankReference:
+              type: object
+            PayeeProductInstanceReference:
+              type: object
+            Amount:
+              type: string
+            Currency:
+              type: string
+            DateType:
+              type: string
+            WashAccountReference:
+              type: object
+            IntermediaryAccountReference:
+              type: object
+            PaymentMechanismType:
+              type: string
+    UpdatePaymentExecutionProcedureResponse:
+      type: object
+      properties:
+        PaymentExecutionProcedure:
+          type: object
+          properties:
+            PaymentTransactionInitiatorReference:
+              type: object
+            PaymentOrderReference:
+              type: object
+            PayerReference:
+              type: object
+            PayerBankReference:
+              type: object
+            PayerProductInstanceReference:
+              type: object
+            PayeeReference:
+              type: object
+            PayeeBankReference:
+              type: object
+            PayeeProductInstanceReference:
+              type: object
+            Amount:
+              type: string
+            Currency:
+              type: string
+            DateType:
+              type: string
+            WashAccountReference:
+              type: object
+            IntermediaryAccountReference:
+              type: object
+            PaymentMechanismType:
+              type: string
+    RetrievePaymentExecutionProcedureResponse:
+      type: object
+      properties:
+        PaymentExecutionProcedure:
+          type: object
+          properties:
+            ACHAccessServiceSessionReference:
+              type: object
+            ACHAccessSchedule:
+              type: string
+            CorrespondentServiceSessionReference:
+              type: object
+            CorrespondentServiceAccessSchedule:
+              type: string
+            PaymentTransactionInitiatorReference:
+              type: object
+            PaymentOrderReference:
+              type: object
+            PayerReference:
+              type: object
+            PayerBankReference:
+              type: object
+            PayerProductInstanceReference:
+              type: object
+            PayeeReference:
+              type: object
+            PayeeBankReference:
+              type: object
+            PayeeProductInstanceReference:
+              type: object
+            Amount:
+              type: string
+            Currency:
+              type: string
+            DateType:
+              type: string
+            WashAccountReference:
+              type: object
+            IntermediaryAccountReference:
+              type: object
+            PaymentMechanismType:
+              type: string
     RetrievePaymentMechanismResponse:
       type: object
       properties:
@@ -334,12 +492,18 @@ components:
       schema:
         type: string
   requestBodies:
-    PaymentExecutionProcedure:
+    InitiatePaymentExecutionProcedureRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PaymentExecutionProcedure'
+            $ref: '#/components/schemas/InitiatePaymentExecutionProcedureRequest'
+    UpdatePaymentExecutionProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePaymentExecutionProcedureRequest'
   responses:
     HTTPError:
       description: Bad Request

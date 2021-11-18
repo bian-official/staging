@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerCaseProcedure'
+                $ref: '#/components/schemas/InitiateCustomerCaseProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -165,14 +165,14 @@ paths:
       - $ref: '#/components/parameters/CustomerCaseID'
       - $ref: '#/components/parameters/DeterminationID'
       requestBody:
-        $ref: '#/components/requestBodies/Determination'
+        $ref: '#/components/requestBodies/UpdateDeterminationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Determination'
+                $ref: '#/components/schemas/UpdateDeterminationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -343,6 +343,16 @@ components:
           type: string
         message:
           type: string
+    InitiateCustomerCaseProcedureResponse:
+      type: object
+      properties:
+        CustomerCaseProcedure:
+          type: object
+          properties:
+            Date:
+              type: string
+            CustomerCaseResolutionSchedule:
+              type: string
     RetrieveAnalysisResponse:
       type: object
       properties:
@@ -375,6 +385,30 @@ components:
             CaseAnalysisWorkProduct:
               type: string
             CaseAnalysisWorkTaskResult:
+              type: string
+    UpdateDeterminationRequest:
+      type: object
+      properties:
+        Determination:
+          type: object
+          properties:
+            CustomerAgreementInstanceReference:
+              type: object
+            CaseDeterminationWorkProduct:
+              type: string
+            CaseDeterminationWorkTaskResult:
+              type: string
+    UpdateDeterminationResponse:
+      type: object
+      properties:
+        Determination:
+          type: object
+          properties:
+            CustomerAgreementInstanceReference:
+              type: object
+            CaseDeterminationWorkProduct:
+              type: string
+            CaseDeterminationWorkTaskResult:
               type: string
     RetrieveDeterminationResponse:
       type: object
@@ -511,12 +545,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Analysis'
-    Determination:
+    UpdateDeterminationRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Determination'
+            $ref: '#/components/schemas/UpdateDeterminationRequest'
     Resolution:
       required: true
       content:

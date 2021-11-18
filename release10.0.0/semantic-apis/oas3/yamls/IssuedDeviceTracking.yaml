@@ -16,7 +16,7 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/IssuedDeviceState'
+        $ref: '#/components/requestBodies/InitiateIssuedDeviceStateRequest'
       responses:
         200:
           description: Success
@@ -136,14 +136,14 @@ paths:
       - $ref: '#/components/parameters/IssuedDeviceTrackingID'
       - $ref: '#/components/parameters/InternalNotificationID'
       requestBody:
-        $ref: '#/components/requestBodies/InternalNotification'
+        $ref: '#/components/requestBodies/CaptureInternalNotificationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InternalNotification'
+                $ref: '#/components/schemas/CaptureInternalNotificationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -227,14 +227,14 @@ paths:
       - $ref: '#/components/parameters/IssuedDeviceTrackingID'
       - $ref: '#/components/parameters/ExternalReportID'
       requestBody:
-        $ref: '#/components/requestBodies/ExternalReport'
+        $ref: '#/components/requestBodies/CaptureExternalReportRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExternalReport'
+                $ref: '#/components/schemas/CaptureExternalReportResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -332,6 +332,16 @@ components:
           type: string
         message:
           type: string
+    InitiateIssuedDeviceStateRequest:
+      type: object
+      properties:
+        IssuedDeviceState:
+          type: object
+          properties:
+            IssuedDeviceAllocationInstanceReference:
+              type: object
+            IssuedDeviceAllocationStatus:
+              type: string
     UpdateInternalNotificationRequest:
       type: object
       properties:
@@ -384,6 +394,30 @@ components:
               type: object
             StatusUpdateDetails:
               type: string
+            StatusUpdateResult:
+              type: string
+    CaptureInternalNotificationRequest:
+      type: object
+      properties:
+        InternalNotification:
+          type: object
+          properties:
+            IssuedDeviceReference:
+              type: object
+            IssuedDeviceType:
+              type: string
+            CustomerReference:
+              type: object
+            ProductInstanceReference:
+              type: object
+            StatusUpdateDetails:
+              type: string
+    CaptureInternalNotificationResponse:
+      type: object
+      properties:
+        InternalNotification:
+          type: object
+          properties:
             StatusUpdateResult:
               type: string
     RetrieveInternalNotificationResponse:
@@ -471,6 +505,32 @@ components:
               type: string
             StatusUpdateResult:
               type: string
+    CaptureExternalReportRequest:
+      type: object
+      properties:
+        ExternalReport:
+          type: object
+          properties:
+            InformationFeedServiceContentRecord:
+              type: string
+            IssuedDeviceReference:
+              type: object
+            IssuedDeviceType:
+              type: string
+            CustomerReference:
+              type: object
+            ProductInstanceReference:
+              type: object
+            StatusUpdateDetails:
+              type: string
+    CaptureExternalReportResponse:
+      type: object
+      properties:
+        ExternalReport:
+          type: object
+          properties:
+            StatusUpdateResult:
+              type: string
     RetrieveExternalReportResponse:
       type: object
       properties:
@@ -526,6 +586,12 @@ components:
       schema:
         type: string
   requestBodies:
+    InitiateIssuedDeviceStateRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceStateRequest'
     IssuedDeviceState:
       required: true
       content:
@@ -538,24 +604,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateInternalNotificationRequest'
-    InternalNotification:
+    CaptureInternalNotificationRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InternalNotification'
+            $ref: '#/components/schemas/CaptureInternalNotificationRequest'
     UpdateExternalReportRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateExternalReportRequest'
-    ExternalReport:
+    CaptureExternalReportRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ExternalReport'
+            $ref: '#/components/schemas/CaptureExternalReportRequest'
   responses:
     HTTPError:
       description: Bad Request

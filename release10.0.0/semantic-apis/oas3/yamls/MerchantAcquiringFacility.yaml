@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/MerchantAcquiringFacility'
+        $ref: '#/components/requestBodies/InitiateMerchantAcquiringFacilityRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MerchantAcquiringFacility'
+                $ref: '#/components/schemas/InitiateMerchantAcquiringFacilityResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -354,7 +354,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MerchantAccount'
+                $ref: '#/components/schemas/ExecuteSettlementResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -656,6 +656,46 @@ components:
           type: string
         message:
           type: string
+    InitiateMerchantAcquiringFacilityRequest:
+      type: object
+      properties:
+        MerchantAcquiringFacility:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            PartyReference:
+              type: object
+            BankBranchOrLocationReference:
+              type: object
+            AccountCurrency:
+              type: string
+            TaxReference:
+              type: object
+            MerchantAcquiringFacilityOperationalTerms:
+              type: string
+            MerchantAcquiringFacilityPositionLimits:
+              type: string
+            MerchantPositionLimitType:
+              type: string
+            MerchantPositionLimitSettings:
+              type: string
+    InitiateMerchantAcquiringFacilityResponse:
+      type: object
+      properties:
+        MerchantAcquiringFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+            MerchantAcquiringFacilityOperationalTerms:
+              type: string
+            MerchantAcquiringFacilityPositionLimits:
+              type: string
+            MerchantPositionLimitSettings:
+              type: string
+            MerchantPositionLimitValue:
+              type: string
     UpdateClearingRequest:
       type: object
       properties:
@@ -1199,6 +1239,18 @@ components:
               type: string
             ParticipantAcquirerBankSettlementAccountStatement:
               type: string
+    ExecuteSettlementResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+            MerchantAcquiringAccountPostingResult:
+              type: string
     ExecuteServiceFeesRequest:
       type: object
       properties:
@@ -1317,6 +1369,12 @@ components:
       schema:
         type: string
   requestBodies:
+    InitiateMerchantAcquiringFacilityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateMerchantAcquiringFacilityRequest'
     MerchantAcquiringFacility:
       required: true
       content:

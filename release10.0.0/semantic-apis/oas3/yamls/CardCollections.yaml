@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Card Collections
-  description: This service domain administers the recovery of outstanding amounts from cancelled card accounts through internal or external collection agencies. &nbsp;This may involve negotiating payment terms and/or interest write-downs.
+  description: This service domain administers the recovery of outstanding amounts from cancelled card accounts through internal or external collection agencies.  This may involve negotiating payment terms and/or interest write-downs.
   version: 10.0.0
 servers:
 - description: SwaggerHub API Auto Mocking
@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardCollectionsProcedure'
+                $ref: '#/components/schemas/InitiateCardCollectionsProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -169,7 +169,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardCollectionsProcedure'
+                $ref: '#/components/schemas/InitiatePaymentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -193,14 +193,14 @@ paths:
       - $ref: '#/components/parameters/CardCollectionsID'
       - $ref: '#/components/parameters/PaymentID'
       requestBody:
-        $ref: '#/components/requestBodies/Payment'
+        $ref: '#/components/requestBodies/UpdatePaymentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Payment'
+                $ref: '#/components/schemas/UpdatePaymentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -404,6 +404,14 @@ components:
           type: string
         message:
           type: string
+    InitiateCardCollectionsProcedureResponse:
+      type: object
+      properties:
+        CardCollectionsProcedure:
+          type: object
+          properties:
+            CardCollectionsProcessingSchedule:
+              type: string
     RetrieveAssignmentResponse:
       type: object
       properties:
@@ -482,6 +490,34 @@ components:
         Payment:
           type: object
           properties:
+            CardCollectionsPaymentNotificationRecord:
+              type: string
+    InitiatePaymentResponse:
+      type: object
+      properties:
+        CardCollectionsProcedure:
+          type: object
+          properties:
+            CardCollectionsProcessingSchedule:
+              type: string
+    UpdatePaymentRequest:
+      type: object
+      properties:
+        Payment:
+          type: object
+          properties:
+            PaymentTransactionReference:
+              type: object
+            CardCollectionsPaymentNotificationRecord:
+              type: string
+    UpdatePaymentResponse:
+      type: object
+      properties:
+        Payment:
+          type: object
+          properties:
+            PaymentTransactionReference:
+              type: object
             CardCollectionsPaymentNotificationRecord:
               type: string
     RetrievePaymentResponse:
@@ -565,12 +601,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InitiatePaymentRequest'
-    Payment:
+    UpdatePaymentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Payment'
+            $ref: '#/components/schemas/UpdatePaymentRequest'
     Resolution:
       required: true
       content:

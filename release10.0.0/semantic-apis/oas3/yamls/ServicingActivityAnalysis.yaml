@@ -16,7 +16,7 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/ServicingRootCauseAnalysis'
+        $ref: '#/components/requestBodies/InitiateServicingRootCauseAnalysisRequest'
       responses:
         200:
           description: Success
@@ -76,14 +76,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ServicingActivityAnalysisID'
       requestBody:
-        $ref: '#/components/requestBodies/ServicingRootCauseAnalysis'
+        $ref: '#/components/requestBodies/ExecuteServicingRootCauseAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicingRootCauseAnalysis'
+                $ref: '#/components/schemas/ExecuteServicingRootCauseAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -106,14 +106,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ServicingActivityAnalysisID'
       requestBody:
-        $ref: '#/components/requestBodies/ServicingRootCauseAnalysis'
+        $ref: '#/components/requestBodies/RequestServicingRootCauseAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicingRootCauseAnalysis'
+                $ref: '#/components/schemas/RequestServicingRootCauseAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -195,14 +195,14 @@ paths:
       - $ref: '#/components/parameters/ServicingActivityAnalysisID'
       - $ref: '#/components/parameters/RootCauseAlgorithmID'
       requestBody:
-        $ref: '#/components/requestBodies/RootCauseAlgorithm'
+        $ref: '#/components/requestBodies/RequestRootCauseAlgorithmRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RootCauseAlgorithm'
+                $ref: '#/components/schemas/RequestRootCauseAlgorithmResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -287,6 +287,88 @@ components:
           type: string
         message:
           type: string
+    InitiateServicingRootCauseAnalysisRequest:
+      type: object
+      properties:
+        ServicingRootCauseAnalysis:
+          type: object
+          properties:
+            ServicingActivityType:
+              type: string
+            ServicingActivityAnalysisPeriod:
+              type: string
+            ServicingActivityAnalysisType:
+              type: string
+            ServicingActivityHistoryReport:
+              type: string
+    ExecuteServicingRootCauseAnalysisRequest:
+      type: object
+      properties:
+        ServicingRootCauseAnalysis:
+          type: object
+          properties:
+            ServicingActivityType:
+              type: string
+            ServicingActivityAnalysisPeriod:
+              type: string
+            ServicingActivityAnalysisType:
+              type: string
+            ServicingActivityAnalysisRecommendation:
+              type: string
+            ServicingActivityHistoryReport:
+              type: string
+    ExecuteServicingRootCauseAnalysisResponse:
+      type: object
+      properties:
+        ServicingRootCauseAnalysis:
+          type: object
+          properties:
+            ServicingActivityType:
+              type: string
+            ServicingActivityAnalysisPeriod:
+              type: string
+            ServicingActivityAnalysisType:
+              type: string
+            ServicingActivityAnalysisResult:
+              type: string
+            ServicingActivityAnalysisDetermination:
+              type: string
+            ServicingActivityHistoryReport:
+              type: string
+    RequestServicingRootCauseAnalysisRequest:
+      type: object
+      properties:
+        ServicingRootCauseAnalysis:
+          type: object
+          properties:
+            ServicingActivityType:
+              type: string
+            ServicingActivityAnalysisPeriod:
+              type: string
+            ServicingActivityAnalysisType:
+              type: string
+            ServicingActivityAnalysisRecommendation:
+              type: string
+            ServicingActivityHistoryReport:
+              type: string
+    RequestServicingRootCauseAnalysisResponse:
+      type: object
+      properties:
+        ServicingRootCauseAnalysis:
+          type: object
+          properties:
+            ServicingActivityType:
+              type: string
+            ServicingActivityAnalysisPeriod:
+              type: string
+            ServicingActivityAnalysisType:
+              type: string
+            ServicingActivityAnalysisResult:
+              type: string
+            ServicingActivityAnalysisDetermination:
+              type: string
+            ServicingActivityHistoryReport:
+              type: string
     InitiateRootCauseAlgorithmRequest:
       type: object
       properties:
@@ -328,6 +410,38 @@ components:
               type: string
             ServicingActivityHistoryReport:
               type: string
+        RootCauseAlgorithm:
+          type: object
+          properties:
+            ServicingActivityRootCauseAlgorithmSpecification:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskType:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskWorkProducts:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskResult:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskDate-Time:
+              type: string
+    RequestRootCauseAlgorithmRequest:
+      type: object
+      properties:
+        RootCauseAlgorithm:
+          type: object
+          properties:
+            ServicingActivityRootCauseAlgorithmSpecification:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskType:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskWorkProducts:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskResult:
+              type: string
+            ServicingActivityRootCauseAnalysisWorkTaskDate-Time:
+              type: string
+    RequestRootCauseAlgorithmResponse:
+      type: object
+      properties:
         RootCauseAlgorithm:
           type: object
           properties:
@@ -388,24 +502,42 @@ components:
       schema:
         type: string
   requestBodies:
+    InitiateServicingRootCauseAnalysisRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateServicingRootCauseAnalysisRequest'
     ServicingRootCauseAnalysis:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ServicingRootCauseAnalysis'
+    ExecuteServicingRootCauseAnalysisRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServicingRootCauseAnalysisRequest'
+    RequestServicingRootCauseAnalysisRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestServicingRootCauseAnalysisRequest'
     InitiateRootCauseAlgorithmRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/InitiateRootCauseAlgorithmRequest'
-    RootCauseAlgorithm:
+    RequestRootCauseAlgorithmRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RootCauseAlgorithm'
+            $ref: '#/components/schemas/RequestRootCauseAlgorithmRequest'
   responses:
     HTTPError:
       description: Bad Request

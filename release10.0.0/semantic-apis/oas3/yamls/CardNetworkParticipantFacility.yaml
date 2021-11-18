@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardNetworkParticipantFacility'
+                $ref: '#/components/schemas/InitiateCardNetworkParticipantFacilityResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -136,14 +136,14 @@ paths:
       - $ref: '#/components/parameters/CardNetworkParticipantFacilityID'
       - $ref: '#/components/parameters/ParticipantAccountID'
       requestBody:
-        $ref: '#/components/requestBodies/ParticipantAccount'
+        $ref: '#/components/requestBodies/ExecuteParticipantAccountRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ParticipantAccount'
+                $ref: '#/components/schemas/ExecuteParticipantAccountResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -227,14 +227,14 @@ paths:
       - $ref: '#/components/parameters/CardNetworkParticipantFacilityID'
       - $ref: '#/components/parameters/ParticipantServiceID'
       requestBody:
-        $ref: '#/components/requestBodies/ParticipantService'
+        $ref: '#/components/requestBodies/ExecuteParticipantServiceRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ParticipantService'
+                $ref: '#/components/schemas/ExecuteParticipantServiceResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -258,14 +258,14 @@ paths:
       - $ref: '#/components/parameters/CardNetworkParticipantFacilityID'
       - $ref: '#/components/parameters/ParticipantServiceID'
       requestBody:
-        $ref: '#/components/requestBodies/ParticipantService'
+        $ref: '#/components/requestBodies/RequestParticipantServiceRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ParticipantService'
+                $ref: '#/components/schemas/RequestParticipantServiceResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -369,6 +369,104 @@ components:
           type: string
         message:
           type: string
+    InitiateCardNetworkParticipantFacilityResponse:
+      type: object
+      properties:
+        CardNetworkParticipantFacility:
+          type: object
+          properties:
+            FacilityTerms:
+              type: string
+            ParticipantAcquirerBankClearingandSettlementTerms:
+              type: string
+            ParticipantAcquirerBankServiceSchedule:
+              type: string
+            ParticipantIssuerBankClearingandSettlementTerms:
+              type: string
+            ParticipantIssuerBankServiceSchedule:
+              type: string
+    ExecuteParticipantAccountRequest:
+      type: object
+      properties:
+        ParticipantAccount:
+          type: object
+          properties:
+            ParticipantAccountPostingTransaction:
+              type: string
+            NetworkParticipantFacilityAccountPostingPurpose:
+              type: string
+            NetworkParticipantFacilityAccountPostingAmount:
+              type: number
+            NetworkParticipantFacilityAccountPostingValueDate:
+              type: string
+    ExecuteParticipantAccountResponse:
+      type: object
+      properties:
+        ParticipantAccount:
+          type: object
+          properties:
+            ParticipantAccountPostingTransaction:
+              type: string
+            NetworkParticipantFacilityAccountPostingValueDate:
+              type: string
+            NetworkParticipantFacilityAccountPostingResult:
+              type: string
+    ExecuteParticipantServiceRequest:
+      type: object
+      properties:
+        ParticipantService:
+          type: object
+          properties:
+            ParticipantServiceRecord:
+              type: string
+            NetworkParticipantServiceType:
+              type: string
+            NetworkParticipantServiceDateOrTime:
+              type: string
+    ExecuteParticipantServiceResponse:
+      type: object
+      properties:
+        ParticipantService:
+          type: object
+          properties:
+            ParticipantServiceRecord:
+              type: string
+            NetworkParticipantServiceCharge:
+              type: string
+            NetworkParticipantServiceDateOrTime:
+              type: string
+            NetworkParticipantNetworkServiceRequestWorkProduct:
+              type: string
+            NetworkParticipantNetworkServiceRequestResult:
+              type: string
+    RequestParticipantServiceRequest:
+      type: object
+      properties:
+        ParticipantService:
+          type: object
+          properties:
+            ParticipantServiceRecord:
+              type: string
+            NetworkParticipantServiceType:
+              type: string
+            NetworkParticipantServiceDateOrTime:
+              type: string
+    RequestParticipantServiceResponse:
+      type: object
+      properties:
+        ParticipantService:
+          type: object
+          properties:
+            ParticipantServiceRecord:
+              type: string
+            NetworkParticipantServiceCharge:
+              type: string
+            NetworkParticipantServiceDateOrTime:
+              type: string
+            NetworkParticipantNetworkServiceRequestWorkProduct:
+              type: string
+            NetworkParticipantNetworkServiceRequestResult:
+              type: string
   parameters:
     CardNetworkParticipantFacilityID:
       name: cardnetworkparticipantfacilityId
@@ -407,12 +505,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ParticipantAccount'
+    ExecuteParticipantAccountRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteParticipantAccountRequest'
     ParticipantService:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ParticipantService'
+    ExecuteParticipantServiceRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteParticipantServiceRequest'
+    RequestParticipantServiceRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestParticipantServiceRequest'
   responses:
     HTTPError:
       description: Bad Request

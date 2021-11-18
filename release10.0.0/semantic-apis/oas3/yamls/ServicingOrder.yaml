@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/ServicingOrderProcedure'
+        $ref: '#/components/requestBodies/InitiateServicingOrderProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicingOrderProcedure'
+                $ref: '#/components/schemas/InitiateServicingOrderProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ServicingOrderID'
       requestBody:
-        $ref: '#/components/requestBodies/ServicingOrderProcedure'
+        $ref: '#/components/requestBodies/ExecuteServicingOrderProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicingOrderProcedure'
+                $ref: '#/components/schemas/ExecuteServicingOrderProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -76,14 +76,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ServicingOrderID'
       requestBody:
-        $ref: '#/components/requestBodies/ServicingOrderProcedure'
+        $ref: '#/components/requestBodies/RequestServicingOrderProcedureRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicingOrderProcedure'
+                $ref: '#/components/schemas/RequestServicingOrderProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServicingOrderProcedure'
+                $ref: '#/components/schemas/RetrieveServicingOrderProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -162,6 +162,134 @@ components:
           type: string
         message:
           type: string
+    InitiateServicingOrderProcedureRequest:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ThirdPartyReference:
+              type: object
+            ThirdPartyServicingMandateReference:
+              type: object
+            CustomerReference:
+              type: object
+            CustomerEligibilityAssessmentInstanceReference:
+              type: object
+            ServicingOrderType:
+              type: string
+            ServicingOrderTaskRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+    InitiateServicingOrderProcedureResponse:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ServicingOrderTaskRecord:
+              type: string
+            ServicingOrderDescription:
+              type: string
+            ServicingOrderWorkProduct:
+              type: string
+            ServicingOrderWorkTaskResult:
+              type: string
+    ExecuteServicingOrderProcedureRequest:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ThirdPartyReference:
+              type: object
+            ThirdPartyServicingMandateReference:
+              type: object
+            CustomerReference:
+              type: object
+            CustomerEligibilityAssessmentInstanceReference:
+              type: object
+            ServicingOrderType:
+              type: string
+            ServicingOrderTaskRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+    ExecuteServicingOrderProcedureResponse:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ServicingOrderTaskRecord:
+              type: string
+            ServicingOrderDescription:
+              type: string
+            ServicingOrderWorkProduct:
+              type: string
+            ServicingOrderWorkTaskResult:
+              type: string
+    RequestServicingOrderProcedureRequest:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ThirdPartyReference:
+              type: object
+            ThirdPartyServicingMandateReference:
+              type: object
+            CustomerReference:
+              type: object
+            CustomerEligibilityAssessmentInstanceReference:
+              type: object
+            ServicingOrderType:
+              type: string
+            ServicingOrderTaskRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+    RequestServicingOrderProcedureResponse:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ServicingOrderTaskRecord:
+              type: string
+            ServicingOrderDescription:
+              type: string
+            ServicingOrderWorkProduct:
+              type: string
+            ServicingOrderWorkTaskResult:
+              type: string
+    RetrieveServicingOrderProcedureResponse:
+      type: object
+      properties:
+        ServicingOrderProcedure:
+          type: object
+          properties:
+            ThirdPartyReference:
+              type: object
+            ThirdPartyServicingMandateReference:
+              type: object
+            CustomerReference:
+              type: object
+            CustomerEligibilityAssessmentInstanceReference:
+              type: object
+            ServicingOrderType:
+              type: string
+            ServicingOrderTaskRecord:
+              type: string
+            ServicingOrderDescription:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            ServicingOrderWorkProduct:
+              type: string
+            ServicingOrderWorkTaskResult:
+              type: string
   parameters:
     ServicingOrderID:
       name: servicingorderId
@@ -172,12 +300,24 @@ components:
       schema:
         type: string
   requestBodies:
-    ServicingOrderProcedure:
+    InitiateServicingOrderProcedureRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ServicingOrderProcedure'
+            $ref: '#/components/schemas/InitiateServicingOrderProcedureRequest'
+    ExecuteServicingOrderProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServicingOrderProcedureRequest'
+    RequestServicingOrderProcedureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestServicingOrderProcedureRequest'
   responses:
     HTTPError:
       description: Bad Request

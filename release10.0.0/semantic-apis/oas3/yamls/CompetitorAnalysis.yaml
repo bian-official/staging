@@ -16,14 +16,14 @@ paths:
       operationId: Evaluate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CompetitorAnalysis'
+        $ref: '#/components/requestBodies/EvaluateCompetitorAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompetitorAnalysis'
+                $ref: '#/components/schemas/EvaluateCompetitorAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/CompetitorAnalysisID'
       requestBody:
-        $ref: '#/components/requestBodies/CompetitorAnalysis'
+        $ref: '#/components/requestBodies/ExecuteCompetitorAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompetitorAnalysis'
+                $ref: '#/components/schemas/ExecuteCompetitorAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -76,14 +76,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/CompetitorAnalysisID'
       requestBody:
-        $ref: '#/components/requestBodies/CompetitorAnalysis'
+        $ref: '#/components/requestBodies/RequestCompetitorAnalysisRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompetitorAnalysis'
+                $ref: '#/components/schemas/RequestCompetitorAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CompetitorAnalysis'
+                $ref: '#/components/schemas/RetrieveCompetitorAnalysisResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -193,6 +193,126 @@ components:
           type: string
         message:
           type: string
+    EvaluateCompetitorAnalysisRequest:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisType:
+              type: string
+            CompetitorAnalysisAlgorithmReference:
+              type: object
+            CompetitorAnalysisRequestRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            CompetitorAnalysisUsageRecord:
+              type: string
+            CompetitorAnalysisImpact:
+              type: string
+    EvaluateCompetitorAnalysisResponse:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisType:
+              type: string
+            CompetitorAnalysisSpecification:
+              type: string
+            CompetitorAnalysisGuidance:
+              type: string
+            CompetitorAnalysisAlgorithmReference:
+              type: object
+            CompetitorAnalysisRequestRecord:
+              type: string
+            CompetitorAnalysisRequestWorkProducts:
+              type: string
+            CompetitorAnalysisRequestResult:
+              type: string
+            CompetitorAnalysisUsageRecord:
+              type: string
+            CompetitorAnalysisImpact:
+              type: string
+    ExecuteCompetitorAnalysisRequest:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisRequestRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            CompetitorAnalysisUsageRecord:
+              type: string
+            CompetitorAnalysisImpact:
+              type: string
+    ExecuteCompetitorAnalysisResponse:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisRequestRecord:
+              type: string
+            CompetitorAnalysisRequestWorkProducts:
+              type: string
+            CompetitorAnalysisRequestResult:
+              type: string
+    RequestCompetitorAnalysisRequest:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisRequestRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            CompetitorAnalysisUsageRecord:
+              type: string
+            CompetitorAnalysisImpact:
+              type: string
+    RequestCompetitorAnalysisResponse:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisRequestRecord:
+              type: string
+            CompetitorAnalysisRequestWorkProducts:
+              type: string
+            CompetitorAnalysisRequestResult:
+              type: string
+    RetrieveCompetitorAnalysisResponse:
+      type: object
+      properties:
+        CompetitorAnalysis:
+          type: object
+          properties:
+            CompetitorAnalysisType:
+              type: string
+            CompetitorAnalysisSpecification:
+              type: string
+            CompetitorAnalysisGuidance:
+              type: string
+            CompetitorAnalysisAlgorithmReference:
+              type: object
+            CompetitorAnalysisRequestRecord:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            CompetitorAnalysisRequestWorkProducts:
+              type: string
+            CompetitorAnalysisRequestResult:
+              type: string
+            CompetitorAnalysisUsageRecord:
+              type: string
+            CompetitorAnalysisImpact:
+              type: string
   parameters:
     CompetitorAnalysisID:
       name: competitoranalysisId
@@ -211,12 +331,24 @@ components:
       schema:
         type: string
   requestBodies:
-    CompetitorAnalysis:
+    EvaluateCompetitorAnalysisRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CompetitorAnalysis'
+            $ref: '#/components/schemas/EvaluateCompetitorAnalysisRequest'
+    ExecuteCompetitorAnalysisRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteCompetitorAnalysisRequest'
+    RequestCompetitorAnalysisRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestCompetitorAnalysisRequest'
   responses:
     HTTPError:
       description: Bad Request

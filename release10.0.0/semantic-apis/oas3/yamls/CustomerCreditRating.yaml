@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CustomerCreditRatingState'
+        $ref: '#/components/requestBodies/InitiateCustomerCreditRatingStateRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerCreditRatingState'
+                $ref: '#/components/schemas/InitiateCustomerCreditRatingStateResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/CustomerCreditRatingID'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerCreditRatingState'
+        $ref: '#/components/requestBodies/ExecuteCustomerCreditRatingStateRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerCreditRatingState'
+                $ref: '#/components/schemas/ExecuteCustomerCreditRatingStateResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -76,14 +76,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/CustomerCreditRatingID'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerCreditRatingState'
+        $ref: '#/components/requestBodies/RequestCustomerCreditRatingStateRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerCreditRatingState'
+                $ref: '#/components/schemas/RequestCustomerCreditRatingStateResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerCreditRatingState'
+                $ref: '#/components/schemas/RetrieveCustomerCreditRatingStateResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -142,7 +142,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Alerts'
+                $ref: '#/components/schemas/CaptureAlertsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -202,7 +202,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InternalReporting'
+                $ref: '#/components/schemas/CaptureInternalReportingResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -262,7 +262,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExternalReporting'
+                $ref: '#/components/schemas/CaptureExternalReportingResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -381,6 +381,126 @@ components:
           type: string
         message:
           type: string
+    InitiateCustomerCreditRatingStateRequest:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            CustomerCreditRatingStatusType:
+              type: string
+            CustomerCreditRatingSchedule:
+              type: string
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            CustomerCreditRatingRecord:
+              type: string
+            CustomerCreditRatingDate:
+              type: string
+    InitiateCustomerCreditRatingStateResponse:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerCreditRatingSchedule:
+              type: string
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            CustomerCreditRatingRecord:
+              type: string
+            CustomerCreditRatingNarrative:
+              type: string
+            CustomerCreditRatingDate:
+              type: string
+    ExecuteCustomerCreditRatingStateRequest:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            AssessmentCustomerBehaviorModelReference:
+              type: object
+            CreditRatingAssessmentType:
+              type: string
+            CreditRatingAssessmentDate:
+              type: string
+    ExecuteCustomerCreditRatingStateResponse:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            CreditRatingAssessmentDate:
+              type: string
+            CreditRatingAssessmentWorkProducts:
+              type: string
+            CreditRatingAssessmentResult:
+              type: string
+    RequestCustomerCreditRatingStateRequest:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            AssessmentCustomerBehaviorModelReference:
+              type: object
+            CreditRatingAssessmentType:
+              type: string
+            CreditRatingAssessmentDate:
+              type: string
+    RequestCustomerCreditRatingStateResponse:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            CreditRatingAssessmentDate:
+              type: string
+            CreditRatingAssessmentWorkProducts:
+              type: string
+            CreditRatingAssessmentResult:
+              type: string
+    RetrieveCustomerCreditRatingStateResponse:
+      type: object
+      properties:
+        CustomerCreditRatingState:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            CustomerCreditRatingStatusType:
+              type: string
+            CustomerCreditRatingSchedule:
+              type: string
+            CustomerCreditRatingAssessmentRecord:
+              type: string
+            AssessmentCustomerBehaviorModelReference:
+              type: object
+            CreditRatingAssessmentType:
+              type: string
+            CreditRatingAssessmentDate:
+              type: string
+            CreditRatingAssessmentWorkProducts:
+              type: string
+            CreditRatingAssessmentResult:
+              type: string
+            CustomerCreditRatingRecord:
+              type: string
+            CustomerCreditRatingNarrative:
+              type: string
+            CustomerCreditRatingDate:
+              type: string
     CaptureAlertsRequest:
       type: object
       properties:
@@ -400,6 +520,14 @@ components:
               type: string
             CustomerCreditAlertDescription:
               type: string
+            Date:
+              type: string
+    CaptureAlertsResponse:
+      type: object
+      properties:
+        Alerts:
+          type: object
+          properties:
             Date:
               type: string
     RetrieveAlertsResponse:
@@ -438,6 +566,14 @@ components:
               type: object
             ProductandServiceActivityReportSchedule:
               type: string
+    CaptureInternalReportingResponse:
+      type: object
+      properties:
+        InternalReporting:
+          type: object
+          properties:
+            ProductandServiceActivityReportSchedule:
+              type: string
     RetrieveInternalReportingResponse:
       type: object
       properties:
@@ -467,6 +603,18 @@ components:
             RatingAgencyReportSchedule:
               type: string
             RatingAgencyCreditReportType:
+              type: string
+            RatingAgencyCreditReportDate:
+              type: string
+    CaptureExternalReportingResponse:
+      type: object
+      properties:
+        ExternalReporting:
+          type: object
+          properties:
+            RatingAgencyReportSchedule:
+              type: string
+            Referencetotheratingagencycreditreport:
               type: string
             RatingAgencyCreditReportDate:
               type: string
@@ -523,12 +671,24 @@ components:
       schema:
         type: string
   requestBodies:
-    CustomerCreditRatingState:
+    InitiateCustomerCreditRatingStateRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CustomerCreditRatingState'
+            $ref: '#/components/schemas/InitiateCustomerCreditRatingStateRequest'
+    ExecuteCustomerCreditRatingStateRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteCustomerCreditRatingStateRequest'
+    RequestCustomerCreditRatingStateRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestCustomerCreditRatingStateRequest'
     CaptureAlertsRequest:
       required: true
       content:

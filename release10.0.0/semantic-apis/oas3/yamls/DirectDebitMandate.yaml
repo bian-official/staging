@@ -112,7 +112,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MandateRegistration'
+                $ref: '#/components/schemas/RegisterMandateRegistrationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -167,14 +167,14 @@ paths:
       - $ref: '#/components/parameters/DirectDebitMandateID'
       - $ref: '#/components/parameters/MandateRegistrationID'
       requestBody:
-        $ref: '#/components/requestBodies/MandateRegistration'
+        $ref: '#/components/requestBodies/ExecuteMandateRegistrationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MandateRegistration'
+                $ref: '#/components/schemas/ExecuteMandateRegistrationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -198,14 +198,14 @@ paths:
       - $ref: '#/components/parameters/DirectDebitMandateID'
       - $ref: '#/components/parameters/MandateRegistrationID'
       requestBody:
-        $ref: '#/components/requestBodies/MandateRegistration'
+        $ref: '#/components/requestBodies/RequestMandateRegistrationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MandateRegistration'
+                $ref: '#/components/schemas/RequestMandateRegistrationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -290,6 +290,76 @@ components:
           type: string
         message:
           type: string
+    RegisterMandateRegistrationResponse:
+      type: object
+      properties:
+        MandateRegistration:
+          type: object
+          properties:
+            CorrespondenceInstanceReference:
+              type: object
+            CorrespondenceContent:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DocumentContent:
+              type: string
+    ExecuteMandateRegistrationRequest:
+      type: object
+      properties:
+        MandateRegistration:
+          type: object
+          properties:
+            DirectDebitMandateCustomerPseudonym:
+              type: string
+    ExecuteMandateRegistrationResponse:
+      type: object
+      properties:
+        MandateRegistration:
+          type: object
+          properties:
+            DirectDebitMandateCustomerReference:
+              type: object
+            DirectDebitMandateBankReference:
+              type: object
+            DirectDebitMandateAccountReference:
+              type: object
+            DirectDebitMandateValidDates:
+              type: string
+            DirectDebitMandateTerms:
+              type: string
+    RequestMandateRegistrationRequest:
+      type: object
+      properties:
+        MandateRegistration:
+          type: object
+          properties:
+            DirectDebitMandateCustomerPseudonym:
+              type: string
+    RequestMandateRegistrationResponse:
+      type: object
+      properties:
+        MandateRegistration:
+          type: object
+          properties:
+            DirectDebitMandateCustomerReference:
+              type: object
+            DirectDebitMandateBankReference:
+              type: object
+            DirectDebitMandateAccountReference:
+              type: object
+            DirectDebitMandateValidDates:
+              type: string
+            DirectDebitMandateTerms:
+              type: string
+            CorrespondenceInstanceReference:
+              type: object
+            CorrespondenceContent:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            DocumentContent:
+              type: string
   parameters:
     DirectDebitMandateID:
       name: directdebitmandateId
@@ -320,6 +390,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/MandateRegistration'
+    ExecuteMandateRegistrationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteMandateRegistrationRequest'
+    RequestMandateRegistrationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMandateRegistrationRequest'
   responses:
     HTTPError:
       description: Bad Request

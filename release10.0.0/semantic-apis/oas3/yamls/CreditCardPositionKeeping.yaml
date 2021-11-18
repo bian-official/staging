@@ -193,14 +193,14 @@ paths:
       - $ref: '#/components/parameters/CreditCardPositionKeepingID'
       - $ref: '#/components/parameters/CardTransactionEventID'
       requestBody:
-        $ref: '#/components/requestBodies/CardTransactionEvent'
+        $ref: '#/components/requestBodies/CaptureCardTransactionEventRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardTransactionEvent'
+                $ref: '#/components/schemas/CaptureCardTransactionEventResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -368,6 +368,42 @@ components:
           type: string
         message:
           type: string
+    CaptureCardTransactionEventRequest:
+      type: object
+      properties:
+        CardTransactionEvent:
+          type: object
+          properties:
+            Schedule:
+              type: object
+            BusinessService:
+              type: object
+            Postconditions:
+              type: object
+            CreditCardPositionLogReference:
+              type: string
+            CardTransactionEventReference:
+              type: string
+            CardTransactionEventType:
+              type: string
+    CaptureCardTransactionEventResponse:
+      type: object
+      properties:
+        CardTransactionEvent:
+          type: object
+          properties:
+            Schedule:
+              type: object
+            BusinessService:
+              type: object
+            Postconditions:
+              type: object
+            CreditCardPositionLogReference:
+              type: string
+            CardTransactionEventReference:
+              type: string
+            CardTransactionEventType:
+              type: string
   parameters:
     CreditCardPositionKeepingID:
       name: creditcardpositionkeepingId
@@ -400,6 +436,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreditCardPositionLog'
+    CaptureCardTransactionEventRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCardTransactionEventRequest'
     CardTransactionEvent:
       required: true
       content:

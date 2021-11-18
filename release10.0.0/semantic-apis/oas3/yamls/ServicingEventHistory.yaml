@@ -198,14 +198,14 @@ paths:
       - $ref: '#/components/parameters/ServicingEventHistoryID'
       - $ref: '#/components/parameters/SessionID'
       requestBody:
-        $ref: '#/components/requestBodies/Session'
+        $ref: '#/components/requestBodies/UpdateSessionRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Session'
+                $ref: '#/components/schemas/UpdateSessionResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -229,7 +229,7 @@ paths:
       - $ref: '#/components/parameters/ServicingEventHistoryID'
       - $ref: '#/components/parameters/SessionID'
       requestBody:
-        $ref: '#/components/requestBodies/Session'
+        $ref: '#/components/requestBodies/CaptureSessionRequest'
       responses:
         200:
           description: Success
@@ -266,7 +266,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Session'
+                $ref: '#/components/schemas/RetrieveSessionResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -537,6 +537,102 @@ components:
           type: string
         message:
           type: string
+    UpdateSessionRequest:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+            CustomerContactReference:
+              type: object
+            SessionMechanism:
+              type: string
+            ServicingFacilityType:
+              type: string
+            SessionDialogueRecord:
+              type: string
+            SessionDialogueType:
+              type: string
+            SessionDialogueScript:
+              type: string
+            SessionDialogueLogReference:
+              type: object
+            SessionDialogueResult:
+              type: string
+    UpdateSessionResponse:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+            CustomerContactReference:
+              type: object
+            SessionMechanism:
+              type: string
+            ServicingFacilityType:
+              type: string
+            SessionDialogueRecord:
+              type: string
+            SessionDialogueType:
+              type: string
+            SessionDialogueScript:
+              type: string
+            SessionDialogueLogReference:
+              type: object
+            SessionDialogueResult:
+              type: string
+    CaptureSessionRequest:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+            CustomerContactReference:
+              type: object
+            SessionMechanism:
+              type: string
+            ServicingFacilityType:
+              type: string
+            SessionDialogueRecord:
+              type: string
+            SessionDialogueType:
+              type: string
+            SessionDialogueScript:
+              type: string
+            SessionDialogueLogReference:
+              type: object
+            SessionDialogueResult:
+              type: string
+    RetrieveSessionResponse:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+            CustomerContactReference:
+              type: object
+            SessionMechanism:
+              type: string
+            ServicingFacilityType:
+              type: string
+            SessionDialogueRecord:
+              type: string
+            SessionDialogueType:
+              type: string
+            SessionDialogueScript:
+              type: string
+            SessionDialogueLogReference:
+              type: object
+            SessionDialogueResult:
+              type: string
     CaptureIssueRequest:
       type: object
       properties:
@@ -631,12 +727,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Assignment'
-    Session:
+    UpdateSessionRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Session'
+            $ref: '#/components/schemas/UpdateSessionRequest'
+    CaptureSessionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureSessionRequest'
     Issue:
       required: true
       content:

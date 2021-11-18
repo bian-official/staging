@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerBillingProcedure'
+                $ref: '#/components/schemas/InitiateCustomerBillingProcedureResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -165,14 +165,14 @@ paths:
       - $ref: '#/components/parameters/CustomerBillingID'
       - $ref: '#/components/parameters/InvoicingID'
       requestBody:
-        $ref: '#/components/requestBodies/Invoicing'
+        $ref: '#/components/requestBodies/UpdateInvoicingRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Invoicing'
+                $ref: '#/components/schemas/UpdateInvoicingResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -314,14 +314,14 @@ paths:
       - $ref: '#/components/parameters/CustomerBillingID'
       - $ref: '#/components/parameters/PaymentsID'
       requestBody:
-        $ref: '#/components/requestBodies/Payments'
+        $ref: '#/components/requestBodies/UpdatePaymentsRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Payments'
+                $ref: '#/components/schemas/UpdatePaymentsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -442,6 +442,46 @@ components:
           type: string
         message:
           type: string
+    InitiateCustomerBillingProcedureResponse:
+      type: object
+      properties:
+        CustomerBillingProcedure:
+          type: object
+          properties:
+            CustomerBillingPaymentSchedule:
+              type: string
+    UpdateInvoicingRequest:
+      type: object
+      properties:
+        Invoicing:
+          type: object
+          properties:
+            CustomerInvoiceRecord:
+              type: string
+            InvoiceDate:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            CorrespondenceInstanceReference:
+              type: object
+            InvoicingWorkProduct:
+              type: string
+    UpdateInvoicingResponse:
+      type: object
+      properties:
+        Invoicing:
+          type: object
+          properties:
+            CustomerInvoiceRecord:
+              type: string
+            InvoiceDate:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            CorrespondenceInstanceReference:
+              type: object
+            InvoicingWorkProduct:
+              type: string
     RetrieveInvoicingResponse:
       type: object
       properties:
@@ -630,6 +670,22 @@ components:
           properties:
             PaymentTransactionReference:
               type: object
+    UpdatePaymentsRequest:
+      type: object
+      properties:
+        Payments:
+          type: object
+          properties:
+            PaymentTransactionReference:
+              type: object
+    UpdatePaymentsResponse:
+      type: object
+      properties:
+        Payments:
+          type: object
+          properties:
+            PaymentTransactionReference:
+              type: object
     RetrievePaymentsResponse:
       type: object
       properties:
@@ -709,24 +765,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CustomerBillingProcedure'
-    Invoicing:
+    UpdateInvoicingRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Invoicing'
+            $ref: '#/components/schemas/UpdateInvoicingRequest'
     InitiateTrackingandRemindersRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/InitiateTrackingandRemindersRequest'
-    Payments:
+    UpdatePaymentsRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Payments'
+            $ref: '#/components/schemas/UpdatePaymentsRequest'
   responses:
     HTTPError:
       description: Bad Request

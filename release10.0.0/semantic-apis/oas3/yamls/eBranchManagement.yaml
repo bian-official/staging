@@ -16,7 +16,7 @@ paths:
       operationId: Create
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/eBranchChannelManagementPlan'
+        $ref: '#/components/requestBodies/CreateeBranchChannelManagementPlanRequest'
       responses:
         200:
           description: Success
@@ -196,14 +196,14 @@ paths:
       - $ref: '#/components/parameters/eBranchManagementID'
       - $ref: '#/components/parameters/MaintenanceAndUpgradesID'
       requestBody:
-        $ref: '#/components/requestBodies/MaintenanceAndUpgrades'
+        $ref: '#/components/requestBodies/UpdateMaintenanceAndUpgradesRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceAndUpgrades'
+                $ref: '#/components/schemas/UpdateMaintenanceAndUpgradesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -227,14 +227,14 @@ paths:
       - $ref: '#/components/parameters/eBranchManagementID'
       - $ref: '#/components/parameters/MaintenanceAndUpgradesID'
       requestBody:
-        $ref: '#/components/requestBodies/MaintenanceAndUpgrades'
+        $ref: '#/components/requestBodies/RequestMaintenanceAndUpgradesRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceAndUpgrades'
+                $ref: '#/components/schemas/RequestMaintenanceAndUpgradesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -263,7 +263,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceAndUpgrades'
+                $ref: '#/components/schemas/RetrieveMaintenanceAndUpgradesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -420,6 +420,18 @@ components:
           type: string
         message:
           type: string
+    CreateeBranchChannelManagementPlanRequest:
+      type: object
+      properties:
+        eBranchChannelManagementPlan:
+          type: object
+          properties:
+            eBranchChannelManagementPlanPeriod:
+              type: string
+            eBranchChannelServicePerformanceGoals:
+              type: string
+            eBranchChannelServiceSchedule:
+              type: string
     UpdateCapacityPlanningRequest:
       type: object
       properties:
@@ -502,6 +514,84 @@ components:
               type: string
             eBranchChannelMaintenanceandUpgradeWorkTaskDate-Time:
               type: string
+    UpdateMaintenanceAndUpgradesRequest:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            eBranchChannelMaintenanceandUpgradeSchedule:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    UpdateMaintenanceAndUpgradesResponse:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            eBranchChannelMaintenanceandUpgradeSchedule:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    RequestMaintenanceAndUpgradesRequest:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            eBranchChannelMaintenanceandUpgradeSchedule:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    RequestMaintenanceAndUpgradesResponse:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            eBranchChannelMaintenanceandUpgradeSchedule:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    RetrieveMaintenanceAndUpgradesResponse:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            eBranchChannelMaintenanceandUpgradeSchedule:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            eBranchChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
   parameters:
     eBranchManagementID:
       name: ebranchmanagementId
@@ -536,12 +626,12 @@ components:
       schema:
         type: string
   requestBodies:
-    eBranchChannelManagementPlan:
+    CreateeBranchChannelManagementPlanRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/eBranchChannelManagementPlan'
+            $ref: '#/components/schemas/CreateeBranchChannelManagementPlanRequest'
     UpdateCapacityPlanningRequest:
       required: true
       content:
@@ -560,12 +650,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateMaintenanceAndUpgradesRequest'
-    MaintenanceAndUpgrades:
+    UpdateMaintenanceAndUpgradesRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/MaintenanceAndUpgrades'
+            $ref: '#/components/schemas/UpdateMaintenanceAndUpgradesRequest'
+    RequestMaintenanceAndUpgradesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMaintenanceAndUpgradesRequest'
     Troubleshooting:
       required: true
       content:

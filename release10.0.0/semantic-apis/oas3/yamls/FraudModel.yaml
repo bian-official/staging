@@ -16,14 +16,14 @@ paths:
       operationId: Create
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/FraudModelSpecification'
+        $ref: '#/components/requestBodies/CreateFraudModelSpecificationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FraudModelSpecification'
+                $ref: '#/components/schemas/CreateFraudModelSpecificationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FraudModelSpecification'
+                $ref: '#/components/schemas/RetrieveFraudModelSpecificationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -206,7 +206,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Testing'
+                $ref: '#/components/schemas/UpdateTestingResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -259,7 +259,7 @@ paths:
       - $ref: '#/components/parameters/FraudModelID'
       - $ref: '#/components/parameters/ProductionID'
       requestBody:
-        $ref: '#/components/requestBodies/FraudModelSpecification'
+        $ref: '#/components/requestBodies/ExecuteProductionRequest'
       responses:
         200:
           description: Success
@@ -290,7 +290,7 @@ paths:
       - $ref: '#/components/parameters/FraudModelID'
       - $ref: '#/components/parameters/ProductionID'
       requestBody:
-        $ref: '#/components/requestBodies/FraudModelSpecification'
+        $ref: '#/components/requestBodies/RequestProductionRequest'
       responses:
         200:
           description: Success
@@ -424,6 +424,80 @@ components:
           type: string
         message:
           type: string
+    CreateFraudModelSpecificationRequest:
+      type: object
+      properties:
+        FraudModelSpecification:
+          type: object
+          properties:
+            FraudModelType:
+              type: string
+            FraudModelPurpose:
+              type: string
+            FraudModelDeployment:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            FraudModelDeploymentConfiguration:
+              type: string
+            FraudModelStatus:
+              type: string
+            FraudModelUsage:
+              type: string
+            FraudModelImpact:
+              type: string
+    CreateFraudModelSpecificationResponse:
+      type: object
+      properties:
+        FraudModelSpecification:
+          type: object
+          properties:
+            FraudModelPurpose:
+              type: string
+            FraudModelDeployment:
+              type: string
+            FraudModelDeploymentConfiguration:
+              type: string
+            FraudModelDeploymentTaskReference:
+              type: object
+            FraudModelDeploymentTaskRecord:
+              type: string
+            FraudModelStatus:
+              type: string
+            FraudModelUsage:
+              type: string
+            FraudModelImpact:
+              type: string
+            FraudModelVersion:
+              type: string
+    RetrieveFraudModelSpecificationResponse:
+      type: object
+      properties:
+        FraudModelSpecification:
+          type: object
+          properties:
+            FraudModelType:
+              type: string
+            FraudModelPurpose:
+              type: string
+            FraudModelDeployment:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            FraudModelDeploymentConfiguration:
+              type: string
+            FraudModelDeploymentTaskReference:
+              type: object
+            FraudModelDeploymentTaskRecord:
+              type: string
+            FraudModelStatus:
+              type: string
+            FraudModelUsage:
+              type: string
+            FraudModelImpact:
+              type: string
+            FraudModelVersion:
+              type: string
     UpdateFunctionalRequirementsRequest:
       type: object
       properties:
@@ -574,6 +648,24 @@ components:
               type: object
             FraudModelTestingTaskRecord:
               type: string
+    UpdateTestingResponse:
+      type: object
+      properties:
+        Testing:
+          type: object
+          properties:
+            FraudModelTestReference:
+              type: object
+            FraudModelTestType:
+              type: string
+            FraudModelTestHarnessReference:
+              type: object
+            FraudModelTestResult:
+              type: string
+            FraudModelTestingTaskReference:
+              type: object
+            FraudModelTestingTaskRecord:
+              type: string
     RetrieveTestingResponse:
       type: object
       properties:
@@ -603,6 +695,18 @@ components:
               type: object
             FraudModelTestingTaskRecord:
               type: string
+    ExecuteProductionRequest:
+      type: object
+      properties:
+        FraudModelSpecification:
+          type: object
+          properties:
+            FraudModelDeployment:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            FraudModelVersion:
+              type: string
     ExecuteProductionResponse:
       type: object
       properties:
@@ -631,6 +735,18 @@ components:
             FraudModelAllowedUsage:
               type: string
             FraudModelUsageGuidelines:
+              type: string
+    RequestProductionRequest:
+      type: object
+      properties:
+        FraudModelSpecification:
+          type: object
+          properties:
+            FraudModelDeployment:
+              type: string
+            EmployeeOrBusinessUnitReference:
+              type: object
+            FraudModelVersion:
               type: string
     RequestProductionResponse:
       type: object
@@ -726,12 +842,12 @@ components:
       schema:
         type: string
   requestBodies:
-    FraudModelSpecification:
+    CreateFraudModelSpecificationRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/FraudModelSpecification'
+            $ref: '#/components/schemas/CreateFraudModelSpecificationRequest'
     UpdateFunctionalRequirementsRequest:
       required: true
       content:
@@ -756,6 +872,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateTestingRequest'
+    ExecuteProductionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteProductionRequest'
+    RequestProductionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestProductionRequest'
   responses:
     HTTPError:
       description: Bad Request

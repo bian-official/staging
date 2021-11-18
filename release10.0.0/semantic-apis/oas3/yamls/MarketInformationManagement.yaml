@@ -16,7 +16,7 @@ paths:
       operationId: Create
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/FinancialMarketInformationAdministrativePlan'
+        $ref: '#/components/requestBodies/CreateFinancialMarketInformationAdministrativePlanRequest'
       responses:
         200:
           description: Success
@@ -194,14 +194,14 @@ paths:
       - $ref: '#/components/parameters/MarketInformationManagementID'
       - $ref: '#/components/parameters/ReportingID'
       requestBody:
-        $ref: '#/components/requestBodies/Reporting'
+        $ref: '#/components/requestBodies/CaptureReportingRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reporting'
+                $ref: '#/components/schemas/CaptureReportingResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -225,7 +225,7 @@ paths:
       - $ref: '#/components/parameters/MarketInformationManagementID'
       - $ref: '#/components/parameters/ReportingID'
       requestBody:
-        $ref: '#/components/requestBodies/Reporting'
+        $ref: '#/components/requestBodies/ExecuteReportingRequest'
       responses:
         200:
           description: Success
@@ -256,7 +256,7 @@ paths:
       - $ref: '#/components/parameters/MarketInformationManagementID'
       - $ref: '#/components/parameters/ReportingID'
       requestBody:
-        $ref: '#/components/requestBodies/Reporting'
+        $ref: '#/components/requestBodies/RequestReportingRequest'
       responses:
         200:
           description: Success
@@ -372,6 +372,30 @@ components:
           type: string
         message:
           type: string
+    CreateFinancialMarketInformationAdministrativePlanRequest:
+      type: object
+      properties:
+        FinancialMarketInformationAdministrativePlan:
+          type: object
+          properties:
+            FinancialMarketInformationService:
+              type: string
+            FinancialMarketInformationProvider:
+              type: string
+            FinancialMarketinformationDescription:
+              type: string
+            FinancialMarketInformationServiceType:
+              type: string
+            FinancialMarketInformationServiceSchedule:
+              type: string
+            FinancialMarketInformationServiceAgreement:
+              type: string
+            FinancialMarketInformationDatabase:
+              type: string
+            FinancialMarketInformationSubjectArea:
+              type: string
+            FinancialMarketInformationSubjectAreaUpdateHistory:
+              type: string
     CreateReportingRequest:
       type: object
       properties:
@@ -400,6 +424,50 @@ components:
               type: string
             FinancialMarketInformationSubjectAreaRecord:
               type: string
+        Reporting:
+          type: object
+          properties:
+            FinancialMarketInformationReport:
+              type: string
+            FinancialMarketInformationReportType:
+              type: string
+            FinancialMarketInformationReportSchedule:
+              type: string
+            FinancialMarketInformationReportAccessHistory:
+              type: string
+    CaptureReportingRequest:
+      type: object
+      properties:
+        Reporting:
+          type: object
+          properties:
+            FinancialMarketInformationReportAccessHistory:
+              type: string
+    CaptureReportingResponse:
+      type: object
+      properties:
+        Reporting:
+          type: object
+          properties:
+            FinancialMarketInformationReportAccessHistory:
+              type: string
+    ExecuteReportingRequest:
+      type: object
+      properties:
+        Reporting:
+          type: object
+          properties:
+            FinancialMarketInformationReport:
+              type: string
+            FinancialMarketInformationReportType:
+              type: string
+            FinancialMarketInformationReportSchedule:
+              type: string
+            FinancialMarketInformationReportAccessHistory:
+              type: string
+    RequestReportingRequest:
+      type: object
+      properties:
         Reporting:
           type: object
           properties:
@@ -445,12 +513,12 @@ components:
       schema:
         type: string
   requestBodies:
-    FinancialMarketInformationAdministrativePlan:
+    CreateFinancialMarketInformationAdministrativePlanRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/FinancialMarketInformationAdministrativePlan'
+            $ref: '#/components/schemas/CreateFinancialMarketInformationAdministrativePlanRequest'
     CreateReportingRequest:
       required: true
       content:
@@ -463,6 +531,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Reporting'
+    CaptureReportingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureReportingRequest'
+    ExecuteReportingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteReportingRequest'
+    RequestReportingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestReportingRequest'
   responses:
     HTTPError:
       description: Bad Request

@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Asset And Liability Management
-  description: The unit overseeing the &nbsp;banks asset &amp; liability policies and position
+  description: The unit overseeing the  banks asset & liability policies and position
   version: 10.0.0
 servers:
 - description: SwaggerHub API Auto Mocking
@@ -54,7 +54,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AssetAndLiabilityPortfolioStrategy'
+                $ref: '#/components/schemas/RequestAssetAndLiabilityPortfolioStrategyResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -136,14 +136,14 @@ paths:
       - $ref: '#/components/parameters/AssetAndLiabilityManagementID'
       - $ref: '#/components/parameters/TransactionAlignmentID'
       requestBody:
-        $ref: '#/components/requestBodies/TransactionAlignment'
+        $ref: '#/components/requestBodies/RequestTransactionAlignmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionAlignment'
+                $ref: '#/components/schemas/RequestTransactionAlignmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -242,6 +242,24 @@ components:
           type: string
         message:
           type: string
+    RequestAssetAndLiabilityPortfolioStrategyResponse:
+      type: object
+      properties:
+        AssetAndLiabilityPortfolioStrategy:
+          type: object
+          properties:
+            AssetAndLiabilityPolicyGoalRecord:
+              type: string
+            AssetAndLiabilityPolicyType:
+              type: string
+            AssetAndLiabilityPolicyTypeDefinition:
+              type: string
+            AssetAndLiabilityPolicyTypeGoals:
+              type: string
+            AssetAndLiabilityPolicyTypePosition:
+              type: string
+            AssetAndLiabilityPolicyTypeSensitivityAssessment:
+              type: string
     CreateTransactionAlignmentRequest:
       type: object
       properties:
@@ -295,6 +313,40 @@ components:
               type: string
             AssetAndLiabilityPolicyTypeSensitivityAssessment:
               type: string
+        TransactionAlignment:
+          type: object
+          properties:
+            DateType:
+              type: string
+            AssetAndLiabilityAlignmentAssessment:
+              type: string
+    RequestTransactionAlignmentRequest:
+      type: object
+      properties:
+        TransactionAlignment:
+          type: object
+          properties:
+            BusinessUnitReference:
+              type: object
+            ProposedTransactionOriginatorReference:
+              type: object
+            ProposedTransactionType:
+              type: string
+            ProposedTransactionDescription:
+              type: string
+            ProposedTransactionAmount:
+              type: number
+            ProposedTransactionRiskAssessment:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            CorrespondenceInstanceReference:
+              type: object
+            DateType:
+              type: string
+    RequestTransactionAlignmentResponse:
+      type: object
+      properties:
         TransactionAlignment:
           type: object
           properties:
@@ -371,12 +423,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateTransactionAlignmentRequest'
-    TransactionAlignment:
+    RequestTransactionAlignmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/TransactionAlignment'
+            $ref: '#/components/schemas/RequestTransactionAlignmentRequest'
   responses:
     HTTPError:
       description: Bad Request

@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardPOSDeviceAllocation'
+                $ref: '#/components/schemas/ProvideCardPOSDeviceAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardPOSDeviceAllocation'
+                $ref: '#/components/schemas/ProvideAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -166,14 +166,14 @@ paths:
       - $ref: '#/components/parameters/CardTerminalAdministrationID'
       - $ref: '#/components/parameters/AllocationID'
       requestBody:
-        $ref: '#/components/requestBodies/CardPOSDeviceAllocation'
+        $ref: '#/components/requestBodies/CaptureAllocationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CardPOSDeviceAllocation'
+                $ref: '#/components/schemas/CaptureAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -197,7 +197,7 @@ paths:
       - $ref: '#/components/parameters/CardTerminalAdministrationID'
       - $ref: '#/components/parameters/AllocationID'
       requestBody:
-        $ref: '#/components/requestBodies/CardPOSDeviceAllocation'
+        $ref: '#/components/requestBodies/GrantAllocationRequest'
       responses:
         200:
           description: Success
@@ -292,6 +292,14 @@ components:
           type: string
         message:
           type: string
+    ProvideCardPOSDeviceAllocationResponse:
+      type: object
+      properties:
+        CardPOSDeviceAllocation:
+          type: object
+          properties:
+            CardPOSDeviceStatus:
+              type: string
     ProvideAllocationRequest:
       type: object
       properties:
@@ -320,6 +328,40 @@ components:
             MerchantLocation:
               type: string
             CardPOSDeviceConfiguration:
+              type: string
+    ProvideAllocationResponse:
+      type: object
+      properties:
+        CardPOSDeviceAllocation:
+          type: object
+          properties:
+            CardPOSDeviceStatus:
+              type: string
+    CaptureAllocationRequest:
+      type: object
+      properties:
+        CardPOSDeviceAllocation:
+          type: object
+          properties:
+            CardPOSDeviceStatus:
+              type: string
+    CaptureAllocationResponse:
+      type: object
+      properties:
+        CardPOSDeviceAllocation:
+          type: object
+          properties:
+            CardPOSDeviceStatus:
+              type: string
+    GrantAllocationRequest:
+      type: object
+      properties:
+        CardPOSDeviceAllocation:
+          type: object
+          properties:
+            CardPOSDeviceReference:
+              type: object
+            CardPOSDeviceIdentifier:
               type: string
     RetrieveAllocationResponse:
       type: object
@@ -386,6 +428,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Allocation'
+    CaptureAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureAllocationRequest'
+    GrantAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GrantAllocationRequest'
   responses:
     HTTPError:
       description: Bad Request

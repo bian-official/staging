@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/FinancialBookingLog'
+        $ref: '#/components/requestBodies/InitiateFinancialBookingLogRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FinancialBookingLog'
+                $ref: '#/components/schemas/InitiateFinancialBookingLogResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -136,14 +136,14 @@ paths:
       - $ref: '#/components/parameters/FinancialAccountingID'
       - $ref: '#/components/parameters/LedgerPostingID'
       requestBody:
-        $ref: '#/components/requestBodies/LedgerPosting'
+        $ref: '#/components/requestBodies/CaptureLedgerPostingRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LedgerPosting'
+                $ref: '#/components/schemas/CaptureLedgerPostingResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -222,6 +222,50 @@ components:
           type: string
         message:
           type: string
+    InitiateFinancialBookingLogRequest:
+      type: object
+      properties:
+        FinancialBookingLog:
+          type: object
+          properties:
+            FinancialAccountType:
+              type: string
+            ProductandServiceReference:
+              type: object
+            BusinessUnitReference:
+              type: object
+            ChartofAccountOrBookingRules:
+              type: string
+            BaseCurrency:
+              type: string
+    InitiateFinancialBookingLogResponse:
+      type: object
+      properties:
+        FinancialBookingLog:
+          type: object
+          properties:
+            Status:
+              type: string
+    CaptureLedgerPostingRequest:
+      type: object
+      properties:
+        LedgerPosting:
+          type: object
+          properties:
+            PostingDirection:
+              type: string
+            PostingAmount(creditOrdebitpair):
+              type: number
+            PostingValueDate:
+              type: string
+    CaptureLedgerPostingResponse:
+      type: object
+      properties:
+        LedgerPosting:
+          type: object
+          properties:
+            PostingResult:
+              type: string
   parameters:
     FinancialAccountingID:
       name: financialaccountingId
@@ -240,6 +284,12 @@ components:
       schema:
         type: string
   requestBodies:
+    InitiateFinancialBookingLogRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateFinancialBookingLogRequest'
     FinancialBookingLog:
       required: true
       content:
@@ -252,6 +302,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/LedgerPosting'
+    CaptureLedgerPostingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureLedgerPostingRequest'
   responses:
     HTTPError:
       description: Bad Request

@@ -16,14 +16,14 @@ paths:
       operationId: Provide
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CollateralAssetAllocation'
+        $ref: '#/components/requestBodies/ProvideCollateralAssetAllocationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CollateralAssetAllocation'
+                $ref: '#/components/schemas/ProvideCollateralAssetAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -166,14 +166,14 @@ paths:
       - $ref: '#/components/parameters/CollateralAllocationManagementID'
       - $ref: '#/components/parameters/AllocationID'
       requestBody:
-        $ref: '#/components/requestBodies/Allocation'
+        $ref: '#/components/requestBodies/CaptureAllocationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Allocation'
+                $ref: '#/components/schemas/CaptureAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -276,6 +276,38 @@ components:
           type: string
         message:
           type: string
+    ProvideCollateralAssetAllocationRequest:
+      type: object
+      properties:
+        CollateralAssetAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            CollateralAssetType:
+              type: string
+            CollateralAssetReference:
+              type: object
+            CollateralAssetDescription:
+              type: string
+            CollateralAssetStatus:
+              type: string
+            CollateralAssetValuation:
+              type: string
+            CollateralAssetAllocationProfile:
+              type: string
+            CollateralAssetValuationDate:
+              type: string
+            CollateralAssetLoantoValueRatio:
+              type: string
+    ProvideCollateralAssetAllocationResponse:
+      type: object
+      properties:
+        CollateralAssetAllocation:
+          type: object
+          properties:
+            CollateralAssetAdministrationInstanceReference:
+              type: object
     ProvideAllocationRequest:
       type: object
       properties:
@@ -340,6 +372,42 @@ components:
               type: string
             CollateralAllocationRequestResult:
               type: string
+    CaptureAllocationRequest:
+      type: object
+      properties:
+        Allocation:
+          type: object
+          properties:
+            CollateralAllocationAmount:
+              type: number
+            CollateralAllocationDuration:
+              type: string
+            CollateralAllocationRecallAmount:
+              type: number
+            CollateralAllocationRecallTimetable:
+              type: string
+            CollateralAllocationRecallResult:
+              type: string
+            CollateralAssetAllocationState:
+              type: string
+    CaptureAllocationResponse:
+      type: object
+      properties:
+        Allocation:
+          type: object
+          properties:
+            CollateralAllocationAmount:
+              type: number
+            CollateralAllocationDuration:
+              type: string
+            CollateralAllocationRecallAmount:
+              type: number
+            CollateralAllocationRecallTimetable:
+              type: string
+            CollateralAllocationRecallResult:
+              type: string
+            CollateralAssetAllocationState:
+              type: string
   parameters:
     CollateralAllocationManagementID:
       name: collateralallocationmanagementId
@@ -358,6 +426,12 @@ components:
       schema:
         type: string
   requestBodies:
+    ProvideCollateralAssetAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProvideCollateralAssetAllocationRequest'
     CollateralAssetAllocation:
       required: true
       content:
@@ -376,6 +450,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Allocation'
+    CaptureAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureAllocationRequest'
   responses:
     HTTPError:
       description: Bad Request

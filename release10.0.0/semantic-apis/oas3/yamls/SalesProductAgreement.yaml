@@ -16,14 +16,14 @@ paths:
       operationId: Evaluate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/SalesProductAgreement'
+        $ref: '#/components/requestBodies/EvaluateSalesProductAgreementRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SalesProductAgreement'
+                $ref: '#/components/schemas/EvaluateSalesProductAgreementResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -81,7 +81,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LegalTerms'
+                $ref: '#/components/schemas/EvaluateLegalTermsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -105,14 +105,14 @@ paths:
       - $ref: '#/components/parameters/SalesProductAgreementID'
       - $ref: '#/components/parameters/LegalTermsID'
       requestBody:
-        $ref: '#/components/requestBodies/LegalTerms'
+        $ref: '#/components/requestBodies/UpdateLegalTermsRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LegalTerms'
+                $ref: '#/components/schemas/UpdateLegalTermsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -171,7 +171,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RegulatoryTerms'
+                $ref: '#/components/schemas/EvaluateRegulatoryTermsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -195,14 +195,14 @@ paths:
       - $ref: '#/components/parameters/SalesProductAgreementID'
       - $ref: '#/components/parameters/RegulatoryTermsID'
       requestBody:
-        $ref: '#/components/requestBodies/RegulatoryTerms'
+        $ref: '#/components/requestBodies/UpdateRegulatoryTermsRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RegulatoryTerms'
+                $ref: '#/components/schemas/UpdateRegulatoryTermsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -261,7 +261,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicyTerms'
+                $ref: '#/components/schemas/EvaluatePolicyTermsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -285,14 +285,14 @@ paths:
       - $ref: '#/components/parameters/SalesProductAgreementID'
       - $ref: '#/components/parameters/PolicyTermsID'
       requestBody:
-        $ref: '#/components/requestBodies/PolicyTerms'
+        $ref: '#/components/requestBodies/UpdatePolicyTermsRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicyTerms'
+                $ref: '#/components/schemas/UpdatePolicyTermsResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -397,6 +397,46 @@ components:
           type: string
         message:
           type: string
+    EvaluateSalesProductAgreementRequest:
+      type: object
+      properties:
+        SalesProductAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            LegalEntityReference:
+              type: object
+            ProductandServiceType:
+              type: string
+            ProductInstanceReference:
+              type: object
+            AgreementType:
+              type: string
+            AgreementValidFromOrToDate:
+              type: string
+            AgreementSignatoriesOrResponsibleParties:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+            CustomerAgreementReference:
+              type: object
+            PartyLife-cycleManagementReference:
+              type: object
+    EvaluateSalesProductAgreementResponse:
+      type: object
+      properties:
+        SalesProductAgreement:
+          type: object
+          properties:
+            AgreementJurisdiction:
+              type: string
+            AgreementValidFromOrToDate:
+              type: string
+            AgreementSignatoriesOrResponsibleParties:
+              type: string
+            DocumentDirectoryEntryInstanceReference:
+              type: object
     EvaluateLegalTermsRequest:
       type: object
       properties:
@@ -428,6 +468,34 @@ components:
         LegalTerms:
           type: object
           properties:
+            ApplicableLawReference:
+              type: object
+    EvaluateLegalTermsResponse:
+      type: object
+      properties:
+        LegalTerms:
+          type: object
+          properties:
+            ApplicableLawInterpretation:
+              type: string
+    UpdateLegalTermsRequest:
+      type: object
+      properties:
+        LegalTerms:
+          type: object
+          properties:
+            Jurisdiction:
+              type: string
+            ApplicableLawReference:
+              type: object
+    UpdateLegalTermsResponse:
+      type: object
+      properties:
+        LegalTerms:
+          type: object
+          properties:
+            Jurisdiction:
+              type: string
             ApplicableLawReference:
               type: object
     RetrieveLegalTermsResponse:
@@ -500,6 +568,34 @@ components:
               type: string
             ApplicableRegulationReference:
               type: object
+    EvaluateRegulatoryTermsResponse:
+      type: object
+      properties:
+        RegulatoryTerms:
+          type: object
+          properties:
+            ApplicableRegulationInterpretation:
+              type: string
+    UpdateRegulatoryTermsRequest:
+      type: object
+      properties:
+        RegulatoryTerms:
+          type: object
+          properties:
+            RegulatoryAuthority:
+              type: string
+            ApplicableRegulationReference:
+              type: object
+    UpdateRegulatoryTermsResponse:
+      type: object
+      properties:
+        RegulatoryTerms:
+          type: object
+          properties:
+            RegulatoryAuthority:
+              type: string
+            ApplicableRegulationReference:
+              type: object
     EvaluatePolicyTermsRequest:
       type: object
       properties:
@@ -528,6 +624,34 @@ components:
               type: object
             PartyLife-cycleManagementReference:
               type: object
+        PolicyTerms:
+          type: object
+          properties:
+            BankPolicy-RuleType:
+              type: string
+            ApplicableBankPolicy-RuleReference:
+              type: object
+    EvaluatePolicyTermsResponse:
+      type: object
+      properties:
+        PolicyTerms:
+          type: object
+          properties:
+            ApplicableBankPolicy-RuleInterpretation:
+              type: string
+    UpdatePolicyTermsRequest:
+      type: object
+      properties:
+        PolicyTerms:
+          type: object
+          properties:
+            BankPolicy-RuleType:
+              type: string
+            ApplicableBankPolicy-RuleReference:
+              type: object
+    UpdatePolicyTermsResponse:
+      type: object
+      properties:
         PolicyTerms:
           type: object
           properties:
@@ -569,48 +693,48 @@ components:
       schema:
         type: string
   requestBodies:
-    SalesProductAgreement:
+    EvaluateSalesProductAgreementRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SalesProductAgreement'
+            $ref: '#/components/schemas/EvaluateSalesProductAgreementRequest'
     EvaluateLegalTermsRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/EvaluateLegalTermsRequest'
-    LegalTerms:
+    UpdateLegalTermsRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/LegalTerms'
+            $ref: '#/components/schemas/UpdateLegalTermsRequest'
     EvaluateRegulatoryTermsRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/EvaluateRegulatoryTermsRequest'
-    RegulatoryTerms:
+    UpdateRegulatoryTermsRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RegulatoryTerms'
+            $ref: '#/components/schemas/UpdateRegulatoryTermsRequest'
     EvaluatePolicyTermsRequest:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/EvaluatePolicyTermsRequest'
-    PolicyTerms:
+    UpdatePolicyTermsRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PolicyTerms'
+            $ref: '#/components/schemas/UpdatePolicyTermsRequest'
   responses:
     HTTPError:
       description: Bad Request

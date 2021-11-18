@@ -16,7 +16,7 @@ paths:
       operationId: Create
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/VoiceChannelManagementPlan'
+        $ref: '#/components/requestBodies/CreateVoiceChannelManagementPlanRequest'
       responses:
         200:
           description: Success
@@ -196,14 +196,14 @@ paths:
       - $ref: '#/components/parameters/AdvancedVoiceServicesManagementID'
       - $ref: '#/components/parameters/MaintenanceAndUpgradesID'
       requestBody:
-        $ref: '#/components/requestBodies/MaintenanceAndUpgrades'
+        $ref: '#/components/requestBodies/UpdateMaintenanceAndUpgradesRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceAndUpgrades'
+                $ref: '#/components/schemas/UpdateMaintenanceAndUpgradesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -227,14 +227,14 @@ paths:
       - $ref: '#/components/parameters/AdvancedVoiceServicesManagementID'
       - $ref: '#/components/parameters/MaintenanceAndUpgradesID'
       requestBody:
-        $ref: '#/components/requestBodies/MaintenanceAndUpgrades'
+        $ref: '#/components/requestBodies/RequestMaintenanceAndUpgradesRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceAndUpgrades'
+                $ref: '#/components/schemas/RequestMaintenanceAndUpgradesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -263,7 +263,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaintenanceAndUpgrades'
+                $ref: '#/components/schemas/RetrieveMaintenanceAndUpgradesResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -420,6 +420,18 @@ components:
           type: string
         message:
           type: string
+    CreateVoiceChannelManagementPlanRequest:
+      type: object
+      properties:
+        VoiceChannelManagementPlan:
+          type: object
+          properties:
+            VChannelManagementPlanPeriod:
+              type: string
+            VChannelServicePerformanceGoals:
+              type: string
+            VChannelServiceSchedule:
+              type: string
     UpdateCapacityPlanningRequest:
       type: object
       properties:
@@ -502,6 +514,84 @@ components:
               type: string
             VChannelMaintenanceandUpgradeWorkTaskDate-Time:
               type: string
+    UpdateMaintenanceAndUpgradesRequest:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            VChannelMaintenanceandUpgradeSchedule:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    UpdateMaintenanceAndUpgradesResponse:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            VChannelMaintenanceandUpgradeSchedule:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    RequestMaintenanceAndUpgradesRequest:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            VChannelMaintenanceandUpgradeSchedule:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    RequestMaintenanceAndUpgradesResponse:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            VChannelMaintenanceandUpgradeSchedule:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
+    RetrieveMaintenanceAndUpgradesResponse:
+      type: object
+      properties:
+        MaintenanceAndUpgrades:
+          type: object
+          properties:
+            VChannelMaintenanceandUpgradeSchedule:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskType:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskWorkProducts:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskResult:
+              type: string
+            VChannelMaintenanceandUpgradeWorkTaskDate-Time:
+              type: string
   parameters:
     AdvancedVoiceServicesManagementID:
       name: advancedvoiceservicesmanagementId
@@ -536,12 +626,12 @@ components:
       schema:
         type: string
   requestBodies:
-    VoiceChannelManagementPlan:
+    CreateVoiceChannelManagementPlanRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/VoiceChannelManagementPlan'
+            $ref: '#/components/schemas/CreateVoiceChannelManagementPlanRequest'
     UpdateCapacityPlanningRequest:
       required: true
       content:
@@ -560,12 +650,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateMaintenanceAndUpgradesRequest'
-    MaintenanceAndUpgrades:
+    UpdateMaintenanceAndUpgradesRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/MaintenanceAndUpgrades'
+            $ref: '#/components/schemas/UpdateMaintenanceAndUpgradesRequest'
+    RequestMaintenanceAndUpgradesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMaintenanceAndUpgradesRequest'
     Troubleshooting:
       required: true
       content:

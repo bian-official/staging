@@ -16,7 +16,7 @@ paths:
       operationId: Register
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/LocationDirectoryEntry'
+        $ref: '#/components/requestBodies/RegisterLocationDirectoryEntryRequest'
       responses:
         200:
           description: Success
@@ -47,14 +47,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/LocationDataManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/LocationDirectoryEntry'
+        $ref: '#/components/requestBodies/UpdateLocationDirectoryEntryRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LocationDirectoryEntry'
+                $ref: '#/components/schemas/UpdateLocationDirectoryEntryResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -77,7 +77,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/LocationDataManagementID'
       requestBody:
-        $ref: '#/components/requestBodies/LocationDirectoryEntry'
+        $ref: '#/components/requestBodies/RequestLocationDirectoryEntryRequest'
       responses:
         200:
           description: Success
@@ -113,7 +113,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LocationDirectoryEntry'
+                $ref: '#/components/schemas/RetrieveLocationDirectoryEntryResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -400,6 +400,54 @@ components:
           type: string
         message:
           type: string
+    RegisterLocationDirectoryEntryRequest:
+      type: object
+      properties:
+        LocationDirectoryEntry:
+          type: object
+          properties:
+            LocationReference:
+              type: object
+            DateType:
+              type: string
+    UpdateLocationDirectoryEntryRequest:
+      type: object
+      properties:
+        LocationDirectoryEntry:
+          type: object
+          properties:
+            LocationReference:
+              type: object
+            DateType:
+              type: string
+    UpdateLocationDirectoryEntryResponse:
+      type: object
+      properties:
+        LocationDirectoryEntry:
+          type: object
+          properties:
+            LocationReference:
+              type: object
+            DateType:
+              type: string
+    RequestLocationDirectoryEntryRequest:
+      type: object
+      properties:
+        LocationDirectoryEntry:
+          type: object
+          properties:
+            DateType:
+              type: string
+    RetrieveLocationDirectoryEntryResponse:
+      type: object
+      properties:
+        LocationDirectoryEntry:
+          type: object
+          properties:
+            LocationReference:
+              type: object
+            DateType:
+              type: string
     ExecuteLocationDirectoryEntryRequest:
       type: object
       properties:
@@ -687,12 +735,24 @@ components:
       schema:
         type: string
   requestBodies:
-    LocationDirectoryEntry:
+    RegisterLocationDirectoryEntryRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/LocationDirectoryEntry'
+            $ref: '#/components/schemas/RegisterLocationDirectoryEntryRequest'
+    UpdateLocationDirectoryEntryRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateLocationDirectoryEntryRequest'
+    RequestLocationDirectoryEntryRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestLocationDirectoryEntryRequest'
     ExecuteLocationDirectoryEntryRequest:
       required: true
       content:

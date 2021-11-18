@@ -16,7 +16,7 @@ paths:
       operationId: Provide
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CustomerServicingResourceAllocation'
+        $ref: '#/components/requestBodies/ProvideCustomerServicingResourceAllocationRequest'
       responses:
         200:
           description: Success
@@ -76,14 +76,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ContactRoutingID'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerServicingResourceAllocation'
+        $ref: '#/components/requestBodies/CaptureCustomerServicingResourceAllocationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerServicingResourceAllocation'
+                $ref: '#/components/schemas/CaptureCustomerServicingResourceAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -142,7 +142,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerServicingResourceAllocation'
+                $ref: '#/components/schemas/RequestAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -197,14 +197,14 @@ paths:
       - $ref: '#/components/parameters/ContactRoutingID'
       - $ref: '#/components/parameters/AllocationID'
       requestBody:
-        $ref: '#/components/requestBodies/Allocation'
+        $ref: '#/components/requestBodies/CaptureAllocationRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Allocation'
+                $ref: '#/components/schemas/CaptureAllocationResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -287,6 +287,74 @@ components:
           type: string
         message:
           type: string
+    ProvideCustomerServicingResourceAllocationRequest:
+      type: object
+      properties:
+        CustomerServicingResourceAllocation:
+          type: object
+          properties:
+            ServicingResourceReference:
+              type: object
+            ServicingResourceRecord:
+              type: string
+            ServicingResourceQualificationProfile:
+              type: string
+            ServicingResourceAvailabilitySchedule:
+              type: string
+            ServicingResourceStatus:
+              type: string
+    CaptureCustomerServicingResourceAllocationRequest:
+      type: object
+      properties:
+        CustomerServicingResourceAllocation:
+          type: object
+          properties:
+            ServicingResourceRecord:
+              type: string
+            ServicingResourceAvailabilitySchedule:
+              type: string
+            ServicingResourceStatus:
+              type: string
+    CaptureCustomerServicingResourceAllocationResponse:
+      type: object
+      properties:
+        CustomerServicingResourceAllocation:
+          type: object
+          properties:
+            ServicingResourceRecord:
+              type: string
+    RequestAllocationResponse:
+      type: object
+      properties:
+        CustomerServicingResourceAllocation:
+          type: object
+          properties:
+            ServicingResourceAvailabilitySchedule:
+              type: string
+            ServicingResourceStatus:
+              type: string
+            ServicingSessionReference:
+              type: object
+    CaptureAllocationRequest:
+      type: object
+      properties:
+        Allocation:
+          type: object
+          properties:
+            AllocationRequestType:
+              type: string
+            CustomerServicingRequestRecord:
+              type: string
+            CustomerContactRecord:
+              type: string
+    CaptureAllocationResponse:
+      type: object
+      properties:
+        Allocation:
+          type: object
+          properties:
+            AllocationTaskResult:
+              type: string
   parameters:
     ContactRoutingID:
       name: contactroutingId
@@ -305,18 +373,36 @@ components:
       schema:
         type: string
   requestBodies:
+    ProvideCustomerServicingResourceAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProvideCustomerServicingResourceAllocationRequest'
     CustomerServicingResourceAllocation:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/CustomerServicingResourceAllocation'
+    CaptureCustomerServicingResourceAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCustomerServicingResourceAllocationRequest'
     Allocation:
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Allocation'
+    CaptureAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureAllocationRequest'
   responses:
     HTTPError:
       description: Bad Request

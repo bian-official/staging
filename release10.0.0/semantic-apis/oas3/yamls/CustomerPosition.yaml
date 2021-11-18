@@ -16,14 +16,14 @@ paths:
       operationId: Initiate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/CustomerPositionState'
+        $ref: '#/components/requestBodies/InitiateCustomerPositionStateRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerPositionState'
+                $ref: '#/components/schemas/InitiateCustomerPositionStateResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/CustomerPositionID'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerPositionState'
+        $ref: '#/components/requestBodies/UpdateCustomerPositionStateRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomerPositionState'
+                $ref: '#/components/schemas/UpdateCustomerPositionStateResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -105,14 +105,14 @@ paths:
       - $ref: '#/components/parameters/CustomerPositionID'
       - $ref: '#/components/parameters/CashflowID'
       requestBody:
-        $ref: '#/components/requestBodies/Cashflow'
+        $ref: '#/components/requestBodies/CaptureCashflowRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cashflow'
+                $ref: '#/components/schemas/CaptureCashflowResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -165,14 +165,14 @@ paths:
       - $ref: '#/components/parameters/CustomerPositionID'
       - $ref: '#/components/parameters/CreditID'
       requestBody:
-        $ref: '#/components/requestBodies/Credit'
+        $ref: '#/components/requestBodies/CaptureCreditRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Credit'
+                $ref: '#/components/schemas/CaptureCreditResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -225,14 +225,14 @@ paths:
       - $ref: '#/components/parameters/CustomerPositionID'
       - $ref: '#/components/parameters/CollateralID'
       requestBody:
-        $ref: '#/components/requestBodies/Collateral'
+        $ref: '#/components/requestBodies/CaptureCollateralRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Collateral'
+                $ref: '#/components/schemas/CaptureCollateralResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -347,6 +347,62 @@ components:
           type: string
         message:
           type: string
+    InitiateCustomerPositionStateRequest:
+      type: object
+      properties:
+        CustomerPositionState:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+    InitiateCustomerPositionStateResponse:
+      type: object
+      properties:
+        CustomerPositionState:
+          type: object
+          properties:
+            CustomerPositionStateRecord:
+              type: string
+    UpdateCustomerPositionStateRequest:
+      type: object
+      properties:
+        CustomerPositionState:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+    UpdateCustomerPositionStateResponse:
+      type: object
+      properties:
+        CustomerPositionState:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+    CaptureCashflowRequest:
+      type: object
+      properties:
+        Cashflow:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+            ProductArrangementInstanceReportType:
+              type: string
+            ReportOptionsOrSelectionCriteria:
+              type: string
+            ReportPeriod:
+              type: string
+            ReportFormatOrTemplate:
+              type: string
+    CaptureCashflowResponse:
+      type: object
+      properties:
+        Cashflow:
+          type: object
+          properties:
+            CustomerCashflowPositionAnalysisRecord:
+              type: string
     RetrieveCashflowResponse:
       type: object
       properties:
@@ -371,6 +427,60 @@ components:
             ReportFormatOrTemplate:
               type: string
             CustomerCashflowPositionAnalysisRecord:
+              type: string
+    CaptureCreditRequest:
+      type: object
+      properties:
+        Credit:
+          type: object
+          properties:
+            CustomerCreditRatingAssessment:
+              type: string
+            CustomerCreditRatingAssessmentType:
+              type: string
+            CustomerCreditRatingNarrative:
+              type: string
+    CaptureCreditResponse:
+      type: object
+      properties:
+        Credit:
+          type: object
+          properties:
+            CustomerCreditPositionAnalysisRecord:
+              type: string
+    CaptureCollateralRequest:
+      type: object
+      properties:
+        Collateral:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+            CollateralAssetType:
+              type: string
+            CollateralAssetReference:
+              type: object
+            CollateralAssetDescription:
+              type: string
+            CollateralAssetAdministrationInstanceReference:
+              type: object
+            CollateralAssetStatus:
+              type: string
+            CollateralAssetValuation:
+              type: string
+            CollateralAssetAllocationProfile:
+              type: string
+            CollateralAssetValuationDate:
+              type: string
+            CollateralAssetLoantoValueRatio:
+              type: string
+    CaptureCollateralResponse:
+      type: object
+      properties:
+        Collateral:
+          type: object
+          properties:
+            CustomerCollateralPositionAnalysisRecord:
               type: string
     RetrieveCollateralResponse:
       type: object
@@ -439,30 +549,36 @@ components:
       schema:
         type: string
   requestBodies:
-    CustomerPositionState:
+    InitiateCustomerPositionStateRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CustomerPositionState'
-    Cashflow:
+            $ref: '#/components/schemas/InitiateCustomerPositionStateRequest'
+    UpdateCustomerPositionStateRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Cashflow'
-    Credit:
+            $ref: '#/components/schemas/UpdateCustomerPositionStateRequest'
+    CaptureCashflowRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Credit'
-    Collateral:
+            $ref: '#/components/schemas/CaptureCashflowRequest'
+    CaptureCreditRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Collateral'
+            $ref: '#/components/schemas/CaptureCreditRequest'
+    CaptureCollateralRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCollateralRequest'
   responses:
     HTTPError:
       description: Bad Request

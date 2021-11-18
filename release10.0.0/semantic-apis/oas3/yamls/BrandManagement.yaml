@@ -136,14 +136,14 @@ paths:
       - $ref: '#/components/parameters/BrandManagementID'
       - $ref: '#/components/parameters/BrandAdviceID'
       requestBody:
-        $ref: '#/components/requestBodies/BrandAdvice'
+        $ref: '#/components/requestBodies/UpdateBrandAdviceRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BrandAdvice'
+                $ref: '#/components/schemas/UpdateBrandAdviceResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -167,14 +167,14 @@ paths:
       - $ref: '#/components/parameters/BrandManagementID'
       - $ref: '#/components/parameters/BrandAdviceID'
       requestBody:
-        $ref: '#/components/requestBodies/BrandAdvice'
+        $ref: '#/components/requestBodies/RequestBrandAdviceRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BrandAdvice'
+                $ref: '#/components/schemas/RequestBrandAdviceResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -203,7 +203,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BrandAdvice'
+                $ref: '#/components/schemas/RetrieveBrandAdviceResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -288,7 +288,7 @@ paths:
       - $ref: '#/components/parameters/BrandManagementID'
       - $ref: '#/components/parameters/TroubleshootingID'
       requestBody:
-        $ref: '#/components/requestBodies/Troubleshooting'
+        $ref: '#/components/requestBodies/RequestTroubleshootingRequest'
       responses:
         200:
           description: Success
@@ -437,6 +437,72 @@ components:
               type: string
             BrandAdviceWorkTaskDate-Time:
               type: string
+    UpdateBrandAdviceRequest:
+      type: object
+      properties:
+        BrandAdvice:
+          type: object
+          properties:
+            BrandAdviceWorkTaskType:
+              type: string
+            BrandAdviceWorkTaskWorkProducts:
+              type: string
+            BrandAdviceWorkTaskResult:
+              type: string
+            BrandAdviceWorkTaskDate-Time:
+              type: string
+    UpdateBrandAdviceResponse:
+      type: object
+      properties:
+        BrandAdvice:
+          type: object
+          properties:
+            BrandAdviceWorkTaskType:
+              type: string
+            BrandAdviceWorkTaskWorkProducts:
+              type: string
+            BrandAdviceWorkTaskResult:
+              type: string
+            BrandAdviceWorkTaskDate-Time:
+              type: string
+    RequestBrandAdviceRequest:
+      type: object
+      properties:
+        BrandAdvice:
+          type: object
+          properties:
+            BrandAdviceWorkTaskType:
+              type: string
+            BrandAdviceWorkTaskDate-Time:
+              type: string
+    RequestBrandAdviceResponse:
+      type: object
+      properties:
+        BrandAdvice:
+          type: object
+          properties:
+            BrandAdviceWorkTaskType:
+              type: string
+            BrandAdviceWorkTaskWorkProducts:
+              type: string
+            BrandAdviceWorkTaskResult:
+              type: string
+            BrandAdviceWorkTaskDate-Time:
+              type: string
+    RetrieveBrandAdviceResponse:
+      type: object
+      properties:
+        BrandAdvice:
+          type: object
+          properties:
+            BrandAdviceWorkTaskType:
+              type: string
+            BrandAdviceWorkTaskWorkProducts:
+              type: string
+            BrandAdviceWorkTaskResult:
+              type: string
+            BrandAdviceWorkTaskDate-Time:
+              type: string
     CreateTroubleshootingRequest:
       type: object
       properties:
@@ -451,6 +517,24 @@ components:
               type: string
             BrandDevelopmentSchedule:
               type: string
+        Troubleshooting:
+          type: object
+          properties:
+            BrandImpactEventType:
+              type: string
+            BrandImpactTroubleshootingTask:
+              type: string
+            BrandImpactEventDescription:
+              type: string
+            BrandImpactEventResponseSchedule:
+              type: string
+            BrandImpactEventResponseAction:
+              type: string
+            BrandImpactEventWorkTaskDate-Time:
+              type: string
+    RequestTroubleshootingRequest:
+      type: object
+      properties:
         Troubleshooting:
           type: object
           properties:
@@ -504,12 +588,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateBrandAdviceRequest'
-    BrandAdvice:
+    UpdateBrandAdviceRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BrandAdvice'
+            $ref: '#/components/schemas/UpdateBrandAdviceRequest'
+    RequestBrandAdviceRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestBrandAdviceRequest'
     CreateTroubleshootingRequest:
       required: true
       content:
@@ -522,6 +612,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Troubleshooting'
+    RequestTroubleshootingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestTroubleshootingRequest'
   responses:
     HTTPError:
       description: Bad Request

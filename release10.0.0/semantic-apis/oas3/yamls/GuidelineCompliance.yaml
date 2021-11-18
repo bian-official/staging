@@ -16,14 +16,14 @@ paths:
       operationId: Evaluate
       parameters: []
       requestBody:
-        $ref: '#/components/requestBodies/GuidelineComplianceAssessment'
+        $ref: '#/components/requestBodies/EvaluateGuidelineComplianceAssessmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidelineComplianceAssessment'
+                $ref: '#/components/schemas/EvaluateGuidelineComplianceAssessmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -46,14 +46,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/GuidelineComplianceID'
       requestBody:
-        $ref: '#/components/requestBodies/GuidelineComplianceAssessment'
+        $ref: '#/components/requestBodies/UpdateGuidelineComplianceAssessmentRequest'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidelineComplianceAssessment'
+                $ref: '#/components/schemas/UpdateGuidelineComplianceAssessmentResponse'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -122,6 +122,72 @@ components:
           type: string
         message:
           type: string
+    EvaluateGuidelineComplianceAssessmentRequest:
+      type: object
+      properties:
+        GuidelineComplianceAssessment:
+          type: object
+          properties:
+            GuidelineComplianceAssessmentType:
+              type: string
+            BusinessUnitReference:
+              type: object
+            ProductandServiceReference:
+              type: object
+            CustomerReference:
+              type: object
+            DocumentReference:
+              type: object
+            GuidelineComplianceAssessmentWorkProducts:
+              type: string
+    EvaluateGuidelineComplianceAssessmentResponse:
+      type: object
+      properties:
+        GuidelineComplianceAssessment:
+          type: object
+          properties:
+            DocumentReference:
+              type: object
+            GuidelineComplianceAssessmentWorkProducts:
+              type: string
+            GuidelineComplianceAssessmentResult:
+              type: string
+    UpdateGuidelineComplianceAssessmentRequest:
+      type: object
+      properties:
+        GuidelineComplianceAssessment:
+          type: object
+          properties:
+            GuidelineComplianceAssessmentType:
+              type: string
+            BusinessUnitReference:
+              type: object
+            ProductandServiceReference:
+              type: object
+            CustomerReference:
+              type: object
+            DocumentReference:
+              type: object
+            GuidelineComplianceAssessmentWorkProducts:
+              type: string
+    UpdateGuidelineComplianceAssessmentResponse:
+      type: object
+      properties:
+        GuidelineComplianceAssessment:
+          type: object
+          properties:
+            GuidelineComplianceAssessmentType:
+              type: string
+            BusinessUnitReference:
+              type: object
+            ProductandServiceReference:
+              type: object
+            CustomerReference:
+              type: object
+            DocumentReference:
+              type: object
+            GuidelineComplianceAssessmentWorkProducts:
+              type: string
   parameters:
     GuidelineComplianceID:
       name: guidelinecomplianceId
@@ -132,12 +198,18 @@ components:
       schema:
         type: string
   requestBodies:
-    GuidelineComplianceAssessment:
+    EvaluateGuidelineComplianceAssessmentRequest:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/GuidelineComplianceAssessment'
+            $ref: '#/components/schemas/EvaluateGuidelineComplianceAssessmentRequest'
+    UpdateGuidelineComplianceAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateGuidelineComplianceAssessmentRequest'
   responses:
     HTTPError:
       description: Bad Request
