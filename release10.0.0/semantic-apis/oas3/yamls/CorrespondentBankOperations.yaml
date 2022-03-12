@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Correspondent Bank Operations
-  description: This service domain fulfils correspondent banking arrangements between the bank and its correspondent banking partners. &nbsp;This includes handling the clearing and settlement of payments to/from the correspondent banks, typically using the SWIFT payment network.
+  description: This service domain fulfils correspondent banking arrangements between the bank and its correspondent banking partners.  This includes handling the clearing and settlement of payments to/from the correspondent banks, typically using the SWIFT payment network.
   version: 10.0.0
 servers:
 - description: SwaggerHub API Auto Mocking
@@ -896,36 +896,21 @@ components:
           type: object
         NostroMirrorAccountReference:
           type: object
-    OutboundPayments:
+    Reconciliation:
       type: object
       properties:
-        CorrespondentTransactionRecord:
+        CorrespondentBankReconciliationTaskReference:
+          type: object
+        CorrespondentBankReconciliationTaskWorkProducts:
           type: string
-        SWIFTTransactionReference:
-          type: object
-        PayerBankReference:
-          type: object
-        PayerReference:
-          type: object
-        CorrespondedBankReference:
-          type: object
-        PayerProductInstanceReference:
-          type: object
-        PayeeReference:
-          type: object
-        PayeeProductInstanceReference:
-          type: object
-        PayeeBankReference:
-          type: object
-        SpecialInstructions:
+        CorrespondentBankReconciliationTaskResult:
           type: string
-        Amount:
+    CorrespondentBankOperationsOutcome:
+      type: object
+      properties:
+        CorrespondentBankOperationsIncident:
           type: string
-        Currency:
-          type: string
-        DateType:
-          type: string
-        Date:
+        CorrespondentBankOperationsProvision:
           type: string
     InboundPayments:
       type: object
@@ -973,21 +958,36 @@ components:
           type: string
         SettlementTransaction:
           type: string
-    Reconciliation:
+    OutboundPayments:
       type: object
       properties:
-        CorrespondentBankReconciliationTaskReference:
+        CorrespondentTransactionRecord:
+          type: string
+        SWIFTTransactionReference:
           type: object
-        CorrespondentBankReconciliationTaskWorkProducts:
+        PayerBankReference:
+          type: object
+        PayerReference:
+          type: object
+        CorrespondedBankReference:
+          type: object
+        PayerProductInstanceReference:
+          type: object
+        PayeeReference:
+          type: object
+        PayeeProductInstanceReference:
+          type: object
+        PayeeBankReference:
+          type: object
+        SpecialInstructions:
           type: string
-        CorrespondentBankReconciliationTaskResult:
+        Amount:
           type: string
-    CorrespondentBankOperationsOutcome:
-      type: object
-      properties:
-        CorrespondentBankOperationsIncident:
+        Currency:
           type: string
-        CorrespondentBankOperationsProvision:
+        DateType:
+          type: string
+        Date:
           type: string
     HTTPError:
       type: object
@@ -2104,8 +2104,16 @@ components:
       explode: false
       schema:
         type: string
-    OutboundPaymentsID:
-      name: outboundpaymentsId
+    ReconciliationID:
+      name: reconciliationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    CorrespondentBankOperationsOutcomeID:
+      name: correspondentbankoperationsoutcomeId
       in: path
       required: true
       style: simple
@@ -2128,16 +2136,8 @@ components:
       explode: false
       schema:
         type: string
-    ReconciliationID:
-      name: reconciliationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    CorrespondentBankOperationsOutcomeID:
-      name: correspondentbankoperationsoutcomeId
+    OutboundPaymentsID:
+      name: outboundpaymentsId
       in: path
       required: true
       style: simple

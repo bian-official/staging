@@ -751,6 +751,21 @@ components:
           type: string
         AccrualFeeCharge:
           type: string
+    Disbursement:
+      type: object
+      properties:
+        DisbursementPayeeReference:
+          type: object
+        DisbursementPayeeProductInstanceReference:
+          type: object
+        DisbursementPayeeBankReference:
+          type: object
+        DisbursementAmount:
+          type: number
+        DisbursementCurrency:
+          type: string
+        DisbursementValueDate:
+          type: string
     Repayment:
       type: object
       properties:
@@ -768,29 +783,20 @@ components:
           type: string
         RepaymentTransactionValueDate:
           type: string
-    Restructuring:
+    Maintenance:
       type: object
       properties:
-        RestructuringTask:
+        MaintenanceReportType:
           type: string
-        RestructuringEvaluation:
+        LoanTaxReport:
           type: string
-        RestructuringWriteDown:
+        LoanFeeType:
           type: string
-    Disbursement:
-      type: object
-      properties:
-        DisbursementPayeeReference:
-          type: object
-        DisbursementPayeeProductInstanceReference:
-          type: object
-        DisbursementPayeeBankReference:
-          type: object
-        DisbursementAmount:
-          type: number
-        DisbursementCurrency:
+        LoanFees:
           type: string
-        DisbursementValueDate:
+        Penalties:
+          type: string
+        CollateralValuation:
           type: string
     Interest:
       type: object
@@ -818,6 +824,15 @@ components:
         InterestAccrualType:
           type: string
         InterestAccrualCharge:
+          type: string
+    Restructuring:
+      type: object
+      properties:
+        RestructuringTask:
+          type: string
+        RestructuringEvaluation:
+          type: string
+        RestructuringWriteDown:
           type: string
     Withdrawal:
       type: object
@@ -847,21 +862,6 @@ components:
         PaymentTransactionBankBranch/LocationReference:
           type: object
         PaymentTransactionStatus:
-          type: string
-    Maintenance:
-      type: object
-      properties:
-        MaintenanceReportType:
-          type: string
-        LoanTaxReport:
-          type: string
-        LoanFeeType:
-          type: string
-        LoanFees:
-          type: string
-        Penalties:
-          type: string
-        CollateralValuation:
           type: string
     HTTPError:
       type: object
@@ -2130,6 +2130,14 @@ components:
       explode: false
       schema:
         type: string
+    DisbursementID:
+      name: disbursementId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
     RepaymentID:
       name: repaymentId
       in: path
@@ -2138,16 +2146,8 @@ components:
       explode: false
       schema:
         type: string
-    RestructuringID:
-      name: restructuringId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    DisbursementID:
-      name: disbursementId
+    MaintenanceID:
+      name: maintenanceId
       in: path
       required: true
       style: simple
@@ -2162,16 +2162,16 @@ components:
       explode: false
       schema:
         type: string
-    WithdrawalID:
-      name: withdrawalId
+    RestructuringID:
+      name: restructuringId
       in: path
       required: true
       style: simple
       explode: false
       schema:
         type: string
-    MaintenanceID:
-      name: maintenanceId
+    WithdrawalID:
+      name: withdrawalId
       in: path
       required: true
       style: simple

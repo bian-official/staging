@@ -5,7 +5,7 @@ info:
   version: 10.0.0
 servers:
 - description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/BIAN-3/KnowledgeExchange/10.0.0
+  url: https://virtserver.swaggerhub.com/B154/KnowledgeExchange/10.0.0
 paths:
   /KnowledgeExchange/{knowledgeexchangeId}/Control:
     put:
@@ -276,25 +276,25 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /KnowledgeExchange/{knowledgeexchangeId}/ReviewRefinementandEditing/{reviewrefinementandeditingId}/Exchange:
+  /KnowledgeExchange/{knowledgeexchangeId}/Review,RefinementandEditing/{review,refinementandeditingId}/Exchange:
     put:
       tags:
-      - BQ - ReviewRefinementandEditing
+      - BQ - Review,RefinementandEditing
       summary: EcBQ Accept, verify, etc. aspects of Review, Refinement and Editing processing
       description: EcBQ Accept, verify, etc. aspects of Review, Refinement and Editing processing
-      operationId: ExchangeReviewRefinementandEditing
+      operationId: ExchangeReview,RefinementandEditing
       parameters:
       - $ref: '#/components/parameters/KnowledgeExchangeID'
-      - $ref: '#/components/parameters/ReviewRefinementandEditingID'
+      - $ref: '#/components/parameters/Review,RefinementandEditingID'
       requestBody:
-        $ref: '#/components/requestBodies/ReviewRefinementandEditing'
+        $ref: '#/components/requestBodies/Review,RefinementandEditing'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReviewRefinementandEditing'
+                $ref: '#/components/schemas/Review,RefinementandEditing'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -484,23 +484,23 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /KnowledgeExchange/{knowledgeexchangeId}/ReviewRefinementandEditing/{reviewrefinementandeditingId}/Retrieve:
+  /KnowledgeExchange/{knowledgeexchangeId}/Review,RefinementandEditing/{review,refinementandeditingId}/Retrieve:
     get:
       tags:
-      - BQ - ReviewRefinementandEditing
+      - BQ - Review,RefinementandEditing
       summary: ReBQ Retrieve details about any aspect of Review, Refinement and Editing
       description: ReBQ Retrieve details about any aspect of Review, Refinement and Editing
-      operationId: RetrieveReviewRefinementandEditing
+      operationId: RetrieveReview,RefinementandEditing
       parameters:
       - $ref: '#/components/parameters/KnowledgeExchangeID'
-      - $ref: '#/components/parameters/ReviewRefinementandEditingID'
+      - $ref: '#/components/parameters/Review,RefinementandEditingID'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReviewRefinementandEditing'
+                $ref: '#/components/schemas/Review,RefinementandEditing'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -668,25 +668,25 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /KnowledgeExchange/{knowledgeexchangeId}/ReviewRefinementandEditing/{reviewrefinementandeditingId}/Update:
+  /KnowledgeExchange/{knowledgeexchangeId}/Review,RefinementandEditing/{review,refinementandeditingId}/Update:
     put:
       tags:
-      - BQ - ReviewRefinementandEditing
+      - BQ - Review,RefinementandEditing
       summary: UpBQ Update details relating to Review, Refinement and Editing
       description: UpBQ Update details relating to Review, Refinement and Editing
-      operationId: UpdateReviewRefinementandEditing
+      operationId: UpdateReview,RefinementandEditing
       parameters:
       - $ref: '#/components/parameters/KnowledgeExchangeID'
-      - $ref: '#/components/parameters/ReviewRefinementandEditingID'
+      - $ref: '#/components/parameters/Review,RefinementandEditingID'
       requestBody:
-        $ref: '#/components/requestBodies/ReviewRefinementandEditing'
+        $ref: '#/components/requestBodies/Review,RefinementandEditing'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReviewRefinementandEditing'
+                $ref: '#/components/schemas/Review,RefinementandEditing'
         400:
           $ref: '#/components/responses/BadRequestError'
         401:
@@ -722,6 +722,32 @@ components:
           type: string
         IntellectualPropertyExchangeOperatingSessionServiceConfiguration:
           type: string
+    KnowledgeExchangeOutcome:
+      type: object
+      properties:
+        KnowledgeExchangeIncident:
+          type: string
+        KnowledgeExchangeProvision:
+          type: string
+    CaptureandClassification:
+      type: object
+      properties:
+        CaptureandClassificationPreconditions:
+          type: string
+        CaptureandClassificationFunctionSchedule:
+          type: string
+        ContentCaptureandClassification:
+          type: object
+        ContentCaptureandClassificationServiceType:
+          type: string
+        ContentCaptureandClassificationServiceDescription:
+          type: string
+        ContentCaptureandClassificationServiceInputsandOuputs:
+          type: string
+        ContentCaptureandClassificationServiceWorkProduct:
+          type: string
+        ContentCaptureandClassificationServiceName:
+          type: string
     Archiving:
       type: object
       properties:
@@ -741,50 +767,24 @@ components:
           type: string
         ContentArchivingServiceName:
           type: string
-    MaintenanceandAccessAdministration:
+    Review,RefinementandEditing:
       type: object
       properties:
-        MaintenanceandAccessAdministrationPreconditions:
+        Review,RefinementandEditingPreconditions:
           type: string
-        MaintenanceandAccessAdministrationFunctionSchedule:
+        Review,RefinementandEditingFunctionSchedule:
           type: string
-        ContentMaintenanceandAccessAdministration:
+        ContentReview,RefinementandEditing:
           type: object
-        ContentMaintenanceandAccessAdministrationServiceType:
+        ContentReview,RefinementandEditingServiceType:
           type: string
-        ContentMaintenanceandAccessAdministrationServiceDescription:
+        ContentReview,RefinementandEditingServiceDescription:
           type: string
-        ContentMaintenanceandAccessAdministrationServiceInputsandOuputs:
+        ContentReview,RefinementandEditingServiceInputsandOuputs:
           type: string
-        ContentMaintenanceandAccessAdministrationServiceWorkProduct:
+        ContentReview,RefinementandEditingServiceWorkProduct:
           type: string
-        ContentMaintenanceandAccessAdministrationServiceName:
-          type: string
-    KnowledgeExchangeOutcome:
-      type: object
-      properties:
-        KnowledgeExchangeIncident:
-          type: string
-        KnowledgeExchangeProvision:
-          type: string
-    ReviewRefinementandEditing:
-      type: object
-      properties:
-        ReviewRefinementandEditingPreconditions:
-          type: string
-        ReviewRefinementandEditingFunctionSchedule:
-          type: string
-        ContentReviewRefinementandEditing:
-          type: object
-        ContentReviewRefinementandEditingServiceType:
-          type: string
-        ContentReviewRefinementandEditingServiceDescription:
-          type: string
-        ContentReviewRefinementandEditingServiceInputsandOuputs:
-          type: string
-        ContentReviewRefinementandEditingServiceWorkProduct:
-          type: string
-        ContentReviewRefinementandEditingServiceName:
+        ContentReview,RefinementandEditingServiceName:
           type: string
     IndexingandPublication:
       type: object
@@ -805,24 +805,24 @@ components:
           type: string
         ContentIndexingandPublicationServiceName:
           type: string
-    CaptureandClassification:
+    MaintenanceandAccessAdministration:
       type: object
       properties:
-        CaptureandClassificationPreconditions:
+        MaintenanceandAccessAdministrationPreconditions:
           type: string
-        CaptureandClassificationFunctionSchedule:
+        MaintenanceandAccessAdministrationFunctionSchedule:
           type: string
-        ContentCaptureandClassification:
+        ContentMaintenanceandAccessAdministration:
           type: object
-        ContentCaptureandClassificationServiceType:
+        ContentMaintenanceandAccessAdministrationServiceType:
           type: string
-        ContentCaptureandClassificationServiceDescription:
+        ContentMaintenanceandAccessAdministrationServiceDescription:
           type: string
-        ContentCaptureandClassificationServiceInputsandOuputs:
+        ContentMaintenanceandAccessAdministrationServiceInputsandOuputs:
           type: string
-        ContentCaptureandClassificationServiceWorkProduct:
+        ContentMaintenanceandAccessAdministrationServiceWorkProduct:
           type: string
-        ContentCaptureandClassificationServiceName:
+        ContentMaintenanceandAccessAdministrationServiceName:
           type: string
     HTTPError:
       type: object
@@ -938,22 +938,6 @@ components:
       explode: false
       schema:
         type: string
-    ArchivingID:
-      name: archivingId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    MaintenanceandAccessAdministrationID:
-      name: maintenanceandaccessadministrationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
     KnowledgeExchangeOutcomeID:
       name: knowledgeexchangeoutcomeId
       in: path
@@ -962,8 +946,24 @@ components:
       explode: false
       schema:
         type: string
-    ReviewRefinementandEditingID:
-      name: reviewrefinementandeditingId
+    CaptureandClassificationID:
+      name: captureandclassificationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ArchivingID:
+      name: archivingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    Review,RefinementandEditingID:
+      name: review,refinementandeditingId
       in: path
       required: true
       style: simple
@@ -978,8 +978,8 @@ components:
       explode: false
       schema:
         type: string
-    CaptureandClassificationID:
-      name: captureandclassificationId
+    MaintenanceandAccessAdministrationID:
+      name: maintenanceandaccessadministrationId
       in: path
       required: true
       style: simple
@@ -1005,12 +1005,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/IndexingandPublication'
-    ReviewRefinementandEditing:
+    Review,RefinementandEditing:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ReviewRefinementandEditing'
+            $ref: '#/components/schemas/Review,RefinementandEditing'
     MaintenanceandAccessAdministration:
       required: true
       content:
