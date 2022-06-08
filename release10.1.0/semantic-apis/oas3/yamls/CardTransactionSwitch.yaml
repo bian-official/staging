@@ -1,0 +1,667 @@
+openapi: 3.0.1
+info:
+  title: Card Transaction Switch
+  description: This service domain orchestrates the switching and routing of Card Authorization and Financial transactions received through the Card POS Network, Card E-Commerce Gateway, or the ATM Network from the Acquirer to the Issuer through the Card Networks.
+  version: 10.1.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/CardTransactionSwitch/10.1.0
+paths:
+  /CardTransactionSwitch/Initiate:
+    post:
+      tags:
+      - CR - CardTransactionSwitchOperatingSession
+      summary: InCR Initiate a card transaction switch operating session
+      description: InCR Initiate a card transaction switch operating session
+      operationId: Initiate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/CardTransactionSwitchOperatingSession'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CardTransactionSwitch/{cardtransactionswitchId}/Update:
+    put:
+      tags:
+      - CR - CardTransactionSwitchOperatingSession
+      summary: UpCR Update an active card transaction switch operating session
+      description: UpCR Update an active card transaction switch operating session
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/CardTransactionSwitchID'
+      requestBody:
+        $ref: '#/components/requestBodies/CardTransactionSwitchOperatingSession'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTransactionSwitchOperatingSession'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CardTransactionSwitch/{cardtransactionswitchId}/Retrieve:
+    get:
+      tags:
+      - CR - CardTransactionSwitchOperatingSession
+      summary: ReCR Retrieve details about an active card transaction switch operating session
+      description: ReCR Retrieve details about an active card transaction switch operating session
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/CardTransactionSwitchID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTransactionSwitchOperatingSession'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CardTransactionSwitch/{cardtransactionswitchId}/TransactionCapture/Initiate:
+    post:
+      tags:
+      - BQ - TransactionCapture
+      summary: InBQ Initiate a card transaction switch capture function
+      description: InBQ Initiate a card transaction switch capture function
+      operationId: InitiateTransactionCapture
+      parameters:
+      - $ref: '#/components/parameters/CardTransactionSwitchID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateTransactionCaptureRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CardTransactionSwitch/{cardtransactionswitchId}/TransactionCapture/{transactioncaptureId}/Retrieve:
+    get:
+      tags:
+      - BQ - TransactionCapture
+      summary: ReBQ Retrieve details about a card capture transaction
+      description: ReBQ Retrieve details about a card capture transaction
+      operationId: RetrieveTransactionCapture
+      parameters:
+      - $ref: '#/components/parameters/CardTransactionSwitchID'
+      - $ref: '#/components/parameters/TransactionCaptureID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveTransactionCaptureResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CardTransactionSwitch/{cardtransactionswitchId}/TransactionRouting/Initiate:
+    post:
+      tags:
+      - BQ - TransactionRouting
+      summary: InBQ Initiate the routing function
+      description: InBQ Initiate the routing function
+      operationId: InitiateTransactionRouting
+      parameters:
+      - $ref: '#/components/parameters/CardTransactionSwitchID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateTransactionRoutingRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CardTransactionSwitch/{cardtransactionswitchId}/TransactionRouting/{transactionroutingId}/Retrieve:
+    get:
+      tags:
+      - BQ - TransactionRouting
+      summary: ReBQ Retrieve details about a card transaction switch routing transaction
+      description: ReBQ Retrieve details about a card transaction switch routing transaction
+      operationId: RetrieveTransactionRouting
+      parameters:
+      - $ref: '#/components/parameters/CardTransactionSwitchID'
+      - $ref: '#/components/parameters/TransactionRoutingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveTransactionRoutingResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    CardTransactionSwitchOperatingSession:
+      type: object
+      properties:
+        NetworkReference:
+          type: object
+          description: Refers to the card network
+        ParticipantAcquirerBankReference:
+          type: object
+          description: Reference to the Acquiring bank for which the Network orchestrates transaction routing
+        ParticipantAcquirerBanktransactionRoutingDetails:
+          type: string
+          description: Defines transaction routing details - referenced by the Network
+        ParticipantIssuerBankReference:
+          type: object
+          description: Reference to the Issuing bank for which the Network orchestrates transaction routing
+        ParticipantIssuerBankTransactionRoutingDetails:
+          type: string
+          description: Defines transaction routing details - referenced by the Network
+    TransactionRouting:
+      type: object
+      properties: {}
+    TransactionCapture:
+      type: object
+      properties:
+        CardTransactionRecordReference:
+          type: object
+          description: Reference to the card transaction as recorded by issuer and/or acquirer
+        CardTransactionProductInstanceReference:
+          type: object
+          description: The account number associated with the card transaction
+        CardTransactionNetworkReference:
+          type: object
+          description: Reference to the network the card transaction is handled by
+        CardTransactionIssuingBankReference:
+          type: object
+          description: Refers to the card holder's issuing bank
+        CardTransactionMerchantAcquiringBankReference:
+          type: object
+          description: Refers to the merchant's acquiring bank
+        CardTransactionType:
+          type: string
+          description: The type of transaction (purchase, cash advance, etc.)
+        CardTransactionCurrency:
+          type: string
+          description: The currency that the transaction is made in
+        CardTransactionAmountType:
+          type: string
+          description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+        CardTransactionAmount:
+          type: number
+          description: The amount corresponding to the type
+        CardTransactionMerchantReference:
+          type: object
+          description: Refers to the merchant initiating settlement
+        CardTransactionLocationReference:
+          type: object
+          description: Refers to the point of sale location
+        CardTransactionProductandServiceReference:
+          type: object
+          description: Details of the transaction (e.g. purchased service/product, purpose)
+        CardTransactionDate/Time:
+          type: string
+          description: Significant dates and times associated with the transaction
+        CardTransactionFXConversionCharge:
+          type: string
+          description: The applied currency conversion charge
+        CardTransactionInterchargeFee:
+          type: string
+          description: The applied intercharge fee
+        CardTransactionAuthorizationRecord:
+          type: string
+          description: Details the reference, amount, timestamp of the transaction authorization)
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    InitiateTransactionCaptureRequest:
+      type: object
+      properties:
+        CardTransactionSwitchOperatingSession:
+          type: object
+          properties:
+            NetworkReference:
+              type: object
+              description: Refers to the card network
+            ParticipantAcquirerBankReference:
+              type: object
+              description: Reference to the Acquiring bank for which the Network orchestrates transaction routing
+            ParticipantAcquirerBanktransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+            ParticipantIssuerBankReference:
+              type: object
+              description: Reference to the Issuing bank for which the Network orchestrates transaction routing
+            ParticipantIssuerBankTransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+        TransactionCapture:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization)
+    RetrieveTransactionCaptureResponse:
+      type: object
+      properties:
+        CardTransactionSwitchOperatingSession:
+          type: object
+          properties:
+            NetworkReference:
+              type: object
+              description: Refers to the card network
+            ParticipantAcquirerBankReference:
+              type: object
+              description: Reference to the Acquiring bank for which the Network orchestrates transaction routing
+            ParticipantAcquirerBanktransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+            ParticipantIssuerBankReference:
+              type: object
+              description: Reference to the Issuing bank for which the Network orchestrates transaction routing
+            ParticipantIssuerBankTransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+        TransactionCapture:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization)
+    InitiateTransactionRoutingRequest:
+      type: object
+      properties:
+        CardTransactionSwitchOperatingSession:
+          type: object
+          properties:
+            NetworkReference:
+              type: object
+              description: Refers to the card network
+            ParticipantAcquirerBankReference:
+              type: object
+              description: Reference to the Acquiring bank for which the Network orchestrates transaction routing
+            ParticipantAcquirerBanktransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+            ParticipantIssuerBankReference:
+              type: object
+              description: Reference to the Issuing bank for which the Network orchestrates transaction routing
+            ParticipantIssuerBankTransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+        TransactionCapture:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization)
+    RetrieveTransactionRoutingResponse:
+      type: object
+      properties:
+        CardTransactionSwitchOperatingSession:
+          type: object
+          properties:
+            NetworkReference:
+              type: object
+              description: Refers to the card network
+            ParticipantAcquirerBankReference:
+              type: object
+              description: Reference to the Acquiring bank for which the Network orchestrates transaction routing
+            ParticipantAcquirerBanktransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+            ParticipantIssuerBankReference:
+              type: object
+              description: Reference to the Issuing bank for which the Network orchestrates transaction routing
+            ParticipantIssuerBankTransactionRoutingDetails:
+              type: string
+              description: Defines transaction routing details - referenced by the Network
+        TransactionCapture:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization)
+  parameters:
+    CardTransactionSwitchID:
+      name: cardtransactionswitchId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    TransactionRoutingID:
+      name: transactionroutingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    TransactionCaptureID:
+      name: transactioncaptureId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    CardTransactionSwitchOperatingSession:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardTransactionSwitchOperatingSession'
+    InitiateTransactionCaptureRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateTransactionCaptureRequest'
+    InitiateTransactionRoutingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateTransactionRoutingRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

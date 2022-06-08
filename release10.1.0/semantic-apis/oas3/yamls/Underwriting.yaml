@@ -1,0 +1,551 @@
+openapi: 3.0.1
+info:
+  title: Underwriting
+  description: This service domain manages the underwriting decision process for products as appropriate (including many loan types and some insurance products)
+  version: 10.1.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/Underwriting/10.1.0
+paths:
+  /Underwriting/Evaluate:
+    post:
+      tags:
+      - CR - UnderwritingAssessment
+      summary: EvCR Evaluate an underwriting decision
+      description: EvCR Evaluate an underwriting decision
+      operationId: Evaluate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/EvaluateUnderwritingAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluateUnderwritingAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /Underwriting/{underwritingId}/Update:
+    put:
+      tags:
+      - CR - UnderwritingAssessment
+      summary: UpCR Update details for an underwriting assessment
+      description: UpCR Update details for an underwriting assessment
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/UnderwritingID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateUnderwritingAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUnderwritingAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /Underwriting/{underwritingId}/Retrieve:
+    get:
+      tags:
+      - CR - UnderwritingAssessment
+      summary: ReCR Retrieve details about an underwriting assessment
+      description: ReCR Retrieve details about an underwriting assessment
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/UnderwritingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveUnderwritingAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    UnderwritingAssessment:
+      type: object
+      properties:
+        UnderwritingGuidelines:
+          type: string
+          description: Guidelines provided for applying for an underwriting decision - list submission requirements
+        RequiredCustomerEmploymentHistoryDetails:
+          type: string
+          description: Outlines the employment details required
+        RequiredCustomerDebtOrAssetStatement:
+          type: string
+          description: Outlines the type of debt/asset details required
+        RequiredCustomerCreditAssessment:
+          type: string
+          description: Outlines the required credit assessment details required
+        RequiredCollateralCoverage:
+          type: string
+          description: Outlines the details of collateral required
+        RequiredCustomerProductandServicePaymentHistory:
+          type: string
+          description: Outlines the extent of the product usage history required
+        RequiredCustomerDocuments:
+          type: string
+          description: Lists required documentation (e.g. for proof of identity, assets, collateral)
+        ProposedTransactionDetails:
+          type: string
+          description: …
+        ProductInstanceReference:
+          type: object
+          description: The associated product instance for the underwriting decision
+        ProposedLoanTerms:
+          type: string
+          description: The proposed loan terms
+        ProposedLoanAmount:
+          type: number
+          description: The proposed loan amount
+        LoanPurpose:
+          type: string
+          description: The purpose for the loan  (e.g. mortgage for primary residence/rental)
+        CustomerReference:
+          type: object
+          description: Reference to the applying customer
+        CustomerReferenceDetails:
+          type: object
+          description: Reference details known about the customer
+        CustomerProductEligibilityTerms:
+          type: string
+          description: Definition of the terms under which the customer eligible for the loan
+        CustomerEmploymentHistory:
+          type: string
+          description: The customer's employment record
+        CustomerIncomeStatement:
+          type: string
+          description: The customers historical income statement (for individuals)
+        CustomerDebtStatement:
+          type: string
+          description: Covers bank and known non-bank managed debts
+        CustomerAssetStatement:
+          type: string
+          description: Covers bank and known non-bank managed assets
+        CustomerCreditAssessment:
+          type: string
+          description: Reference to the bank's credit assessment of the customer
+        CustomerProductandServicePaymentHistory:
+          type: string
+          description: Reference to product reports covering payment history
+        CollateralItemReference:
+          type: object
+          description: Reference to the customers collateral holdings that are available
+        CollateralItemType:
+          type: string
+          description: The type of collateral
+        CollateralItemValuation:
+          type: string
+          description: The valuation of the collateral (applying the required loan to asset ratio)
+        DocumentReference:
+          type: object
+          description: Reference to associated documents of significance
+        UnderwritingAssessmentDecision:
+          type: string
+          description: Details of the underwriting decision
+        UnderwritingAssessmentWorkProduct:
+          type: string
+          description: Work documentation, forms and schedules produced and referenced during the task
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    EvaluateUnderwritingAssessmentRequest:
+      type: object
+      properties:
+        UnderwritingAssessment:
+          type: object
+          properties:
+            UnderwritingGuidelines:
+              type: string
+              description: Guidelines provided for applying for an underwriting decision - list submission requirements
+            ProposedTransactionDetails:
+              type: string
+              description: …
+            ProductInstanceReference:
+              type: object
+              description: The associated product instance for the underwriting decision
+            ProposedLoanTerms:
+              type: string
+              description: The proposed loan terms
+            ProposedLoanAmount:
+              type: number
+              description: The proposed loan amount
+            LoanPurpose:
+              type: string
+              description: The purpose for the loan  (e.g. mortgage for primary residence/rental)
+            CustomerReference:
+              type: object
+              description: Reference to the applying customer
+            CustomerReferenceDetails:
+              type: object
+              description: Reference details known about the customer
+            CustomerProductEligibilityTerms:
+              type: string
+              description: Definition of the terms under which the customer eligible for the loan
+            CustomerIncomeStatement:
+              type: string
+              description: The customers historical income statement (for individuals)
+            CustomerDebtStatement:
+              type: string
+              description: Covers bank and known non-bank managed debts
+            CustomerAssetStatement:
+              type: string
+              description: Covers bank and known non-bank managed assets
+            CollateralItemReference:
+              type: object
+              description: Reference to the customers collateral holdings that are available
+            CollateralItemType:
+              type: string
+              description: The type of collateral
+            CollateralItemValuation:
+              type: string
+              description: The valuation of the collateral (applying the required loan to asset ratio)
+            DocumentReference:
+              type: object
+              description: Reference to associated documents of significance
+    EvaluateUnderwritingAssessmentResponse:
+      type: object
+      properties:
+        UnderwritingAssessment:
+          type: object
+          properties:
+            UnderwritingGuidelines:
+              type: string
+              description: Guidelines provided for applying for an underwriting decision - list submission requirements
+            RequiredCustomerEmploymentHistoryDetails:
+              type: string
+              description: Outlines the employment details required
+            RequiredCustomerDebtOrAssetStatement:
+              type: string
+              description: Outlines the type of debt/asset details required
+            RequiredCustomerCreditAssessment:
+              type: string
+              description: Outlines the required credit assessment details required
+            RequiredCollateralCoverage:
+              type: string
+              description: Outlines the details of collateral required
+            RequiredCustomerProductandServicePaymentHistory:
+              type: string
+              description: Outlines the extent of the product usage history required
+            RequiredCustomerDocuments:
+              type: string
+              description: Lists required documentation (e.g. for proof of identity, assets, collateral)
+            ProposedTransactionDetails:
+              type: string
+              description: …
+            DocumentReference:
+              type: object
+              description: Reference to associated documents of significance
+            UnderwritingAssessmentDecision:
+              type: string
+              description: Details of the underwriting decision
+            UnderwritingAssessmentWorkProduct:
+              type: string
+              description: Work documentation, forms and schedules produced and referenced during the task
+    UpdateUnderwritingAssessmentRequest:
+      type: object
+      properties:
+        UnderwritingAssessment:
+          type: object
+          properties:
+            ProposedTransactionDetails:
+              type: string
+              description: …
+            ProductInstanceReference:
+              type: object
+              description: The associated product instance for the underwriting decision
+            ProposedLoanTerms:
+              type: string
+              description: The proposed loan terms
+            ProposedLoanAmount:
+              type: number
+              description: The proposed loan amount
+            LoanPurpose:
+              type: string
+              description: The purpose for the loan  (e.g. mortgage for primary residence/rental)
+            CustomerReference:
+              type: object
+              description: Reference to the applying customer
+            CustomerReferenceDetails:
+              type: object
+              description: Reference details known about the customer
+            CustomerProductEligibilityTerms:
+              type: string
+              description: Definition of the terms under which the customer eligible for the loan
+            CustomerEmploymentHistory:
+              type: string
+              description: The customer's employment record
+            CustomerIncomeStatement:
+              type: string
+              description: The customers historical income statement (for individuals)
+            CustomerDebtStatement:
+              type: string
+              description: Covers bank and known non-bank managed debts
+            CustomerAssetStatement:
+              type: string
+              description: Covers bank and known non-bank managed assets
+            CustomerCreditAssessment:
+              type: string
+              description: Reference to the bank's credit assessment of the customer
+            CustomerProductandServicePaymentHistory:
+              type: string
+              description: Reference to product reports covering payment history
+            CollateralItemReference:
+              type: object
+              description: Reference to the customers collateral holdings that are available
+            CollateralItemType:
+              type: string
+              description: The type of collateral
+            CollateralItemValuation:
+              type: string
+              description: The valuation of the collateral (applying the required loan to asset ratio)
+            DocumentReference:
+              type: object
+              description: Reference to associated documents of significance
+    UpdateUnderwritingAssessmentResponse:
+      type: object
+      properties:
+        UnderwritingAssessment:
+          type: object
+          properties:
+            ProposedTransactionDetails:
+              type: string
+              description: …
+            ProductInstanceReference:
+              type: object
+              description: The associated product instance for the underwriting decision
+            ProposedLoanTerms:
+              type: string
+              description: The proposed loan terms
+            ProposedLoanAmount:
+              type: number
+              description: The proposed loan amount
+            LoanPurpose:
+              type: string
+              description: The purpose for the loan  (e.g. mortgage for primary residence/rental)
+            CustomerReference:
+              type: object
+              description: Reference to the applying customer
+            CustomerReferenceDetails:
+              type: object
+              description: Reference details known about the customer
+            CustomerProductEligibilityTerms:
+              type: string
+              description: Definition of the terms under which the customer eligible for the loan
+            CustomerEmploymentHistory:
+              type: string
+              description: The customer's employment record
+            CustomerIncomeStatement:
+              type: string
+              description: The customers historical income statement (for individuals)
+            CustomerDebtStatement:
+              type: string
+              description: Covers bank and known non-bank managed debts
+            CustomerAssetStatement:
+              type: string
+              description: Covers bank and known non-bank managed assets
+            CustomerCreditAssessment:
+              type: string
+              description: Reference to the bank's credit assessment of the customer
+            CustomerProductandServicePaymentHistory:
+              type: string
+              description: Reference to product reports covering payment history
+            CollateralItemReference:
+              type: object
+              description: Reference to the customers collateral holdings that are available
+            CollateralItemType:
+              type: string
+              description: The type of collateral
+            CollateralItemValuation:
+              type: string
+              description: The valuation of the collateral (applying the required loan to asset ratio)
+            DocumentReference:
+              type: object
+              description: Reference to associated documents of significance
+    RetrieveUnderwritingAssessmentResponse:
+      type: object
+      properties:
+        UnderwritingAssessment:
+          type: object
+          properties:
+            UnderwritingGuidelines:
+              type: string
+              description: Guidelines provided for applying for an underwriting decision - list submission requirements
+            RequiredCustomerEmploymentHistoryDetails:
+              type: string
+              description: Outlines the employment details required
+            RequiredCustomerDebtOrAssetStatement:
+              type: string
+              description: Outlines the type of debt/asset details required
+            RequiredCustomerCreditAssessment:
+              type: string
+              description: Outlines the required credit assessment details required
+            RequiredCollateralCoverage:
+              type: string
+              description: Outlines the details of collateral required
+            RequiredCustomerProductandServicePaymentHistory:
+              type: string
+              description: Outlines the extent of the product usage history required
+            RequiredCustomerDocuments:
+              type: string
+              description: Lists required documentation (e.g. for proof of identity, assets, collateral)
+            ProposedTransactionDetails:
+              type: string
+              description: …
+            ProductInstanceReference:
+              type: object
+              description: The associated product instance for the underwriting decision
+            ProposedLoanTerms:
+              type: string
+              description: The proposed loan terms
+            ProposedLoanAmount:
+              type: number
+              description: The proposed loan amount
+            LoanPurpose:
+              type: string
+              description: The purpose for the loan  (e.g. mortgage for primary residence/rental)
+            CustomerReference:
+              type: object
+              description: Reference to the applying customer
+            CustomerReferenceDetails:
+              type: object
+              description: Reference details known about the customer
+            CustomerProductEligibilityTerms:
+              type: string
+              description: Definition of the terms under which the customer eligible for the loan
+            CustomerIncomeStatement:
+              type: string
+              description: The customers historical income statement (for individuals)
+            CustomerDebtStatement:
+              type: string
+              description: Covers bank and known non-bank managed debts
+            CustomerAssetStatement:
+              type: string
+              description: Covers bank and known non-bank managed assets
+            CollateralItemReference:
+              type: object
+              description: Reference to the customers collateral holdings that are available
+            CollateralItemType:
+              type: string
+              description: The type of collateral
+            CollateralItemValuation:
+              type: string
+              description: The valuation of the collateral (applying the required loan to asset ratio)
+            DocumentReference:
+              type: object
+              description: Reference to associated documents of significance
+            UnderwritingAssessmentDecision:
+              type: string
+              description: Details of the underwriting decision
+            UnderwritingAssessmentWorkProduct:
+              type: string
+              description: Work documentation, forms and schedules produced and referenced during the task
+  parameters:
+    UnderwritingID:
+      name: underwritingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    EvaluateUnderwritingAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateUnderwritingAssessmentRequest'
+    UpdateUnderwritingAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateUnderwritingAssessmentRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

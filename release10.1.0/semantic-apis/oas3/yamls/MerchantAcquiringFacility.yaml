@@ -1,0 +1,1803 @@
+openapi: 3.0.1
+info:
+  title: Merchant Acquiring Facility
+  description: This service domain orchestrates the activities related to Merchant fulfillment, Merchant Account maintenance, Merchant transactional activities and settlement, including the billing of merchant fees and charges.
+  version: 10.1.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/MerchantAcquiringFacility/10.1.0
+paths:
+  /MerchantAcquiringFacility/Initiate:
+    post:
+      tags:
+      - CR - MerchantAcquiringFacility
+      summary: InCR Initiate a new merchant acquiring facility
+      description: InCR Initiate a new merchant acquiring facility
+      operationId: Initiate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateMerchantAcquiringFacilityRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateMerchantAcquiringFacilityResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Update:
+    put:
+      tags:
+      - CR - MerchantAcquiringFacility
+      summary: UpCR Update details of the merchant acquiring facility
+      description: UpCR Update details of the merchant acquiring facility
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      requestBody:
+        $ref: '#/components/requestBodies/MerchantAcquiringFacility'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAcquiringFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Retrieve:
+    get:
+      tags:
+      - CR - MerchantAcquiringFacility
+      summary: ReCR Retrieve details about a merchant facility
+      description: ReCR Retrieve details about a merchant facility
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAcquiringFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/MerchantAccount/{merchantaccountId}/Retrieve:
+    get:
+      tags:
+      - BQ - MerchantAccount
+      summary: ReBQ Retrieve accounting details for the merchant account
+      description: ReBQ Retrieve accounting details for the merchant account
+      operationId: RetrieveMerchantAccount
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/MerchantAccountID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAcquiringFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Clearing/{clearingId}/Update:
+    put:
+      tags:
+      - BQ - Clearing
+      summary: UpBQ Update a clearing transaction booked against the account
+      description: UpBQ Update a clearing transaction booked against the account
+      operationId: UpdateClearing
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ClearingID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateClearingRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateClearingResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Clearing/{clearingId}/Execute:
+    put:
+      tags:
+      - BQ - Clearing
+      summary: ExBQ Execute a clearing transaction against the account
+      description: ExBQ Execute a clearing transaction against the account
+      operationId: ExecuteClearing
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ClearingID'
+      requestBody:
+        $ref: '#/components/requestBodies/ExecuteClearingRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteClearingResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Clearing/{clearingId}/Retrieve:
+    get:
+      tags:
+      - BQ - Clearing
+      summary: ReBQ Retrieve details about a clearing transaction
+      description: ReBQ Retrieve details about a clearing transaction
+      operationId: RetrieveClearing
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ClearingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveClearingResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Chargeback/{chargebackId}/Update:
+    put:
+      tags:
+      - BQ - Chargeback
+      summary: UpBQ Update a chargeback transaction booked against the account
+      description: UpBQ Update a chargeback transaction booked against the account
+      operationId: UpdateChargeback
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ChargebackID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateChargebackRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateChargebackResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Chargeback/{chargebackId}/Execute:
+    put:
+      tags:
+      - BQ - Chargeback
+      summary: ExBQ Execute a chargeback transaction against the account
+      description: ExBQ Execute a chargeback transaction against the account
+      operationId: ExecuteChargeback
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ChargebackID'
+      requestBody:
+        $ref: '#/components/requestBodies/ExecuteChargebackRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteChargebackResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Chargeback/{chargebackId}/Retrieve:
+    get:
+      tags:
+      - BQ - Chargeback
+      summary: ReBQ Retrieve details about a chargeback transaction
+      description: ReBQ Retrieve details about a chargeback transaction
+      operationId: RetrieveChargeback
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ChargebackID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveChargebackResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Settlement/{settlementId}/Update:
+    put:
+      tags:
+      - BQ - Settlement
+      summary: UpBQ Update a settlement transaction booked against the account
+      description: UpBQ Update a settlement transaction booked against the account
+      operationId: UpdateSettlement
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/SettlementID'
+      requestBody:
+        $ref: '#/components/requestBodies/MerchantAccount'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAccount'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Settlement/{settlementId}/Execute:
+    put:
+      tags:
+      - BQ - Settlement
+      summary: ExBQ Execute a settlement transaction against the account
+      description: ExBQ Execute a settlement transaction against the account
+      operationId: ExecuteSettlement
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/SettlementID'
+      requestBody:
+        $ref: '#/components/requestBodies/ExecuteSettlementRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteSettlementResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/Settlement/{settlementId}/Retrieve:
+    get:
+      tags:
+      - BQ - Settlement
+      summary: ReBQ Retrieve details about a settlement transaction
+      description: ReBQ Retrieve details about a settlement transaction
+      operationId: RetrieveSettlement
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/SettlementID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAcquiringFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/ServiceFees/{servicefeesId}/Update:
+    put:
+      tags:
+      - BQ - ServiceFees
+      summary: UpBQ Update a fee or penalty transaction booked against the account
+      description: UpBQ Update a fee or penalty transaction booked against the account
+      operationId: UpdateServiceFees
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ServiceFeesID'
+      requestBody:
+        $ref: '#/components/requestBodies/MerchantAccount'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAccount'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/ServiceFees/{servicefeesId}/Execute:
+    put:
+      tags:
+      - BQ - ServiceFees
+      summary: ExBQ Execute Apply Service Fee
+      description: ExBQ Execute Apply Service Fee
+      operationId: ExecuteServiceFees
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ServiceFeesID'
+      requestBody:
+        $ref: '#/components/requestBodies/ExecuteServiceFeesRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteServiceFeesResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MerchantAcquiringFacility/{merchantacquiringfacilityId}/ServiceFees/{servicefeesId}/Retrieve:
+    get:
+      tags:
+      - BQ - ServiceFees
+      summary: ReBQ Retrieve details about a fee or penalty charge
+      description: ReBQ Retrieve details about a fee or penalty charge
+      operationId: RetrieveServiceFees
+      parameters:
+      - $ref: '#/components/parameters/MerchantAcquiringFacilityID'
+      - $ref: '#/components/parameters/ServiceFeesID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantAcquiringFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    MerchantAcquiringFacility:
+      type: object
+      properties:
+        ProductInstanceReference:
+          type: object
+          description: Reference to the merchant facility product instance
+        CustomerReference:
+          type: object
+          description: Reference to the merchant primary party/owner
+        PartyReference:
+          type: object
+          description: Reference to the legal entity (typically the customer)
+        BankBranchOrLocationReference:
+          type: object
+          description: Bank branch associated with the merchant account for booking purposes
+        AccountCurrency:
+          type: string
+          description: The billing currency for the merchant acquiring facility account
+        TaxReference:
+          type: object
+          description: Reference identifier linking the account to appropriate tax handling
+        MerchantAcquiringFacilityOperationalTerms:
+          type: string
+          description: Operational terms governing the merchant facility
+        MerchantAcquiringFacilityPositionLimits:
+          type: string
+          description: Merchant acquiring facility limits (e.g. spend limits and credit limits for the merchant facility)
+        MerchantPositionLimitType:
+          type: string
+          description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+        MerchantPositionLimitSettings:
+          type: string
+          description: The position definition, associated limit settings and rules
+        MerchantPositionLimitValue:
+          type: string
+          description: The savings calculated position
+    Chargeback:
+      type: object
+      properties:
+        CardTransactionRecordReference:
+          type: object
+          description: Reference to the card transaction for the chargeback
+        ChargebackInstruction:
+          type: string
+          description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
+        CardTransactionProductInstanceReference:
+          type: object
+          description: The account number associated with the card transaction
+        CardHolderReference:
+          type: object
+          description: The identity of the account holder submitting the transaction
+        CardTransactionIssuedDeviceReference:
+          type: object
+          description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+        CardTransactionNetworkReference:
+          type: object
+          description: Reference to the network the card transaction is handled by as recorded with the transaction
+        CardTransactionIssuingBankReference:
+          type: object
+          description: Refers to the card holder's issuing bank as recorded with the transaction
+        CardTransactionMerchantAcquiringBankReference:
+          type: object
+          description: Refers to the merchant's acquiring bank as recorded with the transaction
+        CardTransactionType:
+          type: string
+          description: The type of transaction (purchase, cash advance, etc.)
+        CardTransactionCurrency:
+          type: string
+          description: The currency that the transaction is made in
+        CardTransactionAmountType:
+          type: string
+          description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+        CardTransactionAmount:
+          type: number
+          description: The amount corresponding to the type
+        CardTransactionMerchantReference:
+          type: object
+          description: Refers to the merchant initiating settlement
+        CardTransactionLocationReference:
+          type: object
+          description: Refers to the point of sale location
+        CardTransactionProductandServiceReference:
+          type: object
+          description: Details of the transaction (e.g. purchased service/product, purpose)
+        CardTransactionDate/Time:
+          type: string
+          description: Significant dates and times associated with the transaction
+        CardTransactionFXConversionCharge:
+          type: string
+          description: The applied currency conversion charge
+        CardTransactionInterchargeFee:
+          type: string
+          description: The applied intercharge fee
+        CardTransactionAuthorizationRecord:
+          type: string
+          description: Details the reference, amount, timestamp of the transaction authorization
+    Settlement:
+      type: object
+      properties:
+        ParticipantMerchantAcquirerBankReference:
+          type: object
+          description: Reference to the Merchant Acquiring bank for settlement processing
+        ParticipantIssuerBankReference:
+          type: object
+          description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+        CardFinancialSettlementServicePaymentAdviceRecord:
+          type: string
+          description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
+        ParticipantPaymentTransaction:
+          type: string
+          description: Details the payment made, typically from Issuer to Acquirer participant bank
+        ParticipantAcquirerBankSettlementAccountStatement:
+          type: string
+          description: The settlement account statement for the processing window - used to confirm payments
+    MerchantAccount:
+      type: object
+      properties:
+        MerchantAccountPostingTransaction:
+          type: string
+          description: Reference to the posting transaction against the merchant account
+        MerchantAcquiringAccountPostingPurpose:
+          type: string
+          description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+        MerchantAcquiringAccountPostingAmount:
+          type: number
+          description: Posted amount  (probably captured as a credit/debit pair)
+        MerchantAcquiringAccountPostingValueDate:
+          type: string
+          description: The value date for the posting
+        MerchantAcquiringAccountPostingResult:
+          type: string
+          description: Confirmation of the posting action
+    ServiceFees:
+      type: object
+      properties:
+        MerchantFeeConfigurationProfile:
+          type: string
+          description: The profile of applicable fees and penalties
+        MerchantFeeType:
+          type: string
+          description: The fee or penalty type applied
+        MerchantFeeDefinition:
+          type: string
+          description: Definition of the fee or penalty including when and how to apply
+        MerchantFeeApplicationRecord:
+          type: string
+          description: The record of applied fees and penalties including transactions and accrued amounts
+        MerchantFeeTransaction:
+          type: string
+          description: A record of an applied fee or penalty
+        TransactionDescription:
+          type: string
+          description: General description of the fee or penalty transaction
+        TransactionFeeType:
+          type: string
+          description: The fee or penalty type applied
+        TransactionFeeCharge:
+          type: string
+          description: The derived fee or penalty amount applied
+        MerchantFeeProjectionsandCommitments:
+          type: string
+          description: A record of projected fees and penalties
+        ProjectedTransactionDescription:
+          type: string
+          description: General description of the projected fee or penalty
+        ProjectedTransactionFeeType:
+          type: string
+          description: The fee or penalty type
+        ProjectedTransactionFeeCharge:
+          type: string
+          description: The anticipated fee or penalty amount
+    Clearing:
+      type: object
+      properties:
+        CardTransactionRecordReference:
+          type: object
+          description: Reference to the card transaction as recorded by issuer and/or acquirer
+        CardTransactionProductInstanceReference:
+          type: object
+          description: The account number associated with the card transaction
+        CardHolderReference:
+          type: object
+          description: The identity of the account holder submitting the transaction
+        CardTransactionIssuedDeviceReference:
+          type: object
+          description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+        CardTransactionNetworkReference:
+          type: object
+          description: Reference to the network the card transaction is handled by as recorded with the transaction
+        CardTransactionIssuingBankReference:
+          type: object
+          description: Refers to the card holder's issuing bank as recorded with the transaction
+        CardTransactionMerchantAcquiringBankReference:
+          type: object
+          description: Refers to the merchant's acquiring bank as recorded with the transaction
+        CardTransactionType:
+          type: string
+          description: The type of transaction (purchase, cash advance, etc.)
+        CardTransactionCurrency:
+          type: string
+          description: The currency that the transaction is made in
+        CardTransactionAmountType:
+          type: string
+          description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+        CardTransactionAmount:
+          type: number
+          description: The amount corresponding to the type
+        CardTransactionMerchantReference:
+          type: object
+          description: Refers to the merchant initiating settlement
+        CardTransactionLocationReference:
+          type: object
+          description: Refers to the point of sale location
+        CardTransactionProductandServiceReference:
+          type: object
+          description: Details of the transaction (e.g. purchased service/product, purpose)
+        CardTransactionDate/Time:
+          type: string
+          description: Significant dates and times associated with the transaction
+        CardTransactionFXConversionCharge:
+          type: string
+          description: The applied currency conversion charge
+        CardTransactionInterchargeFee:
+          type: string
+          description: The applied intercharge fee
+        CardTransactionAuthorizationRecord:
+          type: string
+          description: Details the reference, amount, timestamp of the transaction authorization
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    InitiateMerchantAcquiringFacilityRequest:
+      type: object
+      properties:
+        MerchantAcquiringFacility:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+              description: Reference to the merchant primary party/owner
+            PartyReference:
+              type: object
+              description: Reference to the legal entity (typically the customer)
+            BankBranchOrLocationReference:
+              type: object
+              description: Bank branch associated with the merchant account for booking purposes
+            AccountCurrency:
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+            TaxReference:
+              type: object
+              description: Reference identifier linking the account to appropriate tax handling
+            MerchantAcquiringFacilityOperationalTerms:
+              type: string
+              description: Operational terms governing the merchant facility
+            MerchantAcquiringFacilityPositionLimits:
+              type: string
+              description: Merchant acquiring facility limits (e.g. spend limits and credit limits for the merchant facility)
+            MerchantPositionLimitType:
+              type: string
+              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+            MerchantPositionLimitSettings:
+              type: string
+              description: The position definition, associated limit settings and rules
+    InitiateMerchantAcquiringFacilityResponse:
+      type: object
+      properties:
+        MerchantAcquiringFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: Reference to the merchant facility product instance
+            MerchantAcquiringFacilityOperationalTerms:
+              type: string
+              description: Operational terms governing the merchant facility
+            MerchantAcquiringFacilityPositionLimits:
+              type: string
+              description: Merchant acquiring facility limits (e.g. spend limits and credit limits for the merchant facility)
+            MerchantPositionLimitSettings:
+              type: string
+              description: The position definition, associated limit settings and rules
+            MerchantPositionLimitValue:
+              type: string
+              description: The savings calculated position
+    UpdateClearingRequest:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Clearing:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    UpdateClearingResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Clearing:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    ExecuteClearingRequest:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+        Clearing:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    ExecuteClearingResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Clearing:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+    RetrieveClearingResponse:
+      type: object
+      properties:
+        MerchantAcquiringFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: Reference to the merchant facility product instance
+            CustomerReference:
+              type: object
+              description: Reference to the merchant primary party/owner
+            PartyReference:
+              type: object
+              description: Reference to the legal entity (typically the customer)
+            BankBranchOrLocationReference:
+              type: object
+              description: Bank branch associated with the merchant account for booking purposes
+            AccountCurrency:
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+            TaxReference:
+              type: object
+              description: Reference identifier linking the account to appropriate tax handling
+            MerchantAcquiringFacilityOperationalTerms:
+              type: string
+              description: Operational terms governing the merchant facility
+            MerchantAcquiringFacilityPositionLimits:
+              type: string
+              description: Merchant acquiring facility limits (e.g. spend limits and credit limits for the merchant facility)
+            MerchantPositionLimitType:
+              type: string
+              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+            MerchantPositionLimitSettings:
+              type: string
+              description: The position definition, associated limit settings and rules
+            MerchantPositionLimitValue:
+              type: string
+              description: The savings calculated position
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Clearing:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    UpdateChargebackRequest:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Chargeback:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction for the chargeback
+            ChargebackInstruction:
+              type: string
+              description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    UpdateChargebackResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Chargeback:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction for the chargeback
+            ChargebackInstruction:
+              type: string
+              description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    ExecuteChargebackRequest:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+        Chargeback:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction for the chargeback
+            ChargebackInstruction:
+              type: string
+              description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    ExecuteChargebackResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Chargeback:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction for the chargeback
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+    RetrieveChargebackResponse:
+      type: object
+      properties:
+        MerchantAcquiringFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: Reference to the merchant facility product instance
+            CustomerReference:
+              type: object
+              description: Reference to the merchant primary party/owner
+            PartyReference:
+              type: object
+              description: Reference to the legal entity (typically the customer)
+            BankBranchOrLocationReference:
+              type: object
+              description: Bank branch associated with the merchant account for booking purposes
+            AccountCurrency:
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+            TaxReference:
+              type: object
+              description: Reference identifier linking the account to appropriate tax handling
+            MerchantAcquiringFacilityOperationalTerms:
+              type: string
+              description: Operational terms governing the merchant facility
+            MerchantAcquiringFacilityPositionLimits:
+              type: string
+              description: Merchant acquiring facility limits (e.g. spend limits and credit limits for the merchant facility)
+            MerchantPositionLimitType:
+              type: string
+              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+            MerchantPositionLimitSettings:
+              type: string
+              description: The position definition, associated limit settings and rules
+            MerchantPositionLimitValue:
+              type: string
+              description: The savings calculated position
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        Chargeback:
+          type: object
+          properties:
+            CardTransactionRecordReference:
+              type: object
+              description: Reference to the card transaction for the chargeback
+            ChargebackInstruction:
+              type: string
+              description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
+            CardTransactionProductInstanceReference:
+              type: object
+              description: The account number associated with the card transaction
+            CardHolderReference:
+              type: object
+              description: The identity of the account holder submitting the transaction
+            CardTransactionIssuedDeviceReference:
+              type: object
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+            CardTransactionNetworkReference:
+              type: object
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+            CardTransactionIssuingBankReference:
+              type: object
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+            CardTransactionMerchantAcquiringBankReference:
+              type: object
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+            CardTransactionType:
+              type: string
+              description: The type of transaction (purchase, cash advance, etc.)
+            CardTransactionCurrency:
+              type: string
+              description: The currency that the transaction is made in
+            CardTransactionAmountType:
+              type: string
+              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+            CardTransactionMerchantReference:
+              type: object
+              description: Refers to the merchant initiating settlement
+            CardTransactionLocationReference:
+              type: object
+              description: Refers to the point of sale location
+            CardTransactionProductandServiceReference:
+              type: object
+              description: Details of the transaction (e.g. purchased service/product, purpose)
+            CardTransactionDateOrTime:
+              type: string
+              description: Significant dates and times associated with the transaction
+            CardTransactionFXConversionCharge:
+              type: string
+              description: The applied currency conversion charge
+            CardTransactionInterchargeFee:
+              type: string
+              description: The applied intercharge fee
+            CardTransactionAuthorizationRecord:
+              type: string
+              description: Details the reference, amount, timestamp of the transaction authorization
+    ExecuteSettlementRequest:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+        Settlement:
+          type: object
+          properties:
+            ParticipantMerchantAcquirerBankReference:
+              type: object
+              description: Reference to the Merchant Acquiring bank for settlement processing
+            ParticipantIssuerBankReference:
+              type: object
+              description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+            CardFinancialSettlementServicePaymentAdviceRecord:
+              type: string
+              description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
+            ParticipantPaymentTransaction:
+              type: string
+              description: Details the payment made, typically from Issuer to Acquirer participant bank
+            ParticipantAcquirerBankSettlementAccountStatement:
+              type: string
+              description: The settlement account statement for the processing window - used to confirm payments
+    ExecuteSettlementResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+    ExecuteServiceFeesRequest:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingPurpose:
+              type: string
+              description: Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)
+            MerchantAcquiringAccountPostingAmount:
+              type: number
+              description: Posted amount  (probably captured as a credit/debit pair)
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+        ServiceFees:
+          type: object
+          properties:
+            MerchantFeeConfigurationProfile:
+              type: string
+              description: The profile of applicable fees and penalties
+            MerchantFeeType:
+              type: string
+              description: The fee or penalty type applied
+            MerchantFeeApplicationRecord:
+              type: string
+              description: The record of applied fees and penalties including transactions and accrued amounts
+            MerchantFeeTransaction:
+              type: string
+              description: A record of an applied fee or penalty
+            TransactionDescription:
+              type: string
+              description: General description of the fee or penalty transaction
+            TransactionFeeType:
+              type: string
+              description: The fee or penalty type applied
+            MerchantFeeProjectionsandCommitments:
+              type: string
+              description: A record of projected fees and penalties
+            ProjectedTransactionDescription:
+              type: string
+              description: General description of the projected fee or penalty
+            ProjectedTransactionFeeType:
+              type: string
+              description: The fee or penalty type
+    ExecuteServiceFeesResponse:
+      type: object
+      properties:
+        MerchantAccount:
+          type: object
+          properties:
+            MerchantAccountPostingTransaction:
+              type: string
+              description: Reference to the posting transaction against the merchant account
+            MerchantAcquiringAccountPostingValueDate:
+              type: string
+              description: The value date for the posting
+            MerchantAcquiringAccountPostingResult:
+              type: string
+              description: Confirmation of the posting action
+        ServiceFees:
+          type: object
+          properties:
+            MerchantFeeConfigurationProfile:
+              type: string
+              description: The profile of applicable fees and penalties
+            MerchantFeeDefinition:
+              type: string
+              description: Definition of the fee or penalty including when and how to apply
+            MerchantFeeApplicationRecord:
+              type: string
+              description: The record of applied fees and penalties including transactions and accrued amounts
+            MerchantFeeTransaction:
+              type: string
+              description: A record of an applied fee or penalty
+            TransactionFeeType:
+              type: string
+              description: The fee or penalty type applied
+            TransactionFeeCharge:
+              type: string
+              description: The derived fee or penalty amount applied
+            MerchantFeeProjectionsandCommitments:
+              type: string
+              description: A record of projected fees and penalties
+            ProjectedTransactionFeeType:
+              type: string
+              description: The fee or penalty type
+            ProjectedTransactionFeeCharge:
+              type: string
+              description: The anticipated fee or penalty amount
+  parameters:
+    MerchantAcquiringFacilityID:
+      name: merchantacquiringfacilityId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ChargebackID:
+      name: chargebackId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    SettlementID:
+      name: settlementId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    MerchantAccountID:
+      name: merchantaccountId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ServiceFeesID:
+      name: servicefeesId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ClearingID:
+      name: clearingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    InitiateMerchantAcquiringFacilityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateMerchantAcquiringFacilityRequest'
+    MerchantAcquiringFacility:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MerchantAcquiringFacility'
+    UpdateClearingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateClearingRequest'
+    ExecuteClearingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteClearingRequest'
+    UpdateChargebackRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateChargebackRequest'
+    ExecuteChargebackRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteChargebackRequest'
+    MerchantAccount:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MerchantAccount'
+    ExecuteSettlementRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteSettlementRequest'
+    ExecuteServiceFeesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServiceFeesRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

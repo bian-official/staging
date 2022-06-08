@@ -1,0 +1,679 @@
+openapi: 3.0.1
+info:
+  title: Corporate Treasury
+  description: This service domain orchestrates the consolidation and presentation of summary transaction details in order to assemble a timely and accurate view of the overall treasury position of the Bank at any one time. It is also responsible for determining the different interest and exchange rates applied to different products and services within the bank
+  version: 10.1.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/CorporateTreasury/10.1.0
+paths:
+  /CorporateTreasury/{corporatetreasuryId}/Update:
+    put:
+      tags:
+      - CR - CorporateTreasuryManagementPlan
+      summary: UpCR Update the corporate treasury plan
+      description: UpCR Update the corporate treasury plan
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateCorporateTreasuryManagementPlanRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCorporateTreasuryManagementPlanResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/Retrieve:
+    get:
+      tags:
+      - CR - CorporateTreasuryManagementPlan
+      summary: ReCR Retrieve details about the corporate treasury plan
+      description: ReCR Retrieve details about the corporate treasury plan
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorporateTreasuryManagementPlan'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/Liquidity/{liquidityId}/Capture:
+    put:
+      tags:
+      - BQ - Liquidity
+      summary: CaBQ Capture transactions feeding into liquidity analysis
+      description: CaBQ Capture transactions feeding into liquidity analysis
+      operationId: CaptureLiquidity
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/LiquidityID'
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureLiquidityRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/Liquidity/{liquidityId}/Retrieve:
+    get:
+      tags:
+      - BQ - Liquidity
+      summary: ReBQ Retrieve liquidity analysis details
+      description: ReBQ Retrieve liquidity analysis details
+      operationId: RetrieveLiquidity
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/LiquidityID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveLiquidityResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/TacticalFunding/{tacticalfundingId}/Retrieve:
+    get:
+      tags:
+      - BQ - TacticalFunding
+      summary: ReBQ Retrieve tactical funding details
+      description: ReBQ Retrieve tactical funding details
+      operationId: RetrieveTacticalFunding
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/TacticalFundingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TacticalFunding'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/StrategicFunding/{strategicfundingId}/Capture:
+    put:
+      tags:
+      - BQ - StrategicFunding
+      summary: CaBQ Capture details of large strategic transactions
+      description: CaBQ Capture details of large strategic transactions
+      operationId: CaptureStrategicFunding
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/StrategicFundingID'
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureStrategicFundingRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/StrategicFunding/{strategicfundingId}/Retrieve:
+    get:
+      tags:
+      - BQ - StrategicFunding
+      summary: ReBQ Retrieve strategic funding details
+      description: ReBQ Retrieve strategic funding details
+      operationId: RetrieveStrategicFunding
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/StrategicFundingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategicFunding'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/Securitization/{securitizationId}/Update:
+    put:
+      tags:
+      - BQ - Securitization
+      summary: UpBQ Update securitization tranche and task details
+      description: UpBQ Update securitization tranche and task details
+      operationId: UpdateSecuritization
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/SecuritizationID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateSecuritizationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSecuritizationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/Securitization/{securitizationId}/Retrieve:
+    get:
+      tags:
+      - BQ - Securitization
+      summary: ReBQ Retrieve securitization tranche and task related details
+      description: ReBQ Retrieve securitization tranche and task related details
+      operationId: RetrieveSecuritization
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/SecuritizationID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Securitization'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CorporateTreasury/{corporatetreasuryId}/BankRates/{bankratesId}/Retrieve:
+    get:
+      tags:
+      - BQ - BankRates
+      summary: ReBQ Retrieve bank rate table and details
+      description: ReBQ Retrieve bank rate table and details
+      operationId: RetrieveBankRates
+      parameters:
+      - $ref: '#/components/parameters/CorporateTreasuryID'
+      - $ref: '#/components/parameters/BankRatesID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveBankRatesResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    CorporateTreasuryManagementPlan:
+      type: object
+      properties:
+        TreasuryPlanningPoliciesAndGuidelines:
+          type: string
+          description: The bank's treasury policies and guidelines reflected in the plan
+        TreasuryPlanOperatingParameters:
+          type: string
+          description: The array of group treasury positions and limits to be met through the plan
+        TreasuryPlanGoals:
+          type: string
+          description: Target financial performance goals set out in the bank's corporate treasury plan
+        EnterpriseFinancialStatements:
+          type: string
+          description: The bank financial statements include the balance sheet, statement of cash flows, statement of retained earnings and the income statement
+        EnterpriseBalanceSheetDetailedContent:
+          type: string
+          description: The balance sheet breakdown include individual assets/liabilities as necessary
+        EnterpriseBankAccountingAndCashManagementRecords:
+          type: string
+          description: Account records that cover booking, pooling and netting activities across all relevant bank activity
+        CapitalOrWholesaleMarketTransactions:
+          type: string
+          description: Includes large transactions and net positions for smaller trade activity as appropriate
+        CurrencyandRateRiskAnalysis:
+          type: object
+          description: Analytical views detailing exposure and sensitivity to currency and interest rate fluctuations
+    Securitization:
+      type: object
+      properties:
+        BankSecuritizationPoliciesandguidelines:
+          type: string
+          description: Policies and guidelines that determine when and how asset securitization will be considered
+        SecuritizationTrancheReference:
+          type: object
+          description: Reference to a selected group of bank balance sheet assets that are bundled into a tranche for securitization
+        SecuritizationTrancheRecord:
+          type: string
+          description: The record of the bundled balance sheet items that are to be securitized
+        SecuritizationTask:
+          type: string
+          description: Description of a response initiated by corporate treasury
+    Liquidity:
+      type: object
+      properties:
+        EnterpriseLiquidity/CashManagementAnalysis:
+          type: string
+          description: Consolidated cashflow/liquidity reports
+        EnterpriseLargePaymentTransactionRecords:
+          type: string
+          description: Details of large transactions that impact the treasury position that need to be considered individually
+        BusinessUnitFinancialReports:
+          type: string
+          description: These unit reports include cost/income actual and projected values as required
+        LiquidityResolutionTask:
+          type: string
+          description: Description of a response initiated by corporate treasury
+    BankRates:
+      type: object
+      properties:
+        BankRateType:
+          type: string
+          description: The type of bank interest or currency rate that is to be applied in production (e.g. bank's consumer mortgage rate)
+        BankRateValue:
+          type: object
+          description: The current value (value range if appropriate) to apply
+        BankRateValueDate:
+          type: string
+          description: The key date and time values associated with the rate
+        BankRateValueHistory:
+          type: object
+          description: Historical values (maintained for back testing, corrections etc.)
+        BankRateRecordReference:
+          type: object
+          description: Reference to the distributed record containing the prevailing bank rates
+        BankRateRecord:
+          type: object
+          description: The record of the prevailing bank rates
+        BankRateRecordDate:
+          type: string
+          description: Date and time stamp for rate value record
+    TacticalFunding:
+      type: object
+      properties:
+        CapitalAdequacyRequirements:
+          type: string
+          description: Details the required capital holdings against which the current position is tracked and hedging, re-balancing activity initiated for compliance
+        BankPositionsandHedgingRequirements:
+          type: string
+          description: Breakdown of the treasury positions monitored and there current/projected ranges
+        EnterpriseBalanceSheetPositions:
+          type: string
+          description: Selected balance sheet views used to evaluate short term funding needs
+        TacticalFundingResolutionTask:
+          type: string
+          description: Description of a response initiated by corporate treasury
+    StrategicFunding:
+      type: object
+      properties:
+        FinancialPerformanceandBalanceSheetProjections:
+          type: string
+          description: Financial reports from multiple business units
+        ECMAndDCMMarketTransactions:
+          type: string
+          description: Details of equity and debt transactions
+        StrategicInvestmentHoldings/Transactions:
+          type: string
+          description: Details of major investment/divestment transactions
+        EnterpriseBalanceSheetPositions:
+          type: string
+          description: Summary details and analysis of the balance sheet relevant to longer term planning
+        StrategicFundingResolutionTask:
+          type: string
+          description: Description of a response initiated by corporate treasury
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    UpdateCorporateTreasuryManagementPlanRequest:
+      type: object
+      properties:
+        CorporateTreasuryManagementPlan:
+          type: object
+          properties:
+            TreasuryPlanningPoliciesAndGuidelines:
+              type: string
+              description: The bank's treasury policies and guidelines reflected in the plan
+            TreasuryPlanOperatingParameters:
+              type: string
+              description: The array of group treasury positions and limits to be met through the plan
+            TreasuryPlanGoals:
+              type: string
+              description: Target financial performance goals set out in the bank's corporate treasury plan
+    UpdateCorporateTreasuryManagementPlanResponse:
+      type: object
+      properties:
+        CorporateTreasuryManagementPlan:
+          type: object
+          properties:
+            TreasuryPlanningPoliciesAndGuidelines:
+              type: string
+              description: The bank's treasury policies and guidelines reflected in the plan
+            TreasuryPlanOperatingParameters:
+              type: string
+              description: The array of group treasury positions and limits to be met through the plan
+            TreasuryPlanGoals:
+              type: string
+              description: Target financial performance goals set out in the bank's corporate treasury plan
+    CaptureLiquidityRequest:
+      type: object
+      properties:
+        Liquidity:
+          type: object
+          properties:
+            EnterpriseLargePaymentTransactionRecords:
+              type: string
+              description: Details of large transactions that impact the treasury position that need to be considered individually
+    RetrieveLiquidityResponse:
+      type: object
+      properties:
+        CorporateTreasuryManagementPlan:
+          type: object
+          properties:
+            EnterpriseBankAccountingAndCashManagementRecords:
+              type: string
+              description: Account records that cover booking, pooling and netting activities across all relevant bank activity
+            CurrencyandRateRiskAnalysis:
+              type: object
+              description: Analytical views detailing exposure and sensitivity to currency and interest rate fluctuations
+        Liquidity:
+          type: object
+          properties:
+            EnterpriseLiquidityOrCashManagementAnalysis:
+              type: string
+              description: Consolidated cashflow/liquidity reports
+            EnterpriseLargePaymentTransactionRecords:
+              type: string
+              description: Details of large transactions that impact the treasury position that need to be considered individually
+            BusinessUnitFinancialReports:
+              type: string
+              description: These unit reports include cost/income actual and projected values as required
+            LiquidityResolutionTask:
+              type: string
+              description: Description of a response initiated by corporate treasury
+    CaptureStrategicFundingRequest:
+      type: object
+      properties:
+        StrategicFunding:
+          type: object
+          properties:
+            ECMAndDCMMarketTransactions:
+              type: string
+              description: Details of equity and debt transactions
+            StrategicInvestmentHoldingsOrTransactions:
+              type: string
+              description: Details of major investment/divestment transactions
+    UpdateSecuritizationRequest:
+      type: object
+      properties:
+        Securitization:
+          type: object
+          properties:
+            SecuritizationTrancheRecord:
+              type: string
+              description: The record of the bundled balance sheet items that are to be securitized
+            SecuritizationTask:
+              type: string
+              description: Description of a response initiated by corporate treasury
+    UpdateSecuritizationResponse:
+      type: object
+      properties:
+        Securitization:
+          type: object
+          properties:
+            SecuritizationTrancheRecord:
+              type: string
+              description: The record of the bundled balance sheet items that are to be securitized
+            SecuritizationTask:
+              type: string
+              description: Description of a response initiated by corporate treasury
+    RetrieveBankRatesResponse:
+      type: object
+      properties:
+        BankRates:
+          type: object
+          properties:
+            BankRateType:
+              type: string
+              description: The type of bank interest or currency rate that is to be applied in production (e.g. bank's consumer mortgage rate)
+            BankRateValue:
+              type: object
+              description: The current value (value range if appropriate) to apply
+            BankRateValueDate:
+              type: string
+              description: The key date and time values associated with the rate
+            BankRateValueHistory:
+              type: object
+              description: Historical values (maintained for back testing, corrections etc.)
+            BankRateRecordReference:
+              type: object
+              description: Reference to the distributed record containing the prevailing bank rates
+            BankRateRecordDate:
+              type: string
+              description: Date and time stamp for rate value record
+  parameters:
+    CorporateTreasuryID:
+      name: corporatetreasuryId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    SecuritizationID:
+      name: securitizationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    LiquidityID:
+      name: liquidityId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    BankRatesID:
+      name: bankratesId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    TacticalFundingID:
+      name: tacticalfundingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    StrategicFundingID:
+      name: strategicfundingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    UpdateCorporateTreasuryManagementPlanRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCorporateTreasuryManagementPlanRequest'
+    CaptureLiquidityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureLiquidityRequest'
+    CaptureStrategicFundingRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureStrategicFundingRequest'
+    UpdateSecuritizationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateSecuritizationRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...
