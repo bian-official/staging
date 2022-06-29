@@ -1,358 +1,337 @@
 openapi: 3.0.1
 info:
   title: Issued Device Tracking
-  description: This service domain handles operational access to issued device tracking services. Services report on the status of devices such as cards, fobs, etc. that have been issued to customers. Service notifications include fraud warnings/alerts and device cancellation.
-  version: 10.1.0
+  description: 'This service domain handles operational access to issued device tracking services. Services report on the status of devices such as cards, fobs, etc. that have been issued to customers. Service notifications include fraud warnings/alerts and device cancellation.'
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/IssuedDeviceTracking/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/IssuedDeviceTracking/10.1.0
 paths:
   /IssuedDeviceTracking/Initiate:
     post:
       tags:
-      - CR - IssuedDeviceState
+        - CR - IssuedDeviceState
       summary: InCR Initiate tracking for an allocated issued device
       description: InCR Initiate tracking for an allocated issued device
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/InitiateIssuedDeviceStateRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDeviceState'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateIssuedDeviceStateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/Update:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/Update':
     put:
       tags:
-      - CR - IssuedDeviceState
+        - CR - IssuedDeviceState
       summary: UpCR Update details of a tracked issued device
       description: UpCR Update details of a tracked issued device
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
       requestBody:
         $ref: '#/components/requestBodies/IssuedDeviceState'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDeviceState'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/IssuedDeviceState'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/Retrieve:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/Retrieve':
     get:
       tags:
-      - CR - IssuedDeviceState
+        - CR - IssuedDeviceState
       summary: ReCR Retrieve details about a tracked device
       description: ReCR Retrieve details about a tracked device
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDeviceState'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveIssuedDeviceStateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/InternalNotification/{internalnotificationId}/Update:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/InternalNotification/{internalnotificationid}/Update':
     put:
       tags:
-      - BQ - InternalNotification
+        - BQ - InternalNotification
       summary: UpBQ Update captured internal status details for an issued device
       description: UpBQ Update captured internal status details for an issued device
       operationId: UpdateInternalNotification
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
-      - $ref: '#/components/parameters/InternalNotificationID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
+        - $ref: '#/components/parameters/internalnotificationid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateInternalNotificationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateInternalNotificationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateInternalNotificationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/InternalNotification/{internalnotificationId}/Capture:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/InternalNotification/{internalnotificationid}/Capture':
     put:
       tags:
-      - BQ - InternalNotification
+        - BQ - InternalNotification
       summary: CaBQ Capture status notification for an issued device
       description: CaBQ Capture status notification for an issued device
       operationId: CaptureInternalNotification
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
-      - $ref: '#/components/parameters/InternalNotificationID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
+        - $ref: '#/components/parameters/internalnotificationid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureInternalNotificationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureInternalNotificationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureInternalNotificationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/InternalNotification/{internalnotificationId}/Retrieve:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/InternalNotification/{internalnotificationid}/Retrieve':
     get:
       tags:
-      - BQ - InternalNotification
+        - BQ - InternalNotification
       summary: ReBQ Retrieve internal status notification details
       description: ReBQ Retrieve internal status notification details
       operationId: RetrieveInternalNotification
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
-      - $ref: '#/components/parameters/InternalNotificationID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
+        - $ref: '#/components/parameters/internalnotificationid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveInternalNotificationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveInternalNotificationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/ExternalReport/{externalreportId}/Update:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/ExternalReport/{externalreportid}/Update':
     put:
       tags:
-      - BQ - ExternalReport
+        - BQ - ExternalReport
       summary: UpBQ Update captured externally reported status details for an issued device
       description: UpBQ Update captured externally reported status details for an issued device
       operationId: UpdateExternalReport
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
-      - $ref: '#/components/parameters/ExternalReportID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
+        - $ref: '#/components/parameters/externalreportid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateExternalReportRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateExternalReportResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateExternalReportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/ExternalReport/{externalreportId}/Capture:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/ExternalReport/{externalreportid}/Capture':
     put:
       tags:
-      - BQ - ExternalReport
+        - BQ - ExternalReport
       summary: CaBQ Capture external notification status details for an issued device
       description: CaBQ Capture external notification status details for an issued device
       operationId: CaptureExternalReport
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
-      - $ref: '#/components/parameters/ExternalReportID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
+        - $ref: '#/components/parameters/externalreportid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureExternalReportRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureExternalReportResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureExternalReportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceTracking/{issueddevicetrackingId}/ExternalReport/{externalreportId}/Retrieve:
+  '/IssuedDeviceTracking/{issueddevicetrackingid}/ExternalReport/{externalreportid}/Retrieve':
     get:
       tags:
-      - BQ - ExternalReport
+        - BQ - ExternalReport
       summary: ReBQ Retrieve external status notification details
       description: ReBQ Retrieve external status notification details
       operationId: RetrieveExternalReport
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceTrackingID'
-      - $ref: '#/components/parameters/ExternalReportID'
+        - $ref: '#/components/parameters/issueddevicetrackingid'
+        - $ref: '#/components/parameters/externalreportid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveExternalReportResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveExternalReportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    IssuedDeviceState:
+    HTTPError:
       type: object
       properties:
-        InformationFeedProviderReference:
-          type: object
-          description: Reference to the external information feed service supplier (IP) providing device status reports
-        IssuedDeviceAllocationInstanceReference:
-          type: object
-          description: Reference to the issued device, include its status as maintained by administration
-        IssuedDeviceAllocationStatus:
+        status_code:
           type: string
-          description: Is the status of the issued device that is updated
+          format: string
+        status:
+          type: string
+          format: string
+        message:
+          type: string
+          format: string
+      description: Status Attributes
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Provided reference to the target issued device in the form defined by the IP
     ExternalReport:
       type: object
       properties:
         InformationFeedServiceContentRecord:
           type: string
           description: Is the record of the information notified by the IP that can reference a single device notification or a batch file covering multiple devices
+          format: string
         IssuedDeviceReference:
-          type: object
-          description: Provided reference to the target issued device in the form defined by the IP
+          $ref: '#/components/schemas/object'
         IssuedDeviceType:
           type: string
           description: Type of issued device being notified in the form defined by the IP
+          format: string
         CustomerReference:
-          type: object
-          description: Reference to the associated customer in the form defined by the IP
+          $ref: '#/components/schemas/object'
         ProductInstanceReference:
-          type: object
-          description: Reference to the associated product instance in the form defined by the IP
+          $ref: '#/components/schemas/object'
         StatusUpdateDetails:
           type: string
-          description: The details of the status update (e.g. reported lost or stolen device, device broken)
+          description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+          format: string
         StatusUpdateResult:
           type: string
           description: The response to the status update request (e.g. update processed)
+          format: string
         Date:
           type: string
           description: Key dates and times associated with the external notification
+          format: string
+      description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
     InternalNotification:
       type: object
       properties:
         IssuedDeviceReference:
-          type: object
-          description: Provided reference to the target issued device
+          $ref: '#/components/schemas/object'
         IssuedDeviceType:
           type: string
           description: Type of issued device being notified
+          format: string
         CustomerReference:
-          type: object
-          description: Reference to the associated customer if applicable
+          $ref: '#/components/schemas/object'
         ProductInstanceReference:
-          type: object
-          description: Reference to the associated product instance if appropriate
+          $ref: '#/components/schemas/object'
         StatusUpdateDetails:
           type: string
-          description: The details of the status update (e.g. reported lost or stolen device, device broken)
+          description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+          format: string
         StatusUpdateResult:
           type: string
           description: The response to the status update request (e.g. update processed)
+          format: string
         Date:
           type: string
           description: Key dates and times associated with the notification
-    HTTPError:
+          format: string
+      description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
+    IssuedDeviceState:
       type: object
       properties:
-        status_code:
+        InformationFeedProviderReference:
+          $ref: '#/components/schemas/object'
+        IssuedDeviceAllocationInstanceReference:
+          $ref: '#/components/schemas/object'
+        IssuedDeviceAllocationStatus:
           type: string
-          description: NA
-        status:
-          type: string
-          description: NA
-        message:
-          type: string
-          description: NA
+          description: Is the status of the issued device that is updated
+          format: string
+      description: 'Monitor and define the status/rating of some entity within Issued Device Tracking. '
     InitiateIssuedDeviceStateRequest:
       type: object
       properties:
@@ -360,11 +339,42 @@ components:
           type: object
           properties:
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
+      description: 'Input: InCR Initiate tracking for an allocated issued device'
+    InitiateIssuedDeviceStateResponse:
+      type: object
+      properties:
+        IssuedDeviceState:
+          type: object
+          properties:
+            InformationFeedProviderReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceAllocationInstanceReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceAllocationStatus:
+              type: string
+              description: Is the status of the issued device that is updated
+              format: string
+      description: 'Output: InCR Initiate tracking for an allocated issued device'
+    RetrieveIssuedDeviceStateResponse:
+      type: object
+      properties:
+        IssuedDeviceState:
+          type: object
+          properties:
+            InformationFeedProviderReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceAllocationInstanceReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceAllocationStatus:
+              type: string
+              description: Is the status of the issued device that is updated
+              format: string
+      description: 'Output: ReCR Retrieve details about a tracked device'
     UpdateInternalNotificationRequest:
       type: object
       properties:
@@ -372,35 +382,35 @@ components:
           type: object
           properties:
             InformationFeedProviderReference:
-              type: object
-              description: Reference to the external information feed service supplier (IP) providing device status reports
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
         InternalNotification:
           type: object
           properties:
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer if applicable
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance if appropriate
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Input: UpBQ Update captured internal status details for an issued device'
     UpdateInternalNotificationResponse:
       type: object
       properties:
@@ -408,35 +418,35 @@ components:
           type: object
           properties:
             InformationFeedProviderReference:
-              type: object
-              description: Reference to the external information feed service supplier (IP) providing device status reports
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
         InternalNotification:
           type: object
           properties:
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer if applicable
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance if appropriate
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Output: UpBQ Update captured internal status details for an issued device'
     CaptureInternalNotificationRequest:
       type: object
       properties:
@@ -444,20 +454,20 @@ components:
           type: object
           properties:
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer if applicable
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance if appropriate
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
+      description: 'Input: CaBQ Capture status notification for an issued device'
     CaptureInternalNotificationResponse:
       type: object
       properties:
@@ -467,6 +477,8 @@ components:
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Output: CaBQ Capture status notification for an issued device'
     RetrieveInternalNotificationResponse:
       type: object
       properties:
@@ -474,35 +486,35 @@ components:
           type: object
           properties:
             InformationFeedProviderReference:
-              type: object
-              description: Reference to the external information feed service supplier (IP) providing device status reports
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
         InternalNotification:
           type: object
           properties:
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer if applicable
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance if appropriate
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Output: ReBQ Retrieve internal status notification details'
     UpdateExternalReportRequest:
       type: object
       properties:
@@ -510,38 +522,39 @@ components:
           type: object
           properties:
             InformationFeedProviderReference:
-              type: object
-              description: Reference to the external information feed service supplier (IP) providing device status reports
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
         ExternalReport:
           type: object
           properties:
             InformationFeedServiceContentRecord:
               type: string
               description: Is the record of the information notified by the IP that can reference a single device notification or a batch file covering multiple devices
+              format: string
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device in the form defined by the IP
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified in the form defined by the IP
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer in the form defined by the IP
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance in the form defined by the IP
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Input: UpBQ Update captured externally reported status details for an issued device'
     UpdateExternalReportResponse:
       type: object
       properties:
@@ -549,38 +562,39 @@ components:
           type: object
           properties:
             InformationFeedProviderReference:
-              type: object
-              description: Reference to the external information feed service supplier (IP) providing device status reports
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
         ExternalReport:
           type: object
           properties:
             InformationFeedServiceContentRecord:
               type: string
               description: Is the record of the information notified by the IP that can reference a single device notification or a batch file covering multiple devices
+              format: string
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device in the form defined by the IP
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified in the form defined by the IP
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer in the form defined by the IP
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance in the form defined by the IP
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Output: UpBQ Update captured externally reported status details for an issued device'
     CaptureExternalReportRequest:
       type: object
       properties:
@@ -590,21 +604,22 @@ components:
             InformationFeedServiceContentRecord:
               type: string
               description: Is the record of the information notified by the IP that can reference a single device notification or a batch file covering multiple devices
+              format: string
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device in the form defined by the IP
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified in the form defined by the IP
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer in the form defined by the IP
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance in the form defined by the IP
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
+      description: 'Input: CaBQ Capture external notification status details for an issued device'
     CaptureExternalReportResponse:
       type: object
       properties:
@@ -614,6 +629,8 @@ components:
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
+              format: string
+      description: 'Output: CaBQ Capture external notification status details for an issued device'
     RetrieveExternalReportResponse:
       type: object
       properties:
@@ -621,141 +638,186 @@ components:
           type: object
           properties:
             InformationFeedProviderReference:
-              type: object
-              description: Reference to the external information feed service supplier (IP) providing device status reports
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationInstanceReference:
-              type: object
-              description: Reference to the issued device, include its status as maintained by administration
+              $ref: '#/components/schemas/object'
             IssuedDeviceAllocationStatus:
               type: string
               description: Is the status of the issued device that is updated
+              format: string
         ExternalReport:
           type: object
           properties:
             InformationFeedServiceContentRecord:
               type: string
               description: Is the record of the information notified by the IP that can reference a single device notification or a batch file covering multiple devices
+              format: string
             IssuedDeviceReference:
-              type: object
-              description: Provided reference to the target issued device in the form defined by the IP
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: Type of issued device being notified in the form defined by the IP
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the associated customer in the form defined by the IP
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Reference to the associated product instance in the form defined by the IP
+              $ref: '#/components/schemas/object'
             StatusUpdateDetails:
               type: string
-              description: The details of the status update (e.g. reported lost or stolen device, device broken)
+              description: 'The details of the status update (e.g. reported lost or stolen device, device broken)'
+              format: string
             StatusUpdateResult:
               type: string
               description: The response to the status update request (e.g. update processed)
-  parameters:
-    IssuedDeviceTrackingID:
-      name: issueddevicetrackingId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ExternalReportID:
-      name: externalreportId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    InternalNotificationID:
-      name: internalnotificationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    InitiateIssuedDeviceStateRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateIssuedDeviceStateRequest'
-    IssuedDeviceState:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IssuedDeviceState'
-    UpdateInternalNotificationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateInternalNotificationRequest'
-    CaptureInternalNotificationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureInternalNotificationRequest'
-    UpdateExternalReportRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateExternalReportRequest'
-    CaptureExternalReportRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureExternalReportRequest'
+              format: string
+      description: 'Output: ReBQ Retrieve external status notification details'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    InitiateIssuedDeviceStateResponse:
+      description: InitiateIssuedDeviceStateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceStateResponse'
+    IssuedDeviceState:
+      description: IssuedDeviceState
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssuedDeviceState'
+    RetrieveIssuedDeviceStateResponse:
+      description: RetrieveIssuedDeviceStateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveIssuedDeviceStateResponse'
+    UpdateInternalNotificationResponse:
+      description: UpdateInternalNotificationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateInternalNotificationResponse'
+    CaptureInternalNotificationResponse:
+      description: CaptureInternalNotificationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureInternalNotificationResponse'
+    RetrieveInternalNotificationResponse:
+      description: RetrieveInternalNotificationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveInternalNotificationResponse'
+    UpdateExternalReportResponse:
+      description: UpdateExternalReportResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateExternalReportResponse'
+    CaptureExternalReportResponse:
+      description: CaptureExternalReportResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureExternalReportResponse'
+    RetrieveExternalReportResponse:
+      description: RetrieveExternalReportResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveExternalReportResponse'
+  parameters:
+    issueddevicetrackingid:
+      name: issueddevicetrackingid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    internalnotificationid:
+      name: internalnotificationid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    externalreportid:
+      name: externalreportid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    InitiateIssuedDeviceStateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceStateRequest'
+      required: true
+    IssuedDeviceState:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssuedDeviceState'
+      required: true
+    UpdateInternalNotificationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateInternalNotificationRequest'
+      required: true
+    CaptureInternalNotificationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureInternalNotificationRequest'
+      required: true
+    UpdateExternalReportRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateExternalReportRequest'
+      required: true
+    CaptureExternalReportRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureExternalReportRequest'
+      required: true

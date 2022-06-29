@@ -2,181 +2,178 @@ openapi: 3.0.1
 info:
   title: Servicing Order
   description: This service domain handles the processing of a customer servicing request as a predefined procedure. A range of standard servicing requests can be supported. The process can include a check of permissions when the request is made by a third party/service provider
-  version: 10.1.0
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/ServicingOrder/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/ServicingOrder/10.1.0
 paths:
   /ServicingOrder/Initiate:
     post:
       tags:
-      - CR - ServicingOrderProcedure
+        - CR - ServicingOrderProcedure
       summary: InCR Initiate a servicing order
       description: InCR Initiate a servicing order
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/InitiateServicingOrderProcedureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateServicingOrderProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateServicingOrderProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingOrder/{servicingorderId}/Execute:
+  '/ServicingOrder/{servicingorderid}/Execute':
     put:
       tags:
-      - CR - ServicingOrderProcedure
+        - CR - ServicingOrderProcedure
       summary: ExCR Execute an automated task in a servicing order (e.g. upload data)
       description: ExCR Execute an automated task in a servicing order (e.g. upload data)
       operationId: Execute
       parameters:
-      - $ref: '#/components/parameters/ServicingOrderID'
+        - $ref: '#/components/parameters/servicingorderid'
       requestBody:
         $ref: '#/components/requestBodies/ExecuteServicingOrderProcedureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExecuteServicingOrderProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ExecuteServicingOrderProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingOrder/{servicingorderId}/Request:
+  '/ServicingOrder/{servicingorderid}/Request':
     put:
       tags:
-      - CR - ServicingOrderProcedure
+        - CR - ServicingOrderProcedure
       summary: RqCR Request manual intervention in a servicing order (e.g. engage a servicing agent)
       description: RqCR Request manual intervention in a servicing order (e.g. engage a servicing agent)
       operationId: Request
       parameters:
-      - $ref: '#/components/parameters/ServicingOrderID'
+        - $ref: '#/components/parameters/servicingorderid'
       requestBody:
         $ref: '#/components/requestBodies/RequestServicingOrderProcedureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestServicingOrderProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestServicingOrderProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingOrder/{servicingorderId}/Retrieve:
+  '/ServicingOrder/{servicingorderid}/Retrieve':
     get:
       tags:
-      - CR - ServicingOrderProcedure
+        - CR - ServicingOrderProcedure
       summary: ReCR Retrieve details about a servicing order
       description: ReCR Retrieve details about a servicing order
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/ServicingOrderID'
+        - $ref: '#/components/parameters/servicingorderid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveServicingOrderProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveServicingOrderProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ServicingOrderProcedure:
-      type: object
-      properties:
-        ThirdPartyReference:
-          type: object
-          description: Reference to a third party service provider that handles some aspect of customer servicing access with the bank
-        ThirdPartyServicingMandateReference:
-          type: object
-          description: Reference to a third party servicing mandate - used when a third party is requesting the service order
-        ThirdPartyServicingMandate:
-          type: string
-          description: The servicing mandate for a third party defines the customers and service access allowed
-        CustomerReference:
-          type: object
-          description: The customer requesting the servicing order directly or the customer that is being serviced indirectly by the third party
-        CustomerEligibilityAssessmentInstanceReference:
-          type: object
-          description: Reference to the customer's active services and products record
-        ServicingOrderType:
-          type: string
-          description: The type of servicing order being processed (e.g. change of address, change of employment…)
-        ServicingOrderTaskRecord:
-          type: string
-          description: The record for the servicing task
-        ServicingOrderDescription:
-          type: string
-          description: Defines the processing tasks and their sequencing followed by the servicing order
-        Date:
-          type: string
-          description: The date and time that the servicing order is processed
-        EmployeeOrBusinessUnitReference:
-          type: object
-          description: Employees involved in the servicing order
-        ServicingOrderWorkProduct:
-          type: string
-          description: Work documentation, forms and schedules produced and referenced during the analysis
-        ServicingOrderWorkTaskResult:
-          type: string
-          description: The outcome of the servicing order
     HTTPError:
       type: object
       properties:
         status_code:
           type: string
-          description: NA
+          format: string
         status:
           type: string
-          description: NA
+          format: string
         message:
           type: string
-          description: NA
+          format: string
+      description: Status Attributes
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to a third party service provider that handles some aspect of customer servicing access with the bank
+    ServicingOrderProcedure:
+      type: object
+      properties:
+        ThirdPartyReference:
+          $ref: '#/components/schemas/object'
+        ThirdPartyServicingMandateReference:
+          $ref: '#/components/schemas/object'
+        ThirdPartyServicingMandate:
+          type: string
+          description: The servicing mandate for a third party defines the customers and service access allowed
+          format: string
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        CustomerEligibilityAssessmentInstanceReference:
+          $ref: '#/components/schemas/object'
+        ServicingOrderType:
+          type: string
+          description: 'The type of servicing order being processed (e.g. change of address, change of employment…)'
+          format: string
+        ServicingOrderTaskRecord:
+          type: string
+          description: The record for the servicing task
+          format: string
+        ServicingOrderDescription:
+          type: string
+          description: Defines the processing tasks and their sequencing followed by the servicing order
+          format: string
+        Date:
+          type: string
+          description: The date and time that the servicing order is processed
+          format: string
+        EmployeeOrBusinessUnitReference:
+          $ref: '#/components/schemas/object'
+        ServicingOrderWorkProduct:
+          type: string
+          description: 'Work documentation, forms and schedules produced and referenced during the analysis'
+          format: string
+        ServicingOrderWorkTaskResult:
+          type: string
+          description: The outcome of the servicing order
+          format: string
+      description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Servicing Order. '
     InitiateServicingOrderProcedureRequest:
       type: object
       properties:
@@ -184,26 +181,24 @@ components:
           type: object
           properties:
             ThirdPartyReference:
-              type: object
-              description: Reference to a third party service provider that handles some aspect of customer servicing access with the bank
+              $ref: '#/components/schemas/object'
             ThirdPartyServicingMandateReference:
-              type: object
-              description: Reference to a third party servicing mandate - used when a third party is requesting the service order
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: object
-              description: The customer requesting the servicing order directly or the customer that is being serviced indirectly by the third party
+              $ref: '#/components/schemas/object'
             CustomerEligibilityAssessmentInstanceReference:
-              type: object
-              description: Reference to the customer's active services and products record
+              $ref: '#/components/schemas/object'
             ServicingOrderType:
               type: string
-              description: The type of servicing order being processed (e.g. change of address, change of employment…)
+              description: 'The type of servicing order being processed (e.g. change of address, change of employment…)'
+              format: string
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             EmployeeOrBusinessUnitReference:
-              type: object
-              description: Employees involved in the servicing order
+              $ref: '#/components/schemas/object'
+      description: 'Input: InCR Initiate a servicing order'
     InitiateServicingOrderProcedureResponse:
       type: object
       properties:
@@ -213,15 +208,20 @@ components:
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             ServicingOrderDescription:
               type: string
               description: Defines the processing tasks and their sequencing followed by the servicing order
+              format: string
             ServicingOrderWorkProduct:
               type: string
-              description: Work documentation, forms and schedules produced and referenced during the analysis
+              description: 'Work documentation, forms and schedules produced and referenced during the analysis'
+              format: string
             ServicingOrderWorkTaskResult:
               type: string
               description: The outcome of the servicing order
+              format: string
+      description: 'Output: InCR Initiate a servicing order'
     ExecuteServicingOrderProcedureRequest:
       type: object
       properties:
@@ -229,26 +229,24 @@ components:
           type: object
           properties:
             ThirdPartyReference:
-              type: object
-              description: Reference to a third party service provider that handles some aspect of customer servicing access with the bank
+              $ref: '#/components/schemas/object'
             ThirdPartyServicingMandateReference:
-              type: object
-              description: Reference to a third party servicing mandate - used when a third party is requesting the service order
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: object
-              description: The customer requesting the servicing order directly or the customer that is being serviced indirectly by the third party
+              $ref: '#/components/schemas/object'
             CustomerEligibilityAssessmentInstanceReference:
-              type: object
-              description: Reference to the customer's active services and products record
+              $ref: '#/components/schemas/object'
             ServicingOrderType:
               type: string
-              description: The type of servicing order being processed (e.g. change of address, change of employment…)
+              description: 'The type of servicing order being processed (e.g. change of address, change of employment…)'
+              format: string
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             EmployeeOrBusinessUnitReference:
-              type: object
-              description: Employees involved in the servicing order
+              $ref: '#/components/schemas/object'
+      description: 'Input: ExCR Execute an automated task in a servicing order (e.g. upload data)'
     ExecuteServicingOrderProcedureResponse:
       type: object
       properties:
@@ -258,15 +256,20 @@ components:
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             ServicingOrderDescription:
               type: string
               description: Defines the processing tasks and their sequencing followed by the servicing order
+              format: string
             ServicingOrderWorkProduct:
               type: string
-              description: Work documentation, forms and schedules produced and referenced during the analysis
+              description: 'Work documentation, forms and schedules produced and referenced during the analysis'
+              format: string
             ServicingOrderWorkTaskResult:
               type: string
               description: The outcome of the servicing order
+              format: string
+      description: 'Output: ExCR Execute an automated task in a servicing order (e.g. upload data)'
     RequestServicingOrderProcedureRequest:
       type: object
       properties:
@@ -274,26 +277,24 @@ components:
           type: object
           properties:
             ThirdPartyReference:
-              type: object
-              description: Reference to a third party service provider that handles some aspect of customer servicing access with the bank
+              $ref: '#/components/schemas/object'
             ThirdPartyServicingMandateReference:
-              type: object
-              description: Reference to a third party servicing mandate - used when a third party is requesting the service order
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: object
-              description: The customer requesting the servicing order directly or the customer that is being serviced indirectly by the third party
+              $ref: '#/components/schemas/object'
             CustomerEligibilityAssessmentInstanceReference:
-              type: object
-              description: Reference to the customer's active services and products record
+              $ref: '#/components/schemas/object'
             ServicingOrderType:
               type: string
-              description: The type of servicing order being processed (e.g. change of address, change of employment…)
+              description: 'The type of servicing order being processed (e.g. change of address, change of employment…)'
+              format: string
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             EmployeeOrBusinessUnitReference:
-              type: object
-              description: Employees involved in the servicing order
+              $ref: '#/components/schemas/object'
+      description: 'Input: RqCR Request manual intervention in a servicing order (e.g. engage a servicing agent)'
     RequestServicingOrderProcedureResponse:
       type: object
       properties:
@@ -303,15 +304,20 @@ components:
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             ServicingOrderDescription:
               type: string
               description: Defines the processing tasks and their sequencing followed by the servicing order
+              format: string
             ServicingOrderWorkProduct:
               type: string
-              description: Work documentation, forms and schedules produced and referenced during the analysis
+              description: 'Work documentation, forms and schedules produced and referenced during the analysis'
+              format: string
             ServicingOrderWorkTaskResult:
               type: string
               description: The outcome of the servicing order
+              format: string
+      description: 'Output: RqCR Request manual intervention in a servicing order (e.g. engage a servicing agent)'
     RetrieveServicingOrderProcedureResponse:
       type: object
       properties:
@@ -319,104 +325,121 @@ components:
           type: object
           properties:
             ThirdPartyReference:
-              type: object
-              description: Reference to a third party service provider that handles some aspect of customer servicing access with the bank
+              $ref: '#/components/schemas/object'
             ThirdPartyServicingMandateReference:
-              type: object
-              description: Reference to a third party servicing mandate - used when a third party is requesting the service order
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: object
-              description: The customer requesting the servicing order directly or the customer that is being serviced indirectly by the third party
+              $ref: '#/components/schemas/object'
             CustomerEligibilityAssessmentInstanceReference:
-              type: object
-              description: Reference to the customer's active services and products record
+              $ref: '#/components/schemas/object'
             ServicingOrderType:
               type: string
-              description: The type of servicing order being processed (e.g. change of address, change of employment…)
+              description: 'The type of servicing order being processed (e.g. change of address, change of employment…)'
+              format: string
             ServicingOrderTaskRecord:
               type: string
               description: The record for the servicing task
+              format: string
             ServicingOrderDescription:
               type: string
               description: Defines the processing tasks and their sequencing followed by the servicing order
+              format: string
             EmployeeOrBusinessUnitReference:
-              type: object
-              description: Employees involved in the servicing order
+              $ref: '#/components/schemas/object'
             ServicingOrderWorkProduct:
               type: string
-              description: Work documentation, forms and schedules produced and referenced during the analysis
+              description: 'Work documentation, forms and schedules produced and referenced during the analysis'
+              format: string
             ServicingOrderWorkTaskResult:
               type: string
               description: The outcome of the servicing order
-  parameters:
-    ServicingOrderID:
-      name: servicingorderId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    InitiateServicingOrderProcedureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateServicingOrderProcedureRequest'
-    ExecuteServicingOrderProcedureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteServicingOrderProcedureRequest'
-    RequestServicingOrderProcedureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestServicingOrderProcedureRequest'
+              format: string
+      description: 'Output: ReCR Retrieve details about a servicing order'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    InitiateServicingOrderProcedureResponse:
+      description: InitiateServicingOrderProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateServicingOrderProcedureResponse'
+    ExecuteServicingOrderProcedureResponse:
+      description: ExecuteServicingOrderProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServicingOrderProcedureResponse'
+    RequestServicingOrderProcedureResponse:
+      description: RequestServicingOrderProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestServicingOrderProcedureResponse'
+    RetrieveServicingOrderProcedureResponse:
+      description: RetrieveServicingOrderProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveServicingOrderProcedureResponse'
+  parameters:
+    servicingorderid:
+      name: servicingorderid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    InitiateServicingOrderProcedureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateServicingOrderProcedureRequest'
+      required: true
+    ExecuteServicingOrderProcedureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServicingOrderProcedureRequest'
+      required: true
+    RequestServicingOrderProcedureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestServicingOrderProcedureRequest'
+      required: true

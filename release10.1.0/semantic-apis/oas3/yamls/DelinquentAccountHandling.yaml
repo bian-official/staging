@@ -2,553 +2,559 @@ openapi: 3.0.1
 info:
   title: Delinquent Account Handling
   description: This service domain handles delinquent accounts (typically for active credit/charge cards) for follow-up of payments due through periodic review and contacts. This process ends when the account is cancelled and is transferred to Collections
-  version: 10.1.0
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/DelinquentAccountHandling/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/DelinquentAccountHandling/10.1.0
 paths:
   /DelinquentAccountHandling/Initiate:
     post:
       tags:
-      - CR - DelinquentAccountProcedure
+        - CR - DelinquentAccountProcedure
       summary: InCR Initiate delinquent account processing
       description: InCR Initiate delinquent account processing
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/InitiateDelinquentAccountProcedureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateDelinquentAccountProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateDelinquentAccountProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Update:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Update':
     put:
       tags:
-      - CR - DelinquentAccountProcedure
+        - CR - DelinquentAccountProcedure
       summary: UpCR Update details of delinquent account processing
       description: UpCR Update details of delinquent account processing
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateDelinquentAccountProcedureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateDelinquentAccountProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateDelinquentAccountProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Retrieve:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Retrieve':
     get:
       tags:
-      - CR - DelinquentAccountProcedure
+        - CR - DelinquentAccountProcedure
       summary: ReCR Retrieve details about a delinquent account procedure
       description: ReCR Retrieve details about a delinquent account procedure
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveDelinquentAccountProcedureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveDelinquentAccountProcedureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Assessment/{assessmentId}/Retrieve:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Assessment/{assessmentid}/Retrieve':
     get:
       tags:
-      - BQ - Assessment
+        - BQ - Assessment
       summary: ReBQ Retrieve details about a delinquent account assessment
       description: ReBQ Retrieve details about a delinquent account assessment
       operationId: RetrieveAssessment
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/AssessmentID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/assessmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveAssessmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveAssessmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Contact/Initiate:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Contact/{contactid}/Initiate':
     post:
       tags:
-      - BQ - Contact
+        - BQ - Contact
       summary: InBQ Initiate contact with the customer for a delinquent account
       description: InBQ Initiate contact with the customer for a delinquent account
       operationId: InitiateContact
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/contactid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateContactRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateContactResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateContactRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Contact/{contactId}/Request:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Contact/{contactid}/Request':
     put:
       tags:
-      - BQ - Contact
+        - BQ - Contact
       summary: RqBQ Request contact processing for an active delinquent account procedure
       description: RqBQ Request contact processing for an active delinquent account procedure
       operationId: RequestContact
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/ContactID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/contactid'
+      requestBody:
+        $ref: '#/components/requestBodies/Contact'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestContactResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestContactResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Contact/{contactId}/Retrieve:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Contact/{contactid}/Retrieve':
     get:
       tags:
-      - BQ - Contact
+        - BQ - Contact
       summary: ReBQ Retrieve details about a contact
       description: ReBQ Retrieve details about a contact
       operationId: RetrieveContact
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/ContactID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/contactid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveContactResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveContactResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Payment/Initiate:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Payment/{paymentid}/Initiate':
     post:
       tags:
-      - BQ - Payment
+        - BQ - Payment
       summary: InBQ Initiate payment processing against the delinquent account
       description: InBQ Initiate payment processing against the delinquent account
       operationId: InitiatePayment
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/paymentid'
       requestBody:
         $ref: '#/components/requestBodies/InitiatePaymentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiatePaymentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiatePaymentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Payment/{paymentId}/Update:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Payment/{paymentid}/Update':
     put:
       tags:
-      - BQ - Payment
+        - BQ - Payment
       summary: UpBQ Update a payment transaction
       description: UpBQ Update a payment transaction
       operationId: UpdatePayment
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/PaymentID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/paymentid'
       requestBody:
         $ref: '#/components/requestBodies/UpdatePaymentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdatePaymentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdatePaymentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Payment/{paymentId}/Retrieve:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Payment/{paymentid}/Retrieve':
     get:
       tags:
-      - BQ - Payment
+        - BQ - Payment
       summary: ReBQ Retrieve details about a payment made against the delinquent account
       description: ReBQ Retrieve details about a payment made against the delinquent account
       operationId: RetrievePayment
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/PaymentID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/paymentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrievePaymentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrievePaymentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Resolution/{resolutionId}/Update:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Resolution/{resolutionid}/Update':
     put:
       tags:
-      - BQ - Resolution
+        - BQ - Resolution
       summary: UpBQ Update a resolution plan
       description: UpBQ Update a resolution plan
       operationId: UpdateResolution
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/ResolutionID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/resolutionid'
       requestBody:
         $ref: '#/components/requestBodies/Resolution'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Resolution'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/Resolution'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DelinquentAccountHandling/{delinquentaccounthandlingId}/Resolution/{resolutionId}/Retrieve:
+  '/DelinquentAccountHandling/{delinquentaccounthandlingid}/Resolution/{resolutionid}/Retrieve':
     get:
       tags:
-      - BQ - Resolution
+        - BQ - Resolution
       summary: ReBQ Retrieve details about a delinquent account recovery plan
       description: ReBQ Retrieve details about a delinquent account recovery plan
       operationId: RetrieveResolution
       parameters:
-      - $ref: '#/components/parameters/DelinquentAccountHandlingID'
-      - $ref: '#/components/parameters/ResolutionID'
+        - $ref: '#/components/parameters/delinquentaccounthandlingid'
+        - $ref: '#/components/parameters/resolutionid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveResolutionResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveResolutionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    DelinquentAccountProcedure:
+    HTTPError:
       type: object
       properties:
-        ProductInstanceReference:
-          type: object
-          description: The linked credit product reference
-        ProductAccountNumber:
+        status_code:
           type: string
-          description: The associated account number in any suitable format (e.g. IBAN)
-        ProductandServiceType:
+          format: string
+        status:
           type: string
-          description: The type of product
-        CustomerReference:
-          type: object
-          description: Reference to the account primary party/owner
-        BankBranchOrLocationReference:
-          type: object
-          description: Bank branch associated with the account for booking purposes
-        IssuedDevice:
+          format: string
+        message:
           type: string
-          description: Reference to an issued device associated with the facility (such as a card or key fob)
-        AccountCurrency:
-          type: string
-          description: The primary account currency
-        TaxReference:
-          type: object
-          description: Reference identifier linking the account to appropriate tax handling
-        Associations:
-          type: string
-          description: Definition of the associations to the account
-        AssociationType:
-          type: string
-          description: The type of association (e.g. guarantor, co-signer)
-        AssociationObligationOrEntitlement:
-          type: string
-          description: Description of the role, obligations or entitlements of the associated party
-        AssociationReference:
-          type: object
-          description: Reference to the associated party
-        LinkedAccounts:
-          type: string
-          description: Definition of the associations to the account
-        LinkType:
-          type: string
-          description: The type and purpose for the link
-        AccountDetails:
-          type: string
-          description: Details of the linked account
-        PositionLimits:
-          type: string
-          description: Position limits that are maintained by the account
-        PositionLimitType:
-          type: string
-          description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
-        PositionLimitSettings:
-          type: string
-          description: The position definition, associated limit settings and rules
-        PositionLimitValue:
-          type: string
-          description: The current calculated position
-        CollateralAssetAllocationInstanceReference:
-          type: object
-          description: Reference to the customer's collateral holdings and allocations
-        CollateralAssetAllocationProfile:
-          type: string
-          description: Record of collateral applied to the customer products
-        DateType:
-          type: string
-          description: Key dates associated with the account (e.g. opening date, closing date)
-        Date:
-          type: string
-          description: Value of the date type
-        BillingTransactions:
-          type: string
-          description: Customer billing transactions (and associated payments)
-        BillingTransactionReference:
-          type: object
-          description: Reference to individual transactions
-        PaymentTransactions:
-          type: string
-          description: Payments deposited to the account
-        PaymentTransactionReference:
-          type: object
-          description: Reference to individual transactions
-        ProductTransactions:
-          type: string
-          description: Product execution transactions (payments)
-        ProductTransactionReference:
-          type: object
-          description: Reference to individual transactions
-        InterestTransactions:
-          type: string
-          description: Interest accrued against the account
-        InterestTransactionReference:
-          type: object
-          description: Reference to individual transactions
-        FeeTransactions:
-          type: string
-          description: Fees applied against the account
-        FeeTransactionReference:
-          type: object
-          description: Reference to individual transactions
-        CreditPlanReference:
-          type: object
-          description: Reference to a linked credit plan if applicable
-        CreditPlanType:
-          type: string
-          description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
-        DelinquentAccountProcessingSchedule:
-          type: string
-          description: Details the schedule of actions to be applied to the delinquent account
+          format: string
+      description: Status Attributes
     Resolution:
       type: object
       properties:
         DelinquentAccountResolutionTaskResult:
           type: string
-          description: The result of the resolution planning activity (e.g.. account recovered, passed to collections)
+          description: 'The result of the resolution planning activity (e.g.. account recovered, passed to collections)'
+          format: string
         DelinquentAccountResolutionActionPlan:
           type: string
           description: The recommended processing for the delinquent account - details passed on to associated function for execution as necessary
+          format: string
         DelinquentAccountResolutionWorkProduct:
           type: string
-          description: Work documentation, forms and schedules produced and referenced during the task
+          description: 'Work documentation, forms and schedules produced and referenced during the task'
+          format: string
+      description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to the received payment
     Payment:
       type: object
       properties:
         PaymentTransactionReference:
-          type: object
-          description: Reference to the received payment
+          $ref: '#/components/schemas/object'
         PaymentTransaction:
           type: string
           description: Payment transaction details
+          format: string
+      description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
     Assessment:
       type: object
       properties:
         DelinquentAccountAssessmentWorkProduct:
           type: string
           description: The outcome of the assessment of the delinquent product account based on billing/payment and transaction history
+          format: string
         DelinquentAccountAssessmentRecord:
           type: string
           description: The task to contact the customer and request/negotiate payment
+          format: string
+      description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The date and time of the contact
     Contact:
       type: object
       properties:
         CustomerDelinquentAccountContactRecord:
           type: string
           description: Reference to a contact established with the customer
+          format: string
         ContactMessage:
           type: string
           description: Content of the reminder message
+          format: string
         ContactDate:
-          type: string
-          description: The date and time of the contact
+          $ref: '#/components/schemas/date'
         ContactResult:
           type: string
           description: Any response arising from the contact
+          format: string
         DocumentDirectoryEntryInstanceReference:
-          type: object
-          description: The document reference for associated documents
+          $ref: '#/components/schemas/object'
         DocumentContent:
           type: string
           description: Document copy/content
+          format: string
         CorrespondenceInstanceReference:
-          type: object
-          description: Reference to the correspondence generated and received
+          $ref: '#/components/schemas/object'
         CorrespondenceContent:
           type: string
           description: Correspondence content
+          format: string
         DelinquentAccountContactResult:
           type: string
           description: The result of the tracking and reminder activity
+          format: string
         DelinquentAccountContactWorkProduct:
           type: string
-          description: Work documentation, forms and schedules produced and referenced during the task
-    HTTPError:
+          description: 'Work documentation, forms and schedules produced and referenced during the task'
+          format: string
+      description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    currencycode:
       type: object
       properties:
-        status_code:
+        Currencycode:
           type: string
-          description: NA
-        status:
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The primary account currency
+    DelinquentAccountProcedure:
+      type: object
+      properties:
+        ProductInstanceReference:
+          $ref: '#/components/schemas/object'
+        ProductAccountNumber:
           type: string
-          description: NA
-        message:
+          description: The associated account number in any suitable format (e.g. IBAN)
+          format: string
+        ProductandServiceType:
           type: string
-          description: NA
+          description: The type of product
+          format: string
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        BankBranchOrLocationReference:
+          $ref: '#/components/schemas/object'
+        IssuedDevice:
+          type: string
+          description: Reference to an issued device associated with the facility (such as a card or key fob)
+          format: string
+        AccountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        TaxReference:
+          $ref: '#/components/schemas/object'
+        Associations:
+          type: string
+          description: Definition of the associations to the account
+          format: string
+        AssociationType:
+          type: string
+          description: 'The type of association (e.g. guarantor, co-signer)'
+          format: string
+        AssociationObligationOrEntitlement:
+          type: string
+          description: 'Description of the role, obligations or entitlements of the associated party'
+          format: string
+        AssociationReference:
+          $ref: '#/components/schemas/object'
+        LinkedAccounts:
+          type: string
+          description: Definition of the associations to the account
+          format: string
+        LinkType:
+          type: string
+          description: The type and purpose for the link
+          format: string
+        AccountDetails:
+          type: string
+          description: Details of the linked account
+          format: string
+        PositionLimits:
+          type: string
+          description: Position limits that are maintained by the account
+          format: string
+        PositionLimitType:
+          type: string
+          description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+          format: string
+        PositionLimitSettings:
+          type: string
+          description: 'The position definition, associated limit settings and rules'
+          format: string
+        PositionLimitValue:
+          type: string
+          description: The current calculated position
+          format: string
+        CollateralAssetAllocationInstanceReference:
+          $ref: '#/components/schemas/object'
+        CollateralAssetAllocationProfile:
+          type: string
+          description: Record of collateral applied to the customer products
+          format: string
+        DateType:
+          type: string
+          description: 'Key dates associated with the account (e.g. opening date, closing date)'
+          format: string
+        Date:
+          type: string
+          description: Value of the date type
+          format: string
+        BillingTransactions:
+          type: string
+          description: Customer billing transactions (and associated payments)
+          format: string
+        BillingTransactionReference:
+          $ref: '#/components/schemas/object'
+        PaymentTransactions:
+          type: string
+          description: Payments deposited to the account
+          format: string
+        PaymentTransactionReference:
+          $ref: '#/components/schemas/object'
+        ProductTransactions:
+          type: string
+          description: Product execution transactions (payments)
+          format: string
+        ProductTransactionReference:
+          $ref: '#/components/schemas/object'
+        InterestTransactions:
+          type: string
+          description: Interest accrued against the account
+          format: string
+        InterestTransactionReference:
+          $ref: '#/components/schemas/object'
+        FeeTransactions:
+          type: string
+          description: Fees applied against the account
+          format: string
+        FeeTransactionReference:
+          $ref: '#/components/schemas/object'
+        CreditPlanReference:
+          $ref: '#/components/schemas/object'
+        CreditPlanType:
+          type: string
+          description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+          format: string
+        DelinquentAccountProcessingSchedule:
+          type: string
+          description: Details the schedule of actions to be applied to the delinquent account
+          format: string
+      description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Delinquent Account Handling. '
     InitiateDelinquentAccountProcedureRequest:
       type: object
       properties:
@@ -556,107 +562,116 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
+      description: 'Input: InCR Initiate delinquent account processing'
     InitiateDelinquentAccountProcedureResponse:
       type: object
       properties:
@@ -665,10 +680,13 @@ components:
           properties:
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
+      description: 'Output: InCR Initiate delinquent account processing'
     UpdateDelinquentAccountProcedureRequest:
       type: object
       properties:
@@ -676,110 +694,120 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
+      description: 'Input: UpCR Update details of delinquent account processing'
     UpdateDelinquentAccountProcedureResponse:
       type: object
       properties:
@@ -787,110 +815,120 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
+      description: 'Output: UpCR Update details of delinquent account processing'
     RetrieveDelinquentAccountProcedureResponse:
       type: object
       properties:
@@ -898,110 +936,120 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
+      description: 'Output: ReCR Retrieve details about a delinquent account procedure'
     RetrieveAssessmentResponse:
       type: object
       properties:
@@ -1009,230 +1057,131 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
         Assessment:
           type: object
           properties:
             DelinquentAccountAssessmentWorkProduct:
               type: string
               description: The outcome of the assessment of the delinquent product account based on billing/payment and transaction history
+              format: string
             DelinquentAccountAssessmentRecord:
               type: string
               description: The task to contact the customer and request/negotiate payment
-    InitiateContactRequest:
-      type: object
-      properties:
-        DelinquentAccountProcedure:
-          type: object
-          properties:
-            ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
-            ProductAccountNumber:
-              type: string
-              description: The associated account number in any suitable format (e.g. IBAN)
-            ProductandServiceType:
-              type: string
-              description: The type of product
-            CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
-            BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
-            IssuedDevice:
-              type: string
-              description: Reference to an issued device associated with the facility (such as a card or key fob)
-            AccountCurrency:
-              type: string
-              description: The primary account currency
-            TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
-            Associations:
-              type: string
-              description: Definition of the associations to the account
-            AssociationType:
-              type: string
-              description: The type of association (e.g. guarantor, co-signer)
-            AssociationObligationOrEntitlement:
-              type: string
-              description: Description of the role, obligations or entitlements of the associated party
-            AssociationReference:
-              type: object
-              description: Reference to the associated party
-            LinkedAccounts:
-              type: string
-              description: Definition of the associations to the account
-            LinkType:
-              type: string
-              description: The type and purpose for the link
-            AccountDetails:
-              type: string
-              description: Details of the linked account
-            PositionLimits:
-              type: string
-              description: Position limits that are maintained by the account
-            PositionLimitType:
-              type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
-            PositionLimitSettings:
-              type: string
-              description: The position definition, associated limit settings and rules
-            PositionLimitValue:
-              type: string
-              description: The current calculated position
-            CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
-            CollateralAssetAllocationProfile:
-              type: string
-              description: Record of collateral applied to the customer products
-            DateType:
-              type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
-            BillingTransactions:
-              type: string
-              description: Customer billing transactions (and associated payments)
-            BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
-            PaymentTransactions:
-              type: string
-              description: Payments deposited to the account
-            PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
-            ProductTransactions:
-              type: string
-              description: Product execution transactions (payments)
-            ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
-            InterestTransactions:
-              type: string
-              description: Interest accrued against the account
-            InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
-            FeeTransactions:
-              type: string
-              description: Fees applied against the account
-            FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
-            CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
-            CreditPlanType:
-              type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
-            DelinquentAccountProcessingSchedule:
-              type: string
-              description: Details the schedule of actions to be applied to the delinquent account
+              format: string
+      description: 'Output: ReBQ Retrieve details about a delinquent account assessment'
     InitiateContactResponse:
       type: object
       properties:
@@ -1241,43 +1190,171 @@ components:
           properties:
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
         Contact:
           type: object
           properties:
             CustomerDelinquentAccountContactRecord:
               type: string
               description: Reference to a contact established with the customer
+              format: string
             ContactMessage:
               type: string
               description: Content of the reminder message
+              format: string
             ContactDate:
-              type: string
-              description: The date and time of the contact
+              $ref: '#/components/schemas/date'
             ContactResult:
               type: string
               description: Any response arising from the contact
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: The document reference for associated documents
+              $ref: '#/components/schemas/object'
             DocumentContent:
               type: string
               description: Document copy/content
+              format: string
             CorrespondenceInstanceReference:
-              type: object
-              description: Reference to the correspondence generated and received
+              $ref: '#/components/schemas/object'
             CorrespondenceContent:
               type: string
               description: Correspondence content
+              format: string
             DelinquentAccountContactResult:
               type: string
               description: The result of the tracking and reminder activity
+              format: string
             DelinquentAccountContactWorkProduct:
               type: string
-              description: Work documentation, forms and schedules produced and referenced during the task
+              description: 'Work documentation, forms and schedules produced and referenced during the task'
+              format: string
+      description: 'Output: InBQ Initiate contact with the customer for a delinquent account'
+    InitiateContactRequest:
+      type: object
+      properties:
+        DelinquentAccountProcedure:
+          type: object
+          properties:
+            ProductInstanceReference:
+              $ref: '#/components/schemas/object'
+            ProductAccountNumber:
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
+            ProductandServiceType:
+              type: string
+              description: The type of product
+              format: string
+            CustomerReference:
+              $ref: '#/components/schemas/object'
+            BankBranchOrLocationReference:
+              $ref: '#/components/schemas/object'
+            IssuedDevice:
+              type: string
+              description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
+            AccountCurrency:
+              $ref: '#/components/schemas/currencycode'
+            TaxReference:
+              $ref: '#/components/schemas/object'
+            Associations:
+              type: string
+              description: Definition of the associations to the account
+              format: string
+            AssociationType:
+              type: string
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
+            AssociationObligationOrEntitlement:
+              type: string
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
+            AssociationReference:
+              $ref: '#/components/schemas/object'
+            LinkedAccounts:
+              type: string
+              description: Definition of the associations to the account
+              format: string
+            LinkType:
+              type: string
+              description: The type and purpose for the link
+              format: string
+            AccountDetails:
+              type: string
+              description: Details of the linked account
+              format: string
+            PositionLimits:
+              type: string
+              description: Position limits that are maintained by the account
+              format: string
+            PositionLimitType:
+              type: string
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
+            PositionLimitSettings:
+              type: string
+              description: 'The position definition, associated limit settings and rules'
+              format: string
+            PositionLimitValue:
+              type: string
+              description: The current calculated position
+              format: string
+            CollateralAssetAllocationInstanceReference:
+              $ref: '#/components/schemas/object'
+            CollateralAssetAllocationProfile:
+              type: string
+              description: Record of collateral applied to the customer products
+              format: string
+            DateType:
+              type: string
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
+            BillingTransactions:
+              type: string
+              description: Customer billing transactions (and associated payments)
+              format: string
+            BillingTransactionReference:
+              $ref: '#/components/schemas/object'
+            PaymentTransactions:
+              type: string
+              description: Payments deposited to the account
+              format: string
+            PaymentTransactionReference:
+              $ref: '#/components/schemas/object'
+            ProductTransactions:
+              type: string
+              description: Product execution transactions (payments)
+              format: string
+            ProductTransactionReference:
+              $ref: '#/components/schemas/object'
+            InterestTransactions:
+              type: string
+              description: Interest accrued against the account
+              format: string
+            InterestTransactionReference:
+              $ref: '#/components/schemas/object'
+            FeeTransactions:
+              type: string
+              description: Fees applied against the account
+              format: string
+            FeeTransactionReference:
+              $ref: '#/components/schemas/object'
+            CreditPlanReference:
+              $ref: '#/components/schemas/object'
+            CreditPlanType:
+              type: string
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
+            DelinquentAccountProcessingSchedule:
+              type: string
+              description: Details the schedule of actions to be applied to the delinquent account
+              format: string
+      description: 'Input: InBQ Initiate contact with the customer for a delinquent account'
     RequestContactResponse:
       type: object
       properties:
@@ -1287,27 +1364,30 @@ components:
             CustomerDelinquentAccountContactRecord:
               type: string
               description: Reference to a contact established with the customer
+              format: string
             ContactMessage:
               type: string
               description: Content of the reminder message
+              format: string
             ContactDate:
-              type: string
-              description: The date and time of the contact
+              $ref: '#/components/schemas/date'
             ContactResult:
               type: string
               description: Any response arising from the contact
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: The document reference for associated documents
+              $ref: '#/components/schemas/object'
             DocumentContent:
               type: string
               description: Document copy/content
+              format: string
             CorrespondenceInstanceReference:
-              type: object
-              description: Reference to the correspondence generated and received
+              $ref: '#/components/schemas/object'
             CorrespondenceContent:
               type: string
               description: Correspondence content
+              format: string
+      description: 'Output: RqBQ Request contact processing for an active delinquent account procedure'
     RetrieveContactResponse:
       type: object
       properties:
@@ -1315,137 +1395,149 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
         Contact:
           type: object
           properties:
             CustomerDelinquentAccountContactRecord:
               type: string
               description: Reference to a contact established with the customer
+              format: string
             ContactMessage:
               type: string
               description: Content of the reminder message
+              format: string
             ContactDate:
-              type: string
-              description: The date and time of the contact
+              $ref: '#/components/schemas/date'
             ContactResult:
               type: string
               description: Any response arising from the contact
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: The document reference for associated documents
+              $ref: '#/components/schemas/object'
             DocumentContent:
               type: string
               description: Document copy/content
+              format: string
             CorrespondenceInstanceReference:
-              type: object
-              description: Reference to the correspondence generated and received
+              $ref: '#/components/schemas/object'
             CorrespondenceContent:
               type: string
               description: Correspondence content
+              format: string
+      description: 'Output: ReBQ Retrieve details about a contact'
     InitiatePaymentRequest:
       type: object
       properties:
@@ -1453,20 +1545,22 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
+      description: 'Input: InBQ Initiate payment processing against the delinquent account'
     InitiatePaymentResponse:
       type: object
       properties:
@@ -1476,9 +1570,10 @@ components:
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
+      description: 'Output: InBQ Initiate payment processing against the delinquent account'
     UpdatePaymentRequest:
       type: object
       properties:
@@ -1486,8 +1581,8 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              type: object
-              description: Reference to the received payment
+              $ref: '#/components/schemas/object'
+      description: 'Input: UpBQ Update a payment transaction'
     UpdatePaymentResponse:
       type: object
       properties:
@@ -1495,8 +1590,8 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              type: object
-              description: Reference to the received payment
+              $ref: '#/components/schemas/object'
+      description: 'Output: UpBQ Update a payment transaction'
     RetrievePaymentResponse:
       type: object
       properties:
@@ -1504,23 +1599,24 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
+      description: 'Output: ReBQ Retrieve details about a payment made against the delinquent account'
     RetrieveResolutionResponse:
       type: object
       properties:
@@ -1528,241 +1624,314 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: The linked credit product reference
+              $ref: '#/components/schemas/object'
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             ProductandServiceType:
               type: string
               description: The type of product
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The current calculated position
+              format: string
             CollateralAssetAllocationInstanceReference:
-              type: object
-              description: Reference to the customer's collateral holdings and allocations
+              $ref: '#/components/schemas/object'
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             BillingTransactions:
               type: string
               description: Customer billing transactions (and associated payments)
+              format: string
             BillingTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
+              format: string
             PaymentTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
+              format: string
             ProductTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             InterestTransactions:
               type: string
               description: Interest accrued against the account
+              format: string
             InterestTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             FeeTransactions:
               type: string
               description: Fees applied against the account
+              format: string
             FeeTransactionReference:
-              type: object
-              description: Reference to individual transactions
+              $ref: '#/components/schemas/object'
             CreditPlanReference:
-              type: object
-              description: Reference to a linked credit plan if applicable
+              $ref: '#/components/schemas/object'
             CreditPlanType:
               type: string
-              description: The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)
+              description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
+              format: string
             DelinquentAccountProcessingSchedule:
               type: string
               description: Details the schedule of actions to be applied to the delinquent account
+              format: string
         Resolution:
           type: object
           properties:
             DelinquentAccountResolutionTaskResult:
               type: string
-              description: The result of the resolution planning activity (e.g.. account recovered, passed to collections)
+              description: 'The result of the resolution planning activity (e.g.. account recovered, passed to collections)'
+              format: string
             DelinquentAccountResolutionActionPlan:
               type: string
               description: The recommended processing for the delinquent account - details passed on to associated function for execution as necessary
+              format: string
             DelinquentAccountResolutionWorkProduct:
               type: string
-              description: Work documentation, forms and schedules produced and referenced during the task
-  parameters:
-    DelinquentAccountHandlingID:
-      name: delinquentaccounthandlingId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ResolutionID:
-      name: resolutionId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    PaymentID:
-      name: paymentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    AssessmentID:
-      name: assessmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ContactID:
-      name: contactId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    InitiateDelinquentAccountProcedureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateDelinquentAccountProcedureRequest'
-    UpdateDelinquentAccountProcedureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateDelinquentAccountProcedureRequest'
-    InitiateContactRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateContactRequest'
-    InitiatePaymentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePaymentRequest'
-    UpdatePaymentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdatePaymentRequest'
-    Resolution:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Resolution'
+              description: 'Work documentation, forms and schedules produced and referenced during the task'
+              format: string
+      description: 'Output: ReBQ Retrieve details about a delinquent account recovery plan'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    InitiateDelinquentAccountProcedureResponse:
+      description: InitiateDelinquentAccountProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateDelinquentAccountProcedureResponse'
+    UpdateDelinquentAccountProcedureResponse:
+      description: UpdateDelinquentAccountProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateDelinquentAccountProcedureResponse'
+    RetrieveDelinquentAccountProcedureResponse:
+      description: RetrieveDelinquentAccountProcedureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveDelinquentAccountProcedureResponse'
+    RetrieveAssessmentResponse:
+      description: RetrieveAssessmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveAssessmentResponse'
+    InitiateContactRequest:
+      description: InitiateContactRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateContactRequest'
+    RequestContactResponse:
+      description: RequestContactResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestContactResponse'
+    RetrieveContactResponse:
+      description: RetrieveContactResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveContactResponse'
+    InitiatePaymentResponse:
+      description: InitiatePaymentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiatePaymentResponse'
+    UpdatePaymentResponse:
+      description: UpdatePaymentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePaymentResponse'
+    RetrievePaymentResponse:
+      description: RetrievePaymentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrievePaymentResponse'
+    Resolution:
+      description: Resolution
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Resolution'
+    RetrieveResolutionResponse:
+      description: RetrieveResolutionResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveResolutionResponse'
+  parameters:
+    delinquentaccounthandlingid:
+      name: delinquentaccounthandlingid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    assessmentid:
+      name: assessmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    contactid:
+      name: contactid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    paymentid:
+      name: paymentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    resolutionid:
+      name: resolutionid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    InitiateDelinquentAccountProcedureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateDelinquentAccountProcedureRequest'
+      required: true
+    UpdateDelinquentAccountProcedureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateDelinquentAccountProcedureRequest'
+      required: true
+    InitiateContactRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateContactRequest'
+      required: true
+    InitiatePaymentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiatePaymentRequest'
+      required: true
+    UpdatePaymentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePaymentRequest'
+      required: true
+    Resolution:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Resolution'
+      required: true

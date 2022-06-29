@@ -2,253 +2,255 @@ openapi: 3.0.1
 info:
   title: Servicing Mandate
   description: This service domain maintains the allowed customer servicing arrangements for a service provider covering general access to the bank's products and services and optionally customer specific arrangements
-  version: 10.1.0
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/ServicingMandate/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/ServicingMandate/10.1.0
 paths:
   /ServicingMandate/Evaluate:
     post:
       tags:
-      - CR - ServicingMandateAgreement
+        - CR - ServicingMandateAgreement
       summary: EvCR Agree terms for a third party servicing mandate
       description: EvCR Agree terms for a third party servicing mandate
       operationId: Evaluate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/EvaluateServicingMandateAgreementRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EvaluateServicingMandateAgreementResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/EvaluateServicingMandateAgreementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingMandate/{servicingmandateId}/Update:
+  '/ServicingMandate/{servicingmandateid}/Update':
     put:
       tags:
-      - CR - ServicingMandateAgreement
+        - CR - ServicingMandateAgreement
       summary: UpCR Update terms for a third part mandate
       description: UpCR Update terms for a third part mandate
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/ServicingMandateID'
+        - $ref: '#/components/parameters/servicingmandateid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateServicingMandateAgreementRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateServicingMandateAgreementResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateServicingMandateAgreementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingMandate/{servicingmandateId}/Retrieve:
+  '/ServicingMandate/{servicingmandateid}/Retrieve':
     get:
       tags:
-      - CR - ServicingMandateAgreement
+        - CR - ServicingMandateAgreement
       summary: ReCR Retrieve details about a third party mandate
       description: ReCR Retrieve details about a third party mandate
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/ServicingMandateID'
+        - $ref: '#/components/parameters/servicingmandateid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveServicingMandateAgreementResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveServicingMandateAgreementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingMandate/{servicingmandateId}/CustomerMandate/Evaluate:
+  '/ServicingMandate/{servicingmandateid}/CustomerMandate/{customermandateid}/Evaluate':
     post:
       tags:
-      - BQ - CustomerMandate
+        - BQ - CustomerMandate
       summary: EvBQ Agree terms for a customer mandate under the service mandate
       description: EvBQ Agree terms for a customer mandate under the service mandate
       operationId: EvaluateCustomerMandate
       parameters:
-      - $ref: '#/components/parameters/ServicingMandateID'
+        - $ref: '#/components/parameters/servicingmandateid'
+        - $ref: '#/components/parameters/customermandateid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateCustomerMandateRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EvaluateCustomerMandateResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/EvaluateCustomerMandateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingMandate/{servicingmandateId}/CustomerMandate/{customermandateId}/Update:
+  '/ServicingMandate/{servicingmandateid}/CustomerMandate/{customermandateid}/Update':
     put:
       tags:
-      - BQ - CustomerMandate
+        - BQ - CustomerMandate
       summary: UpBQ Update details of the customer mandate
       description: UpBQ Update details of the customer mandate
       operationId: UpdateCustomerMandate
       parameters:
-      - $ref: '#/components/parameters/ServicingMandateID'
-      - $ref: '#/components/parameters/CustomerMandateID'
+        - $ref: '#/components/parameters/servicingmandateid'
+        - $ref: '#/components/parameters/customermandateid'
       requestBody:
         $ref: '#/components/requestBodies/CustomerMandate'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomerMandate'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CustomerMandate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ServicingMandate/{servicingmandateId}/CustomerMandate/{customermandateId}/Retrieve:
+  '/ServicingMandate/{servicingmandateid}/CustomerMandate/{customermandateid}/Retrieve':
     get:
       tags:
-      - BQ - CustomerMandate
+        - BQ - CustomerMandate
       summary: ReBQ Retrieve details about the customer mandate
       description: ReBQ Retrieve details about the customer mandate
       operationId: RetrieveCustomerMandate
       parameters:
-      - $ref: '#/components/parameters/ServicingMandateID'
-      - $ref: '#/components/parameters/CustomerMandateID'
+        - $ref: '#/components/parameters/servicingmandateid'
+        - $ref: '#/components/parameters/customermandateid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveCustomerMandateResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCustomerMandateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ServicingMandateAgreement:
-      type: object
-      properties:
-        CustomerReference:
-          type: object
-          description: Reference to the third party service provider with the servicing mandate (also a bank customer)
-        ServicingMandateAgreementType:
-          type: string
-          description: The type of third party mandates (e.g. PSD2)
-        ServicingMandateAgreementJurisdiction:
-          type: string
-          description: The defines any limitation on the geographic coverage/scope of the mandate
-        ServicingMandateAgreementValidFromOrToDate:
-          type: string
-          description: The term for the mandate to be in force
-        ServicingMandateAgreementResponsibleParties:
-          type: string
-          description: Reference to any involved authorities and interested parties
-        DocumentDirectoryEntryInstanceReference:
-          type: object
-          description: Reference to any supporting documents
-        ServicingMandateAgreementProductandServiceProfileReference:
-          type: object
-          description: Reference to the record that defines allowed access
-        ServicingMandateAgreementProductandServiceProfile:
-          type: string
-          description: The record of the overarching product/service access profile permitted under the servicing mandate
-        ProductandServiceType:
-          type: string
-          description: A type of product or service covered by the mandate
-        ServicingMandateAgreementProductandServiceTypeEligibility:
-          type: string
-          description: Defines if and under what terms a product/service is accessible under the mandate
-    CustomerMandate:
-      type: object
-      properties:
-        CustomerReference:
-          type: object
-          description: Reference to the individual customer be accessed through the servicing order
-        ServicingMandateAgreementCustomerProductandServiceProfile:
-          type: string
-          description: Details the specific customer access allowed under the mandate
-        ProductandServiceType:
-          type: string
-          description: A type of product or service covered by the mandate
-        ServicingMandateAgreementCustomerProductandServiceTypeAccess:
-          type: string
-          description: Defines if and under what terms a product/service can be accessed for this customer under the mandate
-        ServicingMandateAgreementCustomerProductandServiceTypeUsage:
-          type: string
-          description: Records the usage of products/service under the mandate for control purposes
     HTTPError:
       type: object
       properties:
         status_code:
           type: string
-          description: NA
+          format: string
         status:
           type: string
-          description: NA
+          format: string
         message:
           type: string
-          description: NA
+          format: string
+      description: Status Attributes
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to the individual customer be accessed through the servicing order
+    CustomerMandate:
+      type: object
+      properties:
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        ServicingMandateAgreementCustomerProductandServiceProfile:
+          type: string
+          description: Details the specific customer access allowed under the mandate
+          format: string
+        ProductandServiceType:
+          type: string
+          description: A type of product or service covered by the mandate
+          format: string
+        ServicingMandateAgreementCustomerProductandServiceTypeAccess:
+          type: string
+          description: Defines if and under what terms a product/service can be accessed for this customer under the mandate
+          format: string
+        ServicingMandateAgreementCustomerProductandServiceTypeUsage:
+          type: string
+          description: Records the usage of products/service under the mandate for control purposes
+          format: string
+      description: Reference to the terms in force for a specific customer for this service provider
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The term for the mandate to be in force
+    ServicingMandateAgreement:
+      type: object
+      properties:
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        ServicingMandateAgreementType:
+          type: string
+          description: The type of third party mandates (e.g. PSD2)
+          format: string
+        ServicingMandateAgreementJurisdiction:
+          type: string
+          description: The defines any limitation on the geographic coverage/scope of the mandate
+          format: string
+        ServicingMandateAgreementValidFromOrToDate:
+          $ref: '#/components/schemas/date'
+        ServicingMandateAgreementResponsibleParties:
+          type: string
+          description: Reference to any involved authorities and interested parties
+          format: string
+        DocumentDirectoryEntryInstanceReference:
+          $ref: '#/components/schemas/object'
+        ServicingMandateAgreementProductandServiceProfileReference:
+          $ref: '#/components/schemas/object'
+        ServicingMandateAgreementProductandServiceProfile:
+          type: string
+          description: The record of the overarching product/service access profile permitted under the servicing mandate
+          format: string
+        ProductandServiceType:
+          type: string
+          description: A type of product or service covered by the mandate
+          format: string
+        ServicingMandateAgreementProductandServiceTypeEligibility:
+          type: string
+          description: Defines if and under what terms a product/service is accessible under the mandate
+          format: string
+      description: "Maintain the terms and conditions that apply to a commercial relationship within Servicing Mandate.\n\n\n"
     EvaluateServicingMandateAgreementRequest:
       type: object
       properties:
@@ -256,23 +258,24 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the third party service provider with the servicing mandate (also a bank customer)
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementType:
               type: string
               description: The type of third party mandates (e.g. PSD2)
+              format: string
             ServicingMandateAgreementJurisdiction:
               type: string
               description: The defines any limitation on the geographic coverage/scope of the mandate
+              format: string
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             ServicingMandateAgreementResponsibleParties:
               type: string
               description: Reference to any involved authorities and interested parties
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: Reference to any supporting documents
+              $ref: '#/components/schemas/object'
+      description: 'Input: EvCR Agree terms for a third party servicing mandate'
     EvaluateServicingMandateAgreementResponse:
       type: object
       properties:
@@ -280,20 +283,20 @@ components:
           type: object
           properties:
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: Reference to any supporting documents
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementProductandServiceProfileReference:
-              type: object
-              description: Reference to the record that defines allowed access
+              $ref: '#/components/schemas/object'
             ProductandServiceType:
               type: string
               description: A type of product or service covered by the mandate
+              format: string
             ServicingMandateAgreementProductandServiceTypeEligibility:
               type: string
               description: Defines if and under what terms a product/service is accessible under the mandate
+              format: string
+      description: 'Output: EvCR Agree terms for a third party servicing mandate'
     UpdateServicingMandateAgreementRequest:
       type: object
       properties:
@@ -301,32 +304,34 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the third party service provider with the servicing mandate (also a bank customer)
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementType:
               type: string
               description: The type of third party mandates (e.g. PSD2)
+              format: string
             ServicingMandateAgreementJurisdiction:
               type: string
               description: The defines any limitation on the geographic coverage/scope of the mandate
+              format: string
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             ServicingMandateAgreementResponsibleParties:
               type: string
               description: Reference to any involved authorities and interested parties
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: Reference to any supporting documents
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementProductandServiceProfileReference:
-              type: object
-              description: Reference to the record that defines allowed access
+              $ref: '#/components/schemas/object'
             ProductandServiceType:
               type: string
               description: A type of product or service covered by the mandate
+              format: string
             ServicingMandateAgreementProductandServiceTypeEligibility:
               type: string
               description: Defines if and under what terms a product/service is accessible under the mandate
+              format: string
+      description: 'Input: UpCR Update terms for a third part mandate'
     UpdateServicingMandateAgreementResponse:
       type: object
       properties:
@@ -334,32 +339,34 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the third party service provider with the servicing mandate (also a bank customer)
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementType:
               type: string
               description: The type of third party mandates (e.g. PSD2)
+              format: string
             ServicingMandateAgreementJurisdiction:
               type: string
               description: The defines any limitation on the geographic coverage/scope of the mandate
+              format: string
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             ServicingMandateAgreementResponsibleParties:
               type: string
               description: Reference to any involved authorities and interested parties
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: Reference to any supporting documents
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementProductandServiceProfileReference:
-              type: object
-              description: Reference to the record that defines allowed access
+              $ref: '#/components/schemas/object'
             ProductandServiceType:
               type: string
               description: A type of product or service covered by the mandate
+              format: string
             ServicingMandateAgreementProductandServiceTypeEligibility:
               type: string
               description: Defines if and under what terms a product/service is accessible under the mandate
+              format: string
+      description: 'Output: UpCR Update terms for a third part mandate'
     RetrieveServicingMandateAgreementResponse:
       type: object
       properties:
@@ -367,32 +374,34 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the third party service provider with the servicing mandate (also a bank customer)
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementType:
               type: string
               description: The type of third party mandates (e.g. PSD2)
+              format: string
             ServicingMandateAgreementJurisdiction:
               type: string
               description: The defines any limitation on the geographic coverage/scope of the mandate
+              format: string
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             ServicingMandateAgreementResponsibleParties:
               type: string
               description: Reference to any involved authorities and interested parties
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: Reference to any supporting documents
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementProductandServiceProfileReference:
-              type: object
-              description: Reference to the record that defines allowed access
+              $ref: '#/components/schemas/object'
             ProductandServiceType:
               type: string
               description: A type of product or service covered by the mandate
+              format: string
             ServicingMandateAgreementProductandServiceTypeEligibility:
               type: string
               description: Defines if and under what terms a product/service is accessible under the mandate
+              format: string
+      description: 'Output: ReCR Retrieve details about a third party mandate'
     EvaluateCustomerMandateRequest:
       type: object
       properties:
@@ -400,26 +409,28 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the third party service provider with the servicing mandate (also a bank customer)
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementType:
               type: string
               description: The type of third party mandates (e.g. PSD2)
+              format: string
             ServicingMandateAgreementJurisdiction:
               type: string
               description: The defines any limitation on the geographic coverage/scope of the mandate
+              format: string
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             ServicingMandateAgreementProductandServiceProfileReference:
-              type: object
-              description: Reference to the record that defines allowed access
+              $ref: '#/components/schemas/object'
             ProductandServiceType:
               type: string
               description: A type of product or service covered by the mandate
+              format: string
             ServicingMandateAgreementProductandServiceTypeEligibility:
               type: string
               description: Defines if and under what terms a product/service is accessible under the mandate
+              format: string
+      description: 'Input: EvBQ Agree terms for a customer mandate under the service mandate'
     EvaluateCustomerMandateResponse:
       type: object
       properties:
@@ -429,12 +440,16 @@ components:
             ServicingMandateAgreementCustomerProductandServiceProfile:
               type: string
               description: Details the specific customer access allowed under the mandate
+              format: string
             ServicingMandateAgreementCustomerProductandServiceTypeAccess:
               type: string
               description: Defines if and under what terms a product/service can be accessed for this customer under the mandate
+              format: string
             ServicingMandateAgreementCustomerProductandServiceTypeUsage:
               type: string
               description: Records the usage of products/service under the mandate for control purposes
+              format: string
+      description: 'Output: EvBQ Agree terms for a customer mandate under the service mandate'
     RetrieveCustomerMandateResponse:
       type: object
       properties:
@@ -442,121 +457,153 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the third party service provider with the servicing mandate (also a bank customer)
+              $ref: '#/components/schemas/object'
             ServicingMandateAgreementType:
               type: string
               description: The type of third party mandates (e.g. PSD2)
+              format: string
             ServicingMandateAgreementJurisdiction:
               type: string
               description: The defines any limitation on the geographic coverage/scope of the mandate
+              format: string
             ServicingMandateAgreementValidFromOrToDate:
-              type: string
-              description: The term for the mandate to be in force
+              $ref: '#/components/schemas/date'
             ServicingMandateAgreementProductandServiceProfileReference:
-              type: object
-              description: Reference to the record that defines allowed access
+              $ref: '#/components/schemas/object'
             ProductandServiceType:
               type: string
               description: A type of product or service covered by the mandate
+              format: string
             ServicingMandateAgreementProductandServiceTypeEligibility:
               type: string
               description: Defines if and under what terms a product/service is accessible under the mandate
+              format: string
         CustomerMandate:
           type: object
           properties:
             ServicingMandateAgreementCustomerProductandServiceProfile:
               type: string
               description: Details the specific customer access allowed under the mandate
+              format: string
             ServicingMandateAgreementCustomerProductandServiceTypeAccess:
               type: string
               description: Defines if and under what terms a product/service can be accessed for this customer under the mandate
+              format: string
             ServicingMandateAgreementCustomerProductandServiceTypeUsage:
               type: string
               description: Records the usage of products/service under the mandate for control purposes
-  parameters:
-    ServicingMandateID:
-      name: servicingmandateId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    CustomerMandateID:
-      name: customermandateId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    EvaluateServicingMandateAgreementRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/EvaluateServicingMandateAgreementRequest'
-    UpdateServicingMandateAgreementRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateServicingMandateAgreementRequest'
-    EvaluateCustomerMandateRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/EvaluateCustomerMandateRequest'
-    CustomerMandate:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CustomerMandate'
+              format: string
+      description: 'Output: ReBQ Retrieve details about the customer mandate'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    EvaluateServicingMandateAgreementResponse:
+      description: EvaluateServicingMandateAgreementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateServicingMandateAgreementResponse'
+    UpdateServicingMandateAgreementResponse:
+      description: UpdateServicingMandateAgreementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateServicingMandateAgreementResponse'
+    RetrieveServicingMandateAgreementResponse:
+      description: RetrieveServicingMandateAgreementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveServicingMandateAgreementResponse'
+    EvaluateCustomerMandateResponse:
+      description: EvaluateCustomerMandateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateCustomerMandateResponse'
+    CustomerMandate:
+      description: CustomerMandate
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerMandate'
+    RetrieveCustomerMandateResponse:
+      description: RetrieveCustomerMandateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCustomerMandateResponse'
+  parameters:
+    servicingmandateid:
+      name: servicingmandateid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    customermandateid:
+      name: customermandateid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    EvaluateServicingMandateAgreementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateServicingMandateAgreementRequest'
+      required: true
+    UpdateServicingMandateAgreementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateServicingMandateAgreementRequest'
+      required: true
+    EvaluateCustomerMandateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateCustomerMandateRequest'
+      required: true
+    CustomerMandate:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerMandate'
+      required: true

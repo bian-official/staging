@@ -2,635 +2,596 @@ openapi: 3.0.1
 info:
   title: ACH Operations
   description: This service domain operates the Automated Clearing House (ACH) access gateway between the bank and the ACH service provider
-  version: 10.1.0
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/ACHOperations/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/ACHOperations/10.1.0
 paths:
-  /ACHOperations/{achoperationsId}/Update:
+  '/ACHOperations/{achoperationsid}/Update':
     put:
       tags:
-      - CR - ACHFulfillmentOperatingSession
+        - CR - ACHFulfillmentOperatingSession
       summary: UpCR Update the operating schedule parameters
       description: UpCR Update the operating schedule parameters
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
       requestBody:
         $ref: '#/components/requestBodies/ACHFulfillmentOperatingSession'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateACHFulfillmentOperatingSessionResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ACHFulfillmentOperatingSession'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Retrieve:
+  '/ACHOperations/{achoperationsid}/Retrieve':
     get:
       tags:
-      - CR - ACHFulfillmentOperatingSession
+        - CR - ACHFulfillmentOperatingSession
       summary: ReCR Retrieve details about the ACH access service session
       description: ReCR Retrieve details about the ACH access service session
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ACHFulfillmentOperatingSession'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveACHFulfillmentOperatingSessionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/InboundACH/Initiate:
+  '/ACHOperations/{achoperationsid}/InboundACH/{inboundachid}/Initiate':
     post:
       tags:
-      - BQ - InboundACH
+        - BQ - InboundACH
       summary: InBQ Initiate an inbound ACH transaction batch handling
       description: InBQ Initiate an inbound ACH transaction batch handling
       operationId: InitiateInboundACH
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/inboundachid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateInboundACHRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateInboundACHResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateInboundACHResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/InboundACH/{inboundachId}/Update:
+  '/ACHOperations/{achoperationsid}/InboundACH/{inboundachid}/Update':
     put:
       tags:
-      - BQ - InboundACH
+        - BQ - InboundACH
       summary: UpBQ Update an inbound ACH transaction batch
       description: UpBQ Update an inbound ACH transaction batch
       operationId: UpdateInboundACH
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/InboundACHID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/inboundachid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateInboundACHRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateInboundACHResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateInboundACHResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/InboundACH/{inboundachId}/Retrieve:
+  '/ACHOperations/{achoperationsid}/InboundACH/{inboundachid}/Retrieve':
     get:
       tags:
-      - BQ - InboundACH
+        - BQ - InboundACH
       summary: ReBQ Retrieve details about an inbound ACH transaction batch
       description: ReBQ Retrieve details about an inbound ACH transaction batch
       operationId: RetrieveInboundACH
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/InboundACHID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/inboundachid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveInboundACHResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveInboundACHResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/OutboundACH/Initiate:
+  '/ACHOperations/{achoperationsid}/OutboundACH/{outboundachid}/Initiate':
     post:
       tags:
-      - BQ - OutboundACH
+        - BQ - OutboundACH
       summary: InBQ Initiate an outbound ACH transaction batch handling
       description: InBQ Initiate an outbound ACH transaction batch handling
       operationId: InitiateOutboundACH
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/outboundachid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateOutboundACHRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateOutboundACHResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateOutboundACHRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/OutboundACH/{outboundachId}/Update:
+  '/ACHOperations/{achoperationsid}/OutboundACH/{outboundachid}/Update':
     put:
       tags:
-      - BQ - OutboundACH
+        - BQ - OutboundACH
       summary: UpBQ Update an outbound ACH transaction batch
       description: UpBQ Update an outbound ACH transaction batch
       operationId: UpdateOutboundACH
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/OutboundACHID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/outboundachid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateOutboundACHRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateOutboundACHResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateOutboundACHResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/OutboundACH/{outboundachId}/Retrieve:
+  '/ACHOperations/{achoperationsid}/OutboundACH/{outboundachid}/Retrieve':
     get:
       tags:
-      - BQ - OutboundACH
+        - BQ - OutboundACH
       summary: ReBQ Retrieve details about an outbound ACH transaction batch
       description: ReBQ Retrieve details about an outbound ACH transaction batch
       operationId: RetrieveOutboundACH
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/OutboundACHID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/outboundachid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveOutboundACHResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveOutboundACHResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Warehousing/Initiate:
+  '/ACHOperations/{achoperationsid}/Warehousing/{warehousingid}/Initiate':
     post:
       tags:
-      - BQ - Warehousing
+        - BQ - Warehousing
       summary: InBQ Initiate a warehoused outbound ACH transaction batch
       description: InBQ Initiate a warehoused outbound ACH transaction batch
       operationId: InitiateWarehousing
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/warehousingid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateWarehousingRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateWarehousingResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateWarehousingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Warehousing/{warehousingId}/Update:
+  '/ACHOperations/{achoperationsid}/Warehousing/{warehousingid}/Update':
     put:
       tags:
-      - BQ - Warehousing
+        - BQ - Warehousing
       summary: UpBQ Update a warehoused outbound ACH transaction batch
       description: UpBQ Update a warehoused outbound ACH transaction batch
       operationId: UpdateWarehousing
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/WarehousingID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/warehousingid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateWarehousingRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateWarehousingResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateWarehousingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Warehousing/{warehousingId}/Retrieve:
+  '/ACHOperations/{achoperationsid}/Warehousing/{warehousingid}/Retrieve':
     get:
       tags:
-      - BQ - Warehousing
+        - BQ - Warehousing
       summary: ReBQ Retrieve details about a warehoused outbound ACH transaction batch
       description: ReBQ Retrieve details about a warehoused outbound ACH transaction batch
       operationId: RetrieveWarehousing
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/WarehousingID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/warehousingid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveWarehousingResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveWarehousingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/ClearingandSettlement/Initiate:
+  '/ACHOperations/{achoperationsid}/ClearingandSettlement/{clearingandsettlementid}/Initiate':
     post:
       tags:
-      - BQ - ClearingandSettlement
+        - BQ - ClearingandSettlement
       summary: InBQ Initiate an ACH transaction batch clearing and settlement processing
       description: InBQ Initiate an ACH transaction batch clearing and settlement processing
       operationId: InitiateClearingandSettlement
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/clearingandsettlementid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateClearingandSettlementRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateClearingandSettlementResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateClearingandSettlementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/ClearingandSettlement/{clearingandsettlementId}/Update:
+  '/ACHOperations/{achoperationsid}/ClearingandSettlement/{clearingandsettlementid}/Update':
     put:
       tags:
-      - BQ - ClearingandSettlement
+        - BQ - ClearingandSettlement
       summary: UpBQ Update an ACH transaction batch in clearing and settlement
       description: UpBQ Update an ACH transaction batch in clearing and settlement
       operationId: UpdateClearingandSettlement
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/ClearingandSettlementID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/clearingandsettlementid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateClearingandSettlementRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateClearingandSettlementResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateClearingandSettlementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/ClearingandSettlement/{clearingandsettlementId}/Retrieve:
+  '/ACHOperations/{achoperationsid}/ClearingandSettlement/{clearingandsettlementid}/Retrieve':
     get:
       tags:
-      - BQ - ClearingandSettlement
+        - BQ - ClearingandSettlement
       summary: ReBQ Retrieve details about an ACH transaction batch in clearing and settlement
       description: ReBQ Retrieve details about an ACH transaction batch in clearing and settlement
       operationId: RetrieveClearingandSettlement
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/ClearingandSettlementID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/clearingandsettlementid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveClearingandSettlementResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveClearingandSettlementResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Reconciliation/Initiate:
+  '/ACHOperations/{achoperationsid}/Reconciliation/{reconciliationid}/Initiate':
     post:
       tags:
-      - BQ - Reconciliation
+        - BQ - Reconciliation
       summary: InBQ Initiate the reconciliation of ACH transactions
       description: InBQ Initiate the reconciliation of ACH transactions
       operationId: InitiateReconciliation
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/reconciliationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateReconciliationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OutboundACH'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateReconciliationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Reconciliation/{reconciliationId}/Update:
+  '/ACHOperations/{achoperationsid}/Reconciliation/{reconciliationid}/Update':
     put:
       tags:
-      - BQ - Reconciliation
+        - BQ - Reconciliation
       summary: UpBQ Update an transaction in reconciliations
       description: UpBQ Update an transaction in reconciliations
       operationId: UpdateReconciliation
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/ReconciliationID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/reconciliationid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateReconciliationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateReconciliationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateReconciliationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /ACHOperations/{achoperationsId}/Reconciliation/{reconciliationId}/Retrieve:
+  '/ACHOperations/{achoperationsid}/Reconciliation/{reconciliationid}/Retrieve':
     get:
       tags:
-      - BQ - Reconciliation
+        - BQ - Reconciliation
       summary: ReBQ Retrieve details about ACH transaction reconciliations
       description: ReBQ Retrieve details about ACH transaction reconciliations
       operationId: RetrieveReconciliation
       parameters:
-      - $ref: '#/components/parameters/ACHOperationsID'
-      - $ref: '#/components/parameters/ReconciliationID'
+        - $ref: '#/components/parameters/achoperationsid'
+        - $ref: '#/components/parameters/reconciliationid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveReconciliationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveReconciliationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ACHFulfillmentOperatingSession:
+    HTTPError:
       type: object
       properties:
-        ACHReference:
-          type: object
-          description: Reference to the ACH service
-        ACHAccessSchedule:
+        status_code:
           type: string
-          description: Details the ACH service availability
+          format: string
+        status:
+          type: string
+          format: string
+        message:
+          type: string
+          format: string
+      description: Status Attributes
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to an inbound ACH transaction batch
     InboundACH:
       type: object
       properties:
         InboundACHTransactionBatchReference:
-          type: object
-          description: Reference to an inbound ACH transaction batch
+          $ref: '#/components/schemas/object'
         ACHPaymentTransactionReference:
-          type: object
-          description: Reference to a ACH payment transaction - included in the batch
+          $ref: '#/components/schemas/object'
         ACHPaymentTransactionRecord:
           type: string
           description: Record of key transaction fields
+          format: string
         PaymentTransactionInitiatorReference:
-          type: object
-          description: Reference to the originator of the payment transaction
+          $ref: '#/components/schemas/object'
         PayerReference:
-          type: object
-          description: Reference to the source of funds in the payment
+          $ref: '#/components/schemas/object'
         PayerBankReference:
-          type: object
-          description: Reference to the payer's bank
+          $ref: '#/components/schemas/object'
         PayerProductInstanceReference:
-          type: object
-          description: Reference to the payer's account (source of funds)
+          $ref: '#/components/schemas/object'
         PayeeReference:
-          type: object
-          description: Reference to the transaction payee
+          $ref: '#/components/schemas/object'
         PayeeProductInstanceReference:
-          type: object
-          description: Reference to the payee's account (target for funds)
+          $ref: '#/components/schemas/object'
         PayeeBankReference:
-          type: object
-          description: Reference to the payee's bank
+          $ref: '#/components/schemas/object'
         SpecialInstructions:
           type: string
           description: Transaction specific clearing and settlement instructions if appropriate
+          format: string
         Amount:
           type: string
           description: Key amounts from the transaction
+          format: string
         Currency:
           type: string
           description: Currencies of the amounts
+          format: string
         DateType:
           type: string
-          description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+          description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+          format: string
         Date:
           type: string
           description: Value of the date type
+          format: string
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     ClearingandSettlement:
       type: object
       properties:
         CorrespondentBankReference:
-          type: object
-          description: Reference to the correspondent bank referenced in the ACH transaction
+          $ref: '#/components/schemas/object'
         CorrespondentBankClearingAgreementReference:
-          type: object
-          description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+          $ref: '#/components/schemas/object'
         CorrespondentBankClearingAgreementClearingInstructions:
           type: string
           description: Customer specific default clearing instructions
+          format: string
         CorrespondentBankClearingAgreementSettlementInstructions:
           type: string
           description: Customer specific default settlement instruction e.g. to handle netting arrangements
+          format: string
         MirrorNostroAccountReference:
-          type: object
-          description: Account used central bank clearing reconciliations
+          $ref: '#/components/schemas/object'
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The schedule for handling the warehoused transaction batch
     Warehousing:
       type: object
       properties:
         ScheduleReleaseDate/Time:
-          type: string
-          description: The schedule for handling the warehoused transaction batch
+          $ref: '#/components/schemas/date'
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     Reconciliation:
       type: object
       properties:
         ACHReconciliationTaskResult:
           type: string
           description: Details of the reconciliation resolution
+          format: string
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     OutboundACH:
       type: object
       properties:
         OutboundACHTransactionBatchReference:
-          type: object
-          description: Reference to the batch ACH record
-    HTTPError:
+          $ref: '#/components/schemas/object'
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    ACHFulfillmentOperatingSession:
       type: object
       properties:
-        status_code:
+        ACHReference:
+          $ref: '#/components/schemas/object'
+        ACHAccessSchedule:
           type: string
-          description: NA
-        status:
-          type: string
-          description: NA
-        message:
-          type: string
-          description: NA
-    UpdateACHFulfillmentOperatingSessionResponse:
+          description: Details the ACH service availability
+          format: string
+      description: 'Operate equipment and/or a largely automated facility within ACH Fulfillment. '
+    RetrieveACHFulfillmentOperatingSessionResponse:
       type: object
       properties:
         ACHFulfillmentOperatingSession:
           type: object
           properties:
+            ACHReference:
+              $ref: '#/components/schemas/object'
             ACHAccessSchedule:
               type: string
               description: Details the ACH service availability
+              format: string
+      description: 'Output: ReCR Retrieve details about the ACH access service session'
     InitiateInboundACHRequest:
       type: object
       properties:
@@ -638,53 +599,51 @@ components:
           type: object
           properties:
             ACHReference:
-              type: object
-              description: Reference to the ACH service
+              $ref: '#/components/schemas/object'
             ACHAccessSchedule:
               type: string
               description: Details the ACH service availability
+              format: string
         InboundACH:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Input: InBQ Initiate an inbound ACH transaction batch handling'
     InitiateInboundACHResponse:
       type: object
       properties:
@@ -692,11 +651,12 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Output: InBQ Initiate an inbound ACH transaction batch handling'
     UpdateInboundACHRequest:
       type: object
       properties:
@@ -704,47 +664,44 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Input: UpBQ Update an inbound ACH transaction batch'
     UpdateInboundACHResponse:
       type: object
       properties:
@@ -752,47 +709,44 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Output: UpBQ Update an inbound ACH transaction batch'
     RetrieveInboundACHResponse:
       type: object
       properties:
@@ -800,92 +754,44 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
-    InitiateOutboundACHRequest:
-      type: object
-      properties:
-        InboundACH:
-          type: object
-          properties:
-            ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
-            ACHPaymentTransactionRecord:
-              type: string
-              description: Record of key transaction fields
-            PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
-            PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
-            PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
-            PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
-            PayeeReference:
-              type: object
-              description: Reference to the transaction payee
-            PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
-            PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
-            SpecialInstructions:
-              type: string
-              description: Transaction specific clearing and settlement instructions if appropriate
-            Amount:
-              type: string
-              description: Key amounts from the transaction
-            Currency:
-              type: string
-              description: Currencies of the amounts
-            DateType:
-              type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Output: ReBQ Retrieve details about an inbound ACH transaction batch'
     InitiateOutboundACHResponse:
       type: object
       properties:
@@ -894,13 +800,57 @@ components:
           properties:
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
+      description: 'Output: InBQ Initiate an outbound ACH transaction batch handling'
+    InitiateOutboundACHRequest:
+      type: object
+      properties:
+        InboundACH:
+          type: object
+          properties:
+            ACHPaymentTransactionReference:
+              $ref: '#/components/schemas/object'
+            ACHPaymentTransactionRecord:
+              type: string
+              description: Record of key transaction fields
+              format: string
+            PaymentTransactionInitiatorReference:
+              $ref: '#/components/schemas/object'
+            PayerReference:
+              $ref: '#/components/schemas/object'
+            PayerBankReference:
+              $ref: '#/components/schemas/object'
+            PayerProductInstanceReference:
+              $ref: '#/components/schemas/object'
+            PayeeReference:
+              $ref: '#/components/schemas/object'
+            PayeeProductInstanceReference:
+              $ref: '#/components/schemas/object'
+            PayeeBankReference:
+              $ref: '#/components/schemas/object'
+            SpecialInstructions:
+              type: string
+              description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
+            Amount:
+              type: string
+              description: Key amounts from the transaction
+              format: string
+            Currency:
+              type: string
+              description: Currencies of the amounts
+              format: string
+            DateType:
+              type: string
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Input: InBQ Initiate an outbound ACH transaction batch handling'
     UpdateOutboundACHRequest:
       type: object
       properties:
@@ -908,50 +858,47 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
+      description: 'Input: UpBQ Update an outbound ACH transaction batch'
     UpdateOutboundACHResponse:
       type: object
       properties:
@@ -959,44 +906,42 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Output: UpBQ Update an outbound ACH transaction batch'
     RetrieveOutboundACHResponse:
       type: object
       properties:
@@ -1004,50 +949,47 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
+      description: 'Output: ReBQ Retrieve details about an outbound ACH transaction batch'
     InitiateWarehousingRequest:
       type: object
       properties:
@@ -1055,56 +997,52 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         Warehousing:
           type: object
           properties:
             ScheduleReleaseDateOrTime:
-              type: string
-              description: The schedule for handling the warehoused transaction batch
+              $ref: '#/components/schemas/date'
+      description: 'Input: InBQ Initiate a warehoused outbound ACH transaction batch'
     InitiateWarehousingResponse:
       type: object
       properties:
@@ -1113,7 +1051,9 @@ components:
           properties:
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Output: InBQ Initiate a warehoused outbound ACH transaction batch'
     UpdateWarehousingRequest:
       type: object
       properties:
@@ -1121,56 +1061,52 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         Warehousing:
           type: object
           properties:
             ScheduleReleaseDateOrTime:
-              type: string
-              description: The schedule for handling the warehoused transaction batch
+              $ref: '#/components/schemas/date'
+      description: 'Input: UpBQ Update a warehoused outbound ACH transaction batch'
     UpdateWarehousingResponse:
       type: object
       properties:
@@ -1178,56 +1114,52 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         Warehousing:
           type: object
           properties:
             ScheduleReleaseDateOrTime:
-              type: string
-              description: The schedule for handling the warehoused transaction batch
+              $ref: '#/components/schemas/date'
+      description: 'Output: UpBQ Update a warehoused outbound ACH transaction batch'
     RetrieveWarehousingResponse:
       type: object
       properties:
@@ -1235,56 +1167,52 @@ components:
           type: object
           properties:
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         Warehousing:
           type: object
           properties:
             ScheduleReleaseDateOrTime:
-              type: string
-              description: The schedule for handling the warehoused transaction batch
+              $ref: '#/components/schemas/date'
+      description: 'Output: ReBQ Retrieve details about a warehoused outbound ACH transaction batch'
     InitiateClearingandSettlementRequest:
       type: object
       properties:
@@ -1292,71 +1220,66 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
+      description: 'Input: InBQ Initiate an ACH transaction batch clearing and settlement processing'
     InitiateClearingandSettlementResponse:
       type: object
       properties:
@@ -1365,7 +1288,9 @@ components:
           properties:
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
+      description: 'Output: InBQ Initiate an ACH transaction batch clearing and settlement processing'
     UpdateClearingandSettlementRequest:
       type: object
       properties:
@@ -1373,71 +1298,66 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
+      description: 'Input: UpBQ Update an ACH transaction batch in clearing and settlement'
     UpdateClearingandSettlementResponse:
       type: object
       properties:
@@ -1445,71 +1365,66 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
+      description: 'Output: UpBQ Update an ACH transaction batch in clearing and settlement'
     RetrieveClearingandSettlementResponse:
       type: object
       properties:
@@ -1517,71 +1432,66 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
+      description: 'Output: ReBQ Retrieve details about an ACH transaction batch in clearing and settlement'
     InitiateReconciliationRequest:
       type: object
       properties:
@@ -1589,71 +1499,82 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
+      description: 'Input: InBQ Initiate the reconciliation of ACH transactions'
+    InitiateReconciliationResponse:
+      type: object
+      properties:
+        OutboundACH:
+          type: object
+          properties:
+            OutboundACHTransactionBatchReference:
+              $ref: '#/components/schemas/object'
+        Reconciliation:
+          type: object
+          properties:
+            ACHReconciliationTaskResult:
+              type: string
+              description: Details of the reconciliation resolution
+              format: string
+      description: 'Output: InBQ Initiate the reconciliation of ACH transactions'
     UpdateReconciliationRequest:
       type: object
       properties:
@@ -1661,77 +1582,73 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
         Reconciliation:
           type: object
           properties:
             ACHReconciliationTaskResult:
               type: string
               description: Details of the reconciliation resolution
+              format: string
+      description: 'Input: UpBQ Update an transaction in reconciliations'
     UpdateReconciliationResponse:
       type: object
       properties:
@@ -1739,77 +1656,73 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
         Reconciliation:
           type: object
           properties:
             ACHReconciliationTaskResult:
               type: string
               description: Details of the reconciliation resolution
+              format: string
+      description: 'Output: UpBQ Update an transaction in reconciliations'
     RetrieveReconciliationResponse:
       type: object
       properties:
@@ -1817,234 +1730,319 @@ components:
           type: object
           properties:
             InboundACHTransactionBatchReference:
-              type: object
-              description: Reference to an inbound ACH transaction batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionReference:
-              type: object
-              description: Reference to a ACH payment transaction - included in the batch
+              $ref: '#/components/schemas/object'
             ACHPaymentTransactionRecord:
               type: string
               description: Record of key transaction fields
+              format: string
             PaymentTransactionInitiatorReference:
-              type: object
-              description: Reference to the originator of the payment transaction
+              $ref: '#/components/schemas/object'
             PayerReference:
-              type: object
-              description: Reference to the source of funds in the payment
+              $ref: '#/components/schemas/object'
             PayerBankReference:
-              type: object
-              description: Reference to the payer's bank
+              $ref: '#/components/schemas/object'
             PayerProductInstanceReference:
-              type: object
-              description: Reference to the payer's account (source of funds)
+              $ref: '#/components/schemas/object'
             PayeeReference:
-              type: object
-              description: Reference to the transaction payee
+              $ref: '#/components/schemas/object'
             PayeeProductInstanceReference:
-              type: object
-              description: Reference to the payee's account (target for funds)
+              $ref: '#/components/schemas/object'
             PayeeBankReference:
-              type: object
-              description: Reference to the payee's bank
+              $ref: '#/components/schemas/object'
             SpecialInstructions:
               type: string
               description: Transaction specific clearing and settlement instructions if appropriate
+              format: string
             Amount:
               type: string
               description: Key amounts from the transaction
+              format: string
             Currency:
               type: string
               description: Currencies of the amounts
+              format: string
             DateType:
               type: string
-              description: Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)
+              description: 'Key date types included in the transaction (e.g. order, booking, execution, value date, interest bearing)'
+              format: string
         OutboundACH:
           type: object
           properties:
             OutboundACHTransactionBatchReference:
-              type: object
-              description: Reference to the batch ACH record
+              $ref: '#/components/schemas/object'
         ClearingandSettlement:
           type: object
           properties:
             CorrespondentBankReference:
-              type: object
-              description: Reference to the correspondent bank referenced in the ACH transaction
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementReference:
-              type: object
-              description: Reference to the clearing agreement between bank and clearing house - includes schedule, limits
+              $ref: '#/components/schemas/object'
             CorrespondentBankClearingAgreementClearingInstructions:
               type: string
               description: Customer specific default clearing instructions
+              format: string
             CorrespondentBankClearingAgreementSettlementInstructions:
               type: string
               description: Customer specific default settlement instruction e.g. to handle netting arrangements
+              format: string
             MirrorNostroAccountReference:
-              type: object
-              description: Account used central bank clearing reconciliations
+              $ref: '#/components/schemas/object'
         Reconciliation:
           type: object
           properties:
             ACHReconciliationTaskResult:
               type: string
               description: Details of the reconciliation resolution
-  parameters:
-    ACHOperationsID:
-      name: achoperationsId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    InboundACHID:
-      name: inboundachId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ClearingandSettlementID:
-      name: clearingandsettlementId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    WarehousingID:
-      name: warehousingId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ReconciliationID:
-      name: reconciliationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    OutboundACHID:
-      name: outboundachId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    ACHFulfillmentOperatingSession:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ACHFulfillmentOperatingSession'
-    InitiateInboundACHRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateInboundACHRequest'
-    UpdateInboundACHRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateInboundACHRequest'
-    InitiateOutboundACHRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateOutboundACHRequest'
-    UpdateOutboundACHRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateOutboundACHRequest'
-    InitiateWarehousingRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateWarehousingRequest'
-    UpdateWarehousingRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateWarehousingRequest'
-    InitiateClearingandSettlementRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateClearingandSettlementRequest'
-    UpdateClearingandSettlementRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateClearingandSettlementRequest'
-    InitiateReconciliationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateReconciliationRequest'
-    UpdateReconciliationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateReconciliationRequest'
+              format: string
+      description: 'Output: ReBQ Retrieve details about ACH transaction reconciliations'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    ACHFulfillmentOperatingSession:
+      description: ACHFulfillmentOperatingSession
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ACHFulfillmentOperatingSession'
+    RetrieveACHFulfillmentOperatingSessionResponse:
+      description: RetrieveACHFulfillmentOperatingSessionResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveACHFulfillmentOperatingSessionResponse'
+    InitiateInboundACHResponse:
+      description: InitiateInboundACHResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateInboundACHResponse'
+    UpdateInboundACHResponse:
+      description: UpdateInboundACHResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateInboundACHResponse'
+    RetrieveInboundACHResponse:
+      description: RetrieveInboundACHResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveInboundACHResponse'
+    InitiateOutboundACHRequest:
+      description: InitiateOutboundACHRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateOutboundACHRequest'
+    UpdateOutboundACHResponse:
+      description: UpdateOutboundACHResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateOutboundACHResponse'
+    RetrieveOutboundACHResponse:
+      description: RetrieveOutboundACHResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveOutboundACHResponse'
+    InitiateWarehousingResponse:
+      description: InitiateWarehousingResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateWarehousingResponse'
+    UpdateWarehousingResponse:
+      description: UpdateWarehousingResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateWarehousingResponse'
+    RetrieveWarehousingResponse:
+      description: RetrieveWarehousingResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveWarehousingResponse'
+    InitiateClearingandSettlementResponse:
+      description: InitiateClearingandSettlementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateClearingandSettlementResponse'
+    UpdateClearingandSettlementResponse:
+      description: UpdateClearingandSettlementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateClearingandSettlementResponse'
+    RetrieveClearingandSettlementResponse:
+      description: RetrieveClearingandSettlementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveClearingandSettlementResponse'
+    InitiateReconciliationResponse:
+      description: InitiateReconciliationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateReconciliationResponse'
+    UpdateReconciliationResponse:
+      description: UpdateReconciliationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateReconciliationResponse'
+    RetrieveReconciliationResponse:
+      description: RetrieveReconciliationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveReconciliationResponse'
+  parameters:
+    achoperationsid:
+      name: achoperationsid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    inboundachid:
+      name: inboundachid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    outboundachid:
+      name: outboundachid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    warehousingid:
+      name: warehousingid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    clearingandsettlementid:
+      name: clearingandsettlementid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    reconciliationid:
+      name: reconciliationid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    ACHFulfillmentOperatingSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ACHFulfillmentOperatingSession'
+      required: true
+    InitiateInboundACHRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateInboundACHRequest'
+      required: true
+    UpdateInboundACHRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateInboundACHRequest'
+      required: true
+    InitiateOutboundACHRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateOutboundACHRequest'
+      required: true
+    UpdateOutboundACHRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateOutboundACHRequest'
+      required: true
+    InitiateWarehousingRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateWarehousingRequest'
+      required: true
+    UpdateWarehousingRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateWarehousingRequest'
+      required: true
+    InitiateClearingandSettlementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateClearingandSettlementRequest'
+      required: true
+    UpdateClearingandSettlementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateClearingandSettlementRequest'
+      required: true
+    InitiateReconciliationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateReconciliationRequest'
+      required: true
+    UpdateReconciliationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateReconciliationRequest'
+      required: true

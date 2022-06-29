@@ -1,518 +1,505 @@
 openapi: 3.0.1
 info:
   title: Card Terminal Operation
-  description: This service domain handle POS operations including processing, capture and tracking of the transactions originating at the Point of Sale devices.
-  version: 10.1.0
+  description: 'This service domain handle POS operations including processing, capture and tracking of the transactions originating at the Point of Sale devices.'
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/CardTerminalOperation/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/CardTerminalOperation/10.1.0
 paths:
   /CardTerminalOperation/Initiate:
     post:
       tags:
-      - CR - CardPOSNetworkOperatingSession
+        - CR - CardPOSNetworkOperatingSession
       summary: InCR Initiate a card POS network operation session
       description: InCR Initiate a card POS network operation session
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/CardPOSNetworkOperatingSession'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CardPOSNetworkOperatingSession'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CardPOSNetworkOperatingSession'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Update:
+  '/CardTerminalOperation/{cardterminaloperationid}/Update':
     put:
       tags:
-      - CR - CardPOSNetworkOperatingSession
+        - CR - CardPOSNetworkOperatingSession
       summary: UpCR Update details of a card POS session
       description: UpCR Update details of a card POS session
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
       requestBody:
         $ref: '#/components/requestBodies/CardPOSNetworkOperatingSession'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CardPOSNetworkOperatingSession'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CardPOSNetworkOperatingSession'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Retrieve:
+  '/CardTerminalOperation/{cardterminaloperationid}/Retrieve':
     get:
       tags:
-      - CR - CardPOSNetworkOperatingSession
+        - CR - CardPOSNetworkOperatingSession
       summary: ReCR Retrieve details about the card POS session
       description: ReCR Retrieve details about the card POS session
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CardPOSNetworkOperatingSession'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCardPOSNetworkOperatingSessionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Capture/Initiate:
+  '/CardTerminalOperation/{cardterminaloperationid}/Capture/{captureid}/Initiate':
     post:
       tags:
-      - BQ - Capture
+        - BQ - Capture
       summary: InBQ Initiate transaction capture at the POS
       description: InBQ Initiate transaction capture at the POS
       operationId: InitiateCapture
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/captureid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateCaptureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: boolean
-                example: true
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateCaptureRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Capture/{captureId}/Update:
+  '/CardTerminalOperation/{cardterminaloperationid}/Capture/{captureid}/Update':
     put:
       tags:
-      - BQ - Capture
+        - BQ - Capture
       summary: UpBQ Update details of the card capture transaction
       description: UpBQ Update details of the card capture transaction
       operationId: UpdateCapture
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/CaptureID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/captureid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateCaptureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateCaptureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateCaptureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Capture/{captureId}/Request:
+  '/CardTerminalOperation/{cardterminaloperationid}/Capture/{captureid}/Request':
     put:
       tags:
-      - BQ - Capture
+        - BQ - Capture
       summary: RqBQ Request manual intervention with a capture transaction
       description: RqBQ Request manual intervention with a capture transaction
       operationId: RequestCapture
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/CaptureID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/captureid'
       requestBody:
         $ref: '#/components/requestBodies/RequestCaptureRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestCaptureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestCaptureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Capture/{captureId}/Retrieve:
+  '/CardTerminalOperation/{cardterminaloperationid}/Capture/{captureid}/Retrieve':
     get:
       tags:
-      - BQ - Capture
+        - BQ - Capture
       summary: ReBQ Retrieve details about a card capture transaction
       description: ReBQ Retrieve details about a card capture transaction
       operationId: RetrieveCapture
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/CaptureID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/captureid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveCaptureResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCaptureResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Authorization/Initiate:
+  '/CardTerminalOperation/{cardterminaloperationid}/Authorization/{authorizationid}/Initiate':
     post:
       tags:
-      - BQ - Authorization
+        - BQ - Authorization
       summary: InBQ Initiate authorization for a card transaction
       description: InBQ Initiate authorization for a card transaction
       operationId: InitiateAuthorization
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/authorizationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateAuthorizationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authorization'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateAuthorizationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Authorization/{authorizationId}/Request:
+  '/CardTerminalOperation/{cardterminaloperationid}/Authorization/{authorizationid}/Request':
     put:
       tags:
-      - BQ - Authorization
+        - BQ - Authorization
       summary: RqBQ Request manual intervention for a card authorization (e.g. engage specialist)
       description: RqBQ Request manual intervention for a card authorization (e.g. engage specialist)
       operationId: RequestAuthorization
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/AuthorizationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/authorizationid'
       requestBody:
         $ref: '#/components/requestBodies/RequestAuthorizationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestAuthorizationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestAuthorizationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Authorization/{authorizationId}/Retrieve:
+  '/CardTerminalOperation/{cardterminaloperationid}/Authorization/{authorizationid}/Retrieve':
     get:
       tags:
-      - BQ - Authorization
+        - BQ - Authorization
       summary: ReBQ Retrieve details about a card authorization transaction
       description: ReBQ Retrieve details about a card authorization transaction
       operationId: RetrieveAuthorization
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/AuthorizationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/authorizationid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveAuthorizationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveAuthorizationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Batch/Initiate:
+  '/CardTerminalOperation/{cardterminaloperationid}/Batch/{batchid}/Initiate':
     post:
       tags:
-      - BQ - Batch
+        - BQ - Batch
       summary: InBQ Initiate a batch transaction POS capture
       description: InBQ Initiate a batch transaction POS capture
       operationId: InitiateBatch
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/batchid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateBatchRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Batch'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateBatchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Batch/{batchId}/Update:
+  '/CardTerminalOperation/{cardterminaloperationid}/Batch/{batchid}/Update':
     put:
       tags:
-      - BQ - Batch
+        - BQ - Batch
       summary: UpBQ Update details of a transaction batch
       description: UpBQ Update details of a transaction batch
       operationId: UpdateBatch
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/BatchID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/batchid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateBatchRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateBatchResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateBatchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Batch/{batchId}/Request:
+  '/CardTerminalOperation/{cardterminaloperationid}/Batch/{batchid}/Request':
     put:
       tags:
-      - BQ - Batch
+        - BQ - Batch
       summary: RqBQ Request manual intervention for a batch (e.g. adjust scheduling)
       description: RqBQ Request manual intervention for a batch (e.g. adjust scheduling)
       operationId: RequestBatch
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/BatchID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/batchid'
       requestBody:
         $ref: '#/components/requestBodies/RequestBatchRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestBatchResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestBatchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CardTerminalOperation/{cardterminaloperationId}/Batch/{batchId}/Retrieve:
+  '/CardTerminalOperation/{cardterminaloperationid}/Batch/{batchid}/Retrieve':
     get:
       tags:
-      - BQ - Batch
+        - BQ - Batch
       summary: ReBQ Retrieve details about a card capture batch
       description: ReBQ Retrieve details about a card capture batch
       operationId: RetrieveBatch
       parameters:
-      - $ref: '#/components/parameters/CardTerminalOperationID'
-      - $ref: '#/components/parameters/BatchID'
+        - $ref: '#/components/parameters/cardterminaloperationid'
+        - $ref: '#/components/parameters/batchid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveBatchResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveBatchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          format: string
+        status:
+          type: string
+          format: string
+        message:
+          type: string
+          format: string
+      description: Status Attributes
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The date time the authorization is obtained
+    Authorization:
+      type: object
+      properties:
+        AuthorizationTransactionDate/Time:
+          $ref: '#/components/schemas/date'
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to the batch of transactions
+    Batch:
+      type: object
+      properties:
+        CardTransactionBatchReference:
+          $ref: '#/components/schemas/object'
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency that the transaction is made in
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: The amount corresponding to the type
+    Capture:
+      type: object
+      properties:
+        CardTransactionProductInstanceReference:
+          $ref: '#/components/schemas/object'
+        CardHolderReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionIssuedDeviceReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionNetworkReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionIssuingBankReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionMerchantAcquiringBankReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionType:
+          type: string
+          description: 'The type of transaction (purchase, cash advance, etc.)'
+          format: string
+        CardTransactionCurrency:
+          $ref: '#/components/schemas/currencycode'
+        CardTransactionAmountType:
+          type: string
+          description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+          format: string
+        CardTransactionAmount:
+          $ref: '#/components/schemas/amount'
+        CardTransactionMerchantReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionLocationReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionProductandServiceReference:
+          $ref: '#/components/schemas/object'
+        CardTransactionDate/Time:
+          $ref: '#/components/schemas/date'
+        CardTransactionFXConversionCharge:
+          type: string
+          description: The applied currency conversion charge
+          format: string
+        CardTransactionInterchargeFee:
+          type: string
+          description: The applied intercharge fee
+          format: string
+        CardTransactionAuthorizationRecord:
+          type: string
+          description: 'Details the reference, amount, timestamp of the transaction authorization'
+          format: string
+      description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     CardPOSNetworkOperatingSession:
       type: object
       properties:
         CardPOSTerminalOperatingSchedule:
           type: string
           description: Defines the service availability through the session
-    Authorization:
+          format: string
+      description: 'Operate equipment and/or a largely automated facility within Card Terminal Operation. '
+    RetrieveCardPOSNetworkOperatingSessionResponse:
       type: object
       properties:
-        AuthorizationTransactionDate/Time:
-          type: string
-          description: The date time the authorization is obtained
-    Batch:
-      type: object
-      properties:
-        CardTransactionBatchReference:
+        CardPOSNetworkOperatingSession:
           type: object
-          description: Reference to the batch of transactions
-    Capture:
-      type: object
-      properties:
-        CardTransactionProductInstanceReference:
-          type: object
-          description: The account number associated with the card transaction
-        CardHolderReference:
-          type: object
-          description: The identity of the account holder submitting the transaction
-        CardTransactionIssuedDeviceReference:
-          type: object
-          description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-        CardTransactionNetworkReference:
-          type: object
-          description: Reference to the network the card transaction is handled by as recorded with the transaction
-        CardTransactionIssuingBankReference:
-          type: object
-          description: Refers to the card holder's issuing bank as recorded with the transaction
-        CardTransactionMerchantAcquiringBankReference:
-          type: object
-          description: Refers to the merchant's acquiring bank as recorded with the transaction
-        CardTransactionType:
-          type: string
-          description: The type of transaction (purchase, cash advance, etc.)
-        CardTransactionCurrency:
-          type: string
-          description: The currency that the transaction is made in
-        CardTransactionAmountType:
-          type: string
-          description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
-        CardTransactionAmount:
-          type: number
-          description: The amount corresponding to the type
-        CardTransactionMerchantReference:
-          type: object
-          description: Refers to the merchant initiating settlement
-        CardTransactionLocationReference:
-          type: object
-          description: Refers to the point of sale location
-        CardTransactionProductandServiceReference:
-          type: object
-          description: Details of the transaction (e.g. purchased service/product, purpose)
-        CardTransactionDate/Time:
-          type: string
-          description: Significant dates and times associated with the transaction
-        CardTransactionFXConversionCharge:
-          type: string
-          description: The applied currency conversion charge
-        CardTransactionInterchargeFee:
-          type: string
-          description: The applied intercharge fee
-        CardTransactionAuthorizationRecord:
-          type: string
-          description: Details the reference, amount, timestamp of the transaction authorization
-    HTTPError:
-      type: object
-      properties:
-        status_code:
-          type: string
-          description: NA
-        status:
-          type: string
-          description: NA
-        message:
-          type: string
-          description: NA
+          properties:
+            CardPOSTerminalOperatingSchedule:
+              type: string
+              description: Defines the service availability through the session
+              format: string
+      description: 'Output: ReCR Retrieve details about the card POS session'
     InitiateCaptureRequest:
       type: object
       properties:
@@ -522,57 +509,53 @@ components:
             CardPOSTerminalOperatingSchedule:
               type: string
               description: Defines the service availability through the session
+              format: string
         Capture:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
+      description: 'Input: InBQ Initiate transaction capture at the POS'
     UpdateCaptureRequest:
       type: object
       properties:
@@ -580,53 +563,48 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
+      description: 'Input: UpBQ Update details of the card capture transaction'
     UpdateCaptureResponse:
       type: object
       properties:
@@ -634,53 +612,48 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
+      description: 'Output: UpBQ Update details of the card capture transaction'
     RequestCaptureRequest:
       type: object
       properties:
@@ -688,53 +661,48 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
+      description: 'Input: RqBQ Request manual intervention with a capture transaction'
     RequestCaptureResponse:
       type: object
       properties:
@@ -742,53 +710,48 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
+      description: 'Output: RqBQ Request manual intervention with a capture transaction'
     RetrieveCaptureResponse:
       type: object
       properties:
@@ -798,57 +761,53 @@ components:
             CardPOSTerminalOperatingSchedule:
               type: string
               description: Defines the service availability through the session
+              format: string
         Capture:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
+      description: 'Output: ReBQ Retrieve details about a card capture transaction'
     InitiateAuthorizationRequest:
       type: object
       properties:
@@ -858,63 +817,67 @@ components:
             CardPOSTerminalOperatingSchedule:
               type: string
               description: Defines the service availability through the session
+              format: string
         Capture:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Authorization:
           type: object
           properties:
             AuthorizationTransactionDateOrTime:
-              type: string
-              description: The date time the authorization is obtained
+              $ref: '#/components/schemas/date'
+      description: 'Input: InBQ Initiate authorization for a card transaction'
+    InitiateAuthorizationResponse:
+      type: object
+      properties:
+        Authorization:
+          type: object
+          properties:
+            AuthorizationTransactionDateOrTime:
+              $ref: '#/components/schemas/date'
+      description: 'Output: InBQ Initiate authorization for a card transaction'
     RequestAuthorizationRequest:
       type: object
       properties:
@@ -922,59 +885,53 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Authorization:
           type: object
           properties:
             AuthorizationTransactionDateOrTime:
-              type: string
-              description: The date time the authorization is obtained
+              $ref: '#/components/schemas/date'
+      description: 'Input: RqBQ Request manual intervention for a card authorization (e.g. engage specialist)'
     RequestAuthorizationResponse:
       type: object
       properties:
@@ -982,59 +939,53 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Authorization:
           type: object
           properties:
             AuthorizationTransactionDateOrTime:
-              type: string
-              description: The date time the authorization is obtained
+              $ref: '#/components/schemas/date'
+      description: 'Output: RqBQ Request manual intervention for a card authorization (e.g. engage specialist)'
     RetrieveAuthorizationResponse:
       type: object
       properties:
@@ -1044,63 +995,58 @@ components:
             CardPOSTerminalOperatingSchedule:
               type: string
               description: Defines the service availability through the session
+              format: string
         Capture:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Authorization:
           type: object
           properties:
             AuthorizationTransactionDateOrTime:
-              type: string
-              description: The date time the authorization is obtained
+              $ref: '#/components/schemas/date'
+      description: 'Output: ReBQ Retrieve details about a card authorization transaction'
     InitiateBatchRequest:
       type: object
       properties:
@@ -1110,63 +1056,67 @@ components:
             CardPOSTerminalOperatingSchedule:
               type: string
               description: Defines the service availability through the session
+              format: string
         Capture:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Batch:
           type: object
           properties:
             CardTransactionBatchReference:
-              type: object
-              description: Reference to the batch of transactions
+              $ref: '#/components/schemas/object'
+      description: 'Input: InBQ Initiate a batch transaction POS capture'
+    InitiateBatchResponse:
+      type: object
+      properties:
+        Batch:
+          type: object
+          properties:
+            CardTransactionBatchReference:
+              $ref: '#/components/schemas/object'
+      description: 'Output: InBQ Initiate a batch transaction POS capture'
     UpdateBatchRequest:
       type: object
       properties:
@@ -1174,59 +1124,53 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Batch:
           type: object
           properties:
             CardTransactionBatchReference:
-              type: object
-              description: Reference to the batch of transactions
+              $ref: '#/components/schemas/object'
+      description: 'Input: UpBQ Update details of a transaction batch'
     UpdateBatchResponse:
       type: object
       properties:
@@ -1234,59 +1178,53 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Batch:
           type: object
           properties:
             CardTransactionBatchReference:
-              type: object
-              description: Reference to the batch of transactions
+              $ref: '#/components/schemas/object'
+      description: 'Output: UpBQ Update details of a transaction batch'
     RequestBatchRequest:
       type: object
       properties:
@@ -1294,59 +1232,53 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Batch:
           type: object
           properties:
             CardTransactionBatchReference:
-              type: object
-              description: Reference to the batch of transactions
+              $ref: '#/components/schemas/object'
+      description: 'Input: RqBQ Request manual intervention for a batch (e.g. adjust scheduling)'
     RequestBatchResponse:
       type: object
       properties:
@@ -1354,59 +1286,53 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Batch:
           type: object
           properties:
             CardTransactionBatchReference:
-              type: object
-              description: Reference to the batch of transactions
+              $ref: '#/components/schemas/object'
+      description: 'Output: RqBQ Request manual intervention for a batch (e.g. adjust scheduling)'
     RetrieveBatchResponse:
       type: object
       properties:
@@ -1416,192 +1342,254 @@ components:
             CardPOSTerminalOperatingSchedule:
               type: string
               description: Defines the service availability through the session
+              format: string
         Capture:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: object
-              description: The account number associated with the card transaction
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: object
-              description: The identity of the account holder submitting the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: object
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: object
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: object
-              description: Refers to the card holder's issuing bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: object
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
-              description: The type of transaction (purchase, cash advance, etc.)
+              description: 'The type of transaction (purchase, cash advance, etc.)'
+              format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
-              description: Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)
+              description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
+              format: string
             CardTransactionMerchantReference:
-              type: object
-              description: Refers to the merchant initiating settlement
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: object
-              description: Refers to the point of sale location
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: object
-              description: Details of the transaction (e.g. purchased service/product, purpose)
+              $ref: '#/components/schemas/object'
             CardTransactionDateOrTime:
-              type: string
-              description: Significant dates and times associated with the transaction
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
+              format: string
             CardTransactionInterchargeFee:
               type: string
               description: The applied intercharge fee
+              format: string
             CardTransactionAuthorizationRecord:
               type: string
-              description: Details the reference, amount, timestamp of the transaction authorization
+              description: 'Details the reference, amount, timestamp of the transaction authorization'
+              format: string
         Batch:
           type: object
           properties:
             CardTransactionBatchReference:
-              type: object
-              description: Reference to the batch of transactions
-  parameters:
-    CardTerminalOperationID:
-      name: cardterminaloperationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    AuthorizationID:
-      name: authorizationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    BatchID:
-      name: batchId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    CaptureID:
-      name: captureId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    CardPOSNetworkOperatingSession:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CardPOSNetworkOperatingSession'
-    InitiateCaptureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateCaptureRequest'
-    UpdateCaptureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCaptureRequest'
-    RequestCaptureRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestCaptureRequest'
-    InitiateAuthorizationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateAuthorizationRequest'
-    RequestAuthorizationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestAuthorizationRequest'
-    InitiateBatchRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateBatchRequest'
-    UpdateBatchRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateBatchRequest'
-    RequestBatchRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestBatchRequest'
+              $ref: '#/components/schemas/object'
+      description: 'Output: ReBQ Retrieve details about a card capture batch'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    CardPOSNetworkOperatingSession:
+      description: CardPOSNetworkOperatingSession
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardPOSNetworkOperatingSession'
+    RetrieveCardPOSNetworkOperatingSessionResponse:
+      description: RetrieveCardPOSNetworkOperatingSessionResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCardPOSNetworkOperatingSessionResponse'
+    InitiateCaptureRequest:
+      description: InitiateCaptureRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateCaptureRequest'
+    UpdateCaptureResponse:
+      description: UpdateCaptureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCaptureResponse'
+    RequestCaptureResponse:
+      description: RequestCaptureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestCaptureResponse'
+    RetrieveCaptureResponse:
+      description: RetrieveCaptureResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCaptureResponse'
+    InitiateAuthorizationResponse:
+      description: InitiateAuthorizationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateAuthorizationResponse'
+    RequestAuthorizationResponse:
+      description: RequestAuthorizationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestAuthorizationResponse'
+    RetrieveAuthorizationResponse:
+      description: RetrieveAuthorizationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveAuthorizationResponse'
+    InitiateBatchResponse:
+      description: InitiateBatchResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateBatchResponse'
+    UpdateBatchResponse:
+      description: UpdateBatchResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateBatchResponse'
+    RequestBatchResponse:
+      description: RequestBatchResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestBatchResponse'
+    RetrieveBatchResponse:
+      description: RetrieveBatchResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveBatchResponse'
+  parameters:
+    cardterminaloperationid:
+      name: cardterminaloperationid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    captureid:
+      name: captureid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    authorizationid:
+      name: authorizationid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    batchid:
+      name: batchid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    CardPOSNetworkOperatingSession:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardPOSNetworkOperatingSession'
+      required: true
+    InitiateCaptureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateCaptureRequest'
+      required: true
+    UpdateCaptureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCaptureRequest'
+      required: true
+    RequestCaptureRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestCaptureRequest'
+      required: true
+    InitiateAuthorizationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateAuthorizationRequest'
+      required: true
+    RequestAuthorizationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestAuthorizationRequest'
+      required: true
+    InitiateBatchRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateBatchRequest'
+      required: true
+    UpdateBatchRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateBatchRequest'
+      required: true
+    RequestBatchRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestBatchRequest'
+      required: true

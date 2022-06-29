@@ -1,380 +1,379 @@
 openapi: 3.0.1
 info:
   title: Customer Position
-  description: This service domain maintains a consolidated financial position for a customer, combining details from all products and services in use. The position can cover available funds, credit, collateral, tax exposure and other financial measures as necessary
-  version: 10.1.0
+  description: 'This service domain maintains a consolidated financial position for a customer, combining details from all products and services in use. The position can cover available funds, credit, collateral, tax exposure and other financial measures as necessary'
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/CustomerPosition/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/CustomerPosition/10.1.0
 paths:
   /CustomerPosition/Initiate:
     post:
       tags:
-      - CR - CustomerPositionState
+        - CR - CustomerPositionState
       summary: InCR Initiation position monitoring for a customer
       description: InCR Initiation position monitoring for a customer
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/InitiateCustomerPositionStateRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateCustomerPositionStateResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateCustomerPositionStateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Update:
+  '/CustomerPosition/{customerpositionid}/Update':
     put:
       tags:
-      - CR - CustomerPositionState
+        - CR - CustomerPositionState
       summary: UpCR Update the settings for customer position tracking
       description: UpCR Update the settings for customer position tracking
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
+        - $ref: '#/components/parameters/customerpositionid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateCustomerPositionStateRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateCustomerPositionStateResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateCustomerPositionStateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Retrieve:
+  '/CustomerPosition/{customerpositionid}/Retrieve':
     get:
       tags:
-      - CR - CustomerPositionState
+        - CR - CustomerPositionState
       summary: ReCR Retrieve details about a customer position
       description: ReCR Retrieve details about a customer position
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
+        - $ref: '#/components/parameters/customerpositionid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomerPositionState'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCustomerPositionStateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Cashflow/{cashflowId}/Capture:
+  '/CustomerPosition/{customerpositionid}/Cashflow/{cashflowid}/Capture':
     put:
       tags:
-      - BQ - Cashflow
+        - BQ - Cashflow
       summary: CaBQ Capture product transaction reports (push from fulfillment)
       description: CaBQ Capture product transaction reports (push from fulfillment)
       operationId: CaptureCashflow
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
-      - $ref: '#/components/parameters/CashflowID'
+        - $ref: '#/components/parameters/customerpositionid'
+        - $ref: '#/components/parameters/cashflowid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureCashflowRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureCashflowResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureCashflowResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Cashflow/{cashflowId}/Retrieve:
+  '/CustomerPosition/{customerpositionid}/Cashflow/{cashflowid}/Retrieve':
     get:
       tags:
-      - BQ - Cashflow
+        - BQ - Cashflow
       summary: ReBQ retrieve details about a cash flow analysis as part of the customer position
       description: ReBQ retrieve details about a cash flow analysis as part of the customer position
       operationId: RetrieveCashflow
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
-      - $ref: '#/components/parameters/CashflowID'
+        - $ref: '#/components/parameters/customerpositionid'
+        - $ref: '#/components/parameters/cashflowid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveCashflowResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCashflowResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Credit/{creditId}/Capture:
+  '/CustomerPosition/{customerpositionid}/Credit/{creditid}/Capture':
     put:
       tags:
-      - BQ - Credit
+        - BQ - Credit
       summary: CaBQ Capture credit assessment reports (push from credit administration)
       description: CaBQ Capture credit assessment reports (push from credit administration)
       operationId: CaptureCredit
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
-      - $ref: '#/components/parameters/CreditID'
+        - $ref: '#/components/parameters/customerpositionid'
+        - $ref: '#/components/parameters/creditid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureCreditRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureCreditResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureCreditResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Credit/{creditId}/Retrieve:
+  '/CustomerPosition/{customerpositionid}/Credit/{creditid}/Retrieve':
     get:
       tags:
-      - BQ - Credit
+        - BQ - Credit
       summary: ReBQ retrieve details about a credit analysis as part of the customer position
       description: ReBQ retrieve details about a credit analysis as part of the customer position
       operationId: RetrieveCredit
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
-      - $ref: '#/components/parameters/CreditID'
+        - $ref: '#/components/parameters/customerpositionid'
+        - $ref: '#/components/parameters/creditid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomerPositionState'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCreditResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Collateral/{collateralId}/Capture:
+  '/CustomerPosition/{customerpositionid}/Collateral/{collateralid}/Capture':
     put:
       tags:
-      - BQ - Collateral
+        - BQ - Collateral
       summary: CaBQ Capture collateral allocation reports (push from collateral allocation management)
       description: CaBQ Capture collateral allocation reports (push from collateral allocation management)
       operationId: CaptureCollateral
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
-      - $ref: '#/components/parameters/CollateralID'
+        - $ref: '#/components/parameters/customerpositionid'
+        - $ref: '#/components/parameters/collateralid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureCollateralRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureCollateralResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureCollateralResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /CustomerPosition/{customerpositionId}/Collateral/{collateralId}/Retrieve:
+  '/CustomerPosition/{customerpositionid}/Collateral/{collateralid}/Retrieve':
     get:
       tags:
-      - BQ - Collateral
+        - BQ - Collateral
       summary: ReBQ retrieve details about a collateral allocation as part of the customer position
       description: ReBQ retrieve details about a collateral allocation as part of the customer position
       operationId: RetrieveCollateral
       parameters:
-      - $ref: '#/components/parameters/CustomerPositionID'
-      - $ref: '#/components/parameters/CollateralID'
+        - $ref: '#/components/parameters/customerpositionid'
+        - $ref: '#/components/parameters/collateralid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveCollateralResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveCollateralResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    CustomerPositionState:
+    HTTPError:
       type: object
       properties:
-        CustomerReference:
-          type: object
-          description: Reference to the customer that the consolidated financial position represents
-        CustomerPositionStateRecord:
+        status_code:
           type: string
-          description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+          format: string
+        status:
+          type: string
+          format: string
+        message:
+          type: string
+          format: string
+      description: Status Attributes
     Credit:
       type: object
       properties:
         CustomerCreditRatingAssessment:
           type: string
           description: The internal bank credit rating/assessment
+          format: string
         CustomerCreditRatingAssessmentType:
           type: string
-          description: Credit assessment type (e.g. consumer, small business, corporate)
+          description: 'Credit assessment type (e.g. consumer, small business, corporate)'
+          format: string
         CustomerCreditRatingNarrative:
           type: string
           description: The structured report outlining basis for the bank's rating
+          format: string
         CustomerCreditPositionAnalysisRecord:
           type: string
           description: The customer credit position analysis - combines credit assessment with product/service available balance/utilized credit position analysis
+          format: string
+      description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to the one of more products and services in use for which transaction activity is to be obtained
     Cashflow:
       type: object
       properties:
         ProductInstanceReference:
-          type: object
-          description: Reference to the one of more products and services in use for which transaction activity is to be obtained
+          $ref: '#/components/schemas/object'
         ProductArrangementInstanceReportType:
           type: string
           description: The types of product fulfillment reports available - in this case transaction details used for different measures or position analyses
+          format: string
         ProductArrangementInstanceReport:
           type: string
           description: The product/service activity report - transactional activity used for financial analysis
+          format: string
         ReportOptions/SelectionCriteria:
           type: string
           description: Defines content/transaction types to be included in the report extract
+          format: string
         ReportPeriod:
           type: string
           description: The from-to dates covered by the report for analysis
+          format: string
         ReportFormat/Template:
           type: string
           description: Defines presentation format
+          format: string
         Report:
           type: string
           description: The requested product/service activity report used in the position measurements
+          format: string
         CustomerCashflowPositionAnalysisRecord:
           type: string
-          description: The customer cashflow analysis - past, current position and projected cash flows as derived from all active product/service activity reports
+          description: 'The customer cashflow analysis - past, current position and projected cash flows as derived from all active product/service activity reports'
+          format: string
+      description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The date of the last valuation (and next planned valuation)
     Collateral:
       type: object
       properties:
         CustomerReference:
-          type: object
-          description: Reference to the title owner of the collateral asset
+          $ref: '#/components/schemas/object'
         CollateralAssetType:
           type: string
-          description: The type of asset (e.g. building, machinery, inventory, financial instrument, art)
+          description: 'The type of asset (e.g. building, machinery, inventory, financial instrument, art)'
+          format: string
         CollateralAssetReference:
-          type: object
-          description: Reference to the collateral item (e.g. address, account reference)
+          $ref: '#/components/schemas/object'
         CollateralAssetDescription:
           type: string
           description: Description of significant details and properties of the asset
+          format: string
         CollateralAssetAdministrationInstanceReference:
-          type: object
-          description: Reference to the administration record of the asset item
+          $ref: '#/components/schemas/object'
         CollateralAssetStatus:
           type: string
           description: A general status indicator for the asset (can cover multiple properties as needed)
+          format: string
         CollateralAssetValuation:
           type: string
           description: The current and historical valuation of the asset
+          format: string
         CollateralAssetAllocationProfile:
           type: string
           description: A record of past and current allocations of the collateral asset
+          format: string
         CollateralAssetValuationDate:
-          type: string
-          description: The date of the last valuation (and next planned valuation)
+          $ref: '#/components/schemas/date'
         CollateralAssetLoantoValueRatio:
           type: string
-          description: The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)
+          description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
+          format: string
         CustomerCollateralPositionAnalysisRecord:
           type: string
-          description: The customer collateral position analysis - combines collateral valuation, allocation and associated product utilization)
-    HTTPError:
+          description: 'The customer collateral position analysis - combines collateral valuation, allocation and associated product utilization)'
+          format: string
+      description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
+    CustomerPositionState:
       type: object
       properties:
-        status_code:
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        CustomerPositionStateRecord:
           type: string
-          description: NA
-        status:
-          type: string
-          description: NA
-        message:
-          type: string
-          description: NA
+          description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+          format: string
+      description: 'Monitor and define the status/rating of some entity within Customer Position. '
     InitiateCustomerPositionStateRequest:
       type: object
       properties:
@@ -382,8 +381,8 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the customer that the consolidated financial position represents
+              $ref: '#/components/schemas/object'
+      description: 'Input: InCR Initiation position monitoring for a customer'
     InitiateCustomerPositionStateResponse:
       type: object
       properties:
@@ -393,6 +392,8 @@ components:
             CustomerPositionStateRecord:
               type: string
               description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+              format: string
+      description: 'Output: InCR Initiation position monitoring for a customer'
     UpdateCustomerPositionStateRequest:
       type: object
       properties:
@@ -400,8 +401,8 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the customer that the consolidated financial position represents
+              $ref: '#/components/schemas/object'
+      description: 'Input: UpCR Update the settings for customer position tracking'
     UpdateCustomerPositionStateResponse:
       type: object
       properties:
@@ -409,8 +410,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the customer that the consolidated financial position represents
+              $ref: '#/components/schemas/object'
+      description: 'Output: UpCR Update the settings for customer position tracking'
+    RetrieveCustomerPositionStateResponse:
+      type: object
+      properties:
+        CustomerPositionState:
+          type: object
+          properties:
+            CustomerReference:
+              $ref: '#/components/schemas/object'
+            CustomerPositionStateRecord:
+              type: string
+              description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+              format: string
+      description: 'Output: ReCR Retrieve details about a customer position'
     CaptureCashflowRequest:
       type: object
       properties:
@@ -418,20 +432,24 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the one of more products and services in use for which transaction activity is to be obtained
+              $ref: '#/components/schemas/object'
             ProductArrangementInstanceReportType:
               type: string
               description: The types of product fulfillment reports available - in this case transaction details used for different measures or position analyses
+              format: string
             ReportOptionsOrSelectionCriteria:
               type: string
               description: Defines content/transaction types to be included in the report extract
+              format: string
             ReportPeriod:
               type: string
               description: The from-to dates covered by the report for analysis
+              format: string
             ReportFormatOrTemplate:
               type: string
               description: Defines presentation format
+              format: string
+      description: 'Input: CaBQ Capture product transaction reports (push from fulfillment)'
     CaptureCashflowResponse:
       type: object
       properties:
@@ -440,7 +458,9 @@ components:
           properties:
             CustomerCashflowPositionAnalysisRecord:
               type: string
-              description: The customer cashflow analysis - past, current position and projected cash flows as derived from all active product/service activity reports
+              description: 'The customer cashflow analysis - past, current position and projected cash flows as derived from all active product/service activity reports'
+              format: string
+      description: 'Output: CaBQ Capture product transaction reports (push from fulfillment)'
     RetrieveCashflowResponse:
       type: object
       properties:
@@ -448,32 +468,37 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the customer that the consolidated financial position represents
+              $ref: '#/components/schemas/object'
             CustomerPositionStateRecord:
               type: string
               description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+              format: string
         Cashflow:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the one of more products and services in use for which transaction activity is to be obtained
+              $ref: '#/components/schemas/object'
             ProductArrangementInstanceReportType:
               type: string
               description: The types of product fulfillment reports available - in this case transaction details used for different measures or position analyses
+              format: string
             ReportOptionsOrSelectionCriteria:
               type: string
               description: Defines content/transaction types to be included in the report extract
+              format: string
             ReportPeriod:
               type: string
               description: The from-to dates covered by the report for analysis
+              format: string
             ReportFormatOrTemplate:
               type: string
               description: Defines presentation format
+              format: string
             CustomerCashflowPositionAnalysisRecord:
               type: string
-              description: The customer cashflow analysis - past, current position and projected cash flows as derived from all active product/service activity reports
+              description: 'The customer cashflow analysis - past, current position and projected cash flows as derived from all active product/service activity reports'
+              format: string
+      description: 'Output: ReBQ retrieve details about a cash flow analysis as part of the customer position'
     CaptureCreditRequest:
       type: object
       properties:
@@ -483,12 +508,16 @@ components:
             CustomerCreditRatingAssessment:
               type: string
               description: The internal bank credit rating/assessment
+              format: string
             CustomerCreditRatingAssessmentType:
               type: string
-              description: Credit assessment type (e.g. consumer, small business, corporate)
+              description: 'Credit assessment type (e.g. consumer, small business, corporate)'
+              format: string
             CustomerCreditRatingNarrative:
               type: string
               description: The structured report outlining basis for the bank's rating
+              format: string
+      description: 'Input: CaBQ Capture credit assessment reports (push from credit administration)'
     CaptureCreditResponse:
       type: object
       properties:
@@ -498,6 +527,40 @@ components:
             CustomerCreditPositionAnalysisRecord:
               type: string
               description: The customer credit position analysis - combines credit assessment with product/service available balance/utilized credit position analysis
+              format: string
+      description: 'Output: CaBQ Capture credit assessment reports (push from credit administration)'
+    RetrieveCreditResponse:
+      type: object
+      properties:
+        CustomerPositionState:
+          type: object
+          properties:
+            CustomerReference:
+              $ref: '#/components/schemas/object'
+            CustomerPositionStateRecord:
+              type: string
+              description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+              format: string
+        Credit:
+          type: object
+          properties:
+            CustomerCreditRatingAssessment:
+              type: string
+              description: The internal bank credit rating/assessment
+              format: string
+            CustomerCreditRatingAssessmentType:
+              type: string
+              description: 'Credit assessment type (e.g. consumer, small business, corporate)'
+              format: string
+            CustomerCreditRatingNarrative:
+              type: string
+              description: The structured report outlining basis for the bank's rating
+              format: string
+            CustomerCreditPositionAnalysisRecord:
+              type: string
+              description: The customer credit position analysis - combines credit assessment with product/service available balance/utilized credit position analysis
+              format: string
+      description: 'Output: ReBQ retrieve details about a credit analysis as part of the customer position'
     CaptureCollateralRequest:
       type: object
       properties:
@@ -505,35 +568,38 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the title owner of the collateral asset
+              $ref: '#/components/schemas/object'
             CollateralAssetType:
               type: string
-              description: The type of asset (e.g. building, machinery, inventory, financial instrument, art)
+              description: 'The type of asset (e.g. building, machinery, inventory, financial instrument, art)'
+              format: string
             CollateralAssetReference:
-              type: object
-              description: Reference to the collateral item (e.g. address, account reference)
+              $ref: '#/components/schemas/object'
             CollateralAssetDescription:
               type: string
               description: Description of significant details and properties of the asset
+              format: string
             CollateralAssetAdministrationInstanceReference:
-              type: object
-              description: Reference to the administration record of the asset item
+              $ref: '#/components/schemas/object'
             CollateralAssetStatus:
               type: string
               description: A general status indicator for the asset (can cover multiple properties as needed)
+              format: string
             CollateralAssetValuation:
               type: string
               description: The current and historical valuation of the asset
+              format: string
             CollateralAssetAllocationProfile:
               type: string
               description: A record of past and current allocations of the collateral asset
+              format: string
             CollateralAssetValuationDate:
-              type: string
-              description: The date of the last valuation (and next planned valuation)
+              $ref: '#/components/schemas/date'
             CollateralAssetLoantoValueRatio:
               type: string
-              description: The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)
+              description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
+              format: string
+      description: 'Input: CaBQ Capture collateral allocation reports (push from collateral allocation management)'
     CaptureCollateralResponse:
       type: object
       properties:
@@ -542,7 +608,9 @@ components:
           properties:
             CustomerCollateralPositionAnalysisRecord:
               type: string
-              description: The customer collateral position analysis - combines collateral valuation, allocation and associated product utilization)
+              description: 'The customer collateral position analysis - combines collateral valuation, allocation and associated product utilization)'
+              format: string
+      description: 'Output: CaBQ Capture collateral allocation reports (push from collateral allocation management)'
     RetrieveCollateralResponse:
       type: object
       properties:
@@ -550,149 +618,197 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the customer that the consolidated financial position represents
+              $ref: '#/components/schemas/object'
             CustomerPositionStateRecord:
               type: string
               description: The consolidated position state that is tracked for the customer - combines analysis from all  measures
+              format: string
         Collateral:
           type: object
           properties:
             CollateralAssetType:
               type: string
-              description: The type of asset (e.g. building, machinery, inventory, financial instrument, art)
+              description: 'The type of asset (e.g. building, machinery, inventory, financial instrument, art)'
+              format: string
             CollateralAssetReference:
-              type: object
-              description: Reference to the collateral item (e.g. address, account reference)
+              $ref: '#/components/schemas/object'
             CollateralAssetDescription:
               type: string
               description: Description of significant details and properties of the asset
+              format: string
             CollateralAssetAdministrationInstanceReference:
-              type: object
-              description: Reference to the administration record of the asset item
+              $ref: '#/components/schemas/object'
             CollateralAssetStatus:
               type: string
               description: A general status indicator for the asset (can cover multiple properties as needed)
+              format: string
             CollateralAssetValuation:
               type: string
               description: The current and historical valuation of the asset
+              format: string
             CollateralAssetAllocationProfile:
               type: string
               description: A record of past and current allocations of the collateral asset
+              format: string
             CollateralAssetValuationDate:
-              type: string
-              description: The date of the last valuation (and next planned valuation)
+              $ref: '#/components/schemas/date'
             CollateralAssetLoantoValueRatio:
               type: string
-              description: The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)
+              description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
+              format: string
             CustomerCollateralPositionAnalysisRecord:
               type: string
-              description: The customer collateral position analysis - combines collateral valuation, allocation and associated product utilization)
-  parameters:
-    CustomerPositionID:
-      name: customerpositionId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    CreditID:
-      name: creditId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    CashflowID:
-      name: cashflowId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    CollateralID:
-      name: collateralId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    InitiateCustomerPositionStateRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateCustomerPositionStateRequest'
-    UpdateCustomerPositionStateRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerPositionStateRequest'
-    CaptureCashflowRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureCashflowRequest'
-    CaptureCreditRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureCreditRequest'
-    CaptureCollateralRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureCollateralRequest'
+              description: 'The customer collateral position analysis - combines collateral valuation, allocation and associated product utilization)'
+              format: string
+      description: 'Output: ReBQ retrieve details about a collateral allocation as part of the customer position'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    InitiateCustomerPositionStateResponse:
+      description: InitiateCustomerPositionStateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateCustomerPositionStateResponse'
+    UpdateCustomerPositionStateResponse:
+      description: UpdateCustomerPositionStateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCustomerPositionStateResponse'
+    RetrieveCustomerPositionStateResponse:
+      description: RetrieveCustomerPositionStateResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCustomerPositionStateResponse'
+    CaptureCashflowResponse:
+      description: CaptureCashflowResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCashflowResponse'
+    RetrieveCashflowResponse:
+      description: RetrieveCashflowResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCashflowResponse'
+    CaptureCreditResponse:
+      description: CaptureCreditResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCreditResponse'
+    RetrieveCreditResponse:
+      description: RetrieveCreditResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCreditResponse'
+    CaptureCollateralResponse:
+      description: CaptureCollateralResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCollateralResponse'
+    RetrieveCollateralResponse:
+      description: RetrieveCollateralResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveCollateralResponse'
+  parameters:
+    customerpositionid:
+      name: customerpositionid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    cashflowid:
+      name: cashflowid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    creditid:
+      name: creditid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    collateralid:
+      name: collateralid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    InitiateCustomerPositionStateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateCustomerPositionStateRequest'
+      required: true
+    UpdateCustomerPositionStateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCustomerPositionStateRequest'
+      required: true
+    CaptureCashflowRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCashflowRequest'
+      required: true
+    CaptureCreditRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCreditRequest'
+      required: true
+    CaptureCollateralRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureCollateralRequest'
+      required: true

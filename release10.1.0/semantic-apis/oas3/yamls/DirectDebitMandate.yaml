@@ -2,310 +2,362 @@ openapi: 3.0.1
 info:
   title: Direct Debit Mandate
   description: This service domains manages the customer mandates associated with direct debit processing for a corporate client
-  version: 10.1.0
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/DirectDebitMandate/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/DirectDebitMandate/10.1.0
 paths:
   /DirectDebitMandate/Register:
     post:
       tags:
-      - CR - DirectDebitMandateDirectoryEntry
+        - CR - DirectDebitMandateDirectoryEntry
       summary: InCR Register a new direct debit
       description: InCR Register a new direct debit
       operationId: Register
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/DirectDebitMandateDirectoryEntry'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: boolean
-                example: true
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/DirectDebitMandateDirectoryEntry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/Update:
+  '/DirectDebitMandate/{directdebitmandateid}/Update':
     put:
       tags:
-      - CR - DirectDebitMandateDirectoryEntry
+        - CR - DirectDebitMandateDirectoryEntry
       summary: UpCR Update details of an existing collection of DD mandates maintained for a corporate customer
       description: UpCR Update details of an existing collection of DD mandates maintained for a corporate customer
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
+        - $ref: '#/components/parameters/directdebitmandateid'
       requestBody:
         $ref: '#/components/requestBodies/DirectDebitMandateDirectoryEntry'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DirectDebitMandateDirectoryEntry'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/DirectDebitMandateDirectoryEntry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/Retrieve:
+  '/DirectDebitMandate/{directdebitmandateid}/Retrieve':
     get:
       tags:
-      - CR - DirectDebitMandateDirectoryEntry
+        - CR - DirectDebitMandateDirectoryEntry
       summary: ReCR Retrieve details about a collection of DD mandates
       description: ReCR Retrieve details about a collection of DD mandates
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
+        - $ref: '#/components/parameters/directdebitmandateid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DirectDebitMandateDirectoryEntry'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveDirectDebitMandateDirectoryEntryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/MandateRegistration/Register:
+  '/DirectDebitMandate/{directdebitmandateid}/MandateRegistration/{mandateregistrationid}/Register':
     post:
       tags:
-      - BQ - MandateRegistration
+        - BQ - MandateRegistration
       summary: ReBQ Register a customer's DD mandate for a corporate customer
       description: ReBQ Register a customer's DD mandate for a corporate customer
       operationId: RegisterMandateRegistration
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
+        - $ref: '#/components/parameters/directdebitmandateid'
+        - $ref: '#/components/parameters/mandateregistrationid'
       requestBody:
-        $ref: '#/components/requestBodies/DirectDebitMandateDirectoryEntry'
+        $ref: '#/components/requestBodies/RegisterMandateRegistrationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RegisterMandateRegistrationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RegisterMandateRegistrationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/MandateRegistration/{mandateregistrationId}/Update:
+  '/DirectDebitMandate/{directdebitmandateid}/MandateRegistration/{mandateregistrationid}/Update':
     put:
       tags:
-      - BQ - MandateRegistration
+        - BQ - MandateRegistration
       summary: UpBQ Update details of the customer's DD mandate
       description: UpBQ Update details of the customer's DD mandate
       operationId: UpdateMandateRegistration
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
-      - $ref: '#/components/parameters/MandateRegistrationID'
+        - $ref: '#/components/parameters/directdebitmandateid'
+        - $ref: '#/components/parameters/mandateregistrationid'
       requestBody:
         $ref: '#/components/requestBodies/MandateRegistration'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MandateRegistration'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/MandateRegistration'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/MandateRegistration/{mandateregistrationId}/Execute:
+  '/DirectDebitMandate/{directdebitmandateid}/MandateRegistration/{mandateregistrationid}/Execute':
     put:
       tags:
-      - BQ - MandateRegistration
+        - BQ - MandateRegistration
       summary: ExBQ Execute an automated action against the DD Mandate (e.g. test proposed payment)
       description: ExBQ Execute an automated action against the DD Mandate (e.g. test proposed payment)
       operationId: ExecuteMandateRegistration
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
-      - $ref: '#/components/parameters/MandateRegistrationID'
+        - $ref: '#/components/parameters/directdebitmandateid'
+        - $ref: '#/components/parameters/mandateregistrationid'
       requestBody:
         $ref: '#/components/requestBodies/ExecuteMandateRegistrationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExecuteMandateRegistrationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ExecuteMandateRegistrationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/MandateRegistration/{mandateregistrationId}/Request:
+  '/DirectDebitMandate/{directdebitmandateid}/MandateRegistration/{mandateregistrationid}/Request':
     put:
       tags:
-      - BQ - MandateRegistration
+        - BQ - MandateRegistration
       summary: ExBQ Request intervention with a customer's DD Mandate (e.g. retrieve paperwork)
       description: ExBQ Request intervention with a customer's DD Mandate (e.g. retrieve paperwork)
       operationId: RequestMandateRegistration
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
-      - $ref: '#/components/parameters/MandateRegistrationID'
+        - $ref: '#/components/parameters/directdebitmandateid'
+        - $ref: '#/components/parameters/mandateregistrationid'
       requestBody:
         $ref: '#/components/requestBodies/RequestMandateRegistrationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestMandateRegistrationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestMandateRegistrationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /DirectDebitMandate/{directdebitmandateId}/MandateRegistration/{mandateregistrationId}/Retrieve:
+  '/DirectDebitMandate/{directdebitmandateid}/MandateRegistration/{mandateregistrationid}/Retrieve':
     get:
       tags:
-      - BQ - MandateRegistration
+        - BQ - MandateRegistration
       summary: ReBQ Retrieve details about a customer's DD mandate
       description: ReBQ Retrieve details about a customer's DD mandate
       operationId: RetrieveMandateRegistration
       parameters:
-      - $ref: '#/components/parameters/DirectDebitMandateID'
-      - $ref: '#/components/parameters/MandateRegistrationID'
+        - $ref: '#/components/parameters/directdebitmandateid'
+        - $ref: '#/components/parameters/mandateregistrationid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MandateRegistration'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveMandateRegistrationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    DirectDebitMandateDirectoryEntry:
-      type: object
-      properties:
-        MandatedCustomerReference:
-          type: object
-          description: Refers to the corporate entity related to this specific collection of customer mandates
-        MandateDescription:
-          type: string
-          description: Description of the purpose for this collection of customer mandates
-        MandateCollectionValidPeriod:
-          type: string
-          description: The date and time the mandate collection is valid from to (allows for duration limits)
-    MandateRegistration:
-      type: object
-      properties:
-        DirectDebitMandateCustomerReference:
-          type: object
-          description: Reference to the customer providing the mandate to the corporate
-        DirectDebitMandateCustomerPseudonym:
-          type: string
-          description: The reference used to identify the customer to the corporate subject of the mandate (maintains secrecy of bank's internal reference)
-        DirectDebitMandateBankReference:
-          type: object
-          description: The bank holding the payer's account
-        DirectDebitMandateAccountReference:
-          type: object
-          description: Reference to the payer's account
-        DirectDebitMandateValidDates:
-          type: string
-          description: The period for which the customer mandate is in force
-        DirectDebitMandateTerms:
-          type: string
-          description: Description of allowed usage details and restrictions that apply to use of the mandate (e.g. maximum amount and frequency)
-        CorrespondenceInstanceReference:
-          type: object
-          description: Reference to the correspondence generated and received with the maintenance of the mandate
-        CorrespondenceContent:
-          type: string
-          description: Correspondence content - direct debit mandate agreement messages and forms sent and completed by involved parties
-        DocumentDirectoryEntryInstanceReference:
-          type: object
-          description: The document reference for associated documents
-        DocumentContent:
-          type: string
-          description: Document content - legal documents created & referenced for the mandate
     HTTPError:
       type: object
       properties:
         status_code:
           type: string
-          description: NA
+          format: string
         status:
           type: string
-          description: NA
+          format: string
         message:
           type: string
-          description: NA
+          format: string
+      description: Status Attributes
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to the customer providing the mandate to the corporate
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The period for which the customer mandate is in force
+    MandateRegistration:
+      type: object
+      properties:
+        DirectDebitMandateCustomerReference:
+          $ref: '#/components/schemas/object'
+        DirectDebitMandateCustomerPseudonym:
+          type: string
+          description: The reference used to identify the customer to the corporate subject of the mandate (maintains secrecy of bank's internal reference)
+          format: string
+        DirectDebitMandateBankReference:
+          $ref: '#/components/schemas/object'
+        DirectDebitMandateAccountReference:
+          $ref: '#/components/schemas/object'
+        DirectDebitMandateValidDates:
+          $ref: '#/components/schemas/date'
+        DirectDebitMandateTerms:
+          type: string
+          description: Description of allowed usage details and restrictions that apply to use of the mandate (e.g. maximum amount and frequency)
+          format: string
+        CorrespondenceInstanceReference:
+          $ref: '#/components/schemas/object'
+        CorrespondenceContent:
+          type: string
+          description: Correspondence content - direct debit mandate agreement messages and forms sent and completed by involved parties
+          format: string
+        DocumentDirectoryEntryInstanceReference:
+          $ref: '#/components/schemas/object'
+        DocumentContent:
+          type: string
+          description: Document content - legal documents created & referenced for the mandate
+          format: string
+      description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
+    DirectDebitMandateDirectoryEntry:
+      type: object
+      properties:
+        MandatedCustomerReference:
+          $ref: '#/components/schemas/object'
+        MandateDescription:
+          type: string
+          description: Description of the purpose for this collection of customer mandates
+          format: string
+        MandateCollectionValidPeriod:
+          type: string
+          description: The date and time the mandate collection is valid from to (allows for duration limits)
+          format: string
+      description: Capture and maintain reference information about some type of entitity within Direct Debit Mandate.
+    RetrieveDirectDebitMandateDirectoryEntryResponse:
+      type: object
+      properties:
+        DirectDebitMandateDirectoryEntry:
+          type: object
+          properties:
+            MandatedCustomerReference:
+              $ref: '#/components/schemas/object'
+            MandateDescription:
+              type: string
+              description: Description of the purpose for this collection of customer mandates
+              format: string
+            MandateCollectionValidPeriod:
+              type: string
+              description: The date and time the mandate collection is valid from to (allows for duration limits)
+              format: string
+      description: 'Output: ReCR Retrieve details about a collection of DD mandates'
+    RegisterMandateRegistrationRequest:
+      type: object
+      properties:
+        DirectDebitMandateDirectoryEntry:
+          type: object
+          properties:
+            MandatedCustomerReference:
+              $ref: '#/components/schemas/object'
+            MandateDescription:
+              type: string
+              description: Description of the purpose for this collection of customer mandates
+              format: string
+            MandateCollectionValidPeriod:
+              type: string
+              description: The date and time the mandate collection is valid from to (allows for duration limits)
+              format: string
+        MandateRegistration:
+          type: object
+          properties:
+            DirectDebitMandateCustomerReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateCustomerPseudonym:
+              type: string
+              description: The reference used to identify the customer to the corporate subject of the mandate (maintains secrecy of bank's internal reference)
+              format: string
+            DirectDebitMandateBankReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateAccountReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateValidDates:
+              $ref: '#/components/schemas/date'
+            DirectDebitMandateTerms:
+              type: string
+              description: Description of allowed usage details and restrictions that apply to use of the mandate (e.g. maximum amount and frequency)
+              format: string
+            CorrespondenceInstanceReference:
+              $ref: '#/components/schemas/object'
+            CorrespondenceContent:
+              type: string
+              description: Correspondence content - direct debit mandate agreement messages and forms sent and completed by involved parties
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              $ref: '#/components/schemas/object'
+            DocumentContent:
+              type: string
+              description: Document content - legal documents created & referenced for the mandate
+              format: string
+      description: 'Input: ReBQ Register a customer''s DD mandate for a corporate customer'
     RegisterMandateRegistrationResponse:
       type: object
       properties:
@@ -313,17 +365,18 @@ components:
           type: object
           properties:
             CorrespondenceInstanceReference:
-              type: object
-              description: Reference to the correspondence generated and received with the maintenance of the mandate
+              $ref: '#/components/schemas/object'
             CorrespondenceContent:
               type: string
               description: Correspondence content - direct debit mandate agreement messages and forms sent and completed by involved parties
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: The document reference for associated documents
+              $ref: '#/components/schemas/object'
             DocumentContent:
               type: string
               description: Document content - legal documents created & referenced for the mandate
+              format: string
+      description: 'Output: ReBQ Register a customer''s DD mandate for a corporate customer'
     ExecuteMandateRegistrationRequest:
       type: object
       properties:
@@ -333,6 +386,8 @@ components:
             DirectDebitMandateCustomerPseudonym:
               type: string
               description: The reference used to identify the customer to the corporate subject of the mandate (maintains secrecy of bank's internal reference)
+              format: string
+      description: 'Input: ExBQ Execute an automated action against the DD Mandate (e.g. test proposed payment)'
     ExecuteMandateRegistrationResponse:
       type: object
       properties:
@@ -340,20 +395,18 @@ components:
           type: object
           properties:
             DirectDebitMandateCustomerReference:
-              type: object
-              description: Reference to the customer providing the mandate to the corporate
+              $ref: '#/components/schemas/object'
             DirectDebitMandateBankReference:
-              type: object
-              description: The bank holding the payer's account
+              $ref: '#/components/schemas/object'
             DirectDebitMandateAccountReference:
-              type: object
-              description: Reference to the payer's account
+              $ref: '#/components/schemas/object'
             DirectDebitMandateValidDates:
-              type: string
-              description: The period for which the customer mandate is in force
+              $ref: '#/components/schemas/date'
             DirectDebitMandateTerms:
               type: string
               description: Description of allowed usage details and restrictions that apply to use of the mandate (e.g. maximum amount and frequency)
+              format: string
+      description: 'Output: ExBQ Execute an automated action against the DD Mandate (e.g. test proposed payment)'
     RequestMandateRegistrationRequest:
       type: object
       properties:
@@ -363,6 +416,8 @@ components:
             DirectDebitMandateCustomerPseudonym:
               type: string
               description: The reference used to identify the customer to the corporate subject of the mandate (maintains secrecy of bank's internal reference)
+              format: string
+      description: 'Input: ExBQ Request intervention with a customer''s DD Mandate (e.g. retrieve paperwork)'
     RequestMandateRegistrationResponse:
       type: object
       properties:
@@ -370,115 +425,187 @@ components:
           type: object
           properties:
             DirectDebitMandateCustomerReference:
-              type: object
-              description: Reference to the customer providing the mandate to the corporate
+              $ref: '#/components/schemas/object'
             DirectDebitMandateBankReference:
-              type: object
-              description: The bank holding the payer's account
+              $ref: '#/components/schemas/object'
             DirectDebitMandateAccountReference:
-              type: object
-              description: Reference to the payer's account
+              $ref: '#/components/schemas/object'
             DirectDebitMandateValidDates:
-              type: string
-              description: The period for which the customer mandate is in force
+              $ref: '#/components/schemas/date'
             DirectDebitMandateTerms:
               type: string
               description: Description of allowed usage details and restrictions that apply to use of the mandate (e.g. maximum amount and frequency)
+              format: string
             CorrespondenceInstanceReference:
-              type: object
-              description: Reference to the correspondence generated and received with the maintenance of the mandate
+              $ref: '#/components/schemas/object'
             CorrespondenceContent:
               type: string
               description: Correspondence content - direct debit mandate agreement messages and forms sent and completed by involved parties
+              format: string
             DocumentDirectoryEntryInstanceReference:
-              type: object
-              description: The document reference for associated documents
+              $ref: '#/components/schemas/object'
             DocumentContent:
               type: string
               description: Document content - legal documents created & referenced for the mandate
-  parameters:
-    DirectDebitMandateID:
-      name: directdebitmandateId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    MandateRegistrationID:
-      name: mandateregistrationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    DirectDebitMandateDirectoryEntry:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DirectDebitMandateDirectoryEntry'
-    MandateRegistration:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/MandateRegistration'
-    ExecuteMandateRegistrationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteMandateRegistrationRequest'
-    RequestMandateRegistrationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestMandateRegistrationRequest'
+              format: string
+      description: 'Output: ExBQ Request intervention with a customer''s DD Mandate (e.g. retrieve paperwork)'
+    RetrieveMandateRegistrationResponse:
+      type: object
+      properties:
+        MandateRegistration:
+          type: object
+          properties:
+            DirectDebitMandateCustomerReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateCustomerPseudonym:
+              type: string
+              description: The reference used to identify the customer to the corporate subject of the mandate (maintains secrecy of bank's internal reference)
+              format: string
+            DirectDebitMandateBankReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateAccountReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateValidDates:
+              $ref: '#/components/schemas/date'
+            DirectDebitMandateTerms:
+              type: string
+              description: Description of allowed usage details and restrictions that apply to use of the mandate (e.g. maximum amount and frequency)
+              format: string
+            CorrespondenceInstanceReference:
+              $ref: '#/components/schemas/object'
+            CorrespondenceContent:
+              type: string
+              description: Correspondence content - direct debit mandate agreement messages and forms sent and completed by involved parties
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              $ref: '#/components/schemas/object'
+            DocumentContent:
+              type: string
+              description: Document content - legal documents created & referenced for the mandate
+              format: string
+      description: 'Output: ReBQ Retrieve details about a customer''s DD mandate'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    DirectDebitMandateDirectoryEntry:
+      description: DirectDebitMandateDirectoryEntry
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DirectDebitMandateDirectoryEntry'
+    RetrieveDirectDebitMandateDirectoryEntryResponse:
+      description: RetrieveDirectDebitMandateDirectoryEntryResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveDirectDebitMandateDirectoryEntryResponse'
+    RegisterMandateRegistrationResponse:
+      description: RegisterMandateRegistrationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RegisterMandateRegistrationResponse'
+    MandateRegistration:
+      description: MandateRegistration
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MandateRegistration'
+    ExecuteMandateRegistrationResponse:
+      description: ExecuteMandateRegistrationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteMandateRegistrationResponse'
+    RequestMandateRegistrationResponse:
+      description: RequestMandateRegistrationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMandateRegistrationResponse'
+    RetrieveMandateRegistrationResponse:
+      description: RetrieveMandateRegistrationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveMandateRegistrationResponse'
+  parameters:
+    directdebitmandateid:
+      name: directdebitmandateid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    mandateregistrationid:
+      name: mandateregistrationid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    DirectDebitMandateDirectoryEntry:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DirectDebitMandateDirectoryEntry'
+      required: true
+    RegisterMandateRegistrationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RegisterMandateRegistrationRequest'
+      required: true
+    MandateRegistration:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MandateRegistration'
+      required: true
+    ExecuteMandateRegistrationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteMandateRegistrationRequest'
+      required: true
+    RequestMandateRegistrationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMandateRegistrationRequest'
+      required: true

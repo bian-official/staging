@@ -1,803 +1,766 @@
 openapi: 3.0.1
 info:
   title: Issued Device Administration
-  description: This service domain administers the issuance of authentication tokens to customers and third party service providers. Tokens here include physical devices such as cards, fobs, readers and intangible 'devices' such as passwords and secret questions. Administration includes version tracking, replacement and duration/frequency limits. Specific product/service access permissions may be associated with an issued token when appropriate
-  version: 10.1.0
+  description: 'This service domain administers the issuance of authentication tokens to customers and third party service providers. Tokens here include physical devices such as cards, fobs, readers and intangible ''devices'' such as passwords and secret questions. Administration includes version tracking, replacement and duration/frequency limits. Specific product/service access permissions may be associated with an issued token when appropriate'
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/IssuedDeviceAdministration/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/IssuedDeviceAdministration/10.1.0
 paths:
   /IssuedDeviceAdministration/Initiate:
     post:
       tags:
-      - CR - IssuedDeviceAllocation
+        - CR - IssuedDeviceAllocation
       summary: PrCR Allocate an issued device (selected type will internally invoke assignment type)
       description: PrCR Allocate an issued device (selected type will internally invoke assignment type)
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/InitiateIssuedDeviceAllocationRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateIssuedDeviceAllocationResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateIssuedDeviceAllocationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/Update:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/Update':
     put:
       tags:
-      - CR - IssuedDeviceAllocation
+        - CR - IssuedDeviceAllocation
       summary: UpCR Update details of an allocation
       description: UpCR Update details of an allocation
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
       requestBody:
         $ref: '#/components/requestBodies/IssuedDeviceAllocation'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDeviceAllocation'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/IssuedDeviceAllocation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/Retrieve':
     get:
       tags:
-      - CR - IssuedDeviceAllocation
+        - CR - IssuedDeviceAllocation
       summary: ReCR Retrieve details about an allocation
       description: ReCR Retrieve details about an allocation
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDeviceAllocation'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveIssuedDeviceAllocationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/PasswordAssignment/Initiate:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Initiate':
     post:
       tags:
-      - BQ - PasswordAssignment
+        - BQ - PasswordAssignment
       summary: PrBQ Provide a password assignment
       description: PrBQ Provide a password assignment
       operationId: InitiatePasswordAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/passwordassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/InitiatePasswordAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiatePasswordAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiatePasswordAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/PasswordAssignment/{passwordassignmentId}/Update:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Update':
     put:
       tags:
-      - BQ - PasswordAssignment
+        - BQ - PasswordAssignment
       summary: UpBQ Update details of an assigned password
       description: UpBQ Update details of an assigned password
       operationId: UpdatePasswordAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/PasswordAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/passwordassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/UpdatePasswordAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdatePasswordAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdatePasswordAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/PasswordAssignment/{passwordassignmentId}/Capture:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Capture':
     put:
       tags:
-      - BQ - PasswordAssignment
+        - BQ - PasswordAssignment
       summary: CaBQ Capture usage details of an assigned password
       description: CaBQ Capture usage details of an assigned password
       operationId: CapturePasswordAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/PasswordAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/passwordassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/CapturePasswordAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CapturePasswordAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CapturePasswordAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/PasswordAssignment/{passwordassignmentId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/PasswordAssignment/{passwordassignmentid}/Retrieve':
     get:
       tags:
-      - BQ - PasswordAssignment
+        - BQ - PasswordAssignment
       summary: ReBQ Retrieve details about an assigned password
       description: ReBQ Retrieve details about an assigned password
       operationId: RetrievePasswordAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/PasswordAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/passwordassignmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDeviceAllocation'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrievePasswordAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/QuestionAssignment/Initiate:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Initiate':
     post:
       tags:
-      - BQ - QuestionAssignment
+        - BQ - QuestionAssignment
       summary: PrBQ Provide a secret question assignment
       description: PrBQ Provide a secret question assignment
       operationId: InitiateQuestionAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/questionassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateQuestionAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateQuestionAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateQuestionAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/QuestionAssignment/{questionassignmentId}/Update:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Update':
     put:
       tags:
-      - BQ - QuestionAssignment
+        - BQ - QuestionAssignment
       summary: UpBQ Update details of an assigned secret question
       description: UpBQ Update details of an assigned secret question
       operationId: UpdateQuestionAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/QuestionAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/questionassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateQuestionAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateQuestionAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateQuestionAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/QuestionAssignment/{questionassignmentId}/Capture:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Capture':
     put:
       tags:
-      - BQ - QuestionAssignment
+        - BQ - QuestionAssignment
       summary: CaBQ Capture usage details of an assigned secret question
       description: CaBQ Capture usage details of an assigned secret question
       operationId: CaptureQuestionAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/QuestionAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/questionassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureQuestionAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureQuestionAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureQuestionAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/QuestionAssignment/{questionassignmentId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/QuestionAssignment/{questionassignmentid}/Retrieve':
     get:
       tags:
-      - BQ - QuestionAssignment
+        - BQ - QuestionAssignment
       summary: ReBQ Retrieve details about an assigned ser=AndAnd password
       description: ReBQ Retrieve details about an assigned ser=AndAnd password
       operationId: RetrieveQuestionAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/QuestionAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/questionassignmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveQuestionAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveQuestionAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/DeviceAssignment/{deviceassignmentId}/Update:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Update':
     put:
       tags:
-      - BQ - DeviceAssignment
+        - BQ - DeviceAssignment
       summary: UpBQ Update details of an assigned device
       description: UpBQ Update details of an assigned device
       operationId: UpdateDeviceAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/DeviceAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/deviceassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateDeviceAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateDeviceAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateDeviceAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/DeviceAssignment/{deviceassignmentId}/Capture:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Capture':
     put:
       tags:
-      - BQ - DeviceAssignment
+        - BQ - DeviceAssignment
       summary: CaBQ Capture usage details of an assigned device
       description: CaBQ Capture usage details of an assigned device
       operationId: CaptureDeviceAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/DeviceAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/deviceassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureDeviceAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureDeviceAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureDeviceAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/DeviceAssignment/{deviceassignmentId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/DeviceAssignment/{deviceassignmentid}/Retrieve':
     get:
       tags:
-      - BQ - DeviceAssignment
+        - BQ - DeviceAssignment
       summary: ReBQ Retrieve details about an assigned device
       description: ReBQ Retrieve details about an assigned device
       operationId: RetrieveDeviceAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/DeviceAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/deviceassignmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveDeviceAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveDeviceAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/BiometricAssignment/Initiate:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Initiate':
     post:
       tags:
-      - BQ - BiometricAssignment
+        - BQ - BiometricAssignment
       summary: PrBQ Provide a biometric assignment
       description: PrBQ Provide a biometric assignment
       operationId: InitiateBiometricAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/biometricassignmentid'
       requestBody:
-        $ref: '#/components/requestBodies/IssuedDeviceAllocation'
+        $ref: '#/components/requestBodies/InitiateBiometricAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateBiometricAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateBiometricAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/BiometricAssignment/{biometricassignmentId}/Update:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Update':
     put:
       tags:
-      - BQ - BiometricAssignment
+        - BQ - BiometricAssignment
       summary: UpBQ Update details of an assigned biometric
       description: UpBQ Update details of an assigned biometric
       operationId: UpdateBiometricAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/BiometricAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/biometricassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateBiometricAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateBiometricAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateBiometricAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/BiometricAssignment/{biometricassignmentId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/BiometricAssignment/{biometricassignmentid}/Retrieve':
     get:
       tags:
-      - BQ - BiometricAssignment
+        - BQ - BiometricAssignment
       summary: ReBQ Retrieve details about an assigned biometric
       description: ReBQ Retrieve details about an assigned biometric
       operationId: RetrieveBiometricAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/BiometricAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/biometricassignmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveBiometricAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveBiometricAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/ReaderAssignment/{readerassignmentId}/Update:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Update':
     put:
       tags:
-      - BQ - ReaderAssignment
+        - BQ - ReaderAssignment
       summary: UpBQ Update details of an assigned reader device
       description: UpBQ Update details of an assigned reader device
       operationId: UpdateReaderAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/ReaderAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/readerassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateReaderAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateReaderAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateReaderAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/ReaderAssignment/{readerassignmentId}/Capture:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Capture':
     put:
       tags:
-      - BQ - ReaderAssignment
+        - BQ - ReaderAssignment
       summary: CaBQ Capture usage details of an assigned reader
       description: CaBQ Capture usage details of an assigned reader
       operationId: CaptureReaderAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/ReaderAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/readerassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/CaptureReaderAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CaptureReaderAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/CaptureReaderAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/ReaderAssignment/{readerassignmentId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/ReaderAssignment/{readerassignmentid}/Retrieve':
     get:
       tags:
-      - BQ - ReaderAssignment
+        - BQ - ReaderAssignment
       summary: ReBQ Retrieve details about an assigned reader
       description: ReBQ Retrieve details about an assigned reader
       operationId: RetrieveReaderAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/ReaderAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/readerassignmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveReaderAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveReaderAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/ChequesAssignment/Initiate:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/ChequesAssignment/{chequesassignmentid}/Initiate':
     post:
       tags:
-      - BQ - ChequesAssignment
+        - BQ - ChequesAssignment
       summary: PrBQ Provide cheques
       description: PrBQ Provide cheques
       operationId: InitiateChequesAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/chequesassignmentid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateChequesAssignmentRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateChequesAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateChequesAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /IssuedDeviceAdministration/{issueddeviceadministrationId}/ChequesAssignment/{chequesassignmentId}/Retrieve:
+  '/IssuedDeviceAdministration/{issueddeviceadministrationid}/ChequesAssignment/{chequesassignmentid}/Retrieve':
     get:
       tags:
-      - BQ - ChequesAssignment
+        - BQ - ChequesAssignment
       summary: ReBQ Retrieve details about issued cheques
       description: ReBQ Retrieve details about issued cheques
       operationId: RetrieveChequesAssignment
       parameters:
-      - $ref: '#/components/parameters/IssuedDeviceAdministrationID'
-      - $ref: '#/components/parameters/ChequesAssignmentID'
+        - $ref: '#/components/parameters/issueddeviceadministrationid'
+        - $ref: '#/components/parameters/chequesassignmentid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveChequesAssignmentResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveChequesAssignmentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    IssuedDeviceAllocation:
+    HTTPError:
       type: object
       properties:
-        CustomerReference:
-          type: object
-          description: Reference to the holder of the issued device
-        ProductInstanceReference:
-          type: object
-          description: Linked products and services, there can be many
-        IssuedDeviceType:
+        status_code:
           type: string
-          description: The type of device allocated (used to reference assignment type)
-        AssociatedPermissions:
+          format: string
+        status:
           type: string
-          description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
-        IssueDate:
+          format: string
+        message:
           type: string
-          description: The date the issued device is registered
-        ValidFrom-ToDate:
-          type: string
-          description: The refresh period for the issued device
+          format: string
+      description: Status Attributes
     ReaderAssignment:
       type: object
       properties:
         IssuedReaderDeviceSerialNumber:
           type: string
           description: Serial number or other unique identifier
+          format: string
         VersionNumber:
           type: string
           description: Operating system version for smart devices
+          format: string
         IssueLocation:
           type: string
           description: The delivery address or tracked location if appropriate
+          format: string
         IssuedDeviceConfiguration:
           type: string
           description: The reader configuration or set-up details as appropriate
+          format: string
         UsageLog:
           type: string
           description: The timing and frequency of access/use - includes errors for fraud detection
+          format: string
+      description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
     BiometricAssignment:
       type: object
       properties:
         BiometricType:
           type: string
-          description: Type of biometric record being used (e.g. face, fingerprint, signature)
+          description: 'Type of biometric record being used (e.g. face, fingerprint, signature)'
+          format: string
         BiometricRegisteredDetail:
           type: string
           description: The stored biometric value possibly in suitably encrypted form
+          format: string
+      description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
     ChequesAssignment:
       type: object
       properties:
         IssuedDeviceTemplate/Values:
           type: string
-          description: Cheque template (e.g. customer account/branch reference, print image/personalization)
+          description: 'Cheque template (e.g. customer account/branch reference, print image/personalization)'
+          format: string
         IssueLocation:
           type: string
           description: The delivery address for distribution
+          format: string
         SequenceNumber:
           type: string
           description: The tracked sequence numbering (e.g. cheque number range issued)
+          format: string
+      description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Used for device personalization
     DeviceAssignment:
       type: object
       properties:
         IssuedDeviceSerialNumber:
           type: string
           description: Serial number or other unique identifier
+          format: string
         VersionNumber:
           type: string
           description: Operating system version for smart devices
+          format: string
         CustomerCustomizationReference:
-          type: object
-          description: Used for device personalization
+          $ref: '#/components/schemas/object'
         Deliverymethod:
           type: string
-          description: Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)
+          description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
+          format: string
         IssueLocation:
           type: string
           description: The delivery address or tracked location if appropriate
+          format: string
         IssuedDeviceConfiguration:
           type: string
           description: Device stored values such as mag strip/chip settings
+          format: string
         UsageLog:
           type: string
           description: The timing and frequency of access/use - includes errors for fraud detection
+          format: string
+      description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
     PasswordAssignment:
       type: object
       properties:
         FormatRules:
           type: string
           description: The required format or minimum requirements for the password (e.g. 8 chars)
+          format: string
         RecentValues:
           type: string
           description: Recent values maintained to eliminate repeated values
+          format: string
         PasswordValue:
           type: string
           description: The stored value possibly in suitably encrypted form
+          format: string
         UsageLog:
           type: string
           description: The timing and frequency of access/use - includes errors for fraud detection
+          format: string
+      description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
     QuestionAssignment:
       type: object
       properties:
         FormatRules:
           type: string
           description: Defines the minimum requirements for answers
+          format: string
         RecentValues:
           type: string
           description: Recent values maintained to eliminate repeated values
+          format: string
         RequestText:
           type: string
           description: Used to select secret questions and access prompts
+          format: string
         ResponseText:
           type: string
           description: The stored response value possibly in suitably encrypted form
+          format: string
         UsageLog:
           type: string
           description: The timing and frequency of access/use - includes errors for fraud detection
-    HTTPError:
+          format: string
+      description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
+    date:
       type: object
       properties:
-        status_code:
+        Date:
           type: string
-          description: NA
-        status:
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The date the issued device is registered
+    IssuedDeviceAllocation:
+      type: object
+      properties:
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        ProductInstanceReference:
+          $ref: '#/components/schemas/object'
+        IssuedDeviceType:
           type: string
-          description: NA
-        message:
+          description: The type of device allocated (used to reference assignment type)
+          format: string
+        AssociatedPermissions:
           type: string
-          description: NA
+          description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+          format: string
+        IssueDate:
+          $ref: '#/components/schemas/date'
+        ValidFrom-ToDate:
+          $ref: '#/components/schemas/date'
+      description: "Maintain an inventory or holding of some resource and make assignments/allocations as requested  within Issued Device Administration. \nExample: Track the inventory and administer the distribution of central cash holdings throughout the branch & ATM network."
     InitiateIssuedDeviceAllocationRequest:
       type: object
       properties:
@@ -805,20 +768,20 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
+      description: 'Input: PrCR Allocate an issued device (selected type will internally invoke assignment type)'
     InitiateIssuedDeviceAllocationResponse:
       type: object
       properties:
@@ -826,17 +789,39 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
+              $ref: '#/components/schemas/date'
+      description: 'Output: PrCR Allocate an issued device (selected type will internally invoke assignment type)'
+    RetrieveIssuedDeviceAllocationResponse:
+      type: object
+      properties:
+        IssuedDeviceAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              $ref: '#/components/schemas/object'
+            ProductInstanceReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceType:
               type: string
-              description: The refresh period for the issued device
+              description: The type of device allocated (used to reference assignment type)
+              format: string
+            AssociatedPermissions:
+              type: string
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
+            IssueDate:
+              $ref: '#/components/schemas/date'
+            ValidFrom-ToDate:
+              $ref: '#/components/schemas/date'
+      description: 'Output: ReCR Retrieve details about an allocation'
     InitiatePasswordAssignmentRequest:
       type: object
       properties:
@@ -844,29 +829,29 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
             PasswordValue:
               type: string
               description: The stored value possibly in suitably encrypted form
+              format: string
+      description: 'Input: PrBQ Provide a password assignment'
     InitiatePasswordAssignmentResponse:
       type: object
       properties:
@@ -874,29 +859,29 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
             FormatRules:
               type: string
               description: The required format or minimum requirements for the password (e.g. 8 chars)
+              format: string
             RecentValues:
               type: string
               description: Recent values maintained to eliminate repeated values
+              format: string
+      description: 'Output: PrBQ Provide a password assignment'
     UpdatePasswordAssignmentRequest:
       type: object
       properties:
@@ -904,29 +889,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
             PasswordValue:
               type: string
               description: The stored value possibly in suitably encrypted form
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: UpBQ Update details of an assigned password'
     UpdatePasswordAssignmentResponse:
       type: object
       properties:
@@ -934,29 +921,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
             PasswordValue:
               type: string
               description: The stored value possibly in suitably encrypted form
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: UpBQ Update details of an assigned password'
     CapturePasswordAssignmentRequest:
       type: object
       properties:
@@ -966,6 +955,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: CaBQ Capture usage details of an assigned password'
     CapturePasswordAssignmentResponse:
       type: object
       properties:
@@ -975,6 +966,50 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: CaBQ Capture usage details of an assigned password'
+    RetrievePasswordAssignmentResponse:
+      type: object
+      properties:
+        IssuedDeviceAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              $ref: '#/components/schemas/object'
+            ProductInstanceReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceType:
+              type: string
+              description: The type of device allocated (used to reference assignment type)
+              format: string
+            AssociatedPermissions:
+              type: string
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
+            IssueDate:
+              $ref: '#/components/schemas/date'
+            ValidFrom-ToDate:
+              $ref: '#/components/schemas/date'
+        PasswordAssignment:
+          type: object
+          properties:
+            FormatRules:
+              type: string
+              description: The required format or minimum requirements for the password (e.g. 8 chars)
+              format: string
+            RecentValues:
+              type: string
+              description: Recent values maintained to eliminate repeated values
+              format: string
+            PasswordValue:
+              type: string
+              description: The stored value possibly in suitably encrypted form
+              format: string
+            UsageLog:
+              type: string
+              description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: ReBQ Retrieve details about an assigned password'
     InitiateQuestionAssignmentRequest:
       type: object
       properties:
@@ -982,29 +1017,29 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
             ResponseText:
               type: string
               description: The stored response value possibly in suitably encrypted form
+              format: string
+      description: 'Input: PrBQ Provide a secret question assignment'
     InitiateQuestionAssignmentResponse:
       type: object
       properties:
@@ -1012,32 +1047,33 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
             FormatRules:
               type: string
               description: Defines the minimum requirements for answers
+              format: string
             RecentValues:
               type: string
               description: Recent values maintained to eliminate repeated values
+              format: string
             RequestText:
               type: string
               description: Used to select secret questions and access prompts
+              format: string
+      description: 'Output: PrBQ Provide a secret question assignment'
     UpdateQuestionAssignmentRequest:
       type: object
       properties:
@@ -1045,29 +1081,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
             RequestText:
               type: string
               description: Used to select secret questions and access prompts
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: UpBQ Update details of an assigned secret question'
     UpdateQuestionAssignmentResponse:
       type: object
       properties:
@@ -1075,29 +1113,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
             RequestText:
               type: string
               description: Used to select secret questions and access prompts
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: UpBQ Update details of an assigned secret question'
     CaptureQuestionAssignmentRequest:
       type: object
       properties:
@@ -1107,6 +1147,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: CaBQ Capture usage details of an assigned secret question'
     CaptureQuestionAssignmentResponse:
       type: object
       properties:
@@ -1116,6 +1158,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: CaBQ Capture usage details of an assigned secret question'
     RetrieveQuestionAssignmentResponse:
       type: object
       properties:
@@ -1123,38 +1167,43 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
             FormatRules:
               type: string
               description: Defines the minimum requirements for answers
+              format: string
             RecentValues:
               type: string
               description: Recent values maintained to eliminate repeated values
+              format: string
             RequestText:
               type: string
               description: Used to select secret questions and access prompts
+              format: string
             ResponseText:
               type: string
               description: The stored response value possibly in suitably encrypted form
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: ReBQ Retrieve details about an assigned ser=AndAnd password'
     UpdateDeviceAssignmentRequest:
       type: object
       properties:
@@ -1162,41 +1211,45 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         DeviceAssignment:
           type: object
           properties:
             VersionNumber:
               type: string
               description: Operating system version for smart devices
+              format: string
             CustomerCustomizationReference:
-              type: object
-              description: Used for device personalization
+              $ref: '#/components/schemas/object'
             Deliverymethod:
               type: string
-              description: Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)
+              description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
+              format: string
             IssueLocation:
               type: string
               description: The delivery address or tracked location if appropriate
+              format: string
             IssuedDeviceConfiguration:
               type: string
               description: Device stored values such as mag strip/chip settings
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: UpBQ Update details of an assigned device'
     UpdateDeviceAssignmentResponse:
       type: object
       properties:
@@ -1204,41 +1257,45 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         DeviceAssignment:
           type: object
           properties:
             VersionNumber:
               type: string
               description: Operating system version for smart devices
+              format: string
             CustomerCustomizationReference:
-              type: object
-              description: Used for device personalization
+              $ref: '#/components/schemas/object'
             Deliverymethod:
               type: string
-              description: Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)
+              description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
+              format: string
             IssueLocation:
               type: string
               description: The delivery address or tracked location if appropriate
+              format: string
             IssuedDeviceConfiguration:
               type: string
               description: Device stored values such as mag strip/chip settings
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: UpBQ Update details of an assigned device'
     CaptureDeviceAssignmentRequest:
       type: object
       properties:
@@ -1248,6 +1305,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: CaBQ Capture usage details of an assigned device'
     CaptureDeviceAssignmentResponse:
       type: object
       properties:
@@ -1257,6 +1316,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: CaBQ Capture usage details of an assigned device'
     RetrieveDeviceAssignmentResponse:
       type: object
       properties:
@@ -1264,41 +1325,79 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         DeviceAssignment:
           type: object
           properties:
             VersionNumber:
               type: string
               description: Operating system version for smart devices
+              format: string
             CustomerCustomizationReference:
-              type: object
-              description: Used for device personalization
+              $ref: '#/components/schemas/object'
             Deliverymethod:
               type: string
-              description: Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)
+              description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
+              format: string
             IssueLocation:
               type: string
               description: The delivery address or tracked location if appropriate
+              format: string
             IssuedDeviceConfiguration:
               type: string
               description: Device stored values such as mag strip/chip settings
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: ReBQ Retrieve details about an assigned device'
+    InitiateBiometricAssignmentRequest:
+      type: object
+      properties:
+        IssuedDeviceAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              $ref: '#/components/schemas/object'
+            ProductInstanceReference:
+              $ref: '#/components/schemas/object'
+            IssuedDeviceType:
+              type: string
+              description: The type of device allocated (used to reference assignment type)
+              format: string
+            AssociatedPermissions:
+              type: string
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
+            IssueDate:
+              $ref: '#/components/schemas/date'
+            ValidFrom-ToDate:
+              $ref: '#/components/schemas/date'
+        BiometricAssignment:
+          type: object
+          properties:
+            BiometricType:
+              type: string
+              description: 'Type of biometric record being used (e.g. face, fingerprint, signature)'
+              format: string
+            BiometricRegisteredDetail:
+              type: string
+              description: The stored biometric value possibly in suitably encrypted form
+              format: string
+      description: 'Input: PrBQ Provide a biometric assignment'
     InitiateBiometricAssignmentResponse:
       type: object
       properties:
@@ -1306,26 +1405,25 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
             BiometricType:
               type: string
-              description: Type of biometric record being used (e.g. face, fingerprint, signature)
+              description: 'Type of biometric record being used (e.g. face, fingerprint, signature)'
+              format: string
+      description: 'Output: PrBQ Provide a biometric assignment'
     UpdateBiometricAssignmentRequest:
       type: object
       properties:
@@ -1333,29 +1431,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
             BiometricType:
               type: string
-              description: Type of biometric record being used (e.g. face, fingerprint, signature)
+              description: 'Type of biometric record being used (e.g. face, fingerprint, signature)'
+              format: string
             BiometricRegisteredDetail:
               type: string
               description: The stored biometric value possibly in suitably encrypted form
+              format: string
+      description: 'Input: UpBQ Update details of an assigned biometric'
     UpdateBiometricAssignmentResponse:
       type: object
       properties:
@@ -1363,29 +1463,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
             BiometricType:
               type: string
-              description: Type of biometric record being used (e.g. face, fingerprint, signature)
+              description: 'Type of biometric record being used (e.g. face, fingerprint, signature)'
+              format: string
             BiometricRegisteredDetail:
               type: string
               description: The stored biometric value possibly in suitably encrypted form
+              format: string
+      description: 'Output: UpBQ Update details of an assigned biometric'
     RetrieveBiometricAssignmentResponse:
       type: object
       properties:
@@ -1393,29 +1495,31 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
             BiometricType:
               type: string
-              description: Type of biometric record being used (e.g. face, fingerprint, signature)
+              description: 'Type of biometric record being used (e.g. face, fingerprint, signature)'
+              format: string
             BiometricRegisteredDetail:
               type: string
               description: The stored biometric value possibly in suitably encrypted form
+              format: string
+      description: 'Output: ReBQ Retrieve details about an assigned biometric'
     UpdateReaderAssignmentRequest:
       type: object
       properties:
@@ -1423,35 +1527,39 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         ReaderAssignment:
           type: object
           properties:
             VersionNumber:
               type: string
               description: Operating system version for smart devices
+              format: string
             IssueLocation:
               type: string
               description: The delivery address or tracked location if appropriate
+              format: string
             IssuedDeviceConfiguration:
               type: string
               description: The reader configuration or set-up details as appropriate
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: UpBQ Update details of an assigned reader device'
     UpdateReaderAssignmentResponse:
       type: object
       properties:
@@ -1459,35 +1567,39 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         ReaderAssignment:
           type: object
           properties:
             VersionNumber:
               type: string
               description: Operating system version for smart devices
+              format: string
             IssueLocation:
               type: string
               description: The delivery address or tracked location if appropriate
+              format: string
             IssuedDeviceConfiguration:
               type: string
               description: The reader configuration or set-up details as appropriate
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: UpBQ Update details of an assigned reader device'
     CaptureReaderAssignmentRequest:
       type: object
       properties:
@@ -1497,6 +1609,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Input: CaBQ Capture usage details of an assigned reader'
     CaptureReaderAssignmentResponse:
       type: object
       properties:
@@ -1506,6 +1620,8 @@ components:
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: CaBQ Capture usage details of an assigned reader'
     RetrieveReaderAssignmentResponse:
       type: object
       properties:
@@ -1513,35 +1629,39 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         ReaderAssignment:
           type: object
           properties:
             VersionNumber:
               type: string
               description: Operating system version for smart devices
+              format: string
             IssueLocation:
               type: string
               description: The delivery address or tracked location if appropriate
+              format: string
             IssuedDeviceConfiguration:
               type: string
               description: The reader configuration or set-up details as appropriate
+              format: string
             UsageLog:
               type: string
               description: The timing and frequency of access/use - includes errors for fraud detection
+              format: string
+      description: 'Output: ReBQ Retrieve details about an assigned reader'
     InitiateChequesAssignmentRequest:
       type: object
       properties:
@@ -1549,32 +1669,33 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         ChequesAssignment:
           type: object
           properties:
             IssuedDeviceTemplateOrValues:
               type: string
-              description: Cheque template (e.g. customer account/branch reference, print image/personalization)
+              description: 'Cheque template (e.g. customer account/branch reference, print image/personalization)'
+              format: string
             IssueLocation:
               type: string
               description: The delivery address for distribution
+              format: string
+      description: 'Input: PrBQ Provide cheques'
     InitiateChequesAssignmentResponse:
       type: object
       properties:
@@ -1582,26 +1703,25 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
-              description: Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)
+              description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
+              format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         ChequesAssignment:
           type: object
           properties:
             SequenceNumber:
               type: string
               description: The tracked sequence numbering (e.g. cheque number range issued)
+              format: string
+      description: 'Output: PrBQ Provide cheques'
     RetrieveChequesAssignmentResponse:
       type: object
       properties:
@@ -1609,212 +1729,338 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the holder of the issued device
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: object
-              description: Linked products and services, there can be many
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
+              format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
+              $ref: '#/components/schemas/date'
         ChequesAssignment:
           type: object
           properties:
             IssuedDeviceTemplateOrValues:
               type: string
-              description: Cheque template (e.g. customer account/branch reference, print image/personalization)
+              description: 'Cheque template (e.g. customer account/branch reference, print image/personalization)'
+              format: string
             IssueLocation:
               type: string
               description: The delivery address for distribution
+              format: string
             SequenceNumber:
               type: string
               description: The tracked sequence numbering (e.g. cheque number range issued)
-  parameters:
-    IssuedDeviceAdministrationID:
-      name: issueddeviceadministrationId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ReaderAssignmentID:
-      name: readerassignmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    BiometricAssignmentID:
-      name: biometricassignmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ChequesAssignmentID:
-      name: chequesassignmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    DeviceAssignmentID:
-      name: deviceassignmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    PasswordAssignmentID:
-      name: passwordassignmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    QuestionAssignmentID:
-      name: questionassignmentId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    InitiateIssuedDeviceAllocationRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateIssuedDeviceAllocationRequest'
-    IssuedDeviceAllocation:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IssuedDeviceAllocation'
-    InitiatePasswordAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePasswordAssignmentRequest'
-    UpdatePasswordAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdatePasswordAssignmentRequest'
-    CapturePasswordAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CapturePasswordAssignmentRequest'
-    InitiateQuestionAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateQuestionAssignmentRequest'
-    UpdateQuestionAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateQuestionAssignmentRequest'
-    CaptureQuestionAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureQuestionAssignmentRequest'
-    UpdateDeviceAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateDeviceAssignmentRequest'
-    CaptureDeviceAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureDeviceAssignmentRequest'
-    UpdateBiometricAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateBiometricAssignmentRequest'
-    UpdateReaderAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateReaderAssignmentRequest'
-    CaptureReaderAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureReaderAssignmentRequest'
-    InitiateChequesAssignmentRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateChequesAssignmentRequest'
+              format: string
+      description: 'Output: ReBQ Retrieve details about issued cheques'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    InitiateIssuedDeviceAllocationResponse:
+      description: InitiateIssuedDeviceAllocationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceAllocationResponse'
+    IssuedDeviceAllocation:
+      description: IssuedDeviceAllocation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssuedDeviceAllocation'
+    RetrieveIssuedDeviceAllocationResponse:
+      description: RetrieveIssuedDeviceAllocationResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveIssuedDeviceAllocationResponse'
+    InitiatePasswordAssignmentResponse:
+      description: InitiatePasswordAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiatePasswordAssignmentResponse'
+    UpdatePasswordAssignmentResponse:
+      description: UpdatePasswordAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePasswordAssignmentResponse'
+    CapturePasswordAssignmentResponse:
+      description: CapturePasswordAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CapturePasswordAssignmentResponse'
+    RetrievePasswordAssignmentResponse:
+      description: RetrievePasswordAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrievePasswordAssignmentResponse'
+    InitiateQuestionAssignmentResponse:
+      description: InitiateQuestionAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateQuestionAssignmentResponse'
+    UpdateQuestionAssignmentResponse:
+      description: UpdateQuestionAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateQuestionAssignmentResponse'
+    CaptureQuestionAssignmentResponse:
+      description: CaptureQuestionAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureQuestionAssignmentResponse'
+    RetrieveQuestionAssignmentResponse:
+      description: RetrieveQuestionAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveQuestionAssignmentResponse'
+    UpdateDeviceAssignmentResponse:
+      description: UpdateDeviceAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateDeviceAssignmentResponse'
+    CaptureDeviceAssignmentResponse:
+      description: CaptureDeviceAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureDeviceAssignmentResponse'
+    RetrieveDeviceAssignmentResponse:
+      description: RetrieveDeviceAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveDeviceAssignmentResponse'
+    InitiateBiometricAssignmentResponse:
+      description: InitiateBiometricAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateBiometricAssignmentResponse'
+    UpdateBiometricAssignmentResponse:
+      description: UpdateBiometricAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateBiometricAssignmentResponse'
+    RetrieveBiometricAssignmentResponse:
+      description: RetrieveBiometricAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveBiometricAssignmentResponse'
+    UpdateReaderAssignmentResponse:
+      description: UpdateReaderAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateReaderAssignmentResponse'
+    CaptureReaderAssignmentResponse:
+      description: CaptureReaderAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureReaderAssignmentResponse'
+    RetrieveReaderAssignmentResponse:
+      description: RetrieveReaderAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveReaderAssignmentResponse'
+    InitiateChequesAssignmentResponse:
+      description: InitiateChequesAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateChequesAssignmentResponse'
+    RetrieveChequesAssignmentResponse:
+      description: RetrieveChequesAssignmentResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveChequesAssignmentResponse'
+  parameters:
+    issueddeviceadministrationid:
+      name: issueddeviceadministrationid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    passwordassignmentid:
+      name: passwordassignmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    questionassignmentid:
+      name: questionassignmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    deviceassignmentid:
+      name: deviceassignmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    biometricassignmentid:
+      name: biometricassignmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    readerassignmentid:
+      name: readerassignmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    chequesassignmentid:
+      name: chequesassignmentid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    InitiateIssuedDeviceAllocationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceAllocationRequest'
+      required: true
+    IssuedDeviceAllocation:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssuedDeviceAllocation'
+      required: true
+    InitiatePasswordAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiatePasswordAssignmentRequest'
+      required: true
+    UpdatePasswordAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePasswordAssignmentRequest'
+      required: true
+    CapturePasswordAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CapturePasswordAssignmentRequest'
+      required: true
+    InitiateQuestionAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateQuestionAssignmentRequest'
+      required: true
+    UpdateQuestionAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateQuestionAssignmentRequest'
+      required: true
+    CaptureQuestionAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureQuestionAssignmentRequest'
+      required: true
+    UpdateDeviceAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateDeviceAssignmentRequest'
+      required: true
+    CaptureDeviceAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureDeviceAssignmentRequest'
+      required: true
+    InitiateBiometricAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateBiometricAssignmentRequest'
+      required: true
+    UpdateBiometricAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateBiometricAssignmentRequest'
+      required: true
+    UpdateReaderAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateReaderAssignmentRequest'
+      required: true
+    CaptureReaderAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureReaderAssignmentRequest'
+      required: true
+    InitiateChequesAssignmentRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateChequesAssignmentRequest'
+      required: true

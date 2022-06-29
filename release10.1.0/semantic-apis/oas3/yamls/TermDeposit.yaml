@@ -2,1199 +2,1215 @@ openapi: 3.0.1
 info:
   title: Term Deposit
   description: '<span style=" font-size: 10pt;">This Service Domain manages the opening and servicing of Term Deposits. The Service Domain also manages any framework agreements that the customer and the bank may have in which standard conditions of the individual Term Deposits are recorded&nbsp;<p style="margin-top: 3pt;"></span>'
-  version: 10.1.0
+  contact:
+    name: BIAN
+    url: https://bian.org
+  version: '10.1.0'
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/B154/TermDeposit/10.1.0
+  - url: https://virtserver.swaggerhub.com/B154/BIAN/TermDeposit/10.1.0
 paths:
   /TermDeposit/Initiate:
     post:
       tags:
-      - CR - TermDepositFacility
+        - CR - TermDepositFacility
       summary: InCR Initiate A new term deposit account
       description: InCR Initiate A new term deposit account
       operationId: Initiate
-      parameters: []
       requestBody:
         $ref: '#/components/requestBodies/InitiateTermDepositFacilityRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateTermDepositFacilityResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateTermDepositFacilityResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Update:
+  '/TermDeposit/{termdepositid}/Update':
     put:
       tags:
-      - CR - TermDepositFacility
+        - CR - TermDepositFacility
       summary: UpCR Update details of a term deposit account
       description: UpCR Update details of a term deposit account
       operationId: Update
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateTermDepositFacilityRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateTermDepositFacilityResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateTermDepositFacilityResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Retrieve:
+  '/TermDeposit/{termdepositid}/Retrieve':
     get:
       tags:
-      - CR - TermDepositFacility
+        - CR - TermDepositFacility
       summary: ReCR Retrieve information about a term deposit account - either standard canned reports or selected instance attribute values
       description: ReCR Retrieve information about a term deposit account - either standard canned reports or selected instance attribute values
       operationId: Retrieve
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveTermDepositFacilityResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveTermDepositFacilityResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Interest/{interestId}/Retrieve:
+  '/TermDeposit/{termdepositid}/Interest/{interestid}/Retrieve':
     get:
       tags:
-      - BQ - Interest
+        - BQ - Interest
       summary: ReBQ Retrieve details of an interest transaction applied internally to the account
       description: ReBQ Retrieve details of an interest transaction applied internally to the account
       operationId: RetrieveInterest
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/InterestID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/interestid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RetrieveInterestResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveInterestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/ServiceFees/Initiate:
+  '/TermDeposit/{termdepositid}/ServiceFees/{servicefeesid}/Initiate':
     post:
       tags:
-      - BQ - ServiceFees
+        - BQ - ServiceFees
       summary: InBQ Initiate service fees against an account
       description: InBQ Initiate service fees against an account
       operationId: InitiateServiceFees
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/servicefeesid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateServiceFeesRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateServiceFeesResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateServiceFeesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/ServiceFees/{servicefeesId}/Execute:
+  '/TermDeposit/{termdepositid}/ServiceFees/{servicefeesid}/Execute':
     put:
       tags:
-      - BQ - ServiceFees
+        - BQ - ServiceFees
       summary: ExBQ Execute Apply Service Fee
       description: ExBQ Execute Apply Service Fee
       operationId: ExecuteServiceFees
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/ServiceFeesID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/servicefeesid'
       requestBody:
         $ref: '#/components/requestBodies/ExecuteServiceFeesRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExecuteServiceFeesResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ExecuteServiceFeesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/ServiceFees/{servicefeesId}/Retrieve:
+  '/TermDeposit/{termdepositid}/ServiceFees/{servicefeesid}/Retrieve':
     get:
       tags:
-      - BQ - ServiceFees
+        - BQ - ServiceFees
       summary: ReBQ Retrieve information about a service fee applied to the account
       description: ReBQ Retrieve information about a service fee applied to the account
       operationId: RetrieveServiceFees
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/ServiceFeesID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/servicefeesid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ServiceFees'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveServiceFeesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountLien/Initiate:
+  '/TermDeposit/{termdepositid}/AccountLien/{accountlienid}/Initiate':
     post:
       tags:
-      - BQ - AccountLien
+        - BQ - AccountLien
       summary: InBQ Set up an account lien
       description: InBQ Set up an account lien
       operationId: InitiateAccountLien
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountlienid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateAccountLienRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateAccountLienResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateAccountLienResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountLien/{accountlienId}/Update:
+  '/TermDeposit/{termdepositid}/AccountLien/{accountlienid}/Update':
     put:
       tags:
-      - BQ - AccountLien
+        - BQ - AccountLien
       summary: UpBQ Update details of an existing account lien
       description: UpBQ Update details of an existing account lien
       operationId: UpdateAccountLien
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/AccountLienID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountlienid'
       requestBody:
         $ref: '#/components/requestBodies/UpdateAccountLienRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateAccountLienResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdateAccountLienResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountLien/{accountlienId}/Retrieve:
+  '/TermDeposit/{termdepositid}/AccountLien/{accountlienid}/Retrieve':
     get:
       tags:
-      - BQ - AccountLien
+        - BQ - AccountLien
       summary: ReBQ Retrieve details about an account lien
       description: ReBQ Retrieve details about an account lien
       operationId: RetrieveAccountLien
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/AccountLienID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountlienid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountLien'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveAccountLienResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountSweep/Initiate:
+  '/TermDeposit/{termdepositid}/AccountSweep/{accountsweepid}/Initiate':
     post:
       tags:
-      - BQ - AccountSweep
+        - BQ - AccountSweep
       summary: InBQ Set up an account sweep
       description: InBQ Set up an account sweep
       operationId: InitiateAccountSweep
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountsweepid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateAccountSweepRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateAccountSweepResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateAccountSweepResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountSweep/{accountsweepId}/Update:
+  '/TermDeposit/{termdepositid}/AccountSweep/{accountsweepid}/Update':
     put:
       tags:
-      - BQ - AccountSweep
+        - BQ - AccountSweep
       summary: UpBQ Update details of an existing account sweep
       description: UpBQ Update details of an existing account sweep
       operationId: UpdateAccountSweep
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/AccountSweepID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountsweepid'
       requestBody:
         $ref: '#/components/requestBodies/AccountSweep'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountSweep'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/AccountSweep'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountSweep/{accountsweepId}/Execute:
+  '/TermDeposit/{termdepositid}/AccountSweep/{accountsweepid}/Execute':
     put:
       tags:
-      - BQ - AccountSweep
+        - BQ - AccountSweep
       summary: ExBQ Trigger an account sweep transaction
       description: ExBQ Trigger an account sweep transaction
       operationId: ExecuteAccountSweep
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/AccountSweepID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountsweepid'
       requestBody:
         $ref: '#/components/requestBodies/ExecuteAccountSweepRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: boolean
-                example: true
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ExecuteAccountSweepRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/AccountSweep/{accountsweepId}/Retrieve:
+  '/TermDeposit/{termdepositid}/AccountSweep/{accountsweepid}/Retrieve':
     get:
       tags:
-      - BQ - AccountSweep
+        - BQ - AccountSweep
       summary: ReBQ Retrieve details about a sweep facility or specific sweep transaction
       description: ReBQ Retrieve details about a sweep facility or specific sweep transaction
       operationId: RetrieveAccountSweep
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/AccountSweepID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/accountsweepid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AccountSweep'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveAccountSweepResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/DepositsandWithdrawals/Initiate:
+  '/TermDeposit/{termdepositid}/DepositsandWithdrawals/{depositsandwithdrawalsid}/Initiate':
     post:
       tags:
-      - BQ - DepositsandWithdrawals
+        - BQ - DepositsandWithdrawals
       summary: InBQ Initialize deposit or withdrawal transaction
       description: InBQ Initialize deposit or withdrawal transaction
       operationId: InitiateDepositsandWithdrawals
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/depositsandwithdrawalsid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateDepositsandWithdrawalsRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateDepositsandWithdrawalsResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateDepositsandWithdrawalsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/DepositsandWithdrawals/{depositsandwithdrawalsId}/Update:
+  '/TermDeposit/{termdepositid}/DepositsandWithdrawals/{depositsandwithdrawalsid}/Update':
     put:
       tags:
-      - BQ - DepositsandWithdrawals
+        - BQ - DepositsandWithdrawals
       summary: UpBQ Update/correct a deposit or withdrawal transaction
       description: UpBQ Update/correct a deposit or withdrawal transaction
       operationId: UpdateDepositsandWithdrawals
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/DepositsandWithdrawalsID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/depositsandwithdrawalsid'
       requestBody:
         $ref: '#/components/requestBodies/DepositsandWithdrawals'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DepositsandWithdrawals'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/DepositsandWithdrawals'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/DepositsandWithdrawals/{depositsandwithdrawalsId}/Execute:
+  '/TermDeposit/{termdepositid}/DepositsandWithdrawals/{depositsandwithdrawalsid}/Execute':
     put:
       tags:
-      - BQ - DepositsandWithdrawals
+        - BQ - DepositsandWithdrawals
       summary: ExBQ Execute a deposit or withdrawal transaction
       description: ExBQ Execute a deposit or withdrawal transaction
       operationId: ExecuteDepositsandWithdrawals
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/DepositsandWithdrawalsID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/depositsandwithdrawalsid'
       requestBody:
         $ref: '#/components/requestBodies/ExecuteDepositsandWithdrawalsRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExecuteDepositsandWithdrawalsResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ExecuteDepositsandWithdrawalsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/DepositsandWithdrawals/{depositsandwithdrawalsId}/Retrieve:
+  '/TermDeposit/{termdepositid}/DepositsandWithdrawals/{depositsandwithdrawalsid}/Retrieve':
     get:
       tags:
-      - BQ - DepositsandWithdrawals
+        - BQ - DepositsandWithdrawals
       summary: ReBQ Retrieve details about a deposit or withdrawal transaction
       description: ReBQ Retrieve details about a deposit or withdrawal transaction
       operationId: RetrieveDepositsandWithdrawals
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/DepositsandWithdrawalsID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/depositsandwithdrawalsid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DepositsandWithdrawals'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveDepositsandWithdrawalsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Payments/Initiate:
+  '/TermDeposit/{termdepositid}/Payments/{paymentsid}/Initiate':
     post:
       tags:
-      - BQ - Payments
+        - BQ - Payments
       summary: InBQ Initialize a payment transaction (can be single or repeating)
       description: InBQ Initialize a payment transaction (can be single or repeating)
       operationId: InitiatePayments
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/paymentsid'
       requestBody:
         $ref: '#/components/requestBodies/InitiatePaymentsRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiatePaymentsResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiatePaymentsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Payments/{paymentsId}/Update:
+  '/TermDeposit/{termdepositid}/Payments/{paymentsid}/Update':
     put:
       tags:
-      - BQ - Payments
+        - BQ - Payments
       summary: UpBQ Update a payment transaction configuration or specific transaction
       description: UpBQ Update a payment transaction configuration or specific transaction
       operationId: UpdatePayments
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/PaymentsID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/paymentsid'
       requestBody:
         $ref: '#/components/requestBodies/UpdatePaymentsRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdatePaymentsResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/UpdatePaymentsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Payments/{paymentsId}/Execute:
+  '/TermDeposit/{termdepositid}/Payments/{paymentsid}/Execute':
     put:
       tags:
-      - BQ - Payments
+        - BQ - Payments
       summary: ExBQ Trigger a payment for a repeating payment set up
       description: ExBQ Trigger a payment for a repeating payment set up
       operationId: ExecutePayments
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/PaymentsID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/paymentsid'
       requestBody:
         $ref: '#/components/requestBodies/ExecutePaymentsRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExecutePaymentsResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/ExecutePaymentsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/Payments/{paymentsId}/Retrieve:
+  '/TermDeposit/{termdepositid}/Payments/{paymentsid}/Retrieve':
     get:
       tags:
-      - BQ - Payments
+        - BQ - Payments
       summary: ReBQ Retrieve details about a payment transaction or arrangement
       description: ReBQ Retrieve details about a payment transaction or arrangement
       operationId: RetrievePayments
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/PaymentsID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/paymentsid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Payments'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrievePaymentsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/IssuedDevice/Initiate:
+  '/TermDeposit/{termdepositid}/IssuedDevice/{issueddeviceid}/Initiate':
     post:
       tags:
-      - BQ - IssuedDevice
+        - BQ - IssuedDevice
       summary: InBQ Initiate the provision of issued inventory for the account (include initial issuance)
       description: InBQ Initiate the provision of issued inventory for the account (include initial issuance)
       operationId: InitiateIssuedDevice
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/issueddeviceid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateIssuedDeviceRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InitiateIssuedDeviceResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/InitiateIssuedDeviceResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/IssuedDevice/{issueddeviceId}/Update:
+  '/TermDeposit/{termdepositid}/IssuedDevice/{issueddeviceid}/Update':
     put:
       tags:
-      - BQ - IssuedDevice
+        - BQ - IssuedDevice
       summary: UpBQ Update the issued inventory details and provisioning configuration or status
       description: UpBQ Update the issued inventory details and provisioning configuration or status
       operationId: UpdateIssuedDevice
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/IssuedDeviceID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/issueddeviceid'
       requestBody:
         $ref: '#/components/requestBodies/IssuedDevice'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDevice'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/IssuedDevice'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/IssuedDevice/{issueddeviceId}/Request:
+  '/TermDeposit/{termdepositid}/IssuedDevice/{issueddeviceid}/Request':
     put:
       tags:
-      - BQ - IssuedDevice
+        - BQ - IssuedDevice
       summary: RqBQ Request changes or replacement device or inventory
       description: RqBQ Request changes or replacement device or inventory
       operationId: RequestIssuedDevice
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/IssuedDeviceID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/issueddeviceid'
       requestBody:
         $ref: '#/components/requestBodies/RequestIssuedDeviceRequest'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestIssuedDeviceResponse'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RequestIssuedDeviceResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
-  /TermDeposit/{termdepositId}/IssuedDevice/{issueddeviceId}/Retrieve:
+  '/TermDeposit/{termdepositid}/IssuedDevice/{issueddeviceid}/Retrieve':
     get:
       tags:
-      - BQ - IssuedDevice
+        - BQ - IssuedDevice
       summary: ReBQ Retrieve details about issued devices or inventory
       description: ReBQ Retrieve details about issued devices or inventory
       operationId: RetrieveIssuedDevice
       parameters:
-      - $ref: '#/components/parameters/TermDepositID'
-      - $ref: '#/components/parameters/IssuedDeviceID'
+        - $ref: '#/components/parameters/termdepositid'
+        - $ref: '#/components/parameters/issueddeviceid'
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IssuedDevice'
-        400:
-          $ref: '#/components/responses/BadRequestError'
-        401:
-          $ref: '#/components/responses/UnauthorizedError'
-        403:
-          $ref: '#/components/responses/ForbiddenError'
-        404:
-          $ref: '#/components/responses/NotFoundError'
-        429:
-          $ref: '#/components/responses/TooManyRequestsError'
-        500:
+        '200':
+          $ref: '#/components/responses/RetrieveIssuedDeviceResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    TermDepositFacility:
+    HTTPError:
       type: object
       properties:
-        ProductInstanceReference:
-          type: object
-          description: Reference to the corporate deposit account product instance
-        TermDepositAccountNumber:
+        status_code:
           type: string
-          description: The associated account number in any suitable format (e.g. IBAN)
-        CustomerReference:
-          type: object
-          description: Reference to the account primary party/owner
-        BankBranchOrLocationReference:
-          type: object
-          description: Bank branch associated with the account for booking purposes
-        AccountType:
+          format: string
+        status:
           type: string
-          description: The type of corporate deposit account (e.g. checking, student, small business)
-        AccountCurrency:
+          format: string
+        message:
           type: string
-          description: The primary account currency
-        TaxReference:
-          type: object
-          description: Reference identifier linking the account to appropriate tax handling
-        EntitlementOptionDefinition:
+          format: string
+      description: Status Attributes
+    amount:
+      type: object
+      properties:
+        Amount:
           type: string
-          description: The definition of an applicable entitlement option
-        EntitlementOptionSetting:
-          type: string
-          description: The setting for the entitlement option
-        RestrictionOptionDefinition:
-          type: string
-          description: The definition of an applicable restriction option
-        RestrictionOptionSetting:
-          type: string
-          description: The setting for the restriction option
-        Associations:
-          type: string
-          description: Definition of the associations to the account
-        AssociationType:
-          type: string
-          description: The type of association (e.g. guarantor, co-signer)
-        AssociationObligationOrEntitlement:
-          type: string
-          description: Description of the role, obligations or entitlements of the associated party
-        AssociationReference:
-          type: object
-          description: Reference to the associated party
-        LinkedAccounts:
-          type: string
-          description: Definition of the associations to the account
-        LinkType:
-          type: string
-          description: The type and purpose for the link
-        AccountDetails:
-          type: string
-          description: Details of the linked account
-        PositionLimits:
-          type: string
-          description: Position limits that are maintained by the account
-        PositionLimitType:
-          type: string
-          description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
-        PositionLimitSettings:
-          type: string
-          description: The position definition, associated limit settings and rules
-        PositionLimitValue:
-          type: string
-          description: The corporate deposit calculated position
-        DateType:
-          type: string
-          description: Key dates associated with the account (e.g. opening date, closing date)
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: The amount being blocked
+    date:
+      type: object
+      properties:
         Date:
           type: string
-          description: Value of the date type
-        StatementsSchedule:
-          type: string
-          description: The schedule for generating product statements to schedule
-        StatementType:
-          type: string
-          description: The types of scheduled statement (e.g. balance/mini-statement/annual)
-        StatementTransactionType:
-          type: string
-          description: The types of transactions and transaction details to be included
-        StatementPeriod:
-          type: string
-          description: The reporting period covered by the statement
-        StatementReport:
-          type: string
-          description: The statement content
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The date the lien is enforced
     AccountLien:
       type: object
       properties:
         LienType:
           type: string
-          description: The type of lien (e.g. final, pending)
+          description: 'The type of lien (e.g. final, pending)'
+          format: string
         LienDefinition:
           type: string
           description: Definition of the type of lien including processing guidelines
+          format: string
         LienProcessingOption:
           type: string
           description: The processing option applied to the lien
+          format: string
         LienRecord:
           type: string
           description: The collection of applicable rates
+          format: string
         LienOriginator:
           type: string
           description: The party requesting the lien
+          format: string
         LienPurpose:
           type: string
           description: The purpose or associated facility linked to the lien
+          format: string
         LienAmount:
-          type: number
-          description: The amount being blocked
+          $ref: '#/components/schemas/amount'
         LienStartDate:
-          type: string
-          description: The date the lien is enforced
+          $ref: '#/components/schemas/date'
         LienExpiryDate:
-          type: string
-          description: The date the lien is removed
+          $ref: '#/components/schemas/date'
         LienStatus:
           type: string
           description: The status on the lien
+          format: string
+      description: The product features/services available with a financical facility
     IssuedDevice:
       type: object
       properties:
         IssuedDeviceType:
           type: string
-          description: The type of issued device/inventory (e.g. checkbook, pay-in slip)
+          description: 'The type of issued device/inventory (e.g. checkbook, pay-in slip)'
+          format: string
         IssuedDeviceDescription:
           type: string
-          description: Definition of the inventory item, including processing and handling guidelines and rules
+          description: 'Definition of the inventory item, including processing and handling guidelines and rules'
+          format: string
         IssuedDeviceOptionDefinition:
           type: string
           description: Definition of the processing option and impact (e.g. lost check handling)
+          format: string
         IssuedDeviceOptionSetting:
           type: string
           description: The processing option setting
+          format: string
         IssuedDeviceProperty:
           type: string
-          description: A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)
+          description: 'A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)'
+          format: string
         IssuedDevicePropertyType:
           type: string
           description: Tracked property of the issued device/inventory (e.g. issued check numbers)
+          format: string
         IssuedDevicePropertyValue:
           type: string
           description: The tracked values associated with an issued device/inventory item
+          format: string
         IssuedDeviceStatus:
           type: string
-          description: The tracked status of the device/inventory item (e.g. active, suspended, cancelled)
+          description: 'The tracked status of the device/inventory item (e.g. active, suspended, cancelled)'
+          format: string
+      description: The product features/services available with a financical facility
     ServiceFees:
       type: object
       properties:
         FeeConfigurationProfile:
           type: string
           description: The profile of applicable fees and penalties
+          format: string
         FeeType:
           type: string
           description: The fee or penalty type applied
+          format: string
         FeeDefinition:
           type: string
           description: Definition of the fee or penalty including when and how to apply
+          format: string
         FeeApplicationRecord:
           type: string
           description: The record of applied fees and penalties including transactions and accrued amounts
+          format: string
         FeeTransaction:
           type: string
           description: A record of an applied fee or penalty
+          format: string
         TransactionDescription:
           type: string
           description: General description of the fee or penalty transaction
+          format: string
         TransactionFeeType:
           type: string
           description: The fee or penalty type applied
+          format: string
         TransactionFeeCharge:
           type: string
           description: The derived fee or penalty amount applied
+          format: string
         FeeProjectionsandCommitments:
           type: string
           description: A record of projected fees and penalties
+          format: string
         ProjectedTransactionDescription:
           type: string
           description: General description of the projected fee or penalty
+          format: string
         ProjectedTransactionFeeType:
           type: string
           description: The fee or penalty type
+          format: string
         ProjectedTransactionFeeCharge:
           type: string
           description: The anticipated fee or penalty amount
+          format: string
         FeeAccrualAmount:
-          type: number
-          description: Tracking of accumulated fees and penalties
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
+          format: string
         AccrualFeeCharge:
           type: string
           description: The accrued amount of fees and penalties
+          format: string
+      description: The product features/services available with a financical facility
     AccountSweep:
       type: object
       properties:
         AccountSweepType:
           type: string
-          description: The type of sweep (e.g. periodic, threshold)
+          description: 'The type of sweep (e.g. periodic, threshold)'
+          format: string
         AccountSweepDefinition:
           type: string
           description: Definition of the type of sweep
+          format: string
         AccountSweepApplicationSchedule:
           type: string
           description: Sweep processing guidelines and scheduling rules
+          format: string
         AccountSweepConfiguration:
           type: string
           description: The set-up of the sweep facility
+          format: string
         TargetAccount:
           type: string
           description: The facility that the sweep is made to/from
+          format: string
         SweepMandate:
           type: string
           description: Confirmation that the sweep processing is sanctioned as necessary
+          format: string
         SweepProcessingSchedule:
           type: string
           description: Timing and or triggers for initiating sweep transaction
+          format: string
         SweepApplicationRecord:
           type: string
           description: The transaction record for an applied sweep
+          format: string
         AccountSweepTargetAccount:
           type: string
           description: The facility that the sweep is made to/from
+          format: string
         AccountSweepAmount:
-          type: number
-          description: The amount transferred to or from the account
+          $ref: '#/components/schemas/amount'
         AccountSweepExecutionDate:
+          $ref: '#/components/schemas/date'
+      description: The product features/services available with a financical facility
+    object:
+      type: object
+      properties:
+        Object:
           type: string
-          description: The date and time the sweep is initiated
+          description: ''
+          format: datatype
+      description: Identifies the source of the deposit
     DepositsandWithdrawals:
       type: object
       properties:
         DepositType:
           type: string
-          description: The type of deposit transaction that can be applied to the account (e.g. customer deposit, internal credit)
+          description: 'The type of deposit transaction that can be applied to the account (e.g. customer deposit, internal credit)'
+          format: string
         WithdrawalType:
           type: string
-          description: The type of withdrawal transaction that can be applied to the account (e.g. customer withdrawal, internal service charge, disbursement)
+          description: 'The type of withdrawal transaction that can be applied to the account (e.g. customer withdrawal, internal service charge, disbursement)'
+          format: string
         AccountLimitBreachResponse:
           type: string
           description: The handling options if a withdrawal results in a breach of an account limit
+          format: string
         DepositTransaction:
           type: string
           description: The collection of applicable rates
+          format: string
         DepositTransactionSourceReference:
-          type: object
-          description: Identifies the source of the deposit
+          $ref: '#/components/schemas/object'
         DepositTransactionDepositType:
           type: string
           description: The type of deposit made with the transaction
+          format: string
         DepositTransactionDescription:
           type: string
           description: Any necessary details describing the purpose or reference properties of the deposit
+          format: string
         DepositTransactionAmount:
-          type: number
-          description: The deposited amount
+          $ref: '#/components/schemas/amount'
         DepositTransactionDate:
-          type: string
-          description: The date and time the deposit was initiated
+          $ref: '#/components/schemas/date'
         WithdrawalTransaction:
           type: string
           description: The record of applied interest
+          format: string
         WithdrawalTransactionSourceReference:
-          type: object
-          description: Identifies the target for the withdrawal
+          $ref: '#/components/schemas/object'
         WithdrawalTransactionWithdrawalType:
           type: string
           description: The type of withdrawal made with the transaction
+          format: string
         WithdrawalTransactionDescription:
           type: string
           description: Any necessary details describing the purpose or reference properties of the withdrawal
+          format: string
         WithdrawalTransactionAmount:
-          type: number
-          description: The withdrawn amount
+          $ref: '#/components/schemas/amount'
         WithdrawalTransactionDate:
+          $ref: '#/components/schemas/date'
+      description: The product features/services available with a financical facility
+    rate:
+      type: object
+      properties:
+        Rate:
           type: string
-          description: The date and time the withdrawal was initiated
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
+      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
         InterestRateType:
           type: string
           description: Applicable rate type
+          format: string
         InterestRateApplicationSchedule:
-          type: object
-          description: The processing schedule for applying interest rates to the account
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: object
-          description: The collection of applicable rates
+          $ref: '#/components/schemas/rate'
         Rate:
           type: string
           description: The rate value to be applied
+          format: string
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
+          format: string
         InterestTransaction:
           type: string
           description: A record of applied interest
+          format: string
         TransactionDescription:
           type: string
           description: General description of the interest transaction
+          format: string
         TransactionRateType:
           type: string
           description: Applicable rate type
+          format: string
         TransactionInterestCharge:
           type: string
           description: The derived interest amount to be applied
+          format: string
         InterestAccrualAmount:
-          type: number
-          description: Record of accrued interest
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
+          format: string
         InterestAccrualCharge:
           type: string
           description: The accrued amount of applied interest
+          format: string
+      description: The product features/services available with a financical facility
     Payments:
       type: object
       properties:
         PaymentType:
           type: string
-          description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+          description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+          format: string
         PaymentDefinition:
           type: string
           description: Definition of the type of payment including processing rules and guidelines
+          format: string
         PaymentProcessingOptionDefinition:
           type: string
           description: Definition of the processing option and impact (e.g. frequency and cumulative amount constraints)
+          format: string
         PaymentProcessingOptionSetting:
           type: string
           description: The option setting
+          format: string
         PaymentConfiguration:
           type: string
           description: Configuration setting for various payment transaction types
+          format: string
         PaymentSchedule:
           type: string
-          description: Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary
+          description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
+          format: string
         DirectDebitMandateReference:
-          type: object
-          description: Reference to the applicable mandate for direct debits
+          $ref: '#/components/schemas/object'
         DirectDebitMandateSettings:
           type: string
           description: Processing settings governing direct debits
+          format: string
         BillPayMandateReference:
-          type: object
-          description: Reference to the applicable mandate for bill pay transactions
+          $ref: '#/components/schemas/object'
         BillPayMandateSettings:
           type: string
           description: Processing settings governing bill pay transactions
+          format: string
         PaymentTransaction:
           type: string
           description: The general payment transaction with all major attributes - some optional depending on type
+          format: string
         PaymentTransactionType:
           type: string
-          description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+          description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+          format: string
         PaymentTransactionPayeeReference:
-          type: object
-          description: Reference to the party to whom the payment is made
+          $ref: '#/components/schemas/object'
         PaymentTransactionPayeeAccountReference:
-          type: object
-          description: Reference to the account to which the payment is made
+          $ref: '#/components/schemas/object'
         PaymentTransactionPayeeBankReference:
-          type: object
-          description: Reference to the bank where the payee account is held
+          $ref: '#/components/schemas/object'
         PaymentTransactionAmount:
-          type: number
-          description: The amount (and currency if applicable) of the payment
+          $ref: '#/components/schemas/amount'
         PaymentTransactionFeeType:
           type: string
           description: The fee type applied to the payment transaction
+          format: string
         PaymentTransactionFeeCharge:
           type: string
           description: The fee charge applied to the transaction
+          format: string
         PaymentTransactionDate:
-          type: string
-          description: The various key dates and times associated with the payment transaction
+          $ref: '#/components/schemas/date'
         PaymentTransactionPaymentMechanism:
           type: string
-          description: Requested payment mechanism (e.g. Wire, ACH)
+          description: 'Requested payment mechanism (e.g. Wire, ACH)'
+          format: string
         PaymentTransactionPaymentPurpose:
           type: string
           description: Description of the purpose including any external reference to the transaction
+          format: string
         PaymentTransactionBankBranch/LocationReference:
-          type: object
-          description: Reference to the location the payment transaction is initiated from
+          $ref: '#/components/schemas/object'
         PaymentTransactionStatus:
           type: string
-          description: The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)
-    HTTPError:
+          description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
+          format: string
+      description: The product features/services available with a financical facility
+    currencycode:
       type: object
       properties:
-        status_code:
+        Currencycode:
           type: string
-          description: NA
-        status:
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The primary account currency
+    TermDepositFacility:
+      type: object
+      properties:
+        ProductInstanceReference:
+          $ref: '#/components/schemas/object'
+        TermDepositAccountNumber:
           type: string
-          description: NA
-        message:
+          description: The associated account number in any suitable format (e.g. IBAN)
+          format: string
+        CustomerReference:
+          $ref: '#/components/schemas/object'
+        BankBranchOrLocationReference:
+          $ref: '#/components/schemas/object'
+        AccountType:
           type: string
-          description: NA
+          description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+          format: string
+        AccountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        TaxReference:
+          $ref: '#/components/schemas/object'
+        EntitlementOptionDefinition:
+          type: string
+          description: The definition of an applicable entitlement option
+          format: string
+        EntitlementOptionSetting:
+          type: string
+          description: The setting for the entitlement option
+          format: string
+        RestrictionOptionDefinition:
+          type: string
+          description: The definition of an applicable restriction option
+          format: string
+        RestrictionOptionSetting:
+          type: string
+          description: The setting for the restriction option
+          format: string
+        Associations:
+          type: string
+          description: Definition of the associations to the account
+          format: string
+        AssociationType:
+          type: string
+          description: 'The type of association (e.g. guarantor, co-signer)'
+          format: string
+        AssociationObligationOrEntitlement:
+          type: string
+          description: 'Description of the role, obligations or entitlements of the associated party'
+          format: string
+        AssociationReference:
+          $ref: '#/components/schemas/object'
+        LinkedAccounts:
+          type: string
+          description: Definition of the associations to the account
+          format: string
+        LinkType:
+          type: string
+          description: The type and purpose for the link
+          format: string
+        AccountDetails:
+          type: string
+          description: Details of the linked account
+          format: string
+        PositionLimits:
+          type: string
+          description: Position limits that are maintained by the account
+          format: string
+        PositionLimitType:
+          type: string
+          description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+          format: string
+        PositionLimitSettings:
+          type: string
+          description: 'The position definition, associated limit settings and rules'
+          format: string
+        PositionLimitValue:
+          type: string
+          description: The corporate deposit calculated position
+          format: string
+        DateType:
+          type: string
+          description: 'Key dates associated with the account (e.g. opening date, closing date)'
+          format: string
+        Date:
+          type: string
+          description: Value of the date type
+          format: string
+        StatementsSchedule:
+          type: string
+          description: The schedule for generating product statements to schedule
+          format: string
+        StatementType:
+          type: string
+          description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+          format: string
+        StatementTransactionType:
+          type: string
+          description: The types of transactions and transaction details to be included
+          format: string
+        StatementPeriod:
+          type: string
+          description: The reporting period covered by the statement
+          format: string
+        StatementReport:
+          type: string
+          description: The statement content
+          format: string
+      description: 'Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Term Deposit. '
     InitiateTermDepositFacilityRequest:
       type: object
       properties:
@@ -1202,68 +1218,80 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             StatementsSchedule:
               type: string
               description: The schedule for generating product statements to schedule
+              format: string
             StatementType:
               type: string
               description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+              format: string
             StatementTransactionType:
               type: string
               description: The types of transactions and transaction details to be included
+              format: string
             StatementPeriod:
               type: string
               description: The reporting period covered by the statement
+              format: string
             StatementReport:
               type: string
               description: The statement content
+              format: string
+      description: 'Input: InCR Initiate A new term deposit account'
     InitiateTermDepositFacilityResponse:
       type: object
       properties:
@@ -1271,38 +1299,46 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
+              format: string
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionDefinition:
               type: string
               description: The definition of an applicable restriction option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
+      description: 'Output: InCR Initiate A new term deposit account'
     UpdateTermDepositFacilityRequest:
       type: object
       properties:
@@ -1310,89 +1346,106 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
+              format: string
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionDefinition:
               type: string
               description: The definition of an applicable restriction option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             StatementsSchedule:
               type: string
               description: The schedule for generating product statements to schedule
+              format: string
             StatementType:
               type: string
               description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+              format: string
             StatementTransactionType:
               type: string
               description: The types of transactions and transaction details to be included
+              format: string
             StatementPeriod:
               type: string
               description: The reporting period covered by the statement
+              format: string
             StatementReport:
               type: string
               description: The statement content
+              format: string
+      description: 'Input: UpCR Update details of a term deposit account'
     UpdateTermDepositFacilityResponse:
       type: object
       properties:
@@ -1400,89 +1453,106 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
+              format: string
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionDefinition:
               type: string
               description: The definition of an applicable restriction option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             StatementsSchedule:
               type: string
               description: The schedule for generating product statements to schedule
+              format: string
             StatementType:
               type: string
               description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+              format: string
             StatementTransactionType:
               type: string
               description: The types of transactions and transaction details to be included
+              format: string
             StatementPeriod:
               type: string
               description: The reporting period covered by the statement
+              format: string
             StatementReport:
               type: string
               description: The statement content
+              format: string
+      description: 'Output: UpCR Update details of a term deposit account'
     RetrieveTermDepositFacilityResponse:
       type: object
       properties:
@@ -1490,89 +1560,106 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
+              format: string
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionDefinition:
               type: string
               description: The definition of an applicable restriction option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             Associations:
               type: string
               description: Definition of the associations to the account
+              format: string
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimits:
               type: string
               description: Position limits that are maintained by the account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             StatementsSchedule:
               type: string
               description: The schedule for generating product statements to schedule
+              format: string
             StatementType:
               type: string
               description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+              format: string
             StatementTransactionType:
               type: string
               description: The types of transactions and transaction details to be included
+              format: string
             StatementPeriod:
               type: string
               description: The reporting period covered by the statement
+              format: string
             StatementReport:
               type: string
               description: The statement content
+              format: string
+      description: 'Output: ReCR Retrieve information about a term deposit account - either standard canned reports or selected instance attribute values'
     RetrieveInterestResponse:
       type: object
       properties:
@@ -1582,36 +1669,42 @@ components:
             InterestRateType:
               type: string
               description: Applicable rate type
+              format: string
             InterestRateApplicationSchedule:
-              type: object
-              description: The processing schedule for applying interest rates to the account
+              $ref: '#/components/schemas/rate'
             InterestRateConfiguration:
-              type: object
-              description: The collection of applicable rates
+              $ref: '#/components/schemas/rate'
             InterestApplicationRecord:
               type: string
               description: The record of applied interest
+              format: string
             InterestTransaction:
               type: string
               description: A record of applied interest
+              format: string
             TransactionDescription:
               type: string
               description: General description of the interest transaction
+              format: string
             TransactionRateType:
               type: string
               description: Applicable rate type
+              format: string
             TransactionInterestCharge:
               type: string
               description: The derived interest amount to be applied
+              format: string
             InterestAccrualAmount:
-              type: number
-              description: Record of accrued interest
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: The interest type being tracked
+              format: string
             InterestAccrualCharge:
               type: string
               description: The accrued amount of applied interest
+              format: string
+      description: 'Output: ReBQ Retrieve details of an interest transaction applied internally to the account'
     InitiateServiceFeesRequest:
       type: object
       properties:
@@ -1619,68 +1712,83 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             StatementsSchedule:
               type: string
               description: The schedule for generating product statements to schedule
+              format: string
             StatementType:
               type: string
               description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+              format: string
             StatementTransactionType:
               type: string
               description: The types of transactions and transaction details to be included
+              format: string
             StatementPeriod:
               type: string
               description: The reporting period covered by the statement
+              format: string
             StatementReport:
               type: string
               description: The statement content
+              format: string
         ServiceFees:
           type: object
           properties:
             FeeConfigurationProfile:
               type: string
               description: The profile of applicable fees and penalties
+              format: string
             FeeType:
               type: string
               description: The fee or penalty type applied
+              format: string
+      description: 'Input: InBQ Initiate service fees against an account'
     InitiateServiceFeesResponse:
       type: object
       properties:
@@ -1689,13 +1797,16 @@ components:
           properties:
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         ServiceFees:
           type: object
           properties:
             FeeDefinition:
               type: string
               description: Definition of the fee or penalty including when and how to apply
+              format: string
+      description: 'Output: InBQ Initiate service fees against an account'
     ExecuteServiceFeesRequest:
       type: object
       properties:
@@ -1705,33 +1816,44 @@ components:
             FeeConfigurationProfile:
               type: string
               description: The profile of applicable fees and penalties
+              format: string
             FeeType:
               type: string
               description: The fee or penalty type applied
+              format: string
             FeeApplicationRecord:
               type: string
               description: The record of applied fees and penalties including transactions and accrued amounts
+              format: string
             FeeTransaction:
               type: string
               description: A record of an applied fee or penalty
+              format: string
             TransactionDescription:
               type: string
               description: General description of the fee or penalty transaction
+              format: string
             TransactionFeeType:
               type: string
               description: The fee or penalty type applied
+              format: string
             FeeProjectionsandCommitments:
               type: string
               description: A record of projected fees and penalties
+              format: string
             ProjectedTransactionDescription:
               type: string
               description: General description of the projected fee or penalty
+              format: string
             ProjectedTransactionFeeType:
               type: string
               description: The fee or penalty type
+              format: string
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
+              format: string
+      description: 'Input: ExBQ Execute Apply Service Fee'
     ExecuteServiceFeesResponse:
       type: object
       properties:
@@ -1741,39 +1863,115 @@ components:
             FeeConfigurationProfile:
               type: string
               description: The profile of applicable fees and penalties
+              format: string
             FeeDefinition:
               type: string
               description: Definition of the fee or penalty including when and how to apply
+              format: string
             FeeApplicationRecord:
               type: string
               description: The record of applied fees and penalties including transactions and accrued amounts
+              format: string
             FeeTransaction:
               type: string
               description: A record of an applied fee or penalty
+              format: string
             TransactionFeeType:
               type: string
               description: The fee or penalty type applied
+              format: string
             TransactionFeeCharge:
               type: string
               description: The derived fee or penalty amount applied
+              format: string
             FeeProjectionsandCommitments:
               type: string
               description: A record of projected fees and penalties
+              format: string
             ProjectedTransactionFeeType:
               type: string
               description: The fee or penalty type
+              format: string
             ProjectedTransactionFeeCharge:
               type: string
               description: The anticipated fee or penalty amount
+              format: string
             FeeAccrualAmount:
-              type: number
-              description: Tracking of accumulated fees and penalties
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
+              format: string
             AccrualFeeCharge:
               type: string
               description: The accrued amount of fees and penalties
+              format: string
+      description: 'Output: ExBQ Execute Apply Service Fee'
+    RetrieveServiceFeesResponse:
+      type: object
+      properties:
+        ServiceFees:
+          type: object
+          properties:
+            FeeConfigurationProfile:
+              type: string
+              description: The profile of applicable fees and penalties
+              format: string
+            FeeType:
+              type: string
+              description: The fee or penalty type applied
+              format: string
+            FeeDefinition:
+              type: string
+              description: Definition of the fee or penalty including when and how to apply
+              format: string
+            FeeApplicationRecord:
+              type: string
+              description: The record of applied fees and penalties including transactions and accrued amounts
+              format: string
+            FeeTransaction:
+              type: string
+              description: A record of an applied fee or penalty
+              format: string
+            TransactionDescription:
+              type: string
+              description: General description of the fee or penalty transaction
+              format: string
+            TransactionFeeType:
+              type: string
+              description: The fee or penalty type applied
+              format: string
+            TransactionFeeCharge:
+              type: string
+              description: The derived fee or penalty amount applied
+              format: string
+            FeeProjectionsandCommitments:
+              type: string
+              description: A record of projected fees and penalties
+              format: string
+            ProjectedTransactionDescription:
+              type: string
+              description: General description of the projected fee or penalty
+              format: string
+            ProjectedTransactionFeeType:
+              type: string
+              description: The fee or penalty type
+              format: string
+            ProjectedTransactionFeeCharge:
+              type: string
+              description: The anticipated fee or penalty amount
+              format: string
+            FeeAccrualAmount:
+              $ref: '#/components/schemas/amount'
+            AccrualFeeType:
+              type: string
+              description: The fee or penalty type being tracked
+              format: string
+            AccrualFeeCharge:
+              type: string
+              description: The accrued amount of fees and penalties
+              format: string
+      description: 'Output: ReBQ Retrieve information about a service fee applied to the account'
     InitiateAccountLienRequest:
       type: object
       properties:
@@ -1781,77 +1979,89 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         AccountLien:
           type: object
           properties:
             LienType:
               type: string
-              description: The type of lien (e.g. final, pending)
+              description: 'The type of lien (e.g. final, pending)'
+              format: string
             LienDefinition:
               type: string
               description: Definition of the type of lien including processing guidelines
+              format: string
             LienProcessingOption:
               type: string
               description: The processing option applied to the lien
+              format: string
             LienRecord:
               type: string
               description: The collection of applicable rates
+              format: string
             LienOriginator:
               type: string
               description: The party requesting the lien
+              format: string
             LienPurpose:
               type: string
               description: The purpose or associated facility linked to the lien
+              format: string
             LienAmount:
-              type: number
-              description: The amount being blocked
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: The date the lien is enforced
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: The date the lien is removed
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: The status on the lien
+              format: string
+      description: 'Input: InBQ Set up an account lien'
     InitiateAccountLienResponse:
       type: object
       properties:
@@ -1861,30 +2071,39 @@ components:
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
+              format: string
             RestrictionOptionDefinition:
               type: string
               description: The definition of an applicable restriction option
+              format: string
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         AccountLien:
           type: object
           properties:
             LienDefinition:
               type: string
               description: Definition of the type of lien including processing guidelines
+              format: string
             LienRecord:
               type: string
               description: The collection of applicable rates
+              format: string
+      description: 'Output: InBQ Set up an account lien'
     UpdateAccountLienRequest:
       type: object
       properties:
@@ -1893,31 +2112,35 @@ components:
           properties:
             LienType:
               type: string
-              description: The type of lien (e.g. final, pending)
+              description: 'The type of lien (e.g. final, pending)'
+              format: string
             LienProcessingOption:
               type: string
               description: The processing option applied to the lien
+              format: string
             LienRecord:
               type: string
               description: The collection of applicable rates
+              format: string
             LienOriginator:
               type: string
               description: The party requesting the lien
+              format: string
             LienPurpose:
               type: string
               description: The purpose or associated facility linked to the lien
+              format: string
             LienAmount:
-              type: number
-              description: The amount being blocked
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: The date the lien is enforced
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: The date the lien is removed
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: The status on the lien
+              format: string
+      description: 'Input: UpBQ Update details of an existing account lien'
     UpdateAccountLienResponse:
       type: object
       properties:
@@ -1926,31 +2149,76 @@ components:
           properties:
             LienType:
               type: string
-              description: The type of lien (e.g. final, pending)
+              description: 'The type of lien (e.g. final, pending)'
+              format: string
             LienProcessingOption:
               type: string
               description: The processing option applied to the lien
+              format: string
             LienRecord:
               type: string
               description: The collection of applicable rates
+              format: string
             LienOriginator:
               type: string
               description: The party requesting the lien
+              format: string
             LienPurpose:
               type: string
               description: The purpose or associated facility linked to the lien
+              format: string
             LienAmount:
-              type: number
-              description: The amount being blocked
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: The date the lien is enforced
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: The date the lien is removed
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: The status on the lien
+              format: string
+      description: 'Output: UpBQ Update details of an existing account lien'
+    RetrieveAccountLienResponse:
+      type: object
+      properties:
+        AccountLien:
+          type: object
+          properties:
+            LienType:
+              type: string
+              description: 'The type of lien (e.g. final, pending)'
+              format: string
+            LienDefinition:
+              type: string
+              description: Definition of the type of lien including processing guidelines
+              format: string
+            LienProcessingOption:
+              type: string
+              description: The processing option applied to the lien
+              format: string
+            LienRecord:
+              type: string
+              description: The collection of applicable rates
+              format: string
+            LienOriginator:
+              type: string
+              description: The party requesting the lien
+              format: string
+            LienPurpose:
+              type: string
+              description: The purpose or associated facility linked to the lien
+              format: string
+            LienAmount:
+              $ref: '#/components/schemas/amount'
+            LienStartDate:
+              $ref: '#/components/schemas/date'
+            LienExpiryDate:
+              $ref: '#/components/schemas/date'
+            LienStatus:
+              type: string
+              description: The status on the lien
+              format: string
+      description: 'Output: ReBQ Retrieve details about an account lien'
     InitiateAccountSweepRequest:
       type: object
       properties:
@@ -1958,65 +2226,75 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
+              format: string
             LinkType:
               type: string
               description: The type and purpose for the link
+              format: string
             AccountDetails:
               type: string
               description: Details of the linked account
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         AccountSweep:
           type: object
           properties:
             AccountSweepType:
               type: string
-              description: The type of sweep (e.g. periodic, threshold)
+              description: 'The type of sweep (e.g. periodic, threshold)'
+              format: string
             AccountSweepApplicationSchedule:
               type: string
               description: Sweep processing guidelines and scheduling rules
+              format: string
             AccountSweepConfiguration:
               type: string
               description: The set-up of the sweep facility
+              format: string
             TargetAccount:
               type: string
               description: The facility that the sweep is made to/from
+              format: string
             SweepMandate:
               type: string
               description: Confirmation that the sweep processing is sanctioned as necessary
+              format: string
             SweepProcessingSchedule:
               type: string
               description: Timing and or triggers for initiating sweep transaction
+              format: string
+      description: 'Input: InBQ Set up an account sweep'
     InitiateAccountSweepResponse:
       type: object
       properties:
@@ -2025,16 +2303,20 @@ components:
           properties:
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         AccountSweep:
           type: object
           properties:
             AccountSweepDefinition:
               type: string
               description: Definition of the type of sweep
+              format: string
             AccountSweepApplicationSchedule:
               type: string
               description: Sweep processing guidelines and scheduling rules
+              format: string
+      description: 'Output: InBQ Set up an account sweep'
     ExecuteAccountSweepRequest:
       type: object
       properties:
@@ -2044,15 +2326,63 @@ components:
             SweepApplicationRecord:
               type: string
               description: The transaction record for an applied sweep
+              format: string
             AccountSweepTargetAccount:
               type: string
               description: The facility that the sweep is made to/from
+              format: string
             AccountSweepAmount:
-              type: number
-              description: The amount transferred to or from the account
+              $ref: '#/components/schemas/amount'
             AccountSweepExecutionDate:
+              $ref: '#/components/schemas/date'
+      description: 'Input: ExBQ Trigger an account sweep transaction'
+    RetrieveAccountSweepResponse:
+      type: object
+      properties:
+        AccountSweep:
+          type: object
+          properties:
+            AccountSweepType:
               type: string
-              description: The date and time the sweep is initiated
+              description: 'The type of sweep (e.g. periodic, threshold)'
+              format: string
+            AccountSweepDefinition:
+              type: string
+              description: Definition of the type of sweep
+              format: string
+            AccountSweepApplicationSchedule:
+              type: string
+              description: Sweep processing guidelines and scheduling rules
+              format: string
+            AccountSweepConfiguration:
+              type: string
+              description: The set-up of the sweep facility
+              format: string
+            TargetAccount:
+              type: string
+              description: The facility that the sweep is made to/from
+              format: string
+            SweepMandate:
+              type: string
+              description: Confirmation that the sweep processing is sanctioned as necessary
+              format: string
+            SweepProcessingSchedule:
+              type: string
+              description: Timing and or triggers for initiating sweep transaction
+              format: string
+            SweepApplicationRecord:
+              type: string
+              description: The transaction record for an applied sweep
+              format: string
+            AccountSweepTargetAccount:
+              type: string
+              description: The facility that the sweep is made to/from
+              format: string
+            AccountSweepAmount:
+              $ref: '#/components/schemas/amount'
+            AccountSweepExecutionDate:
+              $ref: '#/components/schemas/date'
+      description: 'Output: ReBQ Retrieve details about a sweep facility or specific sweep transaction'
     InitiateDepositsandWithdrawalsRequest:
       type: object
       properties:
@@ -2060,47 +2390,53 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             PositionLimitType:
               type: string
-              description: The type of position maintained for the account (e.g. transaction credit/debit, netting, position)
+              description: 'The type of position maintained for the account (e.g. transaction credit/debit, netting, position)'
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         DepositsandWithdrawals:
           type: object
           properties:
             DepositType:
               type: string
-              description: The type of deposit transaction that can be applied to the account (e.g. customer deposit, internal credit)
+              description: 'The type of deposit transaction that can be applied to the account (e.g. customer deposit, internal credit)'
+              format: string
             WithdrawalType:
               type: string
-              description: The type of withdrawal transaction that can be applied to the account (e.g. customer withdrawal, internal service charge, disbursement)
+              description: 'The type of withdrawal transaction that can be applied to the account (e.g. customer withdrawal, internal service charge, disbursement)'
+              format: string
             AccountLimitBreachResponse:
               type: string
               description: The handling options if a withdrawal results in a breach of an account limit
+              format: string
+      description: 'Input: InBQ Initialize deposit or withdrawal transaction'
     InitiateDepositsandWithdrawalsResponse:
       type: object
       properties:
@@ -2110,9 +2446,12 @@ components:
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
+      description: 'Output: InBQ Initialize deposit or withdrawal transaction'
     ExecuteDepositsandWithdrawalsRequest:
       type: object
       properties:
@@ -2122,39 +2461,40 @@ components:
             DepositTransaction:
               type: string
               description: The collection of applicable rates
+              format: string
             DepositTransactionSourceReference:
-              type: object
-              description: Identifies the source of the deposit
+              $ref: '#/components/schemas/object'
             DepositTransactionDepositType:
               type: string
               description: The type of deposit made with the transaction
+              format: string
             DepositTransactionDescription:
               type: string
               description: Any necessary details describing the purpose or reference properties of the deposit
+              format: string
             DepositTransactionAmount:
-              type: number
-              description: The deposited amount
+              $ref: '#/components/schemas/amount'
             DepositTransactionDate:
-              type: string
-              description: The date and time the deposit was initiated
+              $ref: '#/components/schemas/date'
             WithdrawalTransaction:
               type: string
               description: The record of applied interest
+              format: string
             WithdrawalTransactionSourceReference:
-              type: object
-              description: Identifies the target for the withdrawal
+              $ref: '#/components/schemas/object'
             WithdrawalTransactionWithdrawalType:
               type: string
               description: The type of withdrawal made with the transaction
+              format: string
             WithdrawalTransactionDescription:
               type: string
               description: Any necessary details describing the purpose or reference properties of the withdrawal
+              format: string
             WithdrawalTransactionAmount:
-              type: number
-              description: The withdrawn amount
+              $ref: '#/components/schemas/amount'
             WithdrawalTransactionDate:
-              type: string
-              description: The date and time the withdrawal was initiated
+              $ref: '#/components/schemas/date'
+      description: 'Input: ExBQ Execute a deposit or withdrawal transaction'
     ExecuteDepositsandWithdrawalsResponse:
       type: object
       properties:
@@ -2162,11 +2502,65 @@ components:
           type: object
           properties:
             DepositTransactionDate:
-              type: string
-              description: The date and time the deposit was initiated
+              $ref: '#/components/schemas/date'
             WithdrawalTransactionDate:
+              $ref: '#/components/schemas/date'
+      description: 'Output: ExBQ Execute a deposit or withdrawal transaction'
+    RetrieveDepositsandWithdrawalsResponse:
+      type: object
+      properties:
+        DepositsandWithdrawals:
+          type: object
+          properties:
+            DepositType:
               type: string
-              description: The date and time the withdrawal was initiated
+              description: 'The type of deposit transaction that can be applied to the account (e.g. customer deposit, internal credit)'
+              format: string
+            WithdrawalType:
+              type: string
+              description: 'The type of withdrawal transaction that can be applied to the account (e.g. customer withdrawal, internal service charge, disbursement)'
+              format: string
+            AccountLimitBreachResponse:
+              type: string
+              description: The handling options if a withdrawal results in a breach of an account limit
+              format: string
+            DepositTransaction:
+              type: string
+              description: The collection of applicable rates
+              format: string
+            DepositTransactionSourceReference:
+              $ref: '#/components/schemas/object'
+            DepositTransactionDepositType:
+              type: string
+              description: The type of deposit made with the transaction
+              format: string
+            DepositTransactionDescription:
+              type: string
+              description: Any necessary details describing the purpose or reference properties of the deposit
+              format: string
+            DepositTransactionAmount:
+              $ref: '#/components/schemas/amount'
+            DepositTransactionDate:
+              $ref: '#/components/schemas/date'
+            WithdrawalTransaction:
+              type: string
+              description: The record of applied interest
+              format: string
+            WithdrawalTransactionSourceReference:
+              $ref: '#/components/schemas/object'
+            WithdrawalTransactionWithdrawalType:
+              type: string
+              description: The type of withdrawal made with the transaction
+              format: string
+            WithdrawalTransactionDescription:
+              type: string
+              description: Any necessary details describing the purpose or reference properties of the withdrawal
+              format: string
+            WithdrawalTransactionAmount:
+              $ref: '#/components/schemas/amount'
+            WithdrawalTransactionDate:
+              $ref: '#/components/schemas/date'
+      description: 'Output: ReBQ Retrieve details about a deposit or withdrawal transaction'
     InitiatePaymentsRequest:
       type: object
       properties:
@@ -2174,80 +2568,93 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
             StatementsSchedule:
               type: string
               description: The schedule for generating product statements to schedule
+              format: string
             StatementType:
               type: string
               description: The types of scheduled statement (e.g. balance/mini-statement/annual)
+              format: string
             StatementTransactionType:
               type: string
               description: The types of transactions and transaction details to be included
+              format: string
             StatementPeriod:
               type: string
               description: The reporting period covered by the statement
+              format: string
             StatementReport:
               type: string
               description: The statement content
+              format: string
         Payments:
           type: object
           properties:
             PaymentType:
               type: string
-              description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
             PaymentDefinition:
               type: string
               description: Definition of the type of payment including processing rules and guidelines
+              format: string
             PaymentProcessingOptionSetting:
               type: string
               description: The option setting
+              format: string
             PaymentConfiguration:
               type: string
               description: Configuration setting for various payment transaction types
+              format: string
             PaymentSchedule:
               type: string
-              description: Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary
+              description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
+              format: string
             DirectDebitMandateReference:
-              type: object
-              description: Reference to the applicable mandate for direct debits
+              $ref: '#/components/schemas/object'
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
+              format: string
             BillPayMandateReference:
-              type: object
-              description: Reference to the applicable mandate for bill pay transactions
+              $ref: '#/components/schemas/object'
             BillPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
+              format: string
+      description: 'Input: InBQ Initialize a payment transaction (can be single or repeating)'
     InitiatePaymentsResponse:
       type: object
       properties:
@@ -2255,32 +2662,37 @@ components:
           type: object
           properties:
             TaxReference:
-              type: object
-              description: Reference identifier linking the account to appropriate tax handling
+              $ref: '#/components/schemas/object'
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         Payments:
           type: object
           properties:
             PaymentDefinition:
               type: string
               description: Definition of the type of payment including processing rules and guidelines
+              format: string
             PaymentProcessingOptionDefinition:
               type: string
               description: Definition of the processing option and impact (e.g. frequency and cumulative amount constraints)
+              format: string
+      description: 'Output: InBQ Initialize a payment transaction (can be single or repeating)'
     UpdatePaymentsRequest:
       type: object
       properties:
@@ -2289,67 +2701,73 @@ components:
           properties:
             PaymentType:
               type: string
-              description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
             PaymentProcessingOptionDefinition:
               type: string
               description: Definition of the processing option and impact (e.g. frequency and cumulative amount constraints)
+              format: string
             PaymentProcessingOptionSetting:
               type: string
               description: The option setting
+              format: string
             PaymentConfiguration:
               type: string
               description: Configuration setting for various payment transaction types
+              format: string
             PaymentSchedule:
               type: string
-              description: Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary
+              description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
+              format: string
             DirectDebitMandateReference:
-              type: object
-              description: Reference to the applicable mandate for direct debits
+              $ref: '#/components/schemas/object'
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
+              format: string
             BillPayMandateReference:
-              type: object
-              description: Reference to the applicable mandate for bill pay transactions
+              $ref: '#/components/schemas/object'
             BillPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
+              format: string
             PaymentTransaction:
               type: string
               description: The general payment transaction with all major attributes - some optional depending on type
+              format: string
             PaymentTransactionType:
               type: string
-              description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
             PaymentTransactionPayeeReference:
-              type: object
-              description: Reference to the party to whom the payment is made
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeAccountReference:
-              type: object
-              description: Reference to the account to which the payment is made
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeBankReference:
-              type: object
-              description: Reference to the bank where the payee account is held
+              $ref: '#/components/schemas/object'
             PaymentTransactionAmount:
-              type: number
-              description: The amount (and currency if applicable) of the payment
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
+              format: string
             PaymentTransactionFeeCharge:
               type: string
               description: The fee charge applied to the transaction
+              format: string
             PaymentTransactionDate:
-              type: string
-              description: The various key dates and times associated with the payment transaction
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
-              description: Requested payment mechanism (e.g. Wire, ACH)
+              description: 'Requested payment mechanism (e.g. Wire, ACH)'
+              format: string
             PaymentTransactionPaymentPurpose:
               type: string
               description: Description of the purpose including any external reference to the transaction
+              format: string
             PaymentTransactionBankBranchOrLocationReference:
-              type: object
-              description: Reference to the location the payment transaction is initiated from
+              $ref: '#/components/schemas/object'
+      description: 'Input: UpBQ Update a payment transaction configuration or specific transaction'
     UpdatePaymentsResponse:
       type: object
       properties:
@@ -2358,70 +2776,77 @@ components:
           properties:
             PaymentType:
               type: string
-              description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
             PaymentProcessingOptionDefinition:
               type: string
               description: Definition of the processing option and impact (e.g. frequency and cumulative amount constraints)
+              format: string
             PaymentProcessingOptionSetting:
               type: string
               description: The option setting
+              format: string
             PaymentConfiguration:
               type: string
               description: Configuration setting for various payment transaction types
+              format: string
             PaymentSchedule:
               type: string
-              description: Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary
+              description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
+              format: string
             DirectDebitMandateReference:
-              type: object
-              description: Reference to the applicable mandate for direct debits
+              $ref: '#/components/schemas/object'
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
+              format: string
             BillPayMandateReference:
-              type: object
-              description: Reference to the applicable mandate for bill pay transactions
+              $ref: '#/components/schemas/object'
             BillPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
+              format: string
             PaymentTransaction:
               type: string
               description: The general payment transaction with all major attributes - some optional depending on type
+              format: string
             PaymentTransactionType:
               type: string
-              description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
             PaymentTransactionPayeeReference:
-              type: object
-              description: Reference to the party to whom the payment is made
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeAccountReference:
-              type: object
-              description: Reference to the account to which the payment is made
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeBankReference:
-              type: object
-              description: Reference to the bank where the payee account is held
+              $ref: '#/components/schemas/object'
             PaymentTransactionAmount:
-              type: number
-              description: The amount (and currency if applicable) of the payment
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
+              format: string
             PaymentTransactionFeeCharge:
               type: string
               description: The fee charge applied to the transaction
+              format: string
             PaymentTransactionDate:
-              type: string
-              description: The various key dates and times associated with the payment transaction
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
-              description: Requested payment mechanism (e.g. Wire, ACH)
+              description: 'Requested payment mechanism (e.g. Wire, ACH)'
+              format: string
             PaymentTransactionPaymentPurpose:
               type: string
               description: Description of the purpose including any external reference to the transaction
+              format: string
             PaymentTransactionBankBranchOrLocationReference:
-              type: object
-              description: Reference to the location the payment transaction is initiated from
+              $ref: '#/components/schemas/object'
             PaymentTransactionStatus:
               type: string
-              description: The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)
+              description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
+              format: string
+      description: 'Output: UpBQ Update a payment transaction configuration or specific transaction'
     ExecutePaymentsRequest:
       type: object
       properties:
@@ -2431,42 +2856,44 @@ components:
             PaymentTransaction:
               type: string
               description: The general payment transaction with all major attributes - some optional depending on type
+              format: string
             PaymentTransactionType:
               type: string
-              description: The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
             PaymentTransactionPayeeReference:
-              type: object
-              description: Reference to the party to whom the payment is made
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeAccountReference:
-              type: object
-              description: Reference to the account to which the payment is made
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeBankReference:
-              type: object
-              description: Reference to the bank where the payee account is held
+              $ref: '#/components/schemas/object'
             PaymentTransactionAmount:
-              type: number
-              description: The amount (and currency if applicable) of the payment
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
+              format: string
             PaymentTransactionFeeCharge:
               type: string
               description: The fee charge applied to the transaction
+              format: string
             PaymentTransactionDate:
-              type: string
-              description: The various key dates and times associated with the payment transaction
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
-              description: Requested payment mechanism (e.g. Wire, ACH)
+              description: 'Requested payment mechanism (e.g. Wire, ACH)'
+              format: string
             PaymentTransactionPaymentPurpose:
               type: string
               description: Description of the purpose including any external reference to the transaction
+              format: string
             PaymentTransactionBankBranchOrLocationReference:
-              type: object
-              description: Reference to the location the payment transaction is initiated from
+              $ref: '#/components/schemas/object'
             PaymentTransactionStatus:
               type: string
-              description: The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)
+              description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
+              format: string
+      description: 'Input: ExBQ Trigger a payment for a repeating payment set up'
     ExecutePaymentsResponse:
       type: object
       properties:
@@ -2474,11 +2901,95 @@ components:
           type: object
           properties:
             PaymentTransactionDate:
-              type: string
-              description: The various key dates and times associated with the payment transaction
+              $ref: '#/components/schemas/date'
             PaymentTransactionStatus:
               type: string
-              description: The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)
+              description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
+              format: string
+      description: 'Output: ExBQ Trigger a payment for a repeating payment set up'
+    RetrievePaymentsResponse:
+      type: object
+      properties:
+        Payments:
+          type: object
+          properties:
+            PaymentType:
+              type: string
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
+            PaymentDefinition:
+              type: string
+              description: Definition of the type of payment including processing rules and guidelines
+              format: string
+            PaymentProcessingOptionDefinition:
+              type: string
+              description: Definition of the processing option and impact (e.g. frequency and cumulative amount constraints)
+              format: string
+            PaymentProcessingOptionSetting:
+              type: string
+              description: The option setting
+              format: string
+            PaymentConfiguration:
+              type: string
+              description: Configuration setting for various payment transaction types
+              format: string
+            PaymentSchedule:
+              type: string
+              description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
+              format: string
+            DirectDebitMandateReference:
+              $ref: '#/components/schemas/object'
+            DirectDebitMandateSettings:
+              type: string
+              description: Processing settings governing direct debits
+              format: string
+            BillPayMandateReference:
+              $ref: '#/components/schemas/object'
+            BillPayMandateSettings:
+              type: string
+              description: Processing settings governing bill pay transactions
+              format: string
+            PaymentTransaction:
+              type: string
+              description: The general payment transaction with all major attributes - some optional depending on type
+              format: string
+            PaymentTransactionType:
+              type: string
+              description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
+              format: string
+            PaymentTransactionPayeeReference:
+              $ref: '#/components/schemas/object'
+            PaymentTransactionPayeeAccountReference:
+              $ref: '#/components/schemas/object'
+            PaymentTransactionPayeeBankReference:
+              $ref: '#/components/schemas/object'
+            PaymentTransactionAmount:
+              $ref: '#/components/schemas/amount'
+            PaymentTransactionFeeType:
+              type: string
+              description: The fee type applied to the payment transaction
+              format: string
+            PaymentTransactionFeeCharge:
+              type: string
+              description: The fee charge applied to the transaction
+              format: string
+            PaymentTransactionDate:
+              $ref: '#/components/schemas/date'
+            PaymentTransactionPaymentMechanism:
+              type: string
+              description: 'Requested payment mechanism (e.g. Wire, ACH)'
+              format: string
+            PaymentTransactionPaymentPurpose:
+              type: string
+              description: Description of the purpose including any external reference to the transaction
+              format: string
+            PaymentTransactionBankBranchOrLocationReference:
+              $ref: '#/components/schemas/object'
+            PaymentTransactionStatus:
+              type: string
+              description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
+              format: string
+      description: 'Output: ReBQ Retrieve details about a payment transaction or arrangement'
     InitiateIssuedDeviceRequest:
       type: object
       properties:
@@ -2486,62 +2997,73 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: object
-              description: Reference to the corporate deposit account product instance
+              $ref: '#/components/schemas/object'
             TermDepositAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
+              format: string
             CustomerReference:
-              type: object
-              description: Reference to the account primary party/owner
+              $ref: '#/components/schemas/object'
             BankBranchOrLocationReference:
-              type: object
-              description: Bank branch associated with the account for booking purposes
+              $ref: '#/components/schemas/object'
             AccountType:
               type: string
-              description: The type of corporate deposit account (e.g. checking, student, small business)
+              description: 'The type of corporate deposit account (e.g. checking, student, small business)'
+              format: string
             AccountCurrency:
-              type: string
-              description: The primary account currency
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
+              format: string
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
+              format: string
             PositionLimitValue:
               type: string
               description: The corporate deposit calculated position
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         IssuedDevice:
           type: object
           properties:
             IssuedDeviceType:
               type: string
-              description: The type of issued device/inventory (e.g. checkbook, pay-in slip)
+              description: 'The type of issued device/inventory (e.g. checkbook, pay-in slip)'
+              format: string
             IssuedDeviceDescription:
               type: string
-              description: Definition of the inventory item, including processing and handling guidelines and rules
+              description: 'Definition of the inventory item, including processing and handling guidelines and rules'
+              format: string
             IssuedDeviceOptionDefinition:
               type: string
               description: Definition of the processing option and impact (e.g. lost check handling)
+              format: string
             IssuedDeviceOptionSetting:
               type: string
               description: The processing option setting
+              format: string
             IssuedDeviceProperty:
               type: string
-              description: A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)
+              description: 'A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)'
+              format: string
             IssuedDevicePropertyType:
               type: string
               description: Tracked property of the issued device/inventory (e.g. issued check numbers)
+              format: string
             IssuedDevicePropertyValue:
               type: string
               description: The tracked values associated with an issued device/inventory item
+              format: string
             IssuedDeviceStatus:
               type: string
-              description: The tracked status of the device/inventory item (e.g. active, suspended, cancelled)
+              description: 'The tracked status of the device/inventory item (e.g. active, suspended, cancelled)'
+              format: string
+      description: 'Input: InBQ Initiate the provision of issued inventory for the account (include initial issuance)'
     InitiateIssuedDeviceResponse:
       type: object
       properties:
@@ -2550,43 +3072,54 @@ components:
           properties:
             AssociationType:
               type: string
-              description: The type of association (e.g. guarantor, co-signer)
+              description: 'The type of association (e.g. guarantor, co-signer)'
+              format: string
             AssociationObligationOrEntitlement:
               type: string
-              description: Description of the role, obligations or entitlements of the associated party
+              description: 'Description of the role, obligations or entitlements of the associated party'
+              format: string
             AssociationReference:
-              type: object
-              description: Reference to the associated party
+              $ref: '#/components/schemas/object'
             PositionLimitSettings:
               type: string
-              description: The position definition, associated limit settings and rules
+              description: 'The position definition, associated limit settings and rules'
+              format: string
             DateType:
               type: string
-              description: Key dates associated with the account (e.g. opening date, closing date)
+              description: 'Key dates associated with the account (e.g. opening date, closing date)'
+              format: string
         IssuedDevice:
           type: object
           properties:
             IssuedDeviceDescription:
               type: string
-              description: Definition of the inventory item, including processing and handling guidelines and rules
+              description: 'Definition of the inventory item, including processing and handling guidelines and rules'
+              format: string
             IssuedDeviceOptionDefinition:
               type: string
               description: Definition of the processing option and impact (e.g. lost check handling)
+              format: string
             IssuedDeviceOptionSetting:
               type: string
               description: The processing option setting
+              format: string
             IssuedDeviceProperty:
               type: string
-              description: A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)
+              description: 'A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)'
+              format: string
             IssuedDevicePropertyType:
               type: string
               description: Tracked property of the issued device/inventory (e.g. issued check numbers)
+              format: string
             IssuedDevicePropertyValue:
               type: string
               description: The tracked values associated with an issued device/inventory item
+              format: string
             IssuedDeviceStatus:
               type: string
-              description: The tracked status of the device/inventory item (e.g. active, suspended, cancelled)
+              description: 'The tracked status of the device/inventory item (e.g. active, suspended, cancelled)'
+              format: string
+      description: 'Output: InBQ Initiate the provision of issued inventory for the account (include initial issuance)'
     RequestIssuedDeviceRequest:
       type: object
       properties:
@@ -2595,19 +3128,25 @@ components:
           properties:
             IssuedDeviceType:
               type: string
-              description: The type of issued device/inventory (e.g. checkbook, pay-in slip)
+              description: 'The type of issued device/inventory (e.g. checkbook, pay-in slip)'
+              format: string
             IssuedDeviceOptionSetting:
               type: string
               description: The processing option setting
+              format: string
             IssuedDeviceProperty:
               type: string
-              description: A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)
+              description: 'A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)'
+              format: string
             IssuedDevicePropertyValue:
               type: string
               description: The tracked values associated with an issued device/inventory item
+              format: string
             IssuedDeviceStatus:
               type: string
-              description: The tracked status of the device/inventory item (e.g. active, suspended, cancelled)
+              description: 'The tracked status of the device/inventory item (e.g. active, suspended, cancelled)'
+              format: string
+      description: 'Input: RqBQ Request changes or replacement device or inventory'
     RequestIssuedDeviceResponse:
       type: object
       properties:
@@ -2616,237 +3155,424 @@ components:
           properties:
             IssuedDeviceDescription:
               type: string
-              description: Definition of the inventory item, including processing and handling guidelines and rules
+              description: 'Definition of the inventory item, including processing and handling guidelines and rules'
+              format: string
             IssuedDeviceOptionDefinition:
               type: string
               description: Definition of the processing option and impact (e.g. lost check handling)
+              format: string
             IssuedDeviceOptionSetting:
               type: string
               description: The processing option setting
+              format: string
             IssuedDevicePropertyType:
               type: string
               description: Tracked property of the issued device/inventory (e.g. issued check numbers)
+              format: string
             IssuedDevicePropertyValue:
               type: string
               description: The tracked values associated with an issued device/inventory item
+              format: string
             IssuedDeviceStatus:
               type: string
-              description: The tracked status of the device/inventory item (e.g. active, suspended, cancelled)
-  parameters:
-    TermDepositID:
-      name: termdepositId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    AccountLienID:
-      name: accountlienId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    IssuedDeviceID:
-      name: issueddeviceId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    ServiceFeesID:
-      name: servicefeesId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    AccountSweepID:
-      name: accountsweepId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    DepositsandWithdrawalsID:
-      name: depositsandwithdrawalsId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    InterestID:
-      name: interestId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    PaymentsID:
-      name: paymentsId
-      in: path
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-  requestBodies:
-    InitiateTermDepositFacilityRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateTermDepositFacilityRequest'
-    UpdateTermDepositFacilityRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateTermDepositFacilityRequest'
-    InitiateServiceFeesRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateServiceFeesRequest'
-    ExecuteServiceFeesRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteServiceFeesRequest'
-    InitiateAccountLienRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateAccountLienRequest'
-    UpdateAccountLienRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateAccountLienRequest'
-    InitiateAccountSweepRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateAccountSweepRequest'
-    AccountSweep:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AccountSweep'
-    ExecuteAccountSweepRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteAccountSweepRequest'
-    InitiateDepositsandWithdrawalsRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateDepositsandWithdrawalsRequest'
-    DepositsandWithdrawals:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DepositsandWithdrawals'
-    ExecuteDepositsandWithdrawalsRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteDepositsandWithdrawalsRequest'
-    InitiatePaymentsRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePaymentsRequest'
-    UpdatePaymentsRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdatePaymentsRequest'
-    ExecutePaymentsRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecutePaymentsRequest'
-    InitiateIssuedDeviceRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateIssuedDeviceRequest'
-    IssuedDevice:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IssuedDevice'
-    RequestIssuedDeviceRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestIssuedDeviceRequest'
+              description: 'The tracked status of the device/inventory item (e.g. active, suspended, cancelled)'
+              format: string
+      description: 'Output: RqBQ Request changes or replacement device or inventory'
+    RetrieveIssuedDeviceResponse:
+      type: object
+      properties:
+        IssuedDevice:
+          type: object
+          properties:
+            IssuedDeviceType:
+              type: string
+              description: 'The type of issued device/inventory (e.g. checkbook, pay-in slip)'
+              format: string
+            IssuedDeviceDescription:
+              type: string
+              description: 'Definition of the inventory item, including processing and handling guidelines and rules'
+              format: string
+            IssuedDeviceOptionDefinition:
+              type: string
+              description: Definition of the processing option and impact (e.g. lost check handling)
+              format: string
+            IssuedDeviceOptionSetting:
+              type: string
+              description: The processing option setting
+              format: string
+            IssuedDeviceProperty:
+              type: string
+              description: 'A property of the issued device/inventory (e.g. card, checkbook, pay-in slip)'
+              format: string
+            IssuedDevicePropertyType:
+              type: string
+              description: Tracked property of the issued device/inventory (e.g. issued check numbers)
+              format: string
+            IssuedDevicePropertyValue:
+              type: string
+              description: The tracked values associated with an issued device/inventory item
+              format: string
+            IssuedDeviceStatus:
+              type: string
+              description: 'The tracked status of the device/inventory item (e.g. active, suspended, cancelled)'
+              format: string
+      description: 'Output: ReBQ Retrieve details about issued devices or inventory'
   responses:
-    HTTPError:
-      description: Bad Request
+    BadRequest:
+      description: BadRequest
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    BadRequestError:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HTTPError'
-    UnauthorizedError:
+    Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    ForbiddenError:
+    Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    NotFoundError:
-      description: Not Found
+    NotFound:
+      description: NotFound
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    TooManyRequestsError:
-      description: Too Many Requests
+    TooManyRequests:
+      description: TooManyRequests
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
     InternalServerError:
-      description: Internal Server Error
+      description: InternalServerError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-...
+    InitiateTermDepositFacilityResponse:
+      description: InitiateTermDepositFacilityResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateTermDepositFacilityResponse'
+    UpdateTermDepositFacilityResponse:
+      description: UpdateTermDepositFacilityResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateTermDepositFacilityResponse'
+    RetrieveTermDepositFacilityResponse:
+      description: RetrieveTermDepositFacilityResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveTermDepositFacilityResponse'
+    RetrieveInterestResponse:
+      description: RetrieveInterestResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveInterestResponse'
+    InitiateServiceFeesResponse:
+      description: InitiateServiceFeesResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateServiceFeesResponse'
+    ExecuteServiceFeesResponse:
+      description: ExecuteServiceFeesResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServiceFeesResponse'
+    RetrieveServiceFeesResponse:
+      description: RetrieveServiceFeesResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveServiceFeesResponse'
+    InitiateAccountLienResponse:
+      description: InitiateAccountLienResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateAccountLienResponse'
+    UpdateAccountLienResponse:
+      description: UpdateAccountLienResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateAccountLienResponse'
+    RetrieveAccountLienResponse:
+      description: RetrieveAccountLienResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveAccountLienResponse'
+    InitiateAccountSweepResponse:
+      description: InitiateAccountSweepResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateAccountSweepResponse'
+    AccountSweep:
+      description: AccountSweep
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccountSweep'
+    ExecuteAccountSweepRequest:
+      description: ExecuteAccountSweepRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteAccountSweepRequest'
+    RetrieveAccountSweepResponse:
+      description: RetrieveAccountSweepResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveAccountSweepResponse'
+    InitiateDepositsandWithdrawalsResponse:
+      description: InitiateDepositsandWithdrawalsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateDepositsandWithdrawalsResponse'
+    DepositsandWithdrawals:
+      description: DepositsandWithdrawals
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DepositsandWithdrawals'
+    ExecuteDepositsandWithdrawalsResponse:
+      description: ExecuteDepositsandWithdrawalsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteDepositsandWithdrawalsResponse'
+    RetrieveDepositsandWithdrawalsResponse:
+      description: RetrieveDepositsandWithdrawalsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveDepositsandWithdrawalsResponse'
+    InitiatePaymentsResponse:
+      description: InitiatePaymentsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiatePaymentsResponse'
+    UpdatePaymentsResponse:
+      description: UpdatePaymentsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePaymentsResponse'
+    ExecutePaymentsResponse:
+      description: ExecutePaymentsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecutePaymentsResponse'
+    RetrievePaymentsResponse:
+      description: RetrievePaymentsResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrievePaymentsResponse'
+    InitiateIssuedDeviceResponse:
+      description: InitiateIssuedDeviceResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceResponse'
+    IssuedDevice:
+      description: IssuedDevice
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssuedDevice'
+    RequestIssuedDeviceResponse:
+      description: RequestIssuedDeviceResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestIssuedDeviceResponse'
+    RetrieveIssuedDeviceResponse:
+      description: RetrieveIssuedDeviceResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RetrieveIssuedDeviceResponse'
+  parameters:
+    termdepositid:
+      name: termdepositid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    interestid:
+      name: interestid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    servicefeesid:
+      name: servicefeesid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    accountlienid:
+      name: accountlienid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    accountsweepid:
+      name: accountsweepid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    depositsandwithdrawalsid:
+      name: depositsandwithdrawalsid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    paymentsid:
+      name: paymentsid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+    issueddeviceid:
+      name: issueddeviceid
+      in: path
+      required: true
+      style: simple
+      schema:
+        type: string
+  requestBodies:
+    InitiateTermDepositFacilityRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateTermDepositFacilityRequest'
+      required: true
+    UpdateTermDepositFacilityRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateTermDepositFacilityRequest'
+      required: true
+    InitiateServiceFeesRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateServiceFeesRequest'
+      required: true
+    ExecuteServiceFeesRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServiceFeesRequest'
+      required: true
+    InitiateAccountLienRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateAccountLienRequest'
+      required: true
+    UpdateAccountLienRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateAccountLienRequest'
+      required: true
+    InitiateAccountSweepRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateAccountSweepRequest'
+      required: true
+    AccountSweep:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccountSweep'
+      required: true
+    ExecuteAccountSweepRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteAccountSweepRequest'
+      required: true
+    InitiateDepositsandWithdrawalsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateDepositsandWithdrawalsRequest'
+      required: true
+    DepositsandWithdrawals:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DepositsandWithdrawals'
+      required: true
+    ExecuteDepositsandWithdrawalsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteDepositsandWithdrawalsRequest'
+      required: true
+    InitiatePaymentsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiatePaymentsRequest'
+      required: true
+    UpdatePaymentsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePaymentsRequest'
+      required: true
+    ExecutePaymentsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecutePaymentsRequest'
+      required: true
+    InitiateIssuedDeviceRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateIssuedDeviceRequest'
+      required: true
+    IssuedDevice:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssuedDevice'
+      required: true
+    RequestIssuedDeviceRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestIssuedDeviceRequest'
+      required: true
