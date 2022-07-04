@@ -290,30 +290,6 @@ components:
           description: 'Assessment of how the work is progressing towards achieving the goal, including projections of likely outcomes'
           format: string
       description: ''
-    budgettype:
-      type: object
-      properties:
-        Budgettype:
-          type: string
-          description: ''
-          format: datatype
-      description: A Classification value that specifies the type of Budget
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: ''
-    budgetarrangement:
-      type: object
-      properties:
-        BudgetType:
-          $ref: '#/components/schemas/budgettype'
-        BudgetAmount:
-          $ref: '#/components/schemas/amount'
-      description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
     plantype:
       type: object
       properties:
@@ -328,7 +304,9 @@ components:
         PLanGoal:
           $ref: '#/components/schemas/goal'
         PlanBudget:
-          $ref: '#/components/schemas/budgetarrangement'
+          type: budgetarrangement
+          description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
+          format: budgetarrangement
         PlannedAction:
           type: plannedaction
           description: 'An action that is arranged in a plan for doing or achieving something '
@@ -492,6 +470,22 @@ components:
         BranchLocationOperationsAdministrationTask:
           $ref: '#/components/schemas/arrangement'
       description: The Staff Assignment RoutineCash Inventory Handling RoutineNon-cash Inventory Handling RoutineSafe Custody Operations RoutineLocation Security Administration RoutineWorkforce Administration Routine is an activity that is performed as one aspect of carrying out the Staff Assignment RoutineCash Inventory Handling RoutineNon-cash Inventory Handling RoutineSafe Custody Operations RoutineLocation Security Administration RoutineWorkforce Administration Routine
+    budgettype:
+      type: object
+      properties:
+        Budgettype:
+          type: string
+          description: ''
+          format: datatype
+      description: A Classification value that distinguishes between Budgets within Branch Location Administrative Plan according to the type of resource and/or activity that is budgetted
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: Amount of budget which is arranged whitin Branch Location Administrative Plan
     assignment:
       type: object
       properties:
