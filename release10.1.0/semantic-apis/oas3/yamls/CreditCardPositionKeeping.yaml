@@ -286,6 +286,34 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in capturing the event
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          type: businessservicetypevalues
+          description: ''
+          format: businessservicetypevalues
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Card Transaction Event specific Business Service
     log:
       type: object
       properties:
@@ -350,14 +378,6 @@ components:
           description: ''
           format: string
       description: Reference to Card Transaction Event
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Card Transaction Event
     CardTransactionEvent:
       type: object
       properties:
@@ -368,9 +388,7 @@ components:
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Card Transaction Event specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
           type: string
           description: The completion status once the event has been captured
@@ -390,14 +408,6 @@ components:
         CreditCardPositionKeepingLog:
           $ref: '#/components/schemas/log'
       description: The Card Transaction Event is one of the specific types of events that is recorded in the Card Transaction Event
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
     servicetype:
       type: object
       properties:

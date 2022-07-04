@@ -714,6 +714,34 @@ components:
           description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
           format: datatype
       description: The test version employed
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          type: businessservicetypevalues
+          description: ''
+          format: businessservicetypevalues
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Risk Test specific Business Service
     assessment:
       type: object
       properties:
@@ -786,14 +814,6 @@ components:
           description: ''
           format: string
       description: Reference to Risk Test
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Risk Test
     RiskTest:
       type: object
       properties:
@@ -806,9 +826,7 @@ components:
         VersionNumber:
           $ref: '#/components/schemas/number'
         BusinessService:
-          type: businessservice
-          description: The Risk Test specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         FinancialStatementAssessmentReference:
           $ref: '#/components/schemas/assessment'
         RiskTestReference:
@@ -828,9 +846,7 @@ components:
         VersionNumber:
           $ref: '#/components/schemas/number'
         BusinessService:
-          type: businessservice
-          description: The Sensitivity Test specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         FinancialStatementAssessmentReference:
           $ref: '#/components/schemas/assessment'
         SensitivityTestReference:
@@ -850,9 +866,7 @@ components:
         VersionNumber:
           $ref: '#/components/schemas/number'
         BusinessService:
-          type: businessservice
-          description: The Liquidity and Cash Flow Test specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         FinancialStatementAssessmentReference:
           $ref: '#/components/schemas/assessment'
         LiquidityandCashFlowTestReference:
@@ -872,9 +886,7 @@ components:
         VersionNumber:
           $ref: '#/components/schemas/number'
         BusinessService:
-          type: businessservice
-          description: The Asset and Liability Valuation Test specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         FinancialStatementAssessmentReference:
           $ref: '#/components/schemas/assessment'
         AssetandLiabilityValuationTestReference:
@@ -898,14 +910,6 @@ components:
         FinancialStatementAssessmentAssessmentType:
           $ref: '#/components/schemas/text'
       description: The Risk Test test is one aspect that can be intergrated into the overall Risk Test
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
     servicetype:
       type: object
       properties:

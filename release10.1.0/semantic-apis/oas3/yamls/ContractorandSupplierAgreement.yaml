@@ -700,6 +700,42 @@ components:
           type: string
           format: string
       description: Status Attributes
+    schedule:
+      type: object
+      properties:
+        Schedule:
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
+      description: Any timing/duration considerations applying to the Regulatory Term
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          type: businessservicetypevalues
+          description: ''
+          format: businessservicetypevalues
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Regulatory Term specific Business Service
     date:
       type: object
       properties:
@@ -794,14 +830,6 @@ components:
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
       description: Reference to Regulatory Term
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Regulatory Term
     object:
       type: object
       properties:
@@ -818,13 +846,9 @@ components:
           description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
           format: condition(class)
         Schedule:
-          type: schedule
-          description: Any timing/duration considerations applying to the Regulatory Term
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Regulatory Term specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         SupplierAgreementReference:
           $ref: '#/components/schemas/agreement'
         RegulatoryTermReference:
@@ -850,13 +874,9 @@ components:
           description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
           format: condition(class)
         Schedule:
-          type: schedule
-          description: Any timing/duration considerations applying to the Legal Term
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Legal Term specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         SupplierAgreementReference:
           $ref: '#/components/schemas/agreement'
         LegalTermReference:
@@ -882,13 +902,9 @@ components:
           description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
           format: condition(class)
         Schedule:
-          type: schedule
-          description: Any timing/duration considerations applying to the Policy Term
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Policy Term specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         SupplierAgreementReference:
           $ref: '#/components/schemas/agreement'
         PolicyTermReference:
@@ -1001,14 +1017,6 @@ components:
           description: ''
           format: string
       description: Request to discharge Supplier Agreement
-    schedule:
-      type: object
-      properties:
-        Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
-      description: Timetable to discharge Supplier Agreement
     involvedparty:
       type: object
       properties:

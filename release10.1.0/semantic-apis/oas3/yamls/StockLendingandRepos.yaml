@@ -789,6 +789,34 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in completing the transaction task
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          type: businessservicetypevalues
+          description: ''
+          format: businessservicetypevalues
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Repo Transaction Cash Transfer Task specific Business Service
     identifier:
       type: object
       properties:
@@ -813,14 +841,6 @@ components:
           description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
           format: datatype
       description: 'Specifies the category of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. '
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: A detailed explanation or commentary of transaction.
     transactionlifecyclestatus:
       type: object
       properties:
@@ -829,14 +849,6 @@ components:
           description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
           format: datatype
       description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: The name of transaction.
     transaction:
       type: object
       properties:
@@ -871,9 +883,7 @@ components:
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Repo Transaction Cash Transfer Task specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
           type: string
           description: The completion status and any triggered/dependent actions once the task has been completed
@@ -895,9 +905,7 @@ components:
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Repo Transaction Initiation Task specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
           type: string
           description: The completion status and any triggered/dependent actions once the task has been completed
@@ -919,9 +927,7 @@ components:
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: businessservice
-          description: The Repo Transaction Security Transfer Task specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
           type: string
           description: The completion status and any triggered/dependent actions once the task has been completed
