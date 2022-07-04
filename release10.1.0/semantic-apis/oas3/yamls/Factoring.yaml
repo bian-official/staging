@@ -1222,6 +1222,14 @@ components:
           description: Data type that specifies type of business action
           format: datatype
       description: The type of account which is linked to Factoring Facility
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
     accountidentification:
       type: object
       properties:
@@ -1266,9 +1274,7 @@ components:
       type: object
       properties:
         AccountStatus:
-          type: string
-          description: 'A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.'
-          format: string
+          $ref: '#/components/schemas/accountstatus'
         AccountIdentification:
           $ref: '#/components/schemas/accountidentification'
         AccountDate:
@@ -1312,6 +1318,13 @@ components:
           description: ''
           format: datatype
       description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
     productlifecyclestatus:
       type: object
       properties:
@@ -1326,21 +1339,15 @@ components:
         ProductIdentification:
           $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/bankingproducttype'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
           $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          type: string
-          description: A detailed explanation or commentary of product.
-          format: string
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: Reference to the product which is linked to Factoring Facility
     limittype:
       type: object

@@ -1184,6 +1184,12 @@ components:
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Service Delivery Servicing Properties specific  Business Service
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     date:
       type: object
       properties:
@@ -1192,15 +1198,23 @@ components:
           description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
           format: datatype
       description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
           $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
       description: Reference to Service Delivery Servicing Properties
     object:
       type: object
@@ -1354,14 +1368,6 @@ components:
           description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
           format: datatype
       description: The version of Service Directory Entry
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Service Directory Entry
     log:
       type: object
       properties:

@@ -552,6 +552,12 @@ components:
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Counterparty Permitted Transaction property specific  Business Service
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     date:
       type: object
       properties:
@@ -560,15 +566,23 @@ components:
           description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
           format: datatype
       description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
           $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
       description: Reference to Counterparty Permitted Transaction property
     object:
       type: object
@@ -642,14 +656,6 @@ components:
           description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
           format: datatype
       description: The version of Counterparty Directory Entry
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Counterparty Directory Entry
     log:
       type: object
       properties:
@@ -678,6 +684,18 @@ components:
           description: ''
           format: datatype
       description: ''
+    agreementtypevalues:
+      enum:
+        - CustomerAgreement
+        - SupplierAgreement
+        - ProductBrokerAgreement
+        - ProductSaleAgreement
+        - FiduciaryAgreement
+        - CommissionSaleAgreement
+        - ServicingMandateAgreement
+        - ChannelAccessAgreement
+      type: string
+      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
     datetimeperiod:
       type: object
       properties:
@@ -716,53 +734,133 @@ components:
         AgreementSignedDate:
           $ref: '#/components/schemas/date'
         AgreementType:
-          type: agreementtype
-          description: 'Specifies the category of agreement. Agreement type is very often referred to product. But, the term product does not cover all kinds of agreements. An Agreement can be subtyped from the perspective of various aspects of interest. One can classify the agreement from the perspective of format type (e.g., verbal agreement, written agreement). Other one can classify agreement based on duration like short-term agreement or long-term agreement.'
-          format: agreementtype
+          $ref: '#/components/schemas/agreementtypevalues'
         AgreementValidityPeriod:
           $ref: '#/components/schemas/datetimeperiod'
         AgreementVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         AgreementStatus:
           $ref: '#/components/schemas/agreementlifecyclestatus'
         AgreementSubjectMatter:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         AgreementIdentification:
           $ref: '#/components/schemas/identifier'
         AgreementDate:
           $ref: '#/components/schemas/datetime'
       description: ''
+    financialtransactiontypevalues:
+      enum:
+        - Pricingtransaction
+        - Feetransaction
+        - Withdrawaltransaction
+        - Deposittransaction
+        - Paymenttransaction
+        - Clearingtransaction
+        - Settlementtransaction
+        - Reconciliationtransaction
+        - Updatetransaction
+        - Securitiestransaction
+      type: string
+      description: ">\n* `Pricingtransaction` - \n* `Feetransaction` - \n* `Withdrawaltransaction` - \n* `Deposittransaction` - \n* `Paymenttransaction` - \n* `Clearingtransaction` - \n* `Settlementtransaction` - \n* `Reconciliationtransaction` - \n* `Updatetransaction` - \n* `Securitiestransaction` - \n"
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: ''
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        Accountidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        Accountdate:
+          type: string
+          description: ''
+          format: datatype
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttype:
+      type: object
+      properties:
+        Accounttype:
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalance:
+      type: object
+      properties:
+        Accountbalance:
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrency:
+      type: object
+      properties:
+        Accountcurrency:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
+          $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
+        AccountBalance:
+          $ref: '#/components/schemas/accountbalance'
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: ''
     financialtransaction:
       type: object
       properties:
         FinancialTransactionType:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/financialtransactiontypevalues'
         FinancialTransactionCurrency:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/currencycode'
         FinancialTransactionAmount:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/amount'
         FinancialTransactionFromAccount:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/account'
         FinancialTransactionTargetAccount:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/account'
         FinancialTransactionDateTime:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/datetime'
       description: ''
     CounterpartyDirectoryEntry:
       type: object

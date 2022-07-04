@@ -462,6 +462,12 @@ components:
           description: ''
           format: datatype
       description: ''
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     date:
       type: object
       properties:
@@ -470,15 +476,23 @@ components:
           description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
           format: datatype
       description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
           $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
       description: ''
     SyndicateManagementOutcome:
       type: object
@@ -522,6 +536,35 @@ components:
           description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
           format: datatype
       description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
     instruction:
       type: object
       properties:
@@ -529,36 +572,18 @@ components:
           $ref: '#/components/schemas/date'
         InstructionStatus:
           $ref: '#/components/schemas/instructionlifecyclestatus'
-        ObligeeReference:
-          type: string
-          description: ''
-          format: string
-        ObligorReference:
-          type: string
-          description: ''
-          format: string
         InstructionIdentifier:
           $ref: '#/components/schemas/identifier'
         InstructionType:
-          type: string
-          description: "Classification Value classifying the instruction according to the \"type of action\" to be applied to a subject matter.\n\nexamples: payment instruction, withdrawal instruction, blocking instruction, accounting instruction, sending instruction, purchase instruction blocked deposit, a blocked securities portfolio, pawn, etc."
-          format: string
+          $ref: '#/components/schemas/instructiontypevalues'
         InstructionResult:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         InstructionDescription:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         InstructionLog:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/log'
         InstructionPurpose:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: Request to enroll Syndicate Membership
     goal:
       type: object
@@ -580,6 +605,30 @@ components:
           description: 'Assessment of how the work is progressing towards achieving the goal, including projections of likely outcomes'
           format: string
       description: ''
+    budgettype:
+      type: object
+      properties:
+        Budgettype:
+          type: string
+          description: ''
+          format: datatype
+      description: A Classification value that specifies the type of Budget
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: ''
+    budgetarrangement:
+      type: object
+      properties:
+        BudgetType:
+          $ref: '#/components/schemas/budgettype'
+        BudgetAmount:
+          $ref: '#/components/schemas/amount'
+      description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
     plantype:
       type: object
       properties:
@@ -588,15 +637,21 @@ components:
           description: 'Data type specifies the classification of a Plan '
           format: datatype
       description: A Classification value that specifies the type of Plan
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: ''
     plan:
       type: object
       properties:
-        PLanGoal:
+        PlanGoal:
           $ref: '#/components/schemas/goal'
         PlanBudget:
-          type: budgetarrangement
-          description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
-          format: budgetarrangement
+          $ref: '#/components/schemas/budgetarrangement'
         PlannedAction:
           type: plannedaction
           description: 'An action that is arranged in a plan for doing or achieving something '
@@ -607,14 +662,26 @@ components:
           type: string
           description: ''
           format: string
+        PlanValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PlanDescription:
+          $ref: '#/components/schemas/text'
       description: Reference to  Syndicate Membership Plan
-    actiontype:
+    actiontypevalues:
+      enum:
+        - Initiate
+        - Execute
+        - Create
+        - Transfer
+        - Pay
+        - Deliver
+      type: string
+      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
+    action:
       type: object
       properties:
-        Actiontype:
-          type: string
-          description: Data type that specifies type of business action
-          format: datatype
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
       description: ''
     datetime:
       type: object
@@ -635,14 +702,18 @@ components:
     arrangement:
       type: object
       properties:
-        ActionType:
-          $ref: '#/components/schemas/actiontype'
+        ArrangementAction:
+          $ref: '#/components/schemas/action'
         ArrangementStartDate:
           $ref: '#/components/schemas/datetime'
         ArrangementEndDate:
           $ref: '#/components/schemas/datetime'
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
+        ArrangementSubjectMatter:
+          type: subject
+          description: ''
+          format: subject
       description: Liability or duty to do something under the terms of Syndicate Membership
     SyndicateMembership:
       type: object

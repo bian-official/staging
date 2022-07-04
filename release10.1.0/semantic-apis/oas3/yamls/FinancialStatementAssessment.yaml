@@ -952,52 +952,15 @@ components:
           description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
           format: datatype
       description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    instruction:
-      type: object
-      properties:
-        InstructionDueDate:
-          $ref: '#/components/schemas/date'
-        InstructionStatus:
-          $ref: '#/components/schemas/instructionlifecyclestatus'
-        ObligeeReference:
-          type: string
-          description: ''
-          format: string
-        ObligorReference:
-          type: string
-          description: ''
-          format: string
-        InstructionIdentifier:
-          $ref: '#/components/schemas/identifier'
-        InstructionType:
-          type: string
-          description: "Classification Value classifying the instruction according to the \"type of action\" to be applied to a subject matter.\n\nexamples: payment instruction, withdrawal instruction, blocking instruction, accounting instruction, sending instruction, purchase instruction blocked deposit, a blocked securities portfolio, pawn, etc."
-          format: string
-        InstructionResult:
-          type: string
-          description: ''
-          format: string
-        InstructionDescription:
-          type: string
-          description: ''
-          format: string
-        InstructionLog:
-          type: string
-          description: ''
-          format: string
-        InstructionPurpose:
-          type: string
-          description: ''
-          format: string
-      description: Request to assess
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Financial Statement Assessment
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
     log:
       type: object
       properties:
@@ -1017,7 +980,35 @@ components:
           type: string
           description: ''
           format: string
-      description: Reference to the log of (usage) ativities/events of Financial Statement Assessment
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/date'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to assess
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: The status of Financial Statement Assessment
     involvedparty:
       type: object
       properties:

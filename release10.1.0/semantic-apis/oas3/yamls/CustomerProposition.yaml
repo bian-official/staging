@@ -586,6 +586,18 @@ components:
           description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
           format: datatype
       description: Date on which the agreement was signed by all parties. (ISO20022)
+    agreementtypevalues:
+      enum:
+        - CustomerAgreement
+        - SupplierAgreement
+        - ProductBrokerAgreement
+        - ProductSaleAgreement
+        - FiduciaryAgreement
+        - CommissionSaleAgreement
+        - ServicingMandateAgreement
+        - ChannelAccessAgreement
+      type: string
+      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
     datetimeperiod:
       type: object
       properties:
@@ -624,33 +636,35 @@ components:
         AgreementSignedDate:
           $ref: '#/components/schemas/date'
         AgreementType:
-          type: agreementtype
-          description: 'Specifies the category of agreement. Agreement type is very often referred to product. But, the term product does not cover all kinds of agreements. An Agreement can be subtyped from the perspective of various aspects of interest. One can classify the agreement from the perspective of format type (e.g., verbal agreement, written agreement). Other one can classify agreement based on duration like short-term agreement or long-term agreement.'
-          format: agreementtype
+          $ref: '#/components/schemas/agreementtypevalues'
         AgreementValidityPeriod:
           $ref: '#/components/schemas/datetimeperiod'
         AgreementVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         AgreementStatus:
           $ref: '#/components/schemas/agreementlifecyclestatus'
         AgreementSubjectMatter:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         AgreementIdentification:
           $ref: '#/components/schemas/identifier'
         AgreementDate:
           $ref: '#/components/schemas/datetime'
       description: Reference to Customer Defined Product and Service Term
-    actiontype:
+    actiontypevalues:
+      enum:
+        - Initiate
+        - Execute
+        - Create
+        - Transfer
+        - Pay
+        - Deliver
+      type: string
+      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
+    action:
       type: object
       properties:
-        Actiontype:
-          type: string
-          description: Data type that specifies type of business action
-          format: datatype
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
       description: ''
     arrangementlifecyclestatus:
       type: object
@@ -663,14 +677,18 @@ components:
     arrangement:
       type: object
       properties:
-        ActionType:
-          $ref: '#/components/schemas/actiontype'
+        ArrangementAction:
+          $ref: '#/components/schemas/action'
         ArrangementStartDate:
           $ref: '#/components/schemas/datetime'
         ArrangementEndDate:
           $ref: '#/components/schemas/datetime'
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
+        ArrangementSubjectMatter:
+          type: subject
+          description: ''
+          format: subject
       description: Reference to Customer Defined Product and Service Term
     CustomerDefinedProductandServiceTerm:
       type: object
@@ -745,18 +763,6 @@ components:
           description: ''
           format: string
       description: 'A selected optional feature in a product, identified by Parameter Type'
-    agreementtypevalues:
-      enum:
-        - CustomerAgreement
-        - SupplierAgreement
-        - ProductBrokerAgreement
-        - ProductSaleAgreement
-        - FiduciaryAgreement
-        - CommissionSaleAgreement
-        - ServicingMandateAgreement
-        - ChannelAccessAgreement
-      type: string
-      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
     instructionlifecyclestatus:
       type: object
       properties:
@@ -765,6 +771,35 @@ components:
           description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
           format: datatype
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
     instruction:
       type: object
       properties:
@@ -772,36 +807,18 @@ components:
           $ref: '#/components/schemas/date'
         InstructionStatus:
           $ref: '#/components/schemas/instructionlifecyclestatus'
-        ObligeeReference:
-          type: string
-          description: ''
-          format: string
-        ObligorReference:
-          type: string
-          description: ''
-          format: string
         InstructionIdentifier:
           $ref: '#/components/schemas/identifier'
         InstructionType:
-          type: string
-          description: "Classification Value classifying the instruction according to the \"type of action\" to be applied to a subject matter.\n\nexamples: payment instruction, withdrawal instruction, blocking instruction, accounting instruction, sending instruction, purchase instruction blocked deposit, a blocked securities portfolio, pawn, etc."
-          format: string
+          $ref: '#/components/schemas/instructiontypevalues'
         InstructionResult:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         InstructionDescription:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         InstructionLog:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/log'
         InstructionPurpose:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: Request to discharge Customer Proposition Agreement
     involvedparty:
       type: object
@@ -841,6 +858,14 @@ components:
           description: ''
           format: string
       description: Reference to the regulation which is defined in Customer Proposition Agreement
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
     accountidentification:
       type: object
       properties:
@@ -885,9 +910,7 @@ components:
       type: object
       properties:
         AccountStatus:
-          type: string
-          description: 'A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.'
-          format: string
+          $ref: '#/components/schemas/accountstatus'
         AccountIdentification:
           $ref: '#/components/schemas/accountidentification'
         AccountDate:
@@ -923,14 +946,13 @@ components:
           description: ''
           format: datatype
       description: The identifier of product e.g. ISIN Code.
-    bankingproducttype:
-      type: object
-      properties:
-        Bankingproducttype:
-          type: string
-          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
-          format: datatype
-      description: 'Specifies the category/type/class of product like financial product. Product can be categorized according to different perspectives.  '
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
     productlifecyclestatus:
       type: object
       properties:
@@ -945,21 +967,15 @@ components:
         ProductIdentification:
           $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/bankingproducttype'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
           $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          type: string
-          description: A detailed explanation or commentary of product.
-          format: string
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: "Reference to the product which is linked to Customer Proposition Agreement\n\nComment: \nA characteristic of agreement which refers to its related products that are sold by agreement."
     calendar:
       type: object

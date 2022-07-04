@@ -538,8 +538,19 @@ components:
         - NostroAccount
         - PaymentAccount
         - SettlementAccount
+        - SavingAccount
+        - CurrentAccount
+        - Cashaccount
       type: string
-      description: ">\n* `DebitAccount` - \n* `CreditAccount` - \n* `VostroAcount` - In correspondent banking, an account held by one bank on behalf of another bank (the customer bank); the customer bank regards this account as its nostro account. (ECB)\n* `NostroAccount` - In correspondent banking, an account held by a customer bank on the books of another bank acting as a service provider. The other bank regards this account as a loro account. (ECB)\n* `PaymentAccount` - \n* `SettlementAccount` - A specific purpose account used to post debit and credit entries as a result of the transaction. (ISO20022)\n\nAccount which is used for settlement. (ISO20022)\n"
+      description: ">\n* `DebitAccount` - \n* `CreditAccount` - \n* `VostroAcount` - In correspondent banking, an account held by one bank on behalf of another bank (the customer bank); the customer bank regards this account as its nostro account. (ECB)\n* `NostroAccount` - In correspondent banking, an account held by a customer bank on the books of another bank acting as a service provider. The other bank regards this account as a loro account. (ECB)\n* `PaymentAccount` - \n* `SettlementAccount` - A specific purpose account used to post debit and credit entries as a result of the transaction. (ISO20022)\n\nAccount which is used for settlement. (ISO20022)\n* `SavingAccount` - \n* `CurrentAccount` - \n* `Cashaccount` - \n"
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
     accountidentification:
       type: object
       properties:
@@ -584,9 +595,7 @@ components:
       type: object
       properties:
         AccountStatus:
-          type: string
-          description: 'A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.'
-          format: string
+          $ref: '#/components/schemas/accountstatus'
         AccountIdentification:
           $ref: '#/components/schemas/accountidentification'
         AccountDate:
@@ -610,6 +619,13 @@ components:
           description: ''
           format: datatype
       description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
     productlifecyclestatus:
       type: object
       properties:
@@ -624,21 +640,15 @@ components:
         ProductIdentification:
           $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/bankingproducttype'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
           $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          type: string
-          description: A detailed explanation or commentary of product.
-          format: string
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: Reference to the product which is linked to Standing Order Arrangement
     StandingOrderFacility:
       type: object

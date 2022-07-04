@@ -399,14 +399,13 @@ components:
           description: ''
           format: datatype
       description: The identifier of product e.g. ISIN Code.
-    bankingproducttype:
-      type: object
-      properties:
-        Bankingproducttype:
-          type: string
-          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
-          format: datatype
-      description: 'Specifies the category/type/class of product like financial product. Product can be categorized according to different perspectives.  '
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
     productlifecyclestatus:
       type: object
       properties:
@@ -421,21 +420,15 @@ components:
         ProductIdentification:
           $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/bankingproducttype'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
           $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          type: string
-          description: A detailed explanation or commentary of product.
-          format: string
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: Reference to the product which is the subject matter of Trading Credit Position Measurement
     limittype:
       type: object
@@ -511,13 +504,21 @@ components:
         LimitFrequency:
           $ref: '#/components/schemas/frequency'
       description: Reference to Tresholds and Limits for monitoring Trading Credit Position Measurement
-    actiontype:
+    actiontypevalues:
+      enum:
+        - Initiate
+        - Execute
+        - Create
+        - Transfer
+        - Pay
+        - Deliver
+      type: string
+      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
+    action:
       type: object
       properties:
-        Actiontype:
-          type: string
-          description: Data type that specifies type of business action
-          format: datatype
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
       description: ''
     datetime:
       type: object
@@ -538,14 +539,18 @@ components:
     arrangement:
       type: object
       properties:
-        ActionType:
-          $ref: '#/components/schemas/actiontype'
+        ArrangementAction:
+          $ref: '#/components/schemas/action'
         ArrangementStartDate:
           $ref: '#/components/schemas/datetime'
         ArrangementEndDate:
           $ref: '#/components/schemas/datetime'
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
+        ArrangementSubjectMatter:
+          type: subject
+          description: ''
+          format: subject
       description: Reference to Notification Arrangements for monitoring Trading Credit Position Measurement
     TradingCreditPositionMeasurement:
       type: object

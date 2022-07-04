@@ -545,54 +545,22 @@ components:
           description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
           format: datatype
       description: The period covered by the analysis (from to date time)
-    document:
+    identifier:
       type: object
       properties:
-        DocumentIdentifer:
+        Identifier:
           type: string
-          description: An identifier that allows to uniquely refer to an instance of a Document.
-          format: string
-        DocumentVersion:
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: An identifier that allows to uniquely refer to an instance of a Document.
+    status:
+      type: object
+      properties:
+        Status:
           type: string
-          description: ''
-          format: string
-        DocumentType:
-          type: string
-          description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
-          format: string
-        DocumentStatus:
-          type: string
-          description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
-          format: string
-        DocumentDateTime:
-          type: string
-          description: ''
-          format: string
-        DocumentName:
-          type: string
-          description: ''
-          format: string
-        DocumentDateTimeType:
-          type: string
-          description: ''
-          format: string
-        DocumentPurpose:
-          type: string
-          description: Specifies the function of the document. (ISO20022)
-          format: string
-        DocumentFormat:
-          type: string
-          description: ''
-          format: string
-        DocumentSubject:
-          type: string
-          description: ''
-          format: string
-        DocumentDescription:
-          type: string
-          description: ''
-          format: string
-      description: ''
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
     datetime:
       type: object
       properties:
@@ -600,6 +568,43 @@ components:
           type: string
           description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
           format: datatype
+      description: ''
+    documentdatetimetypevalues:
+      enum:
+        - Creationdate
+        - Capturingdate
+        - Versiondate
+        - Valuedate
+        - Issuedate
+      type: string
+      description: ">\n* `Creationdate` - \n* `Capturingdate` - \n* `Versiondate` - \n* `Valuedate` - \n* `Issuedate` - \n"
+    document:
+      type: object
+      properties:
+        DocumentIdentifer:
+          $ref: '#/components/schemas/identifier'
+        DocumentVersion:
+          $ref: '#/components/schemas/text'
+        DocumentType:
+          type: documenttype
+          description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
+          format: documenttype
+        DocumentStatus:
+          $ref: '#/components/schemas/status'
+        DocumentDateTime:
+          $ref: '#/components/schemas/datetime'
+        DocumentName:
+          $ref: '#/components/schemas/name'
+        DocumentDateTimeType:
+          $ref: '#/components/schemas/documentdatetimetypevalues'
+        DocumentPurpose:
+          $ref: '#/components/schemas/text'
+        DocumentFormat:
+          $ref: '#/components/schemas/text'
+        DocumentSubject:
+          $ref: '#/components/schemas/text'
+        DocumentDescription:
+          $ref: '#/components/schemas/text'
       description: ''
     analysis:
       type: object
@@ -663,52 +668,15 @@ components:
           description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
           format: datatype
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-    identifier:
-      type: object
-      properties:
-        Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
-      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    instruction:
-      type: object
-      properties:
-        InstructionDueDate:
-          $ref: '#/components/schemas/date'
-        InstructionStatus:
-          $ref: '#/components/schemas/instructionlifecyclestatus'
-        ObligeeReference:
-          type: string
-          description: ''
-          format: string
-        ObligorReference:
-          type: string
-          description: ''
-          format: string
-        InstructionIdentifier:
-          $ref: '#/components/schemas/identifier'
-        InstructionType:
-          type: string
-          description: "Classification Value classifying the instruction according to the \"type of action\" to be applied to a subject matter.\n\nexamples: payment instruction, withdrawal instruction, blocking instruction, accounting instruction, sending instruction, purchase instruction blocked deposit, a blocked securities portfolio, pawn, etc."
-          format: string
-        InstructionResult:
-          type: string
-          description: ''
-          format: string
-        InstructionDescription:
-          type: string
-          description: ''
-          format: string
-        InstructionLog:
-          type: string
-          description: ''
-          format: string
-        InstructionPurpose:
-          type: string
-          description: ''
-          format: string
-      description: Request to advise
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
     log:
       type: object
       properties:
@@ -728,7 +696,27 @@ components:
           type: string
           description: ''
           format: string
-      description: Reference to the log of (usage) ativities/events of Mergers And Acquisition Advice
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/date'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to advise
     actiontype:
       type: object
       properties:

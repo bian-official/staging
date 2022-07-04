@@ -1018,14 +1018,17 @@ components:
           description: ''
           format: datatype
       description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    transactiontype:
-      type: object
-      properties:
-        Transactiontype:
-          type: string
-          description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
-          format: datatype
-      description: 'Specifies the category of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. '
+    transactiontypevalues:
+      enum:
+        - FinancialTransaction
+        - BusinessTransaction
+        - BankingTransaction
+        - AccountingTransaction
+        - BookingTransaction
+        - AllocationTransaction
+        - DeliveryTransaction
+      type: string
+      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n"
     transactionlifecyclestatus:
       type: object
       properties:
@@ -1042,7 +1045,7 @@ components:
         TransactionDate:
           $ref: '#/components/schemas/transactiondate'
         TransactionType:
-          $ref: '#/components/schemas/transactiontype'
+          $ref: '#/components/schemas/transactiontypevalues'
         TransactionDescription:
           $ref: '#/components/schemas/text'
         TransactionStatus:

@@ -552,6 +552,12 @@ components:
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The In-force Product property specific  Business Service
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     date:
       type: object
       properties:
@@ -560,15 +566,23 @@ components:
           description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
           format: datatype
       description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
           $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
       description: Reference to In-force Product property
     object:
       type: object
@@ -642,14 +656,6 @@ components:
           description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
           format: datatype
       description: The version of Customer Products And Services Directory Entry
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Customer Products And Services Directory Entry
     log:
       type: object
       properties:
@@ -686,14 +692,13 @@ components:
           description: ''
           format: datatype
       description: The identifier of product e.g. ISIN Code.
-    bankingproducttype:
-      type: object
-      properties:
-        Bankingproducttype:
-          type: string
-          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
-          format: datatype
-      description: 'Specifies the category/type/class of product like financial product. Product can be categorized according to different perspectives.  '
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
     productlifecyclestatus:
       type: object
       properties:
@@ -708,21 +713,15 @@ components:
         ProductIdentification:
           $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/bankingproducttype'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
           $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          type: string
-          description: A detailed explanation or commentary of product.
-          format: string
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/text'
       description: ''
     CustomerProductsAndServicesDirectoryEntry:
       type: object
