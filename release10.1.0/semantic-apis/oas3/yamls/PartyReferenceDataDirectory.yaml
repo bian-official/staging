@@ -345,17 +345,18 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
     Demographics:
       type: object
@@ -385,20 +386,21 @@ components:
           description: 'Description of any known constraints on servicing the customer (sight, hearing, religious considerations)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    datatype:
-      type: string
-      description: ''
     object:
       type: object
       properties:
         Object:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to the legal entity - enables the assembly of the legal relationship structure
     date:
       type: object
       properties:
         Date:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
       description: The start date for the relationship
     Reference:
       type: object
@@ -470,9 +472,6 @@ components:
         CustomerSinceDate:
           $ref: '#/components/schemas/date'
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    preferredbeneficiary:
-      type: string
-      description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
     Associations:
       type: object
       properties:
@@ -493,7 +492,9 @@ components:
         ProductInstanceReference:
           $ref: '#/components/schemas/object'
         PreferredBeneficiary:
-          $ref: '#/components/schemas/preferredbeneficiary'
+          type: string
+          description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
+          format: preferredbeneficiary
         Proxy/Representative/PowerofAttorneyReference:
           $ref: '#/components/schemas/object'
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
@@ -511,19 +512,25 @@ components:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
     datetime:
       type: object
       properties:
         Datetime:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
       description: ''
     partyidentification:
       type: object
       properties:
         Partyidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: ''
     party:
       type: object
@@ -539,9 +546,6 @@ components:
         PartyIdentification:
           $ref: '#/components/schemas/partyidentification'
       description: Reference to the associated customer (can currently be a person or a company)
-    enumerationliteral:
-      type: string
-      description: ''
     directoryentrydatetypevalues:
       enum:
         - OpenDate
@@ -695,7 +699,9 @@ components:
             ProductInstanceReference:
               $ref: '#/components/schemas/object'
             PreferredBeneficiary:
-              $ref: '#/components/schemas/preferredbeneficiary'
+              type: string
+              description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
+              format: preferredbeneficiary
             ProxyOrRepresentativeOrPowerofAttorneyReference:
               $ref: '#/components/schemas/object'
         Demographics:
@@ -997,7 +1003,9 @@ components:
             ProductInstanceReference:
               $ref: '#/components/schemas/object'
             PreferredBeneficiary:
-              $ref: '#/components/schemas/preferredbeneficiary'
+              type: string
+              description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
+              format: preferredbeneficiary
             ProxyOrRepresentativeOrPowerofAttorneyReference:
               $ref: '#/components/schemas/object'
       description: 'Input: UpBQ Update details about an association entry for the customer'
@@ -1029,7 +1037,9 @@ components:
             ProductInstanceReference:
               $ref: '#/components/schemas/object'
             PreferredBeneficiary:
-              $ref: '#/components/schemas/preferredbeneficiary'
+              type: string
+              description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
+              format: preferredbeneficiary
             ProxyOrRepresentativeOrPowerofAttorneyReference:
               $ref: '#/components/schemas/object'
       description: 'Output: UpBQ Update details about an association entry for the customer'
@@ -1061,7 +1071,9 @@ components:
             ProductInstanceReference:
               $ref: '#/components/schemas/object'
             PreferredBeneficiary:
-              $ref: '#/components/schemas/preferredbeneficiary'
+              type: string
+              description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
+              format: preferredbeneficiary
             ProxyOrRepresentativeOrPowerofAttorneyReference:
               $ref: '#/components/schemas/object'
       description: 'Output: ReBQ Retrieve details about association entries in the directory record'

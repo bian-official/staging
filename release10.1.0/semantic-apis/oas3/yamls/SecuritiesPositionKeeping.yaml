@@ -164,26 +164,26 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    datatype:
-      type: string
-      description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
     date:
       type: object
       properties:
         Date:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
       description: The date of the securities transaction
     SecuritiesTransactionCapture:
       type: object
@@ -203,13 +203,17 @@ components:
       type: object
       properties:
         Object:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The product/service investment account for which this is the securities transaction log
     amount:
       type: object
       properties:
         Amount:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
       description: Support for recording blocks on the log position (handling is by the associated investment account fulfillment service domain)
     SecuritiesPositionLog:
       type: object

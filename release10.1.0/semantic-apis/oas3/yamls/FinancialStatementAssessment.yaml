@@ -685,50 +685,50 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    condition:
-      type: string
-      description: The required status/situation before the test can be applied
-    datatype:
-      type: string
-      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
       description: The schedule and timing of the testing performed
     number:
       type: object
       properties:
         Number:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
+          format: datatype
       description: The test version employed
     name:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
-      description: ''
-    businessservicetypevalues:
-      type: string
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: ''
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     businessservice:
       type: object
@@ -736,7 +736,9 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          type: string
+          description: ''
+          format: businessservicetypevalues(enumeration)
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Risk Test specific Business Service
@@ -816,7 +818,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation before the test can be applied
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -834,7 +838,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation before the test can be applied
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -852,7 +858,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation before the test can be applied
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -870,7 +878,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation before the test can be applied
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -888,7 +898,9 @@ components:
       type: object
       properties:
         Workproduct:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
       description: ''
     FinancialStatementAssessmentOutcome:
       type: object
@@ -902,7 +914,9 @@ components:
       type: object
       properties:
         Servicetype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of service
+          format: datatype
       description: ''
     service:
       type: object
@@ -918,23 +932,26 @@ components:
       type: object
       properties:
         Date:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
       description: ''
     instructionlifecyclestatus:
       type: object
       properties:
         Instructionlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
     identifier:
       type: object
       properties:
         Identifier:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
       description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    enumerationliteral:
-      type: string
-      description: ''
     instructiontypevalues:
       enum:
         - PaymentInstruction
@@ -988,13 +1005,17 @@ components:
       type: object
       properties:
         Status:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
       description: The status of Financial Statement Assessment
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to the party who has requested Financial Statement Assessment
     FinancialStatementAssessment:
       type: object

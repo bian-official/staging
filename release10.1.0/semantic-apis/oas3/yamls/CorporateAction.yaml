@@ -1138,50 +1138,50 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    condition:
-      type: string
-      description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-    datatype:
-      type: string
-      description: ''
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The operating unit/employee responsible for the workstep
     schedule:
       type: object
       properties:
         Schedule:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
       description: The timing and key actions/milestones making up the workstep
     name:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
-      description: ''
-    businessservicetypevalues:
-      type: string
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: ''
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     businessservice:
       type: object
@@ -1189,7 +1189,9 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          type: string
+          description: ''
+          format: businessservicetypevalues(enumeration)
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Stock Split or Reversal Action Workstep specific Business Service
@@ -1197,35 +1199,42 @@ components:
       type: object
       properties:
         Proceduretype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of procedure
+          format: datatype
       description: A Classification value that distinguishes between the type of process undertaken within Procedure
     datetime:
       type: object
       properties:
         Datetime:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
       description: ''
     date:
       type: object
       properties:
         Date:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
       description: ''
     instructionlifecyclestatus:
       type: object
       properties:
         Instructionlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
     identifier:
       type: object
       properties:
         Identifier:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
       description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    enumerationliteral:
-      type: string
-      description: ''
     instructiontypevalues:
       enum:
         - PaymentInstruction
@@ -1279,7 +1288,9 @@ components:
       type: object
       properties:
         Status:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
       description: "The status of  Procedure\n"
     procedure:
       type: object
@@ -1299,7 +1310,9 @@ components:
       type: object
       properties:
         Worksteptype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of workstep
+          format: datatype
       description: A Classification value that distinguishes between the type of workstep undertaken within Procedure
     workstep:
       type: object
@@ -1321,7 +1334,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -1329,7 +1344,9 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition(class)
         CorporateActionProcedureReference:
           $ref: '#/components/schemas/procedure'
         StockSplitorReversalActionWorkstepReference:
@@ -1341,7 +1358,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -1349,7 +1368,9 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition(class)
         CorporateActionProcedureReference:
           $ref: '#/components/schemas/procedure'
         SecurityDividendPaymentWorkstepReference:
@@ -1361,7 +1382,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -1369,7 +1392,9 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition(class)
         CorporateActionProcedureReference:
           $ref: '#/components/schemas/procedure'
         SecurityRightsIssueActionWorkstepReference:
@@ -1381,7 +1406,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -1389,7 +1416,9 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition(class)
         CorporateActionProcedureReference:
           $ref: '#/components/schemas/procedure'
         SecurityMergersandAcquisitionActionWorkstepReference:
@@ -1401,7 +1430,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -1409,7 +1440,9 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition(class)
         CorporateActionProcedureReference:
           $ref: '#/components/schemas/procedure'
         SecuritySpin-OffActionWorkstepReference:
@@ -1421,7 +1454,9 @@ components:
       type: object
       properties:
         Workproduct:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
       description: ''
     CorporateActionOutcome:
       type: object
@@ -1439,26 +1474,29 @@ components:
           description: ''
           format: string
       description: A selected optional business service as subject matter of Corporate Action Procedure
-    financialfacility:
-      type: string
-      description: Reference to the Financial Facility related to Corporate Action Procedure
     servicetype:
       type: object
       properties:
         Servicetype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of service
+          format: datatype
       description: A Classification value that distinguishes between the type of services in Corporate Action Procedure
     bankingproducttype:
       type: object
       properties:
         Bankingproducttype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
+          format: datatype
       description: A Classification value that distinguishes between the type of products/services related to Corporate Action Procedure
     productidentification:
       type: object
       properties:
         Productidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The identifier of product e.g. ISIN Code.
     producttypevalues:
       enum:
@@ -1471,7 +1509,9 @@ components:
       type: object
       properties:
         Productlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
       description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
@@ -1493,13 +1533,17 @@ components:
       type: object
       properties:
         Transactiontype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
+          format: datatype
       description: A Classification value that distinguishes between the type of transactions in Corporate Action Procedure
     transactiondate:
       type: object
       properties:
         Transactiondate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
     transactiontypevalues:
       enum:
@@ -1516,7 +1560,9 @@ components:
       type: object
       properties:
         Transactionlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
       description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
@@ -1554,11 +1600,10 @@ components:
       type: object
       properties:
         Arrangementlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
       description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
-    subject:
-      type: string
-      description: ''
     arrangement:
       type: object
       properties:
@@ -1571,7 +1616,9 @@ components:
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          $ref: '#/components/schemas/subject'
+          type: string
+          description: ''
+          format: subject(class)
       description: Reference to the Financial Transaction Arrangement that is related to Corporate Action Procedure
     agreementtypevalues:
       enum:
@@ -1589,13 +1636,17 @@ components:
       type: object
       properties:
         Datetimeperiod:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
       description: "Period during which the agreement is valid\n"
     agreementlifecyclestatus:
       type: object
       properties:
         Agreementlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+          format: datatype
       description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
     agreement:
       type: object
@@ -1637,7 +1688,9 @@ components:
         CorporateActionProcedureServiceProviderReference:
           $ref: '#/components/schemas/involvedparty'
         CorporateActionProcedureFinancialFacilityReference:
-          $ref: '#/components/schemas/financialfacility'
+          type: string
+          description: Reference to the Financial Facility related to Corporate Action Procedure
+          format: financialfacility(class)
         CorporateActionProcedureEmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         CorporateActionProcedureCustomerReference:
@@ -1686,7 +1739,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -1733,7 +1788,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -1780,7 +1837,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -1827,7 +1886,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -1874,7 +1935,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -1921,7 +1984,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -1968,7 +2033,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2015,7 +2082,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2062,7 +2131,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2109,7 +2180,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2156,7 +2229,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2203,7 +2278,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2250,7 +2327,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2297,7 +2376,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2344,7 +2425,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2391,7 +2474,9 @@ components:
             CorporateActionProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Corporate Action Procedure
+              format: financialfacility(class)
             CorporateActionProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             CorporateActionProcedureCustomerReference:
@@ -2422,7 +2507,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2430,7 +2517,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -2445,7 +2534,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2453,7 +2544,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -2468,7 +2561,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2476,7 +2571,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -2491,7 +2588,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2499,7 +2598,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -2514,7 +2615,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2522,7 +2625,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -2537,7 +2642,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2545,7 +2652,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -2560,7 +2669,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2568,7 +2679,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -2583,7 +2696,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2591,7 +2706,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -2606,7 +2723,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2614,7 +2733,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -2629,7 +2750,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2637,7 +2760,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -2652,7 +2777,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2660,7 +2787,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -2675,7 +2804,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2683,7 +2814,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -2698,7 +2831,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2706,7 +2841,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -2721,7 +2858,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2729,7 +2868,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -2744,7 +2885,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2752,7 +2895,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -2767,7 +2912,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2775,7 +2922,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -2790,7 +2939,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2798,7 +2949,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -2813,7 +2966,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2821,7 +2976,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -2836,7 +2993,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2844,7 +3003,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -2859,7 +3020,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2867,7 +3030,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -2882,7 +3047,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2890,7 +3057,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -2905,7 +3074,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2913,7 +3084,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -2928,7 +3101,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2936,7 +3111,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -2951,7 +3128,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2959,7 +3138,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -2974,7 +3155,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2982,7 +3165,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -2997,7 +3182,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3005,7 +3192,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3020,7 +3209,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3028,7 +3219,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3043,7 +3236,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3051,7 +3246,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3066,7 +3263,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3074,7 +3273,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3089,7 +3290,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3097,7 +3300,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3112,7 +3317,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3120,7 +3327,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3135,7 +3344,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3143,7 +3354,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3158,7 +3371,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3166,7 +3381,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3181,7 +3398,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3189,7 +3408,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3204,7 +3425,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3212,7 +3435,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3227,7 +3452,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3235,7 +3462,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3250,7 +3479,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3258,7 +3489,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3273,7 +3506,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3281,7 +3516,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3296,7 +3533,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3304,7 +3543,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3319,7 +3560,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3327,7 +3570,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3342,7 +3587,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3350,7 +3597,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3365,7 +3614,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3373,7 +3624,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3388,7 +3641,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3396,7 +3651,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3411,7 +3668,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3419,7 +3678,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3434,7 +3695,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3442,7 +3705,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3457,7 +3722,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3465,7 +3732,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3480,7 +3749,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3488,7 +3759,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3503,7 +3776,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3511,7 +3786,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3526,7 +3803,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3534,7 +3813,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3549,7 +3830,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3557,7 +3840,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3572,7 +3857,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3580,7 +3867,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3595,7 +3884,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3603,7 +3894,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3618,7 +3911,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3626,7 +3921,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3641,7 +3938,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3649,7 +3948,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3664,7 +3965,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3672,7 +3975,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3687,7 +3992,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3695,7 +4002,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3710,7 +4019,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3718,7 +4029,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3733,7 +4046,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3741,7 +4056,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3756,7 +4073,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3764,7 +4083,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3779,7 +4100,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3787,7 +4110,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -3802,7 +4127,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3810,7 +4137,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3825,7 +4154,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3833,7 +4164,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityDividendPaymentWorkstepReference:
@@ -3848,7 +4181,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3856,7 +4191,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3871,7 +4208,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3879,7 +4218,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityMergersandAcquisitionActionWorkstepReference:
@@ -3894,7 +4235,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3902,7 +4245,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3917,7 +4262,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3925,7 +4272,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecurityRightsIssueActionWorkstepReference:
@@ -3940,7 +4289,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3948,7 +4299,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3963,7 +4316,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3971,7 +4326,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             SecuritySpin-OffActionWorkstepReference:
@@ -3986,7 +4343,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -3994,7 +4353,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:
@@ -4009,7 +4370,9 @@ components:
           type: object
           properties:
             Preconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+              format: condition(class)
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -4017,7 +4380,9 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+              format: condition(class)
             CorporateActionProcedureReference:
               $ref: '#/components/schemas/procedure'
             StockSplitorReversalActionWorkstepReference:

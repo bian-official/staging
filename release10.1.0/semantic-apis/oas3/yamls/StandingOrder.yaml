@@ -295,44 +295,42 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    condition:
-      type: string
-      description: The required status/situation prior to the implementation of the feature
-    datatype:
-      type: string
-      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
       description: The timing and key actions/milestones involved in completing the fulfillment feature instance
     name:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
-      description: ''
-    businessservicetypevalues:
-      type: string
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: ''
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     businessservice:
       type: object
@@ -340,40 +338,44 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          type: string
+          description: ''
+          format: businessservicetypevalues(enumeration)
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Standing Order Fulfillment specific Business Service
-    financialfacility:
-      type: string
-      description: Reference to Standing Order Fulfillment
     object:
       type: object
       properties:
         Object:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to Standing Order Fulfillment
     StandingOrderFulfillment:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the implementation of the feature
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+          format: condition(class)
         StandingOrderFacilityReference:
-          $ref: '#/components/schemas/financialfacility'
+          type: string
+          description: Reference to Standing Order Fulfillment
+          format: financialfacility(class)
         StandingOrderFulfillmentReference:
           $ref: '#/components/schemas/object'
         StandingOrderFulfillmentType:
           $ref: '#/components/schemas/text'
       description: The configuration and execution of Standing Order Fulfillment arrangement within the Standing Order Fulfillment
-    rwc:973a94b2-aa0e-5879-cd94-93b577cadb99/54130:
-      type: string
-      description: ''
     StandingOrderOutcome:
       type: object
       properties:
@@ -382,25 +384,33 @@ components:
           description: ''
           format: string
         StandingOrderWorkProduct:
-          $ref: '#/components/schemas/rwc:973a94b2-aa0e-5879-cd94-93b577cadb99/54130'
+          type: string
+          description: ''
+          format: rwc:973a94b2-aa0e-5879-cd94-93b577cadb99/54130
       description: The configuration and execution of Standing Order Fulfillment arrangement within the Standing Order Fulfillment
     workproduct:
       type: object
       properties:
         Workproduct:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
       description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
     StandingOrderPayment:
       type: object
       properties:
         StandingOrderPaymentPreconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the implementation of the feature
+          format: condition(class)
         StandingOrderPaymentFeatureSchedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         StandingOrderPaymentPostconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+          format: condition(class)
         StandingOrderPaymentServiceType:
           type: string
           description: Reference to the specific business service type
@@ -448,25 +458,33 @@ components:
       type: object
       properties:
         Bankingproducttype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
+          format: datatype
       description: The type of Standing Order Arrangement
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to the party who is involved in Standing Order Arrangement
     currencycode:
       type: object
       properties:
         Currencycode:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
       description: The curreny which is arranged in Standing Order Arrangement
     rulesettype:
       type: object
       properties:
         Rulesettype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of RuleSet
+          format: datatype
       description: ''
     ruleset:
       type: object
@@ -490,9 +508,6 @@ components:
           description: ''
           format: string
       description: Reference to the regulation which is defined in Standing Order Arrangement
-    enumerationliteral:
-      type: string
-      description: ''
     rulesettypevalues:
       enum:
         - Policy
@@ -503,9 +518,6 @@ components:
         - Standard
       type: string
       description: ">\n* `Policy` - \n* `Regulation` - \n* `Law` - \n* `Guideline` - \n* `Criterion` - \n* `Standard` - \n"
-    jurisdiction:
-      type: string
-      description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
     businessunit:
       type: object
       properties:
@@ -535,37 +547,49 @@ components:
       type: object
       properties:
         Accountstatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
       description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
     accountidentification:
       type: object
       properties:
         Accountidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The identifier of account like Account Number.
     accountdate:
       type: object
       properties:
         Accountdate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
     accounttype:
       type: object
       properties:
         Accounttype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
       description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
     accountbalance:
       type: object
       properties:
         Accountbalance:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
       description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
     accountcurrency:
       type: object
       properties:
         Accountcurrency:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: ''
     account:
       type: object
@@ -591,7 +615,9 @@ components:
       type: object
       properties:
         Productidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The identifier of product e.g. ISIN Code.
     producttypevalues:
       enum:
@@ -604,7 +630,9 @@ components:
       type: object
       properties:
         Productlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
       description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
@@ -650,7 +678,9 @@ components:
         StandingOrderFacilityRegulationType:
           $ref: '#/components/schemas/rulesettypevalues'
         StandingOrderFacilityJurisdiction:
-          $ref: '#/components/schemas/jurisdiction'
+          type: string
+          description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+          format: jurisdiction(class)
         StandingOrderFacilityBookingLocation:
           $ref: '#/components/schemas/businessunit'
         StandingOrderFacilityAccountType:
@@ -745,7 +775,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -829,7 +861,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -913,7 +947,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -997,7 +1033,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -1081,7 +1119,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -1132,7 +1172,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -1216,7 +1258,9 @@ components:
             StandingOrderFacilityRegulationType:
               $ref: '#/components/schemas/rulesettypevalues'
             StandingOrderFacilityJurisdiction:
-              $ref: '#/components/schemas/jurisdiction'
+              type: string
+              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+              format: jurisdiction(class)
             StandingOrderFacilityBookingLocation:
               $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
@@ -1276,13 +1320,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1305,13 +1353,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1334,13 +1386,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1363,13 +1419,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1392,13 +1452,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1421,13 +1485,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1450,13 +1518,17 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The required status/situation prior to the implementation of the feature
+              format: condition(class)
             StandingOrderPaymentFeatureSchedule:
               $ref: '#/components/schemas/schedule'
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              $ref: '#/components/schemas/condition'
+              type: string
+              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
+              format: condition(class)
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type

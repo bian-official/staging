@@ -213,50 +213,50 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    condition:
-      type: string
-      description: The required status/situation before the routine can be undertaken
-    datatype:
-      type: string
-      description: ''
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The operating unit/employee responsible for performing the routine
     schedule:
       type: object
       properties:
         Schedule:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
       description: The timing and key actions/milestones involved in completing the routine
     name:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
-      description: ''
-    businessservicetypevalues:
-      type: string
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: ''
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     businessservice:
       type: object
@@ -264,7 +264,9 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          type: string
+          description: ''
+          format: businessservicetypevalues(enumeration)
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Staff Assignment RoutineCash Inventory Handling RoutineNon-cash Inventory Handling RoutineSafe Custody Operations RoutineLocation Security Administration RoutineWorkforce Administration Routine specific Business Service
@@ -292,13 +294,17 @@ components:
       type: object
       properties:
         Budgettype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: A Classification value that specifies the type of Budget
     amount:
       type: object
       properties:
         Amount:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
       description: ''
     budgetarrangement:
       type: object
@@ -308,20 +314,21 @@ components:
         BudgetAmount:
           $ref: '#/components/schemas/amount'
       description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
-    plannedaction:
-      type: string
-      description: 'An action that is arranged in a plan for doing or achieving something '
     plantype:
       type: object
       properties:
         Plantype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type specifies the classification of a Plan '
+          format: datatype
       description: A Classification value that specifies the type of Plan
     datetimeperiod:
       type: object
       properties:
         Datetimeperiod:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
       description: ''
     plan:
       type: object
@@ -331,7 +338,9 @@ components:
         PlanBudget:
           $ref: '#/components/schemas/budgetarrangement'
         PlannedAction:
-          $ref: '#/components/schemas/plannedaction'
+          type: string
+          description: 'An action that is arranged in a plan for doing or achieving something '
+          format: plannedaction(class)
         PlanType:
           $ref: '#/components/schemas/plantype'
         PlanOrganisation:
@@ -347,7 +356,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation before the routine can be undertaken
+          format: condition(class)
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -355,17 +366,18 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
+          format: condition(class)
         BranchLocationAdministrativePlanReference:
           $ref: '#/components/schemas/plan'
         StaffAssignmentRoutineCashInventoryHandlingRoutineNon-cashInventoryHandlingRoutineSafeCustodyOperationsRoutineLocationSecurityAdministrationRoutineWorkforceAdministrationRoutineReference:
-          $ref: '#/components/schemas/plannedaction'
+          type: string
+          description: Reference to Staff Assignment RoutineCash Inventory Handling RoutineNon-cash Inventory Handling RoutineSafe Custody Operations RoutineLocation Security Administration RoutineWorkforce Administration Routine
+          format: plannedaction(class)
         StaffAssignmentRoutineCashInventoryHandlingRoutineNon-cashInventoryHandlingRoutineSafeCustodyOperationsRoutineLocationSecurityAdministrationRoutineWorkforceAdministrationRoutineType:
           $ref: '#/components/schemas/text'
       description: The Staff Assignment RoutineCash Inventory Handling RoutineNon-cash Inventory Handling RoutineSafe Custody Operations RoutineLocation Security Administration RoutineWorkforce Administration Routine is an activity that is performed as one aspect of carrying out the Staff Assignment RoutineCash Inventory Handling RoutineNon-cash Inventory Handling RoutineSafe Custody Operations RoutineLocation Security Administration RoutineWorkforce Administration Routine
-    enumerationliteral:
-      type: string
-      description: ''
     analysistypevalues:
       enum:
         - PerformanceAnalysis
@@ -376,22 +388,25 @@ components:
       type: object
       properties:
         Identifier:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
       description: An identifier that allows to uniquely refer to an instance of a Document.
-    documenttype:
-      type: string
-      description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
     status:
       type: object
       properties:
         Status:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
       description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
     datetime:
       type: object
       properties:
         Datetime:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
       description: ''
     documentdatetimetypevalues:
       enum:
@@ -410,7 +425,9 @@ components:
         DocumentVersion:
           $ref: '#/components/schemas/text'
         DocumentType:
-          $ref: '#/components/schemas/documenttype'
+          type: string
+          description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
+          format: documenttype(class)
         DocumentStatus:
           $ref: '#/components/schemas/status'
         DocumentDateTime:
@@ -464,11 +481,10 @@ components:
       type: object
       properties:
         Arrangementlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
       description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
-    subject:
-      type: string
-      description: ''
     arrangement:
       type: object
       properties:
@@ -481,7 +497,9 @@ components:
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          $ref: '#/components/schemas/subject'
+          type: string
+          description: ''
+          format: subject(class)
       description: ''
     BranchLocationOperationsOutcome:
       type: object
@@ -499,13 +517,17 @@ components:
       type: object
       properties:
         Assignment:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Assignment of something to an InvolvedParty\n\nMake-up of staff allocation and delivery expectations !!!!\n"
+          format: datatype
       description: The assignment of a required activity to a responsibe party in Branch Location Administrative Plan
     accountbalance:
       type: object
       properties:
         Accountbalance:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
       description: Balance of budget which is arranged whitin Branch Location Administrative Plan
     object:
       type: object

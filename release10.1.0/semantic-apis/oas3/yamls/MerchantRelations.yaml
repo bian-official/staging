@@ -687,44 +687,42 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    condition:
-      type: string
-      description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
-    datatype:
-      type: string
-      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
       description: Any timing/duration considerations applying to the Legal Term
     name:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
-      description: ''
-    businessservicetypevalues:
-      type: string
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: ''
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     businessservice:
       type: object
@@ -732,7 +730,9 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          type: string
+          description: ''
+          format: businessservicetypevalues(enumeration)
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Legal Term specific Business Service
@@ -740,11 +740,10 @@ components:
       type: object
       properties:
         Date:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
       description: Date on which the agreement was signed by all parties. (ISO20022)
-    enumerationliteral:
-      type: string
-      description: ''
     agreementtypevalues:
       enum:
         - CustomerAgreement
@@ -761,25 +760,33 @@ components:
       type: object
       properties:
         Datetimeperiod:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
       description: "Period during which the agreement is valid\n"
     agreementlifecyclestatus:
       type: object
       properties:
         Agreementlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+          format: datatype
       description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
     identifier:
       type: object
       properties:
         Identifier:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
       description: 'The identifier of agreement like Agreement Number, Contract Number, Contract Registration Number, etc. '
     datetime:
       type: object
       properties:
         Datetime:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
       description: 'A characteristic of agreement which refers to 1) LifecycleDate of agreement (e.g., SignedDate, TerminatedDate, FulfilledDate) OR 2) ArrangedDate of agreement (e.g., StartingDate, EndingDate, ValidityPeriod, EffectiveDate).'
     agreement:
       type: object
@@ -821,11 +828,10 @@ components:
       type: object
       properties:
         Arrangementlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
       description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
-    subject:
-      type: string
-      description: ''
     arrangement:
       type: object
       properties:
@@ -838,19 +844,25 @@ components:
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          $ref: '#/components/schemas/subject'
+          type: string
+          description: ''
+          format: subject(class)
       description: Reference to Legal Term
     object:
       type: object
       properties:
         Object:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to any legal requirements
     LegalTerm:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
@@ -876,7 +888,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
@@ -924,7 +938,9 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
@@ -950,7 +966,9 @@ components:
       type: object
       properties:
         Workproduct:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
       description: ''
     workproducttypevalues:
       enum:
@@ -985,7 +1003,9 @@ components:
       type: object
       properties:
         Instructionlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
     instructiontypevalues:
       enum:
@@ -1040,13 +1060,17 @@ components:
       type: object
       properties:
         Involvedparty:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Party who is involved in Merchant Relationship Agreement
     rulesettype:
       type: object
       properties:
         Rulesettype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of RuleSet
+          format: datatype
       description: ''
     ruleset:
       type: object
@@ -1070,44 +1094,53 @@ components:
           description: ''
           format: string
       description: Reference to the regulation which is defined in Merchant Relationship Agreement
-    jurisdiction:
-      type: string
-      description: Reference to the jurisdiction that is assigned to Merchant Relationship Agreement in case of legal dispute.
     accountstatus:
       type: object
       properties:
         Accountstatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
       description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
     accountidentification:
       type: object
       properties:
         Accountidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The identifier of account like Account Number.
     accountdate:
       type: object
       properties:
         Accountdate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
     accounttype:
       type: object
       properties:
         Accounttype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
       description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
     accountbalance:
       type: object
       properties:
         Accountbalance:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
       description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
     accountcurrency:
       type: object
       properties:
         Accountcurrency:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: ''
     account:
       type: object
@@ -1133,7 +1166,9 @@ components:
       type: object
       properties:
         Productidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The identifier of product e.g. ISIN Code.
     producttypevalues:
       enum:
@@ -1146,7 +1181,9 @@ components:
       type: object
       properties:
         Productlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
       description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
@@ -1168,7 +1205,9 @@ components:
       type: object
       properties:
         Calendar:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'A series of dates/times of specific types of actions/events associated with the fulfillment of some form of arrangement - planned and actual. '
+          format: datatype
       description: The calendar of Merchant Relationship Agreement
     MerchantRelationshipAgreement:
       type: object
@@ -1200,7 +1239,9 @@ components:
         MerchantRelationshipAgreementRegulationType:
           $ref: '#/components/schemas/rulesettype'
         MerchantRelationshipAgreementJurisdiction:
-          $ref: '#/components/schemas/jurisdiction'
+          type: string
+          description: Reference to the jurisdiction that is assigned to Merchant Relationship Agreement in case of legal dispute.
+          format: jurisdiction(class)
         MerchantRelationshipAgreementAccountReference:
           $ref: '#/components/schemas/account'
         MerchantRelationshipAgreementSubjectMatter:

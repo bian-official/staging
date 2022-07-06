@@ -1323,44 +1323,42 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    condition:
-      type: string
-      description: The required status/situation prior to the execution of the task
-    datatype:
-      type: string
-      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
       description: The timing and key actions/milestones involved in completing the transaction task
     name:
       type: object
       properties:
         Name:
-          $ref: '#/components/schemas/string'
-      description: ''
-    businessservicetypevalues:
-      type: string
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
       description: ''
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     businessservice:
       type: object
@@ -1368,7 +1366,9 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          type: string
+          description: ''
+          format: businessservicetypevalues(enumeration)
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Seller Obligation Confirmation Task specific Business Service
@@ -1376,17 +1376,18 @@ components:
       type: object
       properties:
         Identifier:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
       description: An identifier that allows to uniquely refer to an instance of a transaction.
     transactiondate:
       type: object
       properties:
         Transactiondate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    enumerationliteral:
-      type: string
-      description: ''
     transactiontypevalues:
       enum:
         - FinancialTransaction
@@ -1402,7 +1403,9 @@ components:
       type: object
       properties:
         Transactionlifecyclestatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
       description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
@@ -1424,19 +1427,25 @@ components:
       type: object
       properties:
         Task:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to Seller Obligation Confirmation Task
     SellerObligationConfirmationTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition(class)
         LetterOfCreditTransactionReference:
           $ref: '#/components/schemas/transaction'
         SellerObligationConfirmationTaskReference:
@@ -1448,13 +1457,17 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition(class)
         LetterOfCreditTransactionReference:
           $ref: '#/components/schemas/transaction'
         LetterofCreditIssuanceandBookingTaskReference:
@@ -1466,13 +1479,17 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition(class)
         LetterOfCreditTransactionReference:
           $ref: '#/components/schemas/transaction'
         LetterofCreditPayoutTaskReference:
@@ -1484,13 +1501,17 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition(class)
         LetterOfCreditTransactionReference:
           $ref: '#/components/schemas/transaction'
         CustomerCollateralAllocationTaskReference:
@@ -1502,13 +1523,17 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition(class)
         LetterOfCreditTransactionReference:
           $ref: '#/components/schemas/transaction'
         LetterofCreditDefinitionandPricingTaskReference:
@@ -1520,13 +1545,17 @@ components:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition(class)
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition(class)
         LetterOfCreditTransactionReference:
           $ref: '#/components/schemas/transaction'
         CustomerPaymentTaskReference:
@@ -1538,13 +1567,17 @@ components:
       type: object
       properties:
         Calendar:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'A series of dates/times of specific types of actions/events associated with the fulfillment of some form of arrangement - planned and actual. '
+          format: datatype
       description: ''
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: ''
     feetransaction:
       type: object
@@ -1573,7 +1606,9 @@ components:
       type: object
       properties:
         Rate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
       description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
     interesttransaction:
       type: object
@@ -1599,7 +1634,9 @@ components:
       type: object
       properties:
         Workproduct:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
       description: ''
     LetterofCreditOutcome:
       type: object
@@ -1631,7 +1668,9 @@ components:
       type: object
       properties:
         Servicetype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type specifies the classification of service
+          format: datatype
       description: ''
     service:
       type: object
@@ -1647,7 +1686,9 @@ components:
       type: object
       properties:
         Actiontype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Data type that specifies type of business action
+          format: datatype
       description: A Classification value that specifies type of transaction for this  Letter Of Credit Transaction
     LetterOfCreditTransaction:
       type: object

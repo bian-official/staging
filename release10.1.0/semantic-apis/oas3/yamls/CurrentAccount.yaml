@@ -692,32 +692,34 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    string:
-      type: string
     HTTPError:
       type: object
       properties:
         status_code:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         status:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
         message:
-          $ref: '#/components/schemas/string'
+          type: string
+          format: string
       description: Status Attributes
-    datatype:
-      type: string
-      description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
     rate:
       type: object
       properties:
         Rate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
       description: The processing schedule for applying interest rates to the account
     amount:
       type: object
       properties:
         Amount:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
       description: Record of accrued interest
     Interest:
       type: object
@@ -767,13 +769,17 @@ components:
       type: object
       properties:
         Object:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to the applicable mandate for direct debits
     date:
       type: object
       properties:
         Date:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
       description: The various key dates and times associated with the payment transaction
     Payments:
       type: object
@@ -1087,49 +1093,65 @@ components:
       type: object
       properties:
         Accountidentification:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The associated account number in any suitable format (e.g. IBAN)
     accountinvolvement:
       type: object
       properties:
         Accountinvolvement:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: Reference to the account primary party/owner
     accounttype:
       type: object
       properties:
         Accounttype:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
       description: 'The type of current account (e.g. checking, student, small business)'
     accountcurrency:
       type: object
       properties:
         Accountcurrency:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: The primary account currency
     accountstatus:
       type: object
       properties:
         Accountstatus:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
       description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
     accountdate:
       type: object
       properties:
         Accountdate:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: ''
+          format: datatype
       description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
     text:
       type: object
       properties:
         Text:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
       description: ''
     accountbalance:
       type: object
       properties:
         Accountbalance:
-          $ref: '#/components/schemas/string'
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
       description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
     account:
       type: object
