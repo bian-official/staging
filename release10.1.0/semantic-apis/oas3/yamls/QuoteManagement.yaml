@@ -583,50 +583,50 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    string:
+      type: object
     HTTPError:
       type: object
       properties:
         status_code:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         status:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         message:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
       description: Status Attributes
+    condition:
+      type: object
+      description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+    datatype:
+      type: object
+      description: ''
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The operating unit/employee responsible for the workstep
     schedule:
       type: object
       properties:
         Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The timing and key actions/milestones making up the workstep
     name:
       type: object
       properties:
         Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
+          $ref: '#/components/schemas/string'
+      description: ''
+    businessservicetypevalues:
+      type: object
       description: ''
     text:
       type: object
       properties:
         Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     businessservice:
       type: object
@@ -634,9 +634,7 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          type: string
-          description: ''
-          format: businessservicetypevalues(enumeration)
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Market Quote Selection Workstep specific Business Service
@@ -644,42 +642,35 @@ components:
       type: object
       properties:
         Proceduretype:
-          type: string
-          description: Data type specifies the classification of procedure
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that distinguishes between the type of process undertaken within Procedure
     datetime:
       type: object
       properties:
         Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     date:
       type: object
       properties:
         Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     instructionlifecyclestatus:
       type: object
       properties:
         Instructionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
     identifier:
       type: object
       properties:
         Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
+    enumerationliteral:
+      type: object
+      description: ''
     instructiontypevalues:
       enum:
         - PaymentInstruction
@@ -733,9 +724,7 @@ components:
       type: object
       properties:
         Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: "The status of  Procedure\n"
     procedure:
       type: object
@@ -755,9 +744,7 @@ components:
       type: object
       properties:
         Worksteptype:
-          type: string
-          description: Data type specifies the classification of workstep
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that distinguishes between the type of workstep undertaken within Procedure
     workstep:
       type: object
@@ -779,9 +766,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -789,9 +774,7 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         QuotationProcedureReference:
           $ref: '#/components/schemas/procedure'
         MarketQuoteSelectionWorkstepReference:
@@ -803,9 +786,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -813,9 +794,7 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         QuotationProcedureReference:
           $ref: '#/components/schemas/procedure'
         MarketQuoteRequestWorkstepReference:
@@ -827,9 +806,7 @@ components:
       type: object
       properties:
         Workproduct:
-          type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     QuoteManagementOutcome:
       type: object
@@ -847,29 +824,26 @@ components:
           description: ''
           format: string
       description: A selected optional business service as subject matter of Quotation Procedure
+    financialfacility:
+      type: object
+      description: Reference to the Financial Facility related to Quotation Procedure
     servicetype:
       type: object
       properties:
         Servicetype:
-          type: string
-          description: Data type specifies the classification of service
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that distinguishes between the type of services in Quotation Procedure
     bankingproducttype:
       type: object
       properties:
         Bankingproducttype:
-          type: string
-          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that distinguishes between the type of products/services related to Quotation Procedure
     productidentification:
       type: object
       properties:
         Productidentification:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The identifier of product e.g. ISIN Code.
     producttypevalues:
       enum:
@@ -882,9 +856,7 @@ components:
       type: object
       properties:
         Productlifecyclestatus:
-          type: string
-          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
@@ -906,17 +878,13 @@ components:
       type: object
       properties:
         Transactiontype:
-          type: string
-          description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that distinguishes between the type of transactions in Quotation Procedure
     transactiondate:
       type: object
       properties:
         Transactiondate:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
     transactiontypevalues:
       enum:
@@ -933,9 +901,7 @@ components:
       type: object
       properties:
         Transactionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
@@ -973,10 +939,11 @@ components:
       type: object
       properties:
         Arrangementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
+    subject:
+      type: object
+      description: ''
     arrangement:
       type: object
       properties:
@@ -989,9 +956,7 @@ components:
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          type: string
-          description: ''
-          format: subject(class)
+          $ref: '#/components/schemas/subject'
       description: Reference to the Financial Transaction Arrangement that is related to Quotation Procedure
     agreementtypevalues:
       enum:
@@ -1009,17 +974,13 @@ components:
       type: object
       properties:
         Datetimeperiod:
-          type: string
-          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: "Period during which the agreement is valid\n"
     agreementlifecyclestatus:
       type: object
       properties:
         Agreementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
     agreement:
       type: object
@@ -1061,9 +1022,7 @@ components:
         QuotationProcedureServiceProviderReference:
           $ref: '#/components/schemas/involvedparty'
         QuotationProcedureFinancialFacilityReference:
-          type: string
-          description: Reference to the Financial Facility related to Quotation Procedure
-          format: financialfacility(class)
+          $ref: '#/components/schemas/financialfacility'
         QuotationProcedureEmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         QuotationProcedureCustomerReference:
@@ -1112,9 +1071,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1161,9 +1118,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1210,9 +1165,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1259,9 +1212,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1308,9 +1259,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1357,9 +1306,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1406,9 +1353,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1455,9 +1400,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1504,9 +1447,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1553,9 +1494,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1602,9 +1541,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1651,9 +1588,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1700,9 +1635,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1749,9 +1682,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1798,9 +1729,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1847,9 +1776,7 @@ components:
             QuotationProcedureServiceProviderReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Quotation Procedure
-              format: financialfacility(class)
+              $ref: '#/components/schemas/financialfacility'
             QuotationProcedureEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             QuotationProcedureCustomerReference:
@@ -1880,9 +1807,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1890,9 +1815,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -1907,9 +1830,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1917,9 +1838,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -1934,9 +1853,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1944,9 +1861,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -1961,9 +1876,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1971,9 +1884,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -1988,9 +1899,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1998,9 +1907,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2015,9 +1922,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2025,9 +1930,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2042,9 +1945,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2052,9 +1953,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2069,9 +1968,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2079,9 +1976,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2096,9 +1991,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2106,9 +1999,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2123,9 +2014,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2133,9 +2022,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2150,9 +2037,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2160,9 +2045,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2177,9 +2060,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2187,9 +2068,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2204,9 +2083,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2214,9 +2091,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2231,9 +2106,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2241,9 +2114,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2258,9 +2129,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2268,9 +2137,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2285,9 +2152,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2295,9 +2160,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2312,9 +2175,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2322,9 +2183,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2339,9 +2198,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2349,9 +2206,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2366,9 +2221,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2376,9 +2229,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2393,9 +2244,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2403,9 +2252,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2420,9 +2267,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2430,9 +2275,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2447,9 +2290,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2457,9 +2298,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2474,9 +2313,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2484,9 +2321,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2501,9 +2336,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2511,9 +2344,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2528,9 +2359,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2538,9 +2367,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2555,9 +2382,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2565,9 +2390,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteRequestWorkstepReference:
@@ -2582,9 +2405,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2592,9 +2413,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:
@@ -2609,9 +2428,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2619,9 +2436,7 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             QuotationProcedureReference:
               $ref: '#/components/schemas/procedure'
             MarketQuoteSelectionWorkstepReference:

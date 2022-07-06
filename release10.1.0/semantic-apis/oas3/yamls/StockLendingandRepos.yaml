@@ -768,42 +768,44 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    string:
+      type: object
     HTTPError:
       type: object
       properties:
         status_code:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         status:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         message:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
       description: Status Attributes
+    condition:
+      type: object
+      description: The required status/situation prior to the execution of the task
+    datatype:
+      type: object
+      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The timing and key actions/milestones involved in completing the transaction task
     name:
       type: object
       properties:
         Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
+          $ref: '#/components/schemas/string'
+      description: ''
+    businessservicetypevalues:
+      type: object
       description: ''
     text:
       type: object
       properties:
         Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     businessservice:
       type: object
@@ -811,9 +813,7 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          type: string
-          description: ''
-          format: businessservicetypevalues(enumeration)
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Repo Transaction Cash Transfer Task specific Business Service
@@ -821,18 +821,17 @@ components:
       type: object
       properties:
         Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: An identifier that allows to uniquely refer to an instance of a transaction.
     transactiondate:
       type: object
       properties:
         Transactiondate:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
+    enumerationliteral:
+      type: object
+      description: ''
     transactiontypevalues:
       enum:
         - FinancialTransaction
@@ -848,9 +847,7 @@ components:
       type: object
       properties:
         Transactionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
@@ -872,25 +869,19 @@ components:
       type: object
       properties:
         Task:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Reference to Repo Transaction Cash Transfer Task
     RepoTransactionCashTransferTask:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the execution of the task
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the task has been completed
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         RepoTransactionReference:
           $ref: '#/components/schemas/transaction'
         RepoTransactionCashTransferTaskReference:
@@ -902,17 +893,13 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the execution of the task
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the task has been completed
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         RepoTransactionReference:
           $ref: '#/components/schemas/transaction'
         RepoTransactionInitiationTaskReference:
@@ -924,17 +911,13 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the execution of the task
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the task has been completed
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         RepoTransactionReference:
           $ref: '#/components/schemas/transaction'
         RepoTransactionSecurityTransferTaskReference:
@@ -946,17 +929,13 @@ components:
       type: object
       properties:
         Calendar:
-          type: string
-          description: 'A series of dates/times of specific types of actions/events associated with the fulfillment of some form of arrangement - planned and actual. '
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     feetransaction:
       type: object
@@ -985,9 +964,7 @@ components:
       type: object
       properties:
         Rate:
-          type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
     interesttransaction:
       type: object
@@ -1013,9 +990,7 @@ components:
       type: object
       properties:
         Workproduct:
-          type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     StockLendingandReposOutcome:
       type: object
@@ -1047,9 +1022,7 @@ components:
       type: object
       properties:
         Servicetype:
-          type: string
-          description: Data type specifies the classification of service
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     service:
       type: object
@@ -1065,9 +1038,7 @@ components:
       type: object
       properties:
         Actiontype:
-          type: string
-          description: Data type that specifies type of business action
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that specifies type of transaction for this  Repo Transaction
     RepoTransaction:
       type: object

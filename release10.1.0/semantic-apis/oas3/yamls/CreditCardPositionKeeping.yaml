@@ -265,42 +265,44 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    string:
+      type: object
     HTTPError:
       type: object
       properties:
         status_code:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         status:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         message:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
       description: Status Attributes
+    condition:
+      type: object
+      description: The required status/situation before the event is captured
+    datatype:
+      type: object
+      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The timing and key actions/milestones involved in capturing the event
     name:
       type: object
       properties:
         Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
+          $ref: '#/components/schemas/string'
+      description: ''
+    businessservicetypevalues:
+      type: object
       description: ''
     text:
       type: object
       properties:
         Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     businessservice:
       type: object
@@ -308,9 +310,7 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          type: string
-          description: ''
-          format: businessservicetypevalues(enumeration)
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Card Transaction Event specific Business Service
@@ -382,17 +382,13 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the event is captured
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status once the event has been captured
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         CreditCardPositionLogReference:
           $ref: '#/components/schemas/log'
         CardTransactionEventReference:
@@ -412,9 +408,7 @@ components:
       type: object
       properties:
         Servicetype:
-          type: string
-          description: Data type specifies the classification of service
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     service:
       type: object
@@ -430,9 +424,7 @@ components:
       type: object
       properties:
         Involvedparty:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Reference to the party who is involved in Credit Card Position Log
     businessunit:
       type: object
@@ -466,61 +458,50 @@ components:
           description: ''
           format: string
       description: The position of Credit Card Position Log
+    positiontype:
+      type: object
+      description: A classification value expressing the kind of position withing the Credit Card Position Log
     limittype:
       type: object
       properties:
         Limittype:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Nature of the limit.
     currencycode:
       type: object
       properties:
         Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Currency unit used to specify the limit amount. (ISO20022)
     datetimeperiod:
       type: object
       properties:
         Datetimeperiod:
-          type: string
-          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Period at which the limit is effective. (ISO20022)
     amount:
       type: object
       properties:
         Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'Amount of money of the limit, expressed in a currency. (ISO20022)'
     limitstatus:
       type: object
       properties:
         Limitstatus:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Current status of the limit.
     rate:
       type: object
       properties:
         Rate:
-          type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Specifies that the limit is a percentage of a related amount. (ISO20022)
     frequency:
       type: object
       properties:
         Frequency:
-          type: string
-          description: Specifies the regularity of an event. (ISO20022)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
     limitarrangement:
       type: object
@@ -566,9 +547,7 @@ components:
         CreditCardPositionLogPosition:
           $ref: '#/components/schemas/position'
         CreditCardPositionLogPositionType:
-          type: string
-          description: A classification value expressing the kind of position withing the Credit Card Position Log
-          format: positiontype(class)
+          $ref: '#/components/schemas/positiontype'
         CreditCardPositionLogPositionLimitTime:
           $ref: '#/components/schemas/limitarrangement'
         CreditCardPositionLogReference:

@@ -529,50 +529,50 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    string:
+      type: object
     HTTPError:
       type: object
       properties:
         status_code:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         status:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         message:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
       description: Status Attributes
+    condition:
+      type: object
+      description: The required status/situation before the duty/obligation can be met
+    datatype:
+      type: object
+      description: ''
     involvedparty:
       type: object
       properties:
         Involvedparty:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The operating unit/employee responsible for undertaking the duty
     schedule:
       type: object
       properties:
         Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The timing and key actions/milestones involved in fulfilling the duty
     name:
       type: object
       properties:
         Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
+          $ref: '#/components/schemas/string'
+      description: ''
+    businessservicetypevalues:
+      type: object
       description: ''
     text:
       type: object
       properties:
         Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     businessservice:
       type: object
@@ -580,9 +580,7 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          type: string
-          description: ''
-          format: businessservicetypevalues(enumeration)
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Trading Book Analysis and Reporting Duty specific Business Service
@@ -610,17 +608,13 @@ components:
       type: object
       properties:
         Budgettype:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that specifies the type of Budget
     amount:
       type: object
       properties:
         Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     budgetarrangement:
       type: object
@@ -630,21 +624,20 @@ components:
         BudgetAmount:
           $ref: '#/components/schemas/amount'
       description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
+    plannedaction:
+      type: object
+      description: 'An action that is arranged in a plan for doing or achieving something '
     plantype:
       type: object
       properties:
         Plantype:
-          type: string
-          description: 'Data type specifies the classification of a Plan '
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: A Classification value that specifies the type of Plan
     datetimeperiod:
       type: object
       properties:
         Datetimeperiod:
-          type: string
-          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     plan:
       type: object
@@ -654,9 +647,7 @@ components:
         PlanBudget:
           $ref: '#/components/schemas/budgetarrangement'
         PlannedAction:
-          type: string
-          description: 'An action that is arranged in a plan for doing or achieving something '
-          format: plannedaction(class)
+          $ref: '#/components/schemas/plannedaction'
         PlanType:
           $ref: '#/components/schemas/plantype'
         PlanOrganisation:
@@ -672,9 +663,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the duty/obligation can be met
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -682,15 +671,11 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         TradingPositionManagementPlanReference:
           $ref: '#/components/schemas/plan'
         TradingBookAnalysisandReportingDutyReference:
-          type: string
-          description: Reference to Trading Book Analysis and Reporting Duty
-          format: plannedaction(class)
+          $ref: '#/components/schemas/plannedaction'
         TradingBookAnalysisandReportingDutyType:
           $ref: '#/components/schemas/text'
       description: The Trading Book Analysis and Reporting Duty is a specific role or responsibility that is one aspect of Trading Book Analysis and Reporting Duty
@@ -698,9 +683,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the duty/obligation can be met
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         BusinessUnit/EmployeeReference:
           $ref: '#/components/schemas/involvedparty'
         Schedule:
@@ -708,18 +691,17 @@ components:
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         TradingPositionManagementPlanReference:
           $ref: '#/components/schemas/plan'
         TradingBookRiskMitigationDutyReference:
-          type: string
-          description: Reference to Trading Book Risk Mitigation Duty
-          format: plannedaction(class)
+          $ref: '#/components/schemas/plannedaction'
         TradingBookRiskMitigationDutyType:
           $ref: '#/components/schemas/text'
       description: The Trading Book Analysis and Reporting Duty is a specific role or responsibility that is one aspect of Trading Book Analysis and Reporting Duty
+    enumerationliteral:
+      type: object
+      description: ''
     analysistypevalues:
       enum:
         - PerformanceAnalysis
@@ -730,25 +712,22 @@ components:
       type: object
       properties:
         Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: An identifier that allows to uniquely refer to an instance of a Document.
+    documenttype:
+      type: object
+      description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
     status:
       type: object
       properties:
         Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
     datetime:
       type: object
       properties:
         Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     documentdatetimetypevalues:
       enum:
@@ -767,9 +746,7 @@ components:
         DocumentVersion:
           $ref: '#/components/schemas/text'
         DocumentType:
-          type: string
-          description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
-          format: documenttype(class)
+          $ref: '#/components/schemas/documenttype'
         DocumentStatus:
           $ref: '#/components/schemas/status'
         DocumentDateTime:
@@ -807,9 +784,7 @@ components:
       type: object
       properties:
         Task:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     project:
       type: object
@@ -857,9 +832,7 @@ components:
       type: object
       properties:
         Assignment:
-          type: string
-          description: "Assignment of something to an InvolvedParty\n\nMake-up of staff allocation and delivery expectations !!!!\n"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The assignment of a required activity to a responsibe party in Trading Position Management Plan
     actiontypevalues:
       enum:
@@ -881,10 +854,11 @@ components:
       type: object
       properties:
         Arrangementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
+    subject:
+      type: object
+      description: ''
     arrangement:
       type: object
       properties:
@@ -897,17 +871,13 @@ components:
         ArrangementStatus:
           $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          type: string
-          description: ''
-          format: subject(class)
+          $ref: '#/components/schemas/subject'
       description: The set of management responsibilities defined in Trading Position Management Plan
     accountbalance:
       type: object
       properties:
         Accountbalance:
-          type: string
-          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Balance of budget which is arranged whitin Trading Position Management Plan
     object:
       type: object
@@ -1352,9 +1322,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1362,15 +1330,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Exchange Trading Book Analysis and Reporting Duty'
@@ -1381,9 +1345,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1391,15 +1353,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Exchange Trading Book Analysis and Reporting Duty'
@@ -1410,9 +1368,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1420,15 +1376,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Exchange Trading Book Risk Mitigation Duty'
@@ -1439,9 +1391,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1449,15 +1399,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Exchange Trading Book Risk Mitigation Duty'
@@ -1468,9 +1414,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1478,15 +1422,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Grant Trading Book Analysis and Reporting Duty'
@@ -1497,9 +1437,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1507,15 +1445,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Grant Trading Book Analysis and Reporting Duty'
@@ -1526,9 +1460,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1536,15 +1468,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Grant Trading Book Risk Mitigation Duty'
@@ -1555,9 +1483,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1565,15 +1491,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Grant Trading Book Risk Mitigation Duty'
@@ -1584,9 +1506,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1594,15 +1514,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Notify Trading Book Analysis and Reporting Duty'
@@ -1613,9 +1529,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1623,15 +1537,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Notify Trading Book Analysis and Reporting Duty'
@@ -1642,9 +1552,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1652,15 +1560,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Notify Trading Book Risk Mitigation Duty'
@@ -1671,9 +1575,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1681,15 +1583,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Notify Trading Book Risk Mitigation Duty'
@@ -1700,9 +1598,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1710,15 +1606,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Request Trading Book Analysis and Reporting Duty'
@@ -1729,9 +1621,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1739,15 +1629,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Request Trading Book Analysis and Reporting Duty'
@@ -1758,9 +1644,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1768,15 +1652,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Request Trading Book Risk Mitigation Duty'
@@ -1787,9 +1667,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1797,15 +1675,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Request Trading Book Risk Mitigation Duty'
@@ -1816,9 +1690,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1826,15 +1698,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Retrieve Trading Book Analysis and Reporting Duty'
@@ -1845,9 +1713,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1855,15 +1721,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Retrieve Trading Book Analysis and Reporting Duty'
@@ -1874,9 +1736,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1884,15 +1744,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Retrieve Trading Book Risk Mitigation Duty'
@@ -1903,9 +1759,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1913,15 +1767,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Retrieve Trading Book Risk Mitigation Duty'
@@ -1932,9 +1782,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1942,15 +1790,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Update Trading Book Analysis and Reporting Duty'
@@ -1961,9 +1805,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -1971,15 +1813,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookAnalysisandReportingDutyReference:
-              type: string
-              description: Reference to Trading Book Analysis and Reporting Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookAnalysisandReportingDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Update Trading Book Analysis and Reporting Duty'
@@ -1990,9 +1828,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2000,15 +1836,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Input: Update Trading Book Risk Mitigation Duty'
@@ -2019,9 +1851,7 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
               $ref: '#/components/schemas/involvedparty'
             Schedule:
@@ -2029,15 +1859,11 @@ components:
             BusinessService:
               $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: condition(class)
+              $ref: '#/components/schemas/condition'
             TradingPositionManagementPlanReference:
               $ref: '#/components/schemas/plan'
             TradingBookRiskMitigationDutyReference:
-              type: string
-              description: Reference to Trading Book Risk Mitigation Duty
-              format: plannedaction(class)
+              $ref: '#/components/schemas/plannedaction'
             TradingBookRiskMitigationDutyType:
               $ref: '#/components/schemas/text'
       description: 'Output: Update Trading Book Risk Mitigation Duty'

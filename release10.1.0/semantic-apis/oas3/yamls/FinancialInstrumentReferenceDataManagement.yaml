@@ -977,42 +977,44 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    string:
+      type: object
     HTTPError:
       type: object
       properties:
         status_code:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         status:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
         message:
-          type: string
-          format: string
+          $ref: '#/components/schemas/string'
       description: Status Attributes
+    condition:
+      type: object
+      description: The required status/situation before the property is valid/meaningful
+    datatype:
+      type: object
+      description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
     schedule:
       type: object
       properties:
         Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The schedule and timing for which the property value is valid
     text:
       type: object
       properties:
         Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The version reference for the property value
     name:
       type: object
       properties:
         Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
+          $ref: '#/components/schemas/string'
+      description: ''
+    businessservicetypevalues:
+      type: object
       description: ''
     businessservice:
       type: object
@@ -1020,12 +1022,13 @@ components:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
         BusinessServiceType:
-          type: string
-          description: ''
-          format: businessservicetypevalues(enumeration)
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
           $ref: '#/components/schemas/text'
       description: The Equity Instrument property specific  Business Service
+    enumerationliteral:
+      type: object
+      description: ''
     directoryentrydatetypevalues:
       enum:
         - OpenDate
@@ -1036,17 +1039,13 @@ components:
       type: object
       properties:
         Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     status:
       type: object
       properties:
         Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     directoryentry:
       type: object
@@ -1062,17 +1061,13 @@ components:
       type: object
       properties:
         Object:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: Reference to Equity Instrument property
     EquityInstrumentproperty:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -1090,9 +1085,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -1110,9 +1103,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -1130,9 +1121,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -1150,9 +1139,7 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         VersionNumber:
@@ -1170,9 +1157,7 @@ components:
       type: object
       properties:
         Workproduct:
-          type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     FinancialInstrumentReferenceDataManagementOutcome:
       type: object
@@ -1186,9 +1171,7 @@ components:
       type: object
       properties:
         Number:
-          type: string
-          description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: The version of Financial Instrument Directory Entry
     log:
       type: object
@@ -1228,9 +1211,7 @@ components:
       type: object
       properties:
         Financialinstrumentidentification:
-          type: string
-          description: ''
-          format: datatype
+          $ref: '#/components/schemas/string'
       description: ''
     financialinstrument:
       type: object
@@ -1241,6 +1222,9 @@ components:
           $ref: '#/components/schemas/financialinstrumentidentification'
         FinancialInstrumentName:
           $ref: '#/components/schemas/name'
+      description: ''
+    financialmarket:
+      type: object
       description: ''
     FinancialInstrumentDirectoryEntry:
       type: object
@@ -1264,9 +1248,7 @@ components:
         FinancialInstrumentReference:
           $ref: '#/components/schemas/financialinstrument'
         FinancialMarketReference:
-          type: string
-          description: ''
-          format: financialmarket(class)
+          $ref: '#/components/schemas/financialmarket'
       description: Capture and maintain reference information about some type of entitity within Financial Instrument Reference Data Management.
     ControlFinancialInstrumentDirectoryEntryRequest:
       type: object
