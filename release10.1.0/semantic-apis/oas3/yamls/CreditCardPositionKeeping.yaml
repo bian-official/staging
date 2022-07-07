@@ -278,6 +278,14 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class(class)
+      description: The required status/situation before the event is captured
     schedule:
       type: object
       properties:
@@ -382,17 +390,13 @@ components:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the event is captured
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         Schedule:
           $ref: '#/components/schemas/schedule'
         BusinessService:
           $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status once the event has been captured
-          format: condition(class)
+          $ref: '#/components/schemas/condition'
         CreditCardPositionLogReference:
           $ref: '#/components/schemas/log'
         CardTransactionEventReference:
@@ -466,6 +470,14 @@ components:
           description: ''
           format: string
       description: The position of Credit Card Position Log
+    positiontype:
+      type: object
+      properties:
+        PositionType:
+          type: string
+          description: 'A classification of the position. '
+          format: class(class)
+      description: A classification value expressing the kind of position withing the Credit Card Position Log
     limittype:
       type: object
       properties:
@@ -566,9 +578,7 @@ components:
         CreditCardPositionLogPosition:
           $ref: '#/components/schemas/position'
         CreditCardPositionLogPositionType:
-          type: string
-          description: A classification value expressing the kind of position withing the Credit Card Position Log
-          format: positiontype(class)
+          $ref: '#/components/schemas/positiontype'
         CreditCardPositionLogPositionLimitTime:
           $ref: '#/components/schemas/limitarrangement'
         CreditCardPositionLogReference:
