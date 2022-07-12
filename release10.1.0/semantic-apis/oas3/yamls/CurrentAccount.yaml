@@ -705,22 +705,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    rate:
-      type: object
-      properties:
-        Rate:
-          type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
-      description: The processing schedule for applying interest rates to the account
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: Record of accrued interest
     Interest:
       type: object
       properties:
@@ -729,11 +713,17 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The processing schedule for applying interest rates to the account
+          format: rate
         InterestRateConfiguration:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The collection of applicable rates
+          format: rate
         InterestRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The rate value to be applied
+          format: rate
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -755,7 +745,9 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Record of accrued interest
+          format: amount
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -765,22 +757,6 @@ components:
           description: The accrued amount of applied interest
           format: string
       description: The product features/services available with a financical facility
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the applicable mandate for direct debits
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The various key dates and times associated with the payment transaction
     Payments:
       type: object
       properties:
@@ -809,13 +785,17 @@ components:
           description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
           format: string
         DirectDebitMandateReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the applicable mandate for direct debits
+          format: object
         DirectDebitMandateSettings:
           type: string
           description: Processing settings governing direct debits
           format: string
         BillPayMandateReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the applicable mandate for bill pay transactions
+          format: object
         BilPayMandateSettings:
           type: string
           description: Processing settings governing bill pay transactions
@@ -829,13 +809,21 @@ components:
           description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
           format: string
         PaymentTransactionPayeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the party to whom the payment is made
+          format: object
         PaymentTransactionPayeeAccountReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the account to which the payment is made
+          format: object
         PaymentTransactionPayeeBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the bank where the payee account is held
+          format: object
         PaymentTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount (and currency if applicable) of the payment
+          format: amount
         PaymentTransactionFeeType:
           type: string
           description: The fee type applied to the payment transaction
@@ -845,7 +833,9 @@ components:
           description: The fee charge applied to the transaction
           format: string
         PaymentTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The various key dates and times associated with the payment transaction
+          format: date
         PaymentTransactionPaymentMechanism:
           type: string
           description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -855,7 +845,9 @@ components:
           description: Description of the purpose including any external reference to the transaction
           format: string
         PaymentTransactionBankBranch/LocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the location the payment transaction is initiated from
+          format: object
         PaymentTransactionStatus:
           type: string
           description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -889,11 +881,17 @@ components:
           description: The purpose or associated facility linked to the lien
           format: string
         LienAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount being blocked
+          format: amount
         LienStartDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date the lien is enforced
+          format: date
         LienExpiryDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date the lien is removed
+          format: date
         LienStatus:
           type: string
           description: The status on the lien
@@ -971,9 +969,13 @@ components:
           description: The facility that the sweep is made to/from
           format: string
         AccountSweepAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount transferred to or from the account
+          format: amount
         AccountSweepExecutionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the sweep is initiated
+          format: date
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -1027,7 +1029,9 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Tracking of accumulated fees and penalties
+          format: amount
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -1057,7 +1061,9 @@ components:
           description: Details of the deposit transaction
           format: string
         DepositTransactionSourceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Identifies the source of the deposit
+          format: object
         DepositTransactionDepositType:
           type: string
           description: The type of deposit made with the transaction
@@ -1067,15 +1073,21 @@ components:
           description: Any necessary details describing the purpose or reference properties of the deposit
           format: string
         DepositTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The deposited amount
+          format: amount
         DepositTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the deposit was initiated
+          format: date
         WithdrawalTransaction:
           type: string
           description: Details of the withdrawal transaction
           format: string
         WithdrawalTransactionSourceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Identifies the target for the withdrawal
+          format: object
         WithdrawalTransactionWithdrawalType:
           type: string
           description: The type of withdrawal made with the transaction
@@ -1085,111 +1097,45 @@ components:
           description: Any necessary details describing the purpose or reference properties of the withdrawal
           format: string
         WihdrawalTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The withdrawn amount
+          format: amount
         WithdrawalTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the withdrawal was initiated
+          format: date
       description: The product features/services available with a financical facility
-    accountidentification:
-      type: object
-      properties:
-        Accountidentification:
-          type: string
-          description: ''
-          format: datatype
-      description: The associated account number in any suitable format (e.g. IBAN)
-    accountinvolvement:
-      type: object
-      properties:
-        Accountinvolvement:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the account primary party/owner
-    accounttype:
-      type: object
-      properties:
-        Accounttype:
-          type: string
-          description: 'A classification of accounts based on their purpose '
-          format: datatype
-      description: 'The type of current account (e.g. checking, student, small business)'
-    accountcurrency:
-      type: object
-      properties:
-        Accountcurrency:
-          type: string
-          description: ''
-          format: datatype
-      description: The primary account currency
-    accountstatus:
-      type: object
-      properties:
-        Accountstatus:
-          type: string
-          description: Specifies the current state of an account. (ISO20022)
-          format: datatype
-      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
-    accountdate:
-      type: object
-      properties:
-        Accountdate:
-          type: string
-          description: ''
-          format: datatype
-      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    accountbalance:
-      type: object
-      properties:
-        Accountbalance:
-          type: string
-          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
-          format: datatype
-      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
-    account:
-      type: object
-      properties:
-        AccountStatus:
-          $ref: '#/components/schemas/accountstatus'
-        AccountIdentification:
-          $ref: '#/components/schemas/accountidentification'
-        AccountDate:
-          $ref: '#/components/schemas/accountdate'
-        AccountType:
-          $ref: '#/components/schemas/accounttype'
-        AccountPurpose:
-          $ref: '#/components/schemas/text'
-        AccountBalance:
-          $ref: '#/components/schemas/accountbalance'
-        AccountCurrency:
-          $ref: '#/components/schemas/accountcurrency'
-        AccountDescription:
-          $ref: '#/components/schemas/text'
-      description: Definition of the associations to the account
     CurrentAccountFacility:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the current account product instance
+          format: object
         CurrentAccountNumber:
-          $ref: '#/components/schemas/accountidentification'
+          type: string
+          description: The associated account number in any suitable format (e.g. IBAN)
+          format: accountidentification
         CustomerReference:
-          $ref: '#/components/schemas/accountinvolvement'
+          type: string
+          description: Reference to the account primary party/owner
+          format: accountinvolvement
         BankBranchOrLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Bank branch associated with the account for booking purposes
+          format: object
         AccountType:
-          $ref: '#/components/schemas/accounttype'
+          type: string
+          description: 'The type of current account (e.g. checking, student, small business)'
+          format: accounttype
         AccountCurrency:
-          $ref: '#/components/schemas/accountcurrency'
+          type: string
+          description: The primary account currency
+          format: accountcurrency
         TaxReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference identifier linking the account to appropriate tax handling
+          format: object
         EntitlementOptionDefinition:
           type: string
           description: The definition of an applicable entitlement option
@@ -1219,11 +1165,17 @@ components:
           description: 'Description of the role, obligations or entitlements of the associated party'
           format: string
         AssociationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated party
+          format: object
         LinkedAccounts:
-          $ref: '#/components/schemas/account'
+          type: string
+          description: Definition of the associations to the account
+          format: account
         LinkType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type and purpose for the link
+          format: text
         AccountDetails:
           type: string
           description: Details of the linked account
@@ -1249,9 +1201,13 @@ components:
           description: 'Key dates associated with the account (e.g. opening date, closing date)'
           format: string
         Date:
-          $ref: '#/components/schemas/accountdate'
+          type: string
+          description: Value of the date type
+          format: accountdate
         AccountBalance:
-          $ref: '#/components/schemas/accountbalance'
+          type: string
+          description: ''
+          format: accountbalance
       description: 'Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Current Account. '
     InitiateCurrentAccountFacilityRequest:
       type: object
@@ -1260,15 +1216,25 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
@@ -1290,11 +1256,17 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -1319,11 +1291,17 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1368,19 +1346,33 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1410,11 +1402,17 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -1447,19 +1445,33 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1489,11 +1501,17 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -1526,19 +1544,33 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1568,11 +1600,17 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -1609,9 +1647,13 @@ components:
               description: Applicable rate type
               format: string
             InterestRateApplicationSchedule:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The processing schedule for applying interest rates to the account
+              format: rate
             InterestRateConfiguration:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The collection of applicable rates
+              format: rate
             InterestApplicationRecord:
               type: string
               description: The record of applied interest
@@ -1633,7 +1675,9 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Record of accrued interest
+              format: amount
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -1650,23 +1694,37 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
               format: string
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -1807,7 +1865,9 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Tracking of accumulated fees and penalties
+              format: amount
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1872,7 +1932,9 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Tracking of accumulated fees and penalties
+              format: amount
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1889,15 +1951,25 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
@@ -1907,9 +1979,13 @@ components:
               description: The setting for the restriction option
               format: string
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -1954,11 +2030,17 @@ components:
               description: The purpose or associated facility linked to the lien
               format: string
             LienAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount being blocked
+              format: amount
             LienStartDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is enforced
+              format: date
             LienExpiryDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is removed
+              format: date
             LienStatus:
               type: string
               description: The status on the lien
@@ -1979,7 +2061,9 @@ components:
               description: The definition of an applicable restriction option
               format: string
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             PositionLimitSettings:
               type: string
               description: 'The position definition, associated limit settings and rules'
@@ -2031,11 +2115,17 @@ components:
               description: The purpose or associated facility linked to the lien
               format: string
             LienAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount being blocked
+              format: amount
             LienStartDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is enforced
+              format: date
             LienExpiryDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is removed
+              format: date
             LienStatus:
               type: string
               description: The status on the lien
@@ -2068,11 +2158,17 @@ components:
               description: The purpose or associated facility linked to the lien
               format: string
             LienAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount being blocked
+              format: amount
             LienStartDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is enforced
+              format: date
             LienExpiryDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is removed
+              format: date
             LienStatus:
               type: string
               description: The status on the lien
@@ -2109,11 +2205,17 @@ components:
               description: The purpose or associated facility linked to the lien
               format: string
             LienAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount being blocked
+              format: amount
             LienStartDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is enforced
+              format: date
             LienExpiryDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the lien is removed
+              format: date
             LienStatus:
               type: string
               description: The status on the lien
@@ -2126,19 +2228,33 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
@@ -2148,9 +2264,13 @@ components:
               description: The setting for the restriction option
               format: string
             LinkedAccounts:
-              $ref: '#/components/schemas/account'
+              type: string
+              description: Definition of the associations to the account
+              format: account
             LinkType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The type and purpose for the link
+              format: text
             AccountDetails:
               type: string
               description: Details of the linked account
@@ -2224,9 +2344,13 @@ components:
               description: The facility that the sweep is made to/from
               format: string
             AccountSweepAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount transferred to or from the account
+              format: amount
             AccountSweepExecutionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the sweep is initiated
+              format: date
       description: 'Input: ExBQ Trigger an account sweep transaction'
     RetrieveAccountSweepResponse:
       type: object
@@ -2271,9 +2395,13 @@ components:
               description: The facility that the sweep is made to/from
               format: string
             AccountSweepAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount transferred to or from the account
+              format: amount
             AccountSweepExecutionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the sweep is initiated
+              format: date
       description: 'Output: ReBQ Retrieve details about a sweep facility or specific sweep transaction'
     InitiateDepositsandWithdrawalsRequest:
       type: object
@@ -2282,17 +2410,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
@@ -2351,7 +2491,9 @@ components:
               description: Details of the deposit transaction
               format: string
             DepositTransactionSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Identifies the source of the deposit
+              format: object
             DepositTransactionDepositType:
               type: string
               description: The type of deposit made with the transaction
@@ -2361,15 +2503,21 @@ components:
               description: Any necessary details describing the purpose or reference properties of the deposit
               format: string
             DepositTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The deposited amount
+              format: amount
             DepositTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the deposit was initiated
+              format: date
             WithdrawalTransaction:
               type: string
               description: Details of the withdrawal transaction
               format: string
             WithdrawalTransactionSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Identifies the target for the withdrawal
+              format: object
             WithdrawalTransactionWithdrawalType:
               type: string
               description: The type of withdrawal made with the transaction
@@ -2379,9 +2527,13 @@ components:
               description: Any necessary details describing the purpose or reference properties of the withdrawal
               format: string
             WihdrawalTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The withdrawn amount
+              format: amount
             WithdrawalTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the withdrawal was initiated
+              format: date
       description: 'Input: ExBQ Execute a deposit or withdrawal transaction'
     ExecuteDepositsandWithdrawalsResponse:
       type: object
@@ -2390,9 +2542,13 @@ components:
           type: object
           properties:
             DepositTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the deposit was initiated
+              format: date
             WithdrawalTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the withdrawal was initiated
+              format: date
       description: 'Output: ExBQ Execute a deposit or withdrawal transaction'
     RetrieveDepositsandWithdrawalsResponse:
       type: object
@@ -2417,7 +2573,9 @@ components:
               description: Details of the deposit transaction
               format: string
             DepositTransactionSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Identifies the source of the deposit
+              format: object
             DepositTransactionDepositType:
               type: string
               description: The type of deposit made with the transaction
@@ -2427,15 +2585,21 @@ components:
               description: Any necessary details describing the purpose or reference properties of the deposit
               format: string
             DepositTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The deposited amount
+              format: amount
             DepositTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the deposit was initiated
+              format: date
             WithdrawalTransaction:
               type: string
               description: Details of the withdrawal transaction
               format: string
             WithdrawalTransactionSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Identifies the target for the withdrawal
+              format: object
             WithdrawalTransactionWithdrawalType:
               type: string
               description: The type of withdrawal made with the transaction
@@ -2445,9 +2609,13 @@ components:
               description: Any necessary details describing the purpose or reference properties of the withdrawal
               format: string
             WihdrawalTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The withdrawn amount
+              format: amount
             WithdrawalTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the withdrawal was initiated
+              format: date
       description: 'Output: ReBQ Retrieve details about a deposit or withdrawal transaction'
     InitiatePaymentsRequest:
       type: object
@@ -2456,17 +2624,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
@@ -2507,13 +2687,17 @@ components:
               description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
               format: string
             DirectDebitMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for direct debits
+              format: object
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
               format: string
             BillPayMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for bill pay transactions
+              format: object
             BilPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
@@ -2526,7 +2710,9 @@ components:
           type: object
           properties:
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             AssociationType:
               type: string
               description: 'The type of association (e.g. guarantor, co-signer)'
@@ -2536,7 +2722,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             PositionLimitSettings:
               type: string
               description: 'The position definition, associated limit settings and rules'
@@ -2584,13 +2772,17 @@ components:
               description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
               format: string
             DirectDebitMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for direct debits
+              format: object
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
               format: string
             BillPayMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for bill pay transactions
+              format: object
             BilPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
@@ -2604,13 +2796,21 @@ components:
               description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
               format: string
             PaymentTransactionPayeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party to whom the payment is made
+              format: object
             PaymentTransactionPayeeAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account to which the payment is made
+              format: object
             PaymentTransactionPayeeBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank where the payee account is held
+              format: object
             PaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount (and currency if applicable) of the payment
+              format: amount
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
@@ -2620,7 +2820,9 @@ components:
               description: The fee charge applied to the transaction
               format: string
             PaymentTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The various key dates and times associated with the payment transaction
+              format: date
             PaymentTransactionPaymentMechanism:
               type: string
               description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -2630,7 +2832,9 @@ components:
               description: Description of the purpose including any external reference to the transaction
               format: string
             PaymentTransactionBankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the location the payment transaction is initiated from
+              format: object
       description: 'Input: UpBQ Update a payment transaction configuration or specific transaction'
     UpdatePaymentsResponse:
       type: object
@@ -2659,13 +2863,17 @@ components:
               description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
               format: string
             DirectDebitMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for direct debits
+              format: object
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
               format: string
             BillPayMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for bill pay transactions
+              format: object
             BilPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
@@ -2679,13 +2887,21 @@ components:
               description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
               format: string
             PaymentTransactionPayeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party to whom the payment is made
+              format: object
             PaymentTransactionPayeeAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account to which the payment is made
+              format: object
             PaymentTransactionPayeeBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank where the payee account is held
+              format: object
             PaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount (and currency if applicable) of the payment
+              format: amount
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
@@ -2695,7 +2911,9 @@ components:
               description: The fee charge applied to the transaction
               format: string
             PaymentTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The various key dates and times associated with the payment transaction
+              format: date
             PaymentTransactionPaymentMechanism:
               type: string
               description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -2705,7 +2923,9 @@ components:
               description: Description of the purpose including any external reference to the transaction
               format: string
             PaymentTransactionBankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the location the payment transaction is initiated from
+              format: object
             PaymentTransactionStatus:
               type: string
               description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -2726,13 +2946,21 @@ components:
               description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
               format: string
             PaymentTransactionPayeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party to whom the payment is made
+              format: object
             PaymentTransactionPayeeAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account to which the payment is made
+              format: object
             PaymentTransactionPayeeBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank where the payee account is held
+              format: object
             PaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount (and currency if applicable) of the payment
+              format: amount
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
@@ -2742,7 +2970,9 @@ components:
               description: The fee charge applied to the transaction
               format: string
             PaymentTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The various key dates and times associated with the payment transaction
+              format: date
             PaymentTransactionPaymentMechanism:
               type: string
               description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -2752,7 +2982,9 @@ components:
               description: Description of the purpose including any external reference to the transaction
               format: string
             PaymentTransactionBankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the location the payment transaction is initiated from
+              format: object
             PaymentTransactionStatus:
               type: string
               description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -2765,7 +2997,9 @@ components:
           type: object
           properties:
             PaymentTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The various key dates and times associated with the payment transaction
+              format: date
             PaymentTransactionStatus:
               type: string
               description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -2802,13 +3036,17 @@ components:
               description: 'Processing schedule for repeating payments for standing orders (e.g. start date, end, period, number/cycles). Note this triggers an internal execution call as necessary'
               format: string
             DirectDebitMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for direct debits
+              format: object
             DirectDebitMandateSettings:
               type: string
               description: Processing settings governing direct debits
               format: string
             BillPayMandateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the applicable mandate for bill pay transactions
+              format: object
             BilPayMandateSettings:
               type: string
               description: Processing settings governing bill pay transactions
@@ -2822,13 +3060,21 @@ components:
               description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
               format: string
             PaymentTransactionPayeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party to whom the payment is made
+              format: object
             PaymentTransactionPayeeAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account to which the payment is made
+              format: object
             PaymentTransactionPayeeBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank where the payee account is held
+              format: object
             PaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount (and currency if applicable) of the payment
+              format: amount
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
@@ -2838,7 +3084,9 @@ components:
               description: The fee charge applied to the transaction
               format: string
             PaymentTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The various key dates and times associated with the payment transaction
+              format: date
             PaymentTransactionPaymentMechanism:
               type: string
               description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -2848,7 +3096,9 @@ components:
               description: Description of the purpose including any external reference to the transaction
               format: string
             PaymentTransactionBankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the location the payment transaction is initiated from
+              format: object
             PaymentTransactionStatus:
               type: string
               description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -2861,17 +3111,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the current account product instance
+              format: object
             CurrentAccountNumber:
-              $ref: '#/components/schemas/accountidentification'
+              type: string
+              description: The associated account number in any suitable format (e.g. IBAN)
+              format: accountidentification
             CustomerReference:
-              $ref: '#/components/schemas/accountinvolvement'
+              type: string
+              description: Reference to the account primary party/owner
+              format: accountinvolvement
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             AccountType:
-              $ref: '#/components/schemas/accounttype'
+              type: string
+              description: 'The type of current account (e.g. checking, student, small business)'
+              format: accounttype
             AccountCurrency:
-              $ref: '#/components/schemas/accountcurrency'
+              type: string
+              description: The primary account currency
+              format: accountcurrency
             EntitlementOptionSetting:
               type: string
               description: The setting for the entitlement option
@@ -2935,7 +3197,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             PositionLimitSettings:
               type: string
               description: 'The position definition, associated limit settings and rules'

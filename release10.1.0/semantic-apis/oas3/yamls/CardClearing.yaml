@@ -335,19 +335,13 @@ components:
           description: Details of the transaction matching processing
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    rate:
-      type: object
-      properties:
-        Rate:
-          type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
-      description: The FX rates and fees that are applied to the transactions
     FXConversion:
       type: object
       properties:
         FXConversionRatesandFees:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The FX rates and fees that are applied to the transactions
+          format: rate
         FXConversionTaskResult:
           type: string
           description: Details of the transaction FX conversion
@@ -389,71 +383,61 @@ components:
           description: Details of the transaction fee processing
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency that the transaction is made in
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The amount corresponding to the type
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: Significant dates and times associated with the transaction
     Capture:
       type: object
       properties:
         CardTransactionRecordReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+          format: object
         CardTransactionProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The account number associated with the card transaction
+          format: object
         CardTransactionNetworkReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the network the card transaction is handled by
+          format: object
         CardTransactionIssuingBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card holder's issuing bank
+          format: object
         CardTransactionMerchantAcquiringBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant's acquiring bank
+          format: object
         CardTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency that the transaction is made in
+          format: currencycode
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount corresponding to the type
+          format: amount
         CardTransactionMerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant initiating settlement
+          format: object
         CardTransactionLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the point of sale location
+          format: object
         CardTransactionProductandServiceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+          format: object
         CardTransactionDate/Time:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the transaction
+          format: date
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -471,15 +455,21 @@ components:
       type: object
       properties:
         NetworkReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card network
+          format: object
         ParticipantAcquirerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+          format: object
         ParticipantAcquirerBankClearingandSettlementTerms:
           type: string
           description: Defines card clearing fees/terms in force - referenced by Network
           format: string
         ParticipantIssuerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+          format: object
         ParticipantIssuerBankClearingandSettlementTerms:
           type: string
           description: Defines card clearing fees/terms in force - referenced by Network
@@ -489,7 +479,9 @@ components:
           description: 'Defines the type of clearing process - e.g. capture, batch, chargeback between combinations of N,I&A'
           format: string
         CardClearingProcessDateOrTime:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The scheduled time for the process - likely initiation time
+          format: date
         CardClearingServiceSchedule:
           type: string
           description: The schedule of activities for card clearing
@@ -502,17 +494,25 @@ components:
           type: object
           properties:
             NetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card network
+              format: object
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
             CardClearingProcessType:
               type: string
               description: 'Defines the type of clearing process - e.g. capture, batch, chargeback between combinations of N,I&A'
               format: string
             CardClearingProcessDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardClearingServiceSchedule:
               type: string
               description: The schedule of activities for card clearing
@@ -525,7 +525,9 @@ components:
           type: object
           properties:
             NetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card network
+              format: object
             ParticipantAcquirerBankClearingandSettlementTerms:
               type: string
               description: Defines card clearing fees/terms in force - referenced by Network
@@ -535,7 +537,9 @@ components:
               description: Defines card clearing fees/terms in force - referenced by Network
               format: string
             CardClearingProcessDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardClearingServiceSchedule:
               type: string
               description: The schedule of activities for card clearing
@@ -548,15 +552,21 @@ components:
           type: object
           properties:
             NetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card network
+              format: object
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantAcquirerBankClearingandSettlementTerms:
               type: string
               description: Defines card clearing fees/terms in force - referenced by Network
               format: string
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankClearingandSettlementTerms:
               type: string
               description: Defines card clearing fees/terms in force - referenced by Network
@@ -566,7 +576,9 @@ components:
               description: 'Defines the type of clearing process - e.g. capture, batch, chargeback between combinations of N,I&A'
               format: string
             CardClearingProcessDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardClearingServiceSchedule:
               type: string
               description: The schedule of activities for card clearing
@@ -579,33 +591,53 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -626,33 +658,53 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -673,40 +725,64 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -727,22 +803,36 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
         Addressing:
           type: object
           properties:
@@ -758,40 +848,64 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -808,7 +922,9 @@ components:
           type: object
           properties:
             FXConversionRatesandFees:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The FX rates and fees that are applied to the transactions
+              format: rate
             FXConversionTaskResult:
               type: string
               description: Details of the transaction FX conversion
@@ -821,40 +937,64 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -886,40 +1026,64 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -947,40 +1111,64 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1008,40 +1196,64 @@ components:
           type: object
           properties:
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing processing
+              format: object
         Capture:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer - these can be batched for some clearing processes
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge

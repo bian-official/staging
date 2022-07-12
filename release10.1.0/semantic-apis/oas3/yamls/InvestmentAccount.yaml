@@ -362,22 +362,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the payment order raised to apply the fees (will move funds to/from the appropriate accounts)
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: Tracking of accumulated fees and penalties
     ServiceFees:
       type: object
       properties:
@@ -414,7 +398,9 @@ components:
           description: The derived fee or penalty amount applied
           format: string
         PaymentOrderProcedureInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the payment order raised to apply the fees (will move funds to/from the appropriate accounts)
+          format: object
         FeeProjectionsandCommitments:
           type: string
           description: A record of projected fees and penalties
@@ -432,7 +418,9 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Tracking of accumulated fees and penalties
+          format: amount
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -442,14 +430,6 @@ components:
           description: The accrued amount of fees and penalties
           format: string
       description: The product features/services available with a financical facility
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The date and time the deposit was initiated
     DepositsandWithdrawals:
       type: object
       properties:
@@ -466,7 +446,9 @@ components:
           description: Details of the securities deposit transaction
           format: string
         SecuritiesDepositTransactionSourceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Identifies the source of the deposit
+          format: object
         SecuritiesDepositTransactionDepositType:
           type: string
           description: The type of securities deposit made with the transaction
@@ -476,15 +458,21 @@ components:
           description: Any necessary details describing the purpose or reference properties of the deposit
           format: string
         SecuritiesDepositTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The volume or value of securities deposited
+          format: amount
         SecuritiesDepositTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the deposit was initiated
+          format: date
         SecuritiesWithdrawalTransaction:
           type: string
           description: Details of the securities withdrawal transaction
           format: string
         SecuritiesWithdrawalTransactionSourceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Identifies the target for the withdrawal
+          format: object
         SecuritiesWithdrawalTransactionWithdrawalType:
           type: string
           description: The type of securities withdrawal made with the transaction
@@ -494,9 +482,13 @@ components:
           description: Any necessary details describing the purpose or reference properties of the withdrawal
           format: string
         SecuritiesWithdrawalTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The volume or value of the withdrawn securities
+          format: amount
         SecuritiesWithdrawalTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the withdrawal was initiated
+          format: date
       description: The product features/services available with a financical facility
     CorporateAction:
       type: object
@@ -530,27 +522,37 @@ components:
           description: 'File of consolidated notes, forms and documents for the corporate action'
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to associated documents
+          format: object
         CorporateActionTransactionResult:
           type: string
           description: The outcome of applying the action to the account (can be simple confirmation)
           format: string
         CorporateActionTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the corporate action was processed to the account
+          format: date
       description: The product features/services available with a financical facility
     InvestmentAccountFacility:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the investment account product instance
+          format: object
         InvestmentAccountNumber:
           type: string
           description: The associated investment account number in any suitable format
           format: string
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the account primary party/owner
+          format: object
         BankBranchOrLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Bank branch associated with the account for booking purposes
+          format: object
         LinkedCashAccount:
           type: string
           description: Definition of the linked cash account used as the source or target of cash to support securities deposits and withdrawals
@@ -580,9 +582,13 @@ components:
           description: 'Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)'
           format: string
         InstrumentReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The specific instrument trading identifier (e.g. NASDAQ Id)
+          format: object
         TradingMarketplaceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+          format: object
         InstrumentPositionRecord:
           type: string
           description: Position limits and holding position that are tracked by the account
@@ -612,9 +618,13 @@ components:
           description: Details of the event associated actions or impact
           format: string
         InstrumentEventDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date/time the event is anticipated/occurs
+          format: date
         TaxReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference identifier linking the investment account to appropriate tax handling
+          format: object
         EntitlementOptionDefinition:
           type: string
           description: The definition of an applicable entitlement option
@@ -651,11 +661,17 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the investment account product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             LinkedCashAccount:
               type: string
               description: Definition of the linked cash account used as the source or target of cash to support securities deposits and withdrawals
@@ -685,9 +701,13 @@ components:
               description: 'Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)'
               format: string
             InstrumentReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The specific instrument trading identifier (e.g. NASDAQ Id)
+              format: object
             TradingMarketplaceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+              format: object
             InstrumentPositionRecord:
               type: string
               description: Position limits and holding position that are tracked by the account
@@ -713,9 +733,13 @@ components:
               description: Details of the event associated actions or impact
               format: string
             InstrumentEventDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the event is anticipated/occurs
+              format: date
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the investment account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -772,9 +796,13 @@ components:
               description: 'Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)'
               format: string
             InstrumentReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The specific instrument trading identifier (e.g. NASDAQ Id)
+              format: object
             TradingMarketplaceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+              format: object
             InstrumentPositionRecord:
               type: string
               description: Position limits and holding position that are tracked by the account
@@ -804,7 +832,9 @@ components:
               description: Details of the event associated actions or impact
               format: string
             InstrumentEventDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the event is anticipated/occurs
+              format: date
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -833,15 +863,21 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the investment account product instance
+              format: object
             InvestmentAccountNumber:
               type: string
               description: The associated investment account number in any suitable format
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             LinkedCashAccount:
               type: string
               description: Definition of the linked cash account used as the source or target of cash to support securities deposits and withdrawals
@@ -871,9 +907,13 @@ components:
               description: 'Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)'
               format: string
             InstrumentReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The specific instrument trading identifier (e.g. NASDAQ Id)
+              format: object
             TradingMarketplaceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+              format: object
             InstrumentPositionRecord:
               type: string
               description: Position limits and holding position that are tracked by the account
@@ -903,9 +943,13 @@ components:
               description: Details of the event associated actions or impact
               format: string
             InstrumentEventDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the event is anticipated/occurs
+              format: date
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the investment account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -938,15 +982,21 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the investment account product instance
+              format: object
             InvestmentAccountNumber:
               type: string
               description: The associated investment account number in any suitable format
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             LinkedCashAccount:
               type: string
               description: Definition of the linked cash account used as the source or target of cash to support securities deposits and withdrawals
@@ -976,9 +1026,13 @@ components:
               description: 'Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)'
               format: string
             InstrumentReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The specific instrument trading identifier (e.g. NASDAQ Id)
+              format: object
             TradingMarketplaceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+              format: object
             InstrumentPositionRecord:
               type: string
               description: Position limits and holding position that are tracked by the account
@@ -1008,9 +1062,13 @@ components:
               description: Details of the event associated actions or impact
               format: string
             InstrumentEventDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the event is anticipated/occurs
+              format: date
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the investment account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1043,15 +1101,21 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the investment account product instance
+              format: object
             InvestmentAccountNumber:
               type: string
               description: The associated investment account number in any suitable format
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             LinkedCashAccount:
               type: string
               description: Definition of the linked cash account used as the source or target of cash to support securities deposits and withdrawals
@@ -1081,9 +1145,13 @@ components:
               description: 'Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)'
               format: string
             InstrumentReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The specific instrument trading identifier (e.g. NASDAQ Id)
+              format: object
             TradingMarketplaceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+              format: object
             InstrumentPositionRecord:
               type: string
               description: Position limits and holding position that are tracked by the account
@@ -1113,9 +1181,13 @@ components:
               description: Details of the event associated actions or impact
               format: string
             InstrumentEventDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the event is anticipated/occurs
+              format: date
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the investment account to appropriate tax handling
+              format: object
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1190,7 +1262,9 @@ components:
               description: Details of the securities deposit transaction
               format: string
             SecuritiesDepositTransactionSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Identifies the source of the deposit
+              format: object
             SecuritiesDepositTransactionDepositType:
               type: string
               description: The type of securities deposit made with the transaction
@@ -1200,15 +1274,21 @@ components:
               description: Any necessary details describing the purpose or reference properties of the deposit
               format: string
             SecuritiesDepositTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The volume or value of securities deposited
+              format: amount
             SecuritiesDepositTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the deposit was initiated
+              format: date
             SecuritiesWithdrawalTransaction:
               type: string
               description: Details of the securities withdrawal transaction
               format: string
             SecuritiesWithdrawalTransactionSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Identifies the target for the withdrawal
+              format: object
             SecuritiesWithdrawalTransactionWithdrawalType:
               type: string
               description: The type of securities withdrawal made with the transaction
@@ -1218,9 +1298,13 @@ components:
               description: Any necessary details describing the purpose or reference properties of the withdrawal
               format: string
             SecuritiesWithdrawalTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The volume or value of the withdrawn securities
+              format: amount
             SecuritiesWithdrawalTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the withdrawal was initiated
+              format: date
       description: 'Output: ReBQ Retrieve details about a securities deposit or withdrawal action'
     InitiateCorporateActionRequest:
       type: object
@@ -1287,9 +1371,13 @@ components:
               description: Details describing the purpose and impact of processing the action
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
             CorporateActionTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the corporate action was processed to the account
+              format: date
       description: 'Input: ExBQ Execute the processing of a corporate action'
     ExecuteCorporateActionResponse:
       type: object
@@ -1310,13 +1398,17 @@ components:
               description: 'File of consolidated notes, forms and documents for the corporate action'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
             CorporateActionTransactionResult:
               type: string
               description: The outcome of applying the action to the account (can be simple confirmation)
               format: string
             CorporateActionTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the corporate action was processed to the account
+              format: date
       description: 'Output: ExBQ Execute the processing of a corporate action'
     RetrieveCorporateActionResponse:
       type: object
@@ -1353,13 +1445,17 @@ components:
               description: 'File of consolidated notes, forms and documents for the corporate action'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
             CorporateActionTransactionResult:
               type: string
               description: The outcome of applying the action to the account (can be simple confirmation)
               format: string
             CorporateActionTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the corporate action was processed to the account
+              format: date
       description: 'Output: ReBQ Retrieve details about corporate action processing'
     InitiateServiceFeesRequest:
       type: object
@@ -1465,7 +1561,9 @@ components:
               description: The derived fee or penalty amount applied
               format: string
             PaymentOrderProcedureInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the payment order raised to apply the fees (will move funds to/from the appropriate accounts)
+              format: object
             FeeProjectionsandCommitments:
               type: string
               description: A record of projected fees and penalties
@@ -1479,7 +1577,9 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Tracking of accumulated fees and penalties
+              format: amount
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1528,7 +1628,9 @@ components:
               description: The derived fee or penalty amount applied
               format: string
             PaymentOrderProcedureInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the payment order raised to apply the fees (will move funds to/from the appropriate accounts)
+              format: object
             FeeProjectionsandCommitments:
               type: string
               description: A record of projected fees and penalties
@@ -1546,7 +1648,9 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Tracking of accumulated fees and penalties
+              format: amount
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked

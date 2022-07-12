@@ -439,79 +439,73 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the card transaction for the chargeback
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency that the transaction is made in
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The amount corresponding to the type
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: Significant dates and times associated with the transaction
     Chargeback:
       type: object
       properties:
         CardTransactionRecordReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the card transaction for the chargeback
+          format: object
         ChargebackInstruction:
           type: string
           description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
           format: string
         CardTransactionProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The account number associated with the card transaction
+          format: object
         CardHolderReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The identity of the account holder submitting the transaction
+          format: object
         CardTransactionIssuedDeviceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+          format: object
         CardTransactionNetworkReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the network the card transaction is handled by as recorded with the transaction
+          format: object
         CardTransactionIssuingBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card holder's issuing bank as recorded with the transaction
+          format: object
         CardTransactionMerchantAcquiringBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant's acquiring bank as recorded with the transaction
+          format: object
         CardTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency that the transaction is made in
+          format: currencycode
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount corresponding to the type
+          format: amount
         CardTransactionMerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant initiating settlement
+          format: object
         CardTransactionLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the point of sale location
+          format: object
         CardTransactionProductandServiceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+          format: object
         CardTransactionDate/Time:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the transaction
+          format: date
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -529,9 +523,13 @@ components:
       type: object
       properties:
         ParticipantMerchantAcquirerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the Merchant Acquiring bank for settlement processing
+          format: object
         ParticipantIssuerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+          format: object
         CardFinancialSettlementServicePaymentAdviceRecord:
           type: string
           description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
@@ -557,9 +555,13 @@ components:
           description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
           format: string
         MerchantAcquiringAccountPostingAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Posted amount  (probably captured as a credit/debit pair)
+          format: amount
         MerchantAcquiringAccountPostingValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The value date for the posting
+          format: date
         MerchantAcquiringAccountPostingResult:
           type: string
           description: Confirmation of the posting action
@@ -621,39 +623,65 @@ components:
       type: object
       properties:
         CardTransactionRecordReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the card transaction as recorded by issuer and/or acquirer
+          format: object
         CardTransactionProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The account number associated with the card transaction
+          format: object
         CardHolderReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The identity of the account holder submitting the transaction
+          format: object
         CardTransactionIssuedDeviceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+          format: object
         CardTransactionNetworkReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the network the card transaction is handled by as recorded with the transaction
+          format: object
         CardTransactionIssuingBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card holder's issuing bank as recorded with the transaction
+          format: object
         CardTransactionMerchantAcquiringBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant's acquiring bank as recorded with the transaction
+          format: object
         CardTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency that the transaction is made in
+          format: currencycode
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount corresponding to the type
+          format: amount
         CardTransactionMerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant initiating settlement
+          format: object
         CardTransactionLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the point of sale location
+          format: object
         CardTransactionProductandServiceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+          format: object
         CardTransactionDate/Time:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the transaction
+          format: date
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -671,17 +699,29 @@ components:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the merchant facility product instance
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the merchant primary party/owner
+          format: object
         PartyReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the legal entity (typically the customer)
+          format: object
         BankBranchOrLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Bank branch associated with the merchant account for booking purposes
+          format: object
         AccountCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The billing currency for the merchant acquiring facility account
+          format: currencycode
         TaxReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference identifier linking the account to appropriate tax handling
+          format: object
         MerchantAcquiringFacilityOperationalTerms:
           type: string
           description: Operational terms governing the merchant facility
@@ -710,15 +750,25 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -743,7 +793,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -768,17 +820,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -807,17 +871,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -850,9 +926,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -873,9 +953,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -884,37 +968,61 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -943,9 +1051,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -954,37 +1066,61 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1013,44 +1149,72 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
         Clearing:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1075,7 +1239,9 @@ components:
               description: Reference to the posting transaction against the merchant account
               format: string
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1084,9 +1250,13 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Output: ExBQ Execute a clearing transaction against the account'
     RetrieveClearingResponse:
       type: object
@@ -1095,17 +1265,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -1138,9 +1320,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1149,37 +1335,61 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction as recorded by issuer and/or acquirer
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1208,9 +1418,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1219,41 +1433,65 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction for the chargeback
+              format: object
             ChargebackInstruction:
               type: string
               description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
               format: string
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1282,9 +1520,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1293,41 +1535,65 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction for the chargeback
+              format: object
             ChargebackInstruction:
               type: string
               description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
               format: string
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1356,48 +1622,76 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
         Chargeback:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction for the chargeback
+              format: object
             ChargebackInstruction:
               type: string
               description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
               format: string
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1422,7 +1716,9 @@ components:
               description: Reference to the posting transaction against the merchant account
               format: string
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1431,9 +1727,13 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction for the chargeback
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Output: ExBQ Execute a chargeback transaction against the account'
     RetrieveChargebackResponse:
       type: object
@@ -1442,17 +1742,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -1485,9 +1797,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1496,41 +1812,65 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card transaction for the chargeback
+              format: object
             ChargebackInstruction:
               type: string
               description: Details the instruction received from Card Case to book chargeback for the transaction - could be partial chargeback - amount is detailed in instruction
               format: string
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardHolderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The identity of the account holder submitting the transaction
+              format: object
             CardTransactionIssuedDeviceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
+              format: object
             CardTransactionNetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the network the card transaction is handled by as recorded with the transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank as recorded with the transaction
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank as recorded with the transaction
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateOrTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1559,9 +1899,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1570,9 +1914,13 @@ components:
           type: object
           properties:
             ParticipantMerchantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Merchant Acquiring bank for settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+              format: object
             CardFinancialSettlementServicePaymentAdviceRecord:
               type: string
               description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
@@ -1601,9 +1949,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1612,9 +1964,13 @@ components:
           type: object
           properties:
             ParticipantMerchantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Merchant Acquiring bank for settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+              format: object
             CardFinancialSettlementServicePaymentAdviceRecord:
               type: string
               description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
@@ -1643,16 +1999,24 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
         Settlement:
           type: object
           properties:
             ParticipantMerchantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Merchant Acquiring bank for settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+              format: object
             CardFinancialSettlementServicePaymentAdviceRecord:
               type: string
               description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
@@ -1677,7 +2041,9 @@ components:
               description: Reference to the posting transaction against the merchant account
               format: string
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1690,17 +2056,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -1733,9 +2111,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1744,9 +2126,13 @@ components:
           type: object
           properties:
             ParticipantMerchantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Merchant Acquiring bank for settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for payments made to the issuer for chargebacks
+              format: object
             CardFinancialSettlementServicePaymentAdviceRecord:
               type: string
               description: Details the individual participant Issuer or Acquirer payments calculated to be due for this settlement window - covers only the instructions specific to the participant Merchant Acquirer
@@ -1775,9 +2161,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1849,9 +2239,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -1923,9 +2317,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
         ServiceFees:
           type: object
           properties:
@@ -1977,7 +2375,9 @@ components:
               description: Reference to the posting transaction against the merchant account
               format: string
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -2029,17 +2429,29 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             BankBranchOrLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the merchant account for booking purposes
+              format: object
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The billing currency for the merchant acquiring facility account
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             MerchantAcquiringFacilityOperationalTerms:
               type: string
               description: Operational terms governing the merchant facility
@@ -2072,9 +2484,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             MerchantAcquiringAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             MerchantAcquiringAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             MerchantAcquiringAccountPostingResult:
               type: string
               description: Confirmation of the posting action

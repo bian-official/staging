@@ -309,14 +309,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to any regulatory requirements
     RegulatoryTerms:
       type: object
       properties:
@@ -325,7 +317,9 @@ components:
           description: The applicable regulatory authority
           format: string
         ApplicableRegulationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any regulatory requirements
+          format: object
         ApplicableRegulationInterpretation:
           type: string
           description: Explanation or interpretation of the regulation as applied
@@ -339,7 +333,9 @@ components:
           description: The legal jurisdiction
           format: string
         ApplicableLawReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any legal requirements
+          format: object
         ApplicableLawInterpretation:
           type: string
           description: Explanation or interpretation of the law as applied
@@ -353,33 +349,33 @@ components:
           description: The type of bank policy referenced (e.g. staff certification)
           format: string
         ApplicableBankPolicy-RuleReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the bank's policies or rules
+          format: object
         ApplicableBankPolicy-RuleInterpretation:
           type: string
           description: Explanation or interpretation of the policy or rule as applied
           format: string
       description: "A collection of terms (within some jurisdiction) that can be selected and configured to define a contract /agreement\n\nExamples: Required disclosures"
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The term of the agreement
     SalesProductAgreement:
       type: object
       properties:
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated customer (can currently be a person or a company)
+          format: object
         LegalEntityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the legal entity that is the subject of the agreement
+          format: object
         ProductandServiceType:
           type: string
           description: Reference to the type of product/service covered by the agreement
           format: string
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the specific product instance covered by the sales product agreement
+          format: object
         AgreementType:
           type: string
           description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -389,17 +385,25 @@ components:
           description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
           format: string
         AgreementValidFromOrToDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The term of the agreement
+          format: date
         AgreementSignatoriesOrResponsibleParties:
           type: string
           description: Reference to signatories
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any associated documents
+          format: object
         CustomerAgreementReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer master agreement that governs the product agreement
+          format: object
         PartyLife-cycleManagementReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+          format: object
       description: "Maintain the terms and conditions that apply to a commercial relationship within Sales Product Agreement.\n\n\n"
     EvaluateSalesProductAgreementRequest:
       type: object
@@ -408,31 +412,45 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
       description: 'Input: EvCR Establish a sales product agreement'
     EvaluateSalesProductAgreementResponse:
       type: object
@@ -445,13 +463,17 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
       description: 'Output: EvCR Establish a sales product agreement'
     RetrieveSalesProductAgreementResponse:
       type: object
@@ -460,15 +482,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -478,17 +506,25 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
       description: 'Output: ReCR Retrieve details about a sales product agreement'
     EvaluateLegalTermsRequest:
       type: object
@@ -497,15 +533,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -515,22 +557,32 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
         LegalTerms:
           type: object
           properties:
             ApplicableLawReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any legal requirements
+              format: object
       description: 'Input: EvBQ Establish the legal terms for a sales product agreement'
     EvaluateLegalTermsResponse:
       type: object
@@ -554,7 +606,9 @@ components:
               description: The legal jurisdiction
               format: string
             ApplicableLawReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any legal requirements
+              format: object
       description: 'Input: UpBQ Update the legal terms for a sales product agreement'
     UpdateLegalTermsResponse:
       type: object
@@ -567,7 +621,9 @@ components:
               description: The legal jurisdiction
               format: string
             ApplicableLawReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any legal requirements
+              format: object
       description: 'Output: UpBQ Update the legal terms for a sales product agreement'
     RetrieveLegalTermsResponse:
       type: object
@@ -576,15 +632,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -594,22 +656,32 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
         LegalTerms:
           type: object
           properties:
             ApplicableLawReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any legal requirements
+              format: object
             ApplicableLawInterpretation:
               type: string
               description: Explanation or interpretation of the law as applied
@@ -622,15 +694,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -640,17 +718,25 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
         RegulatoryTerms:
           type: object
           properties:
@@ -659,7 +745,9 @@ components:
               description: The applicable regulatory authority
               format: string
             ApplicableRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any regulatory requirements
+              format: object
       description: 'Input: EvBQ Establish the regulatory terms for a sales product agreement'
     EvaluateRegulatoryTermsResponse:
       type: object
@@ -683,7 +771,9 @@ components:
               description: The applicable regulatory authority
               format: string
             ApplicableRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any regulatory requirements
+              format: object
       description: 'Input: UpBQ Update the regulatory terms for a sales product agreement'
     UpdateRegulatoryTermsResponse:
       type: object
@@ -696,7 +786,9 @@ components:
               description: The applicable regulatory authority
               format: string
             ApplicableRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any regulatory requirements
+              format: object
       description: 'Output: UpBQ Update the regulatory terms for a sales product agreement'
     RetrieveRegulatoryTermsResponse:
       type: object
@@ -705,15 +797,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -723,17 +821,25 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
         RegulatoryTerms:
           type: object
           properties:
@@ -742,7 +848,9 @@ components:
               description: The applicable regulatory authority
               format: string
             ApplicableRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any regulatory requirements
+              format: object
             ApplicableRegulationInterpretation:
               type: string
               description: Explanation or interpretation of the regulation as applied
@@ -755,15 +863,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -773,17 +887,25 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
         PolicyTerms:
           type: object
           properties:
@@ -792,7 +914,9 @@ components:
               description: The type of bank policy referenced (e.g. staff certification)
               format: string
             ApplicableBankPolicy-RuleReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank's policies or rules
+              format: object
       description: 'Input: EvBQ Establish the corporate policy terms for a sales product agreement'
     EvaluatePolicyTermsResponse:
       type: object
@@ -816,7 +940,9 @@ components:
               description: The type of bank policy referenced (e.g. staff certification)
               format: string
             ApplicableBankPolicy-RuleReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank's policies or rules
+              format: object
       description: 'Input: UpBQ Update the corporate policy terms for a sales product agreement'
     UpdatePolicyTermsResponse:
       type: object
@@ -829,7 +955,9 @@ components:
               description: The type of bank policy referenced (e.g. staff certification)
               format: string
             ApplicableBankPolicy-RuleReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank's policies or rules
+              format: object
       description: 'Output: UpBQ Update the corporate policy terms for a sales product agreement'
     RetrievePolicyTermsResponse:
       type: object
@@ -838,15 +966,21 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the agreement
+              format: object
             ProductandServiceType:
               type: string
               description: Reference to the type of product/service covered by the agreement
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the specific product instance covered by the sales product agreement
+              format: object
             AgreementType:
               type: string
               description: 'The type of customer agreement (e.g. individual, corporate)'
@@ -856,17 +990,25 @@ components:
               description: The contractual jurisdiction or coverage of the agreement (e.g. "governed by State")
               format: string
             AgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The term of the agreement
+              format: date
             AgreementSignatoriesOrResponsibleParties:
               type: string
               description: Reference to signatories
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer master agreement that governs the product agreement
+              format: object
             PartyLife-cycleManagementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to KYC/Regulatory assessments maintained elsewhere for the customer
+              format: object
         PolicyTerms:
           type: object
           properties:
@@ -875,7 +1017,9 @@ components:
               description: The type of bank policy referenced (e.g. staff certification)
               format: string
             ApplicableBankPolicy-RuleReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the bank's policies or rules
+              format: object
             ApplicableBankPolicy-RuleInterpretation:
               type: string
               description: Explanation or interpretation of the policy or rule as applied
