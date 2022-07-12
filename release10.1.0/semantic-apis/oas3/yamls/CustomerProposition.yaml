@@ -542,157 +542,514 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
+    schedule:
+      type: object
+      properties:
+        Schedule:
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
+      description: Any timing/duration considerations applying to the Customer Defined Product and Service Term
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Customer Defined Product and Service Term specific Business Service
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: Date on which the agreement was signed by all parties. (ISO20022)
+    agreementtypevalues:
+      enum:
+        - CustomerAgreement
+        - SupplierAgreement
+        - ProductBrokerAgreement
+        - ProductSaleAgreement
+        - FiduciaryAgreement
+        - CommissionSaleAgreement
+        - ServicingMandateAgreement
+        - ChannelAccessAgreement
+      type: string
+      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: "Period during which the agreement is valid\n"
+    agreementlifecyclestatus:
+      type: object
+      properties:
+        Agreementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+          format: datatype
+      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: 'The identifier of agreement like Agreement Number, Contract Number, Contract Registration Number, etc. '
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: 'A characteristic of agreement which refers to 1) LifecycleDate of agreement (e.g., SignedDate, TerminatedDate, FulfilledDate) OR 2) ArrangedDate of agreement (e.g., StartingDate, EndingDate, ValidityPeriod, EffectiveDate).'
+    agreement:
+      type: object
+      properties:
+        AgreementSignedDate:
+          $ref: '#/components/schemas/date'
+        AgreementType:
+          $ref: '#/components/schemas/agreementtypevalues'
+        AgreementValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AgreementVersion:
+          $ref: '#/components/schemas/text'
+        AgreementStatus:
+          $ref: '#/components/schemas/agreementlifecyclestatus'
+        AgreementSubjectMatter:
+          $ref: '#/components/schemas/text'
+        AgreementIdentification:
+          $ref: '#/components/schemas/identifier'
+        AgreementDate:
+          $ref: '#/components/schemas/datetime'
+      description: Reference to Customer Defined Product and Service Term
+    actiontypevalues:
+      enum:
+        - Initiate
+        - Execute
+        - Create
+        - Transfer
+        - Pay
+        - Deliver
+      type: string
+      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
+    action:
+      type: object
+      properties:
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
+      description: ''
+    arrangementlifecyclestatus:
+      type: object
+      properties:
+        Arrangementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
+      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
+    subject:
+      type: object
+      properties:
+        Subject:
+          type: string
+          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
+          format: class
+      description: ''
+    arrangement:
+      type: object
+      properties:
+        ArrangementAction:
+          $ref: '#/components/schemas/action'
+        ArrangementStartDate:
+          $ref: '#/components/schemas/datetime'
+        ArrangementEndDate:
+          $ref: '#/components/schemas/datetime'
+        ArrangementStatus:
+          $ref: '#/components/schemas/arrangementlifecyclestatus'
+        ArrangementSubjectMatter:
+          $ref: '#/components/schemas/subject'
+      description: Reference to Customer Defined Product and Service Term
     CustomerDefinedProductandServiceTerm:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: Any timing/duration considerations applying to the Customer Defined Product and Service Term
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Customer Defined Product and Service Term specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CustomerPropositionAgreementReference:
-          type: string
-          description: Reference to Customer Defined Product and Service Term
-          format: agreement
+          $ref: '#/components/schemas/agreement'
         CustomerDefinedProductandServiceTermReference:
-          type: string
-          description: Reference to Customer Defined Product and Service Term
-          format: arrangement
+          $ref: '#/components/schemas/arrangement'
         CustomerDefinedProductandServiceTermType:
-          type: string
-          description: The type of Customer Defined Product and Service Term
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Customer Defined Product and Service Term reflects the application of a specific rule or regulation that is an aspect of the Customer Defined Product and Service Term
     BankDefinedProductandServiceTerm:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation for the terms to apply and or tasks that need to be completed prior to the initiation of the workstep
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: Any timing/duration considerations applying to the Bank Defined Product and Service Term
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Bank Defined Product and Service Term specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CustomerPropositionAgreementReference:
-          type: string
-          description: Reference to Bank Defined Product and Service Term
-          format: agreement
+          $ref: '#/components/schemas/agreement'
         BankDefinedProductandServiceTermReference:
-          type: string
-          description: Reference to Bank Defined Product and Service Term
-          format: arrangement
+          $ref: '#/components/schemas/arrangement'
         BankDefinedProductandServiceTermType:
-          type: string
-          description: The type of Bank Defined Product and Service Term
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Customer Defined Product and Service Term reflects the application of a specific rule or regulation that is an aspect of the Customer Defined Product and Service Term
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
+    workproducttypevalues:
+      enum:
+        - Document
+        - WorkingPaper
+        - ActivityLog
+        - Form
+        - File
+        - MeetingSchedule
+        - MeetingMinute
+      type: string
+      description: ">\n* `Document` - \n* `WorkingPaper` - \n* `ActivityLog` - \n* `Form` - \n* `File` - File of consolidated notes, evaluations and recommendations for the work task\n* `MeetingSchedule` - \n* `MeetingMinute` - \n"
     CustomerPropositionOutcome:
       type: object
       properties:
         CustomerPropositionAgreement:
-          type: string
-          description: ''
-          format: agreement
+          $ref: '#/components/schemas/agreement'
         CustomerPropositionWorkProduct:
-          type: string
-          description: ''
-          format: workproduct
+          $ref: '#/components/schemas/workproduct'
         CustomerPropositionWorkProductType:
+          $ref: '#/components/schemas/workproducttypevalues'
+      description: The Customer Defined Product and Service Term reflects the application of a specific rule or regulation that is an aspect of the Customer Defined Product and Service Term
+    feature:
+      type: object
+      properties:
+        FeatureType:
           type: string
           description: ''
-          format: workproducttypevalues
-      description: The Customer Defined Product and Service Term reflects the application of a specific rule or regulation that is an aspect of the Customer Defined Product and Service Term
+          format: string
+      description: 'A selected optional feature in a product, identified by Parameter Type'
+    instructionlifecyclestatus:
+      type: object
+      properties:
+        Instructionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
+      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/date'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to discharge Customer Proposition Agreement
+    involvedparty:
+      type: object
+      properties:
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
+      description: Party who is involved in Customer Proposition Agreement
+    rulesettype:
+      type: object
+      properties:
+        Rulesettype:
+          type: string
+          description: Data type specifies the classification of RuleSet
+          format: datatype
+      description: ''
+    ruleset:
+      type: object
+      properties:
+        RuleSetDefinition:
+          type: string
+          description: ''
+          format: string
+        RuleSetInterpretation:
+          type: string
+          description: ''
+          format: string
+        RuleSetType:
+          $ref: '#/components/schemas/rulesettype'
+        RuleSetName:
+          type: string
+          description: ''
+          format: string
+        RuleSetIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the regulation which is defined in Customer Proposition Agreement
+    jurisdiction:
+      type: object
+      properties:
+        Jurisdiction:
+          type: string
+          description: Jurisdiction that will be assigned in case of legal dispute.
+          format: class
+      description: Reference to the jurisdiction that is assigned to Customer Proposition Agreement in case of legal dispute.
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        Accountidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        Accountdate:
+          type: string
+          description: ''
+          format: datatype
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttype:
+      type: object
+      properties:
+        Accounttype:
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalance:
+      type: object
+      properties:
+        Accountbalance:
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrency:
+      type: object
+      properties:
+        Accountcurrency:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
+          $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
+        AccountBalance:
+          $ref: '#/components/schemas/accountbalance'
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: "Reference to the account which is linked to Customer Proposition Agreement\n\nA characteristic of agreement which refers to its involved account to specify the account that will be used to register for the transactions in position keeping management."
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: The subject matter of  Customer Proposition Agreement
+    productidentification:
+      type: object
+      properties:
+        Productidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        Productlifecyclestatus:
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+    bankingproduct:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/producttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
+      description: "Reference to the product which is linked to Customer Proposition Agreement\n\nComment: \nA characteristic of agreement which refers to its related products that are sold by agreement."
+    calendar:
+      type: object
+      properties:
+        Calendar:
+          type: string
+          description: 'A series of dates/times of specific types of actions/events associated with the fulfillment of some form of arrangement - planned and actual. '
+          format: datatype
+      description: The calendar of Customer Proposition Agreement
     CustomerPropositionAgreement:
       type: object
       properties:
         CustomerPropositionAgreementParameterType:
-          type: string
-          description: A Classification value that distinguishes between Options defined within Customer Proposition Agreement
-          format: text
+          $ref: '#/components/schemas/text'
         CustomerPropositionAgreementSelectedOption:
-          type: string
-          description: 'A selected optional feature in a product, identified by Parameter Type'
-          format: feature
+          $ref: '#/components/schemas/feature'
         CustomerPropositionAgreementType:
-          type: string
-          description: A Classification value that distinguishes between the subject matters of Customer Proposition Agreement
-          format: agreementtypevalues
+          $ref: '#/components/schemas/agreementtypevalues'
         CustomerPropositionAgreementReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Customer Proposition Agreement
-          format: agreement
+          $ref: '#/components/schemas/agreement'
         CustomerPropositionAgreementDischargeRequest:
-          type: string
-          description: Request to discharge Customer Proposition Agreement
-          format: instruction
+          $ref: '#/components/schemas/instruction'
         CustomerPropositionAgreementDischargeSchedule:
-          type: string
-          description: Timetable to discharge Customer Proposition Agreement
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         CustomerPropositionAgreementStatus:
-          type: string
-          description: The status of Customer Proposition Agreement
-          format: agreementlifecyclestatus
+          $ref: '#/components/schemas/agreementlifecyclestatus'
         CustomerPropositionAgreementAssociatedParty:
-          type: string
-          description: Party who is involved in Customer Proposition Agreement
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         CustomerPropositionAgreementCustomerReference:
-          type: string
-          description: Reference to the customer who is involved in Customer Proposition Agreement
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         CustomerPropositionAgreementObligation:
-          type: string
-          description: Liability or duty to do something under the terms of Customer Proposition Agreement
-          format: arrangement
+          $ref: '#/components/schemas/arrangement'
         CustomerPropositionAgreementEntitlement:
-          type: string
-          description: Right to do something under the terms of Customer Proposition Agreement
-          format: arrangement
+          $ref: '#/components/schemas/arrangement'
         CustomerPropositionAgreementRegulationReference:
-          type: string
-          description: Reference to the regulation which is defined in Customer Proposition Agreement
-          format: ruleset
+          $ref: '#/components/schemas/ruleset'
         CustomerPropositionAgreementRegulationType:
-          type: string
-          description: A Classification that distinguishes between the regularity domains of Customer Proposition Agreement
-          format: rulesettype
+          $ref: '#/components/schemas/rulesettype'
         CustomerPropositionAgreementJurisdiction:
-          type: string
-          description: Reference to the jurisdiction that is assigned to Customer Proposition Agreement in case of legal dispute.
-          format: jurisdiction
+          $ref: '#/components/schemas/jurisdiction'
         CustomerPropositionAgreementAccountReference:
-          type: string
-          description: "Reference to the account which is linked to Customer Proposition Agreement\n\nA characteristic of agreement which refers to its involved account to specify the account that will be used to register for the transactions in position keeping management."
-          format: account
+          $ref: '#/components/schemas/account'
         CustomerPropositionAgreementSubjectMatter:
-          type: string
-          description: The subject matter of  Customer Proposition Agreement
-          format: object
+          $ref: '#/components/schemas/object'
         CustomerPropositionAgreementProductReference:
-          type: string
-          description: "Reference to the product which is linked to Customer Proposition Agreement\n\nComment: \nA characteristic of agreement which refers to its related products that are sold by agreement."
-          format: bankingproduct
+          $ref: '#/components/schemas/bankingproduct'
         CustomerPropositionAgreementCalendarReference:
-          type: string
-          description: The calendar of Customer Proposition Agreement
-          format: calendar
+          $ref: '#/components/schemas/calendar'
         CustomerPropositionAgreementAssociatedAgreementReference:
-          type: string
-          description: Reference to the agreement that is related to Customer Proposition Agreement
-          format: agreement
+          $ref: '#/components/schemas/agreement'
       description: "Maintain the terms and conditions that apply to a commercial relationship within Customer Proposition.\n\n"
   responses:
     BadRequest:

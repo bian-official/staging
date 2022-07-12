@@ -596,177 +596,516 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+    involvedparty:
+      type: object
+      properties:
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
+      description: The operating unit/employee responsible for the workstep
+    schedule:
+      type: object
+      properties:
+        Schedule:
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
+      description: The timing and key actions/milestones making up the workstep
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Securities Fail Determination Workstep specific Business Service
+    proceduretype:
+      type: object
+      properties:
+        Proceduretype:
+          type: string
+          description: Data type specifies the classification of procedure
+          format: datatype
+      description: A Classification value that distinguishes between the type of process undertaken within Procedure
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: ''
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    instructionlifecyclestatus:
+      type: object
+      properties:
+        Instructionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
+      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/date'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to process something (most refers to Asset Type)
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: "The status of  Procedure\n"
+    procedure:
+      type: object
+      properties:
+        ProcedureType:
+          $ref: '#/components/schemas/proceduretype'
+        ProcedureDateTime:
+          $ref: '#/components/schemas/datetime'
+        ProcedureRequest:
+          $ref: '#/components/schemas/instruction'
+        ProcedureSchedule:
+          $ref: '#/components/schemas/schedule'
+        ProcedureStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to Securities Fail Determination Workstep
+    worksteptype:
+      type: object
+      properties:
+        Worksteptype:
+          type: string
+          description: Data type specifies the classification of workstep
+          format: datatype
+      description: A Classification value that distinguishes between the type of workstep undertaken within Procedure
+    workstep:
+      type: object
+      properties:
+        WorkstepResult:
+          type: string
+          description: ''
+          format: string
+        WorkstepType:
+          $ref: '#/components/schemas/worksteptype'
+        WorkstepDescription:
+          $ref: '#/components/schemas/text'
+        WorkstepDateTime:
+          $ref: '#/components/schemas/datetime'
+        WorkstepStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to Securities Fail Determination Workstep
     SecuritiesFailDeterminationWorkstep:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-          format: condition
+          $ref: '#/components/schemas/condition'
         BusinessUnit/EmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for the workstep
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones making up the workstep
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Securities Fail Determination Workstep specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-          format: condition
+          $ref: '#/components/schemas/condition'
         SecurityTradingFailsProcedureReference:
-          type: string
-          description: Reference to Securities Fail Determination Workstep
-          format: procedure
+          $ref: '#/components/schemas/procedure'
         SecuritiesFailDeterminationWorkstepReference:
-          type: string
-          description: Reference to Securities Fail Determination Workstep
-          format: workstep
+          $ref: '#/components/schemas/workstep'
         SecuritiesFailDeterminationWorkstepType:
-          type: string
-          description: The type of Securities Fail Determination Workstep
-          format: text
+          $ref: '#/components/schemas/text'
       description: A course of action for doing Securities Fail Determination Workstep in the context of executing the Securities Fail Determination Workstep
     SecuritiesFailAnalysisWorkstep:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-          format: condition
+          $ref: '#/components/schemas/condition'
         BusinessUnit/EmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for the workstep
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones making up the workstep
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Securities Fail Analysis Workstep specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-          format: condition
+          $ref: '#/components/schemas/condition'
         SecurityTradingFailsProcedureReference:
-          type: string
-          description: Reference to Securities Fail Analysis Workstep
-          format: procedure
+          $ref: '#/components/schemas/procedure'
         SecuritiesFailAnalysisWorkstepReference:
-          type: string
-          description: Reference to Securities Fail Analysis Workstep
-          format: workstep
+          $ref: '#/components/schemas/workstep'
         SecuritiesFailAnalysisWorkstepType:
-          type: string
-          description: The type of Securities Fail Analysis Workstep
-          format: text
+          $ref: '#/components/schemas/text'
       description: A course of action for doing Securities Fail Determination Workstep in the context of executing the Securities Fail Determination Workstep
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
     SecuritiesFailsProcessingOutcome:
       type: object
       properties:
         SecuritiesFailsProcessingWorkProduct:
-          type: string
-          description: ''
-          format: workproduct
+          $ref: '#/components/schemas/workproduct'
         SecuritiesFailsProcessingProcedure:
+          $ref: '#/components/schemas/procedure'
+      description: A course of action for doing Securities Fail Determination Workstep in the context of executing the Securities Fail Determination Workstep
+    feature:
+      type: object
+      properties:
+        FeatureType:
           type: string
           description: ''
-          format: procedure
-      description: A course of action for doing Securities Fail Determination Workstep in the context of executing the Securities Fail Determination Workstep
+          format: string
+      description: A selected optional business service as subject matter of Security Trading Fails Procedure
+    financialfacility:
+      type: object
+      properties:
+        FinancialFacility:
+          type: string
+          description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
+          format: class
+      description: Reference to the Financial Facility related to Security Trading Fails Procedure
+    servicetype:
+      type: object
+      properties:
+        Servicetype:
+          type: string
+          description: Data type specifies the classification of service
+          format: datatype
+      description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
+    bankingproducttype:
+      type: object
+      properties:
+        Bankingproducttype:
+          type: string
+          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
+          format: datatype
+      description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
+    productidentification:
+      type: object
+      properties:
+        Productidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        Productlifecyclestatus:
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+    bankingproduct:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/producttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
+      description: Reference to the product or service that is related to Security Trading Fails Procedure
+    transactiontype:
+      type: object
+      properties:
+        Transactiontype:
+          type: string
+          description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
+          format: datatype
+      description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
+    transactiondate:
+      type: object
+      properties:
+        Transactiondate:
+          type: string
+          description: ''
+          format: datatype
+      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
+    transactiontypevalues:
+      enum:
+        - FinancialTransaction
+        - BusinessTransaction
+        - BankingTransaction
+        - AccountingTransaction
+        - BookingTransaction
+        - AllocationTransaction
+        - DeliveryTransaction
+      type: string
+      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n"
+    transactionlifecyclestatus:
+      type: object
+      properties:
+        Transactionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
+      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+    transaction:
+      type: object
+      properties:
+        TransactionIdentification:
+          $ref: '#/components/schemas/identifier'
+        TransactionDate:
+          $ref: '#/components/schemas/transactiondate'
+        TransactionType:
+          $ref: '#/components/schemas/transactiontypevalues'
+        TransactionDescription:
+          $ref: '#/components/schemas/text'
+        TransactionStatus:
+          $ref: '#/components/schemas/transactionlifecyclestatus'
+        TransactionName:
+          $ref: '#/components/schemas/name'
+      description: Reference to the transaction that is related to Security Trading Fails Procedure
+    actiontypevalues:
+      enum:
+        - Initiate
+        - Execute
+        - Create
+        - Transfer
+        - Pay
+        - Deliver
+      type: string
+      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
+    action:
+      type: object
+      properties:
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
+      description: ''
+    arrangementlifecyclestatus:
+      type: object
+      properties:
+        Arrangementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
+      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
+    subject:
+      type: object
+      properties:
+        Subject:
+          type: string
+          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
+          format: class
+      description: ''
+    arrangement:
+      type: object
+      properties:
+        ArrangementAction:
+          $ref: '#/components/schemas/action'
+        ArrangementStartDate:
+          $ref: '#/components/schemas/datetime'
+        ArrangementEndDate:
+          $ref: '#/components/schemas/datetime'
+        ArrangementStatus:
+          $ref: '#/components/schemas/arrangementlifecyclestatus'
+        ArrangementSubjectMatter:
+          $ref: '#/components/schemas/subject'
+      description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
+    agreementtypevalues:
+      enum:
+        - CustomerAgreement
+        - SupplierAgreement
+        - ProductBrokerAgreement
+        - ProductSaleAgreement
+        - FiduciaryAgreement
+        - CommissionSaleAgreement
+        - ServicingMandateAgreement
+        - ChannelAccessAgreement
+      type: string
+      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: "Period during which the agreement is valid\n"
+    agreementlifecyclestatus:
+      type: object
+      properties:
+        Agreementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+          format: datatype
+      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+    agreement:
+      type: object
+      properties:
+        AgreementSignedDate:
+          $ref: '#/components/schemas/date'
+        AgreementType:
+          $ref: '#/components/schemas/agreementtypevalues'
+        AgreementValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AgreementVersion:
+          $ref: '#/components/schemas/text'
+        AgreementStatus:
+          $ref: '#/components/schemas/agreementlifecyclestatus'
+        AgreementSubjectMatter:
+          $ref: '#/components/schemas/text'
+        AgreementIdentification:
+          $ref: '#/components/schemas/identifier'
+        AgreementDate:
+          $ref: '#/components/schemas/datetime'
+      description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
     SecurityTradingFailsProcedure:
       type: object
       properties:
         SecurityTradingFailsProcedureParameterType:
-          type: string
-          description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-          format: text
+          $ref: '#/components/schemas/text'
         SecurityTradingFailsProcedureSelectedOption:
-          type: string
-          description: A selected optional business service as subject matter of Security Trading Fails Procedure
-          format: feature
+          $ref: '#/components/schemas/feature'
         SecurityTradingFailsProcedureRequest:
-          type: string
-          description: Request to process Security Trading Fails Procedure
-          format: instruction
+          $ref: '#/components/schemas/instruction'
         SecurityTradingFailsProcedureSchedule:
-          type: string
-          description: Timetable to process Security Trading Fails Procedure
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         SecurityTradingFailsProcedureStatus:
-          type: string
-          description: The status of Security Trading Fails Procedure
-          format: status
+          $ref: '#/components/schemas/status'
         SecurityTradingFailsProcedureAssociatedPartyReference:
-          type: string
-          description: Reference to the party who is involved in Security Trading Fails Procedure
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         SecurityTradingFailsProcedureBusinessUnitReference:
-          type: string
-          description: Reference to the business unit which is involved in Security Trading Fails Procedure
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         SecurityTradingFailsProcedureServiceProviderReference:
-          type: string
-          description: Reference to the party who is the service provider of Security Trading Fails Procedure
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         SecurityTradingFailsProcedureFinancialFacilityReference:
-          type: string
-          description: Reference to the Financial Facility related to Security Trading Fails Procedure
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         SecurityTradingFailsProcedureEmployeeReference:
-          type: string
-          description: Reference to the employee who is involved in Security Trading Fails Procedure
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         SecurityTradingFailsProcedureCustomerReference:
-          type: string
-          description: Reference to the customer who is involved in Security Trading Fails Procedure
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         SecurityTradingFailsProcedureType:
-          type: string
-          description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-          format: proceduretype
+          $ref: '#/components/schemas/proceduretype'
         SecurityTradingFailsProcedureServiceProviderSchedule:
-          type: string
-          description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         SecurityTradingFailsProcedureServiceType:
-          type: string
-          description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-          format: servicetype
+          $ref: '#/components/schemas/servicetype'
         SecurityTradingFailsProcedureProductandServiceType:
-          type: string
-          description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-          format: bankingproducttype
+          $ref: '#/components/schemas/bankingproducttype'
         SecurityTradingFailsProcedureProductandServiceInstance:
-          type: string
-          description: Reference to the product or service that is related to Security Trading Fails Procedure
-          format: bankingproduct
+          $ref: '#/components/schemas/bankingproduct'
         SecurityTradingFailsProcedureTransactionType:
-          type: string
-          description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-          format: transactiontype
+          $ref: '#/components/schemas/transactiontype'
         SecurityTradingFailsProcedureTransaction:
-          type: string
-          description: Reference to the transaction that is related to Security Trading Fails Procedure
-          format: transaction
+          $ref: '#/components/schemas/transaction'
         SecurityTradingFailsProcedureFinancialTransactionArrangement:
-          type: string
-          description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-          format: arrangement
+          $ref: '#/components/schemas/arrangement'
         SecurityTradingFailsProcedureCustomerAgreementReference:
-          type: string
-          description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-          format: agreement
+          $ref: '#/components/schemas/agreement'
         SecurityTradingFailsProcedureReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-          format: procedure
+          $ref: '#/components/schemas/procedure'
       description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Securities Fails Processing. '
     ControlSecurityTradingFailsProcedureRequest:
       type: object
@@ -775,85 +1114,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Control Security Trading Fails Procedure'
     ControlSecurityTradingFailsProcedureResponse:
       type: object
@@ -862,85 +1161,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Control Security Trading Fails Procedure'
     ExchangeSecurityTradingFailsProcedureRequest:
       type: object
@@ -949,85 +1208,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Exchange Security Trading Fails Procedure'
     ExchangeSecurityTradingFailsProcedureResponse:
       type: object
@@ -1036,85 +1255,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Exchange Security Trading Fails Procedure'
     ExecuteSecurityTradingFailsProcedureRequest:
       type: object
@@ -1123,85 +1302,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Execute Security Trading Fails Procedure'
     ExecuteSecurityTradingFailsProcedureResponse:
       type: object
@@ -1210,85 +1349,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Execute Security Trading Fails Procedure'
     InitiateSecurityTradingFailsProcedureRequest:
       type: object
@@ -1297,85 +1396,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Initiate Security Trading Fails Procedure'
     InitiateSecurityTradingFailsProcedureResponse:
       type: object
@@ -1384,85 +1443,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Initiate Security Trading Fails Procedure'
     NotifySecurityTradingFailsProcedureRequest:
       type: object
@@ -1471,85 +1490,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Notify Security Trading Fails Procedure'
     NotifySecurityTradingFailsProcedureResponse:
       type: object
@@ -1558,85 +1537,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Notify Security Trading Fails Procedure'
     RequestSecurityTradingFailsProcedureRequest:
       type: object
@@ -1645,85 +1584,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Request Security Trading Fails Procedure'
     RequestSecurityTradingFailsProcedureResponse:
       type: object
@@ -1732,85 +1631,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Request Security Trading Fails Procedure'
     RetrieveSecurityTradingFailsProcedureRequest:
       type: object
@@ -1819,85 +1678,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Retrieve Security Trading Fails Procedure'
     RetrieveSecurityTradingFailsProcedureResponse:
       type: object
@@ -1906,85 +1725,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Retrieve Security Trading Fails Procedure'
     UpdateSecurityTradingFailsProcedureRequest:
       type: object
@@ -1993,85 +1772,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Input: Update Security Trading Fails Procedure'
     UpdateSecurityTradingFailsProcedureResponse:
       type: object
@@ -2080,85 +1819,45 @@ components:
           type: object
           properties:
             SecurityTradingFailsProcedureParameterType:
-              type: string
-              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Security Trading Fails Procedure
-              format: text
+              $ref: '#/components/schemas/text'
             SecurityTradingFailsProcedureSelectedOption:
-              type: string
-              description: A selected optional business service as subject matter of Security Trading Fails Procedure
-              format: feature
+              $ref: '#/components/schemas/feature'
             SecurityTradingFailsProcedureRequest:
-              type: string
-              description: Request to process Security Trading Fails Procedure
-              format: instruction
+              $ref: '#/components/schemas/instruction'
             SecurityTradingFailsProcedureSchedule:
-              type: string
-              description: Timetable to process Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureStatus:
-              type: string
-              description: The status of Security Trading Fails Procedure
-              format: status
+              $ref: '#/components/schemas/status'
             SecurityTradingFailsProcedureAssociatedPartyReference:
-              type: string
-              description: Reference to the party who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureBusinessUnitReference:
-              type: string
-              description: Reference to the business unit which is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureServiceProviderReference:
-              type: string
-              description: Reference to the party who is the service provider of Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureFinancialFacilityReference:
-              type: string
-              description: Reference to the Financial Facility related to Security Trading Fails Procedure
-              format: financialfacility
+              $ref: '#/components/schemas/financialfacility'
             SecurityTradingFailsProcedureEmployeeReference:
-              type: string
-              description: Reference to the employee who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Security Trading Fails Procedure
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             SecurityTradingFailsProcedureType:
-              type: string
-              description: A Classification value that distinguishes between the type of process undertaken within Security Trading Fails Procedure
-              format: proceduretype
+              $ref: '#/components/schemas/proceduretype'
             SecurityTradingFailsProcedureServiceProviderSchedule:
-              type: string
-              description: The schedule according to which the service provider will process the Security Trading Fails Procedure
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             SecurityTradingFailsProcedureServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of services in Security Trading Fails Procedure
-              format: servicetype
+              $ref: '#/components/schemas/servicetype'
             SecurityTradingFailsProcedureProductandServiceType:
-              type: string
-              description: A Classification value that distinguishes between the type of products/services related to Security Trading Fails Procedure
-              format: bankingproducttype
+              $ref: '#/components/schemas/bankingproducttype'
             SecurityTradingFailsProcedureProductandServiceInstance:
-              type: string
-              description: Reference to the product or service that is related to Security Trading Fails Procedure
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             SecurityTradingFailsProcedureTransactionType:
-              type: string
-              description: A Classification value that distinguishes between the type of transactions in Security Trading Fails Procedure
-              format: transactiontype
+              $ref: '#/components/schemas/transactiontype'
             SecurityTradingFailsProcedureFinancialTransactionArrangement:
-              type: string
-              description: Reference to the Financial Transaction Arrangement that is related to Security Trading Fails Procedure
-              format: arrangement
+              $ref: '#/components/schemas/arrangement'
             SecurityTradingFailsProcedureCustomerAgreementReference:
-              type: string
-              description: Reference to the Customer Agreement that is related to Security Trading Fails Procedure
-              format: agreement
+              $ref: '#/components/schemas/agreement'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Security Trading Fails Procedure
-              format: procedure
+              $ref: '#/components/schemas/procedure'
       description: 'Output: Update Security Trading Fails Procedure'
     ExchangeSecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -2167,37 +1866,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Exchange Securities Fail Analysis Workstep'
     ExchangeSecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -2206,37 +1889,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Exchange Securities Fail Analysis Workstep'
     ExchangeSecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -2245,37 +1912,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Exchange Securities Fail Determination Workstep'
     ExchangeSecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -2284,37 +1935,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Exchange Securities Fail Determination Workstep'
     ExecuteSecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -2323,37 +1958,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Execute Securities Fail Analysis Workstep'
     ExecuteSecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -2362,37 +1981,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Execute Securities Fail Analysis Workstep'
     ExecuteSecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -2401,37 +2004,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Execute Securities Fail Determination Workstep'
     ExecuteSecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -2440,37 +2027,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Execute Securities Fail Determination Workstep'
     InitiateSecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -2479,37 +2050,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Initiate Securities Fail Analysis Workstep'
     InitiateSecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -2518,37 +2073,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Initiate Securities Fail Analysis Workstep'
     InitiateSecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -2557,37 +2096,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Initiate Securities Fail Determination Workstep'
     InitiateSecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -2596,37 +2119,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Initiate Securities Fail Determination Workstep'
     NotifySecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -2635,37 +2142,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Notify Securities Fail Analysis Workstep'
     NotifySecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -2674,37 +2165,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Notify Securities Fail Analysis Workstep'
     NotifySecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -2713,37 +2188,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Notify Securities Fail Determination Workstep'
     NotifySecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -2752,37 +2211,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Notify Securities Fail Determination Workstep'
     RequestSecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -2791,37 +2234,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Request Securities Fail Analysis Workstep'
     RequestSecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -2830,37 +2257,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Request Securities Fail Analysis Workstep'
     RequestSecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -2869,37 +2280,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Request Securities Fail Determination Workstep'
     RequestSecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -2908,37 +2303,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Request Securities Fail Determination Workstep'
     RetrieveSecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -2947,37 +2326,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Retrieve Securities Fail Analysis Workstep'
     RetrieveSecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -2986,37 +2349,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Retrieve Securities Fail Analysis Workstep'
     RetrieveSecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -3025,37 +2372,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Retrieve Securities Fail Determination Workstep'
     RetrieveSecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -3064,37 +2395,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Retrieve Securities Fail Determination Workstep'
     UpdateSecuritiesFailAnalysisWorkstepRequest:
       type: object
@@ -3103,37 +2418,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Update Securities Fail Analysis Workstep'
     UpdateSecuritiesFailAnalysisWorkstepResponse:
       type: object
@@ -3142,37 +2441,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Analysis Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailAnalysisWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Analysis Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailAnalysisWorkstepType:
-              type: string
-              description: The type of Securities Fail Analysis Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Update Securities Fail Analysis Workstep'
     UpdateSecuritiesFailDeterminationWorkstepRequest:
       type: object
@@ -3181,37 +2464,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Input: Update Securities Fail Determination Workstep'
     UpdateSecuritiesFailDeterminationWorkstepResponse:
       type: object
@@ -3220,37 +2487,21 @@ components:
           type: object
           properties:
             Preconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             BusinessUnitOrEmployeeReference:
-              type: string
-              description: The operating unit/employee responsible for the workstep
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             Schedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Securities Fail Determination Workstep specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             Postconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: condition
+              $ref: '#/components/schemas/condition'
             SecurityTradingFailsProcedureReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: procedure
+              $ref: '#/components/schemas/procedure'
             SecuritiesFailDeterminationWorkstepReference:
-              type: string
-              description: Reference to Securities Fail Determination Workstep
-              format: workstep
+              $ref: '#/components/schemas/workstep'
             SecuritiesFailDeterminationWorkstepType:
-              type: string
-              description: The type of Securities Fail Determination Workstep
-              format: text
+              $ref: '#/components/schemas/text'
       description: 'Output: Update Securities Fail Determination Workstep'
   responses:
     BadRequest:
