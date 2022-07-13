@@ -281,6 +281,38 @@ components:
           type: string
           format: string
       description: Status Attributes
+    object:
+      type: object
+      properties:
+        Object:
+          type: string
+          description: ''
+          format: datatype
+      description: Reference to the payer
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: The amount of the repayment
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency used for the repayment
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The value date for the repayment transaction
     Repayment:
       type: object
       properties:
@@ -289,29 +321,17 @@ components:
           description: 'The type of repayment (e.g. scheduled repayment, balloon/early termination)'
           format: string
         RepaymentTransactionPayerReference:
-          type: string
-          description: Reference to the payer
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerProductInstanceReference:
-          type: string
-          description: Reference to the account where the payment is made from
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerBankReference:
-          type: string
-          description: Reference to the payer's bank
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionAmount:
-          type: string
-          description: The amount of the repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         RepaymentTransactionCurrency:
-          type: string
-          description: The currency used for the repayment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         RepaymentTransactionValueDate:
-          type: string
-          description: The value date for the repayment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -365,9 +385,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -405,6 +423,14 @@ components:
           description: A report detailing the current applied collateral valuation (value confirmed as of date)
           format: string
       description: The product features/services available with a financical facility
+    rate:
+      type: object
+      properties:
+        Rate:
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
+      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
@@ -413,17 +439,11 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          type: string
-          description: The processing schedule for applying interest rates to the account
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: string
-          description: The collection of applicable rates
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRate:
-          type: string
-          description: The interest rate value to be applied (note could be variable)
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -445,9 +465,7 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          type: string
-          description: Record of accrued interest
-          format: amount
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -477,65 +495,41 @@ components:
       type: object
       properties:
         ProductInstanceReference:
-          type: string
-          description: Reference to the credit facility product instance
-          format: object
+          $ref: '#/components/schemas/object'
         CreditFacilityNumber:
           type: string
           description: The associated credit facility account number in any suitable format
           format: string
         CustomerReference:
-          type: string
-          description: Reference to the account primary party/owner
-          format: object
+          $ref: '#/components/schemas/object'
         PartyReference:
-          type: string
-          description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-          format: object
+          $ref: '#/components/schemas/object'
         CustomerAgreementReference:
-          type: string
-          description: Reference to the associated customer agreement
-          format: object
+          $ref: '#/components/schemas/object'
         CustomerCreditAssessmentReference:
-          type: string
-          description: Reference to an associated credit assessment
-          format: object
+          $ref: '#/components/schemas/object'
         InsuranceReference:
-          type: string
-          description: Reference to applicable insurance arrangements
-          format: object
+          $ref: '#/components/schemas/object'
         DelinquencyOrCollectionReference:
-          type: string
-          description: Reference to collections/delinquency processing made against the credit facility
-          format: object
+          $ref: '#/components/schemas/object'
         BankBranchOrLocationReference:
-          type: string
-          description: Bank branch associated with the facility for booking purposes
-          format: object
+          $ref: '#/components/schemas/object'
         BankAccountingUnitReference:
-          type: string
-          description: Bank accounting unit associated with the facility for booking purposes
-          format: object
+          $ref: '#/components/schemas/object'
         CreditFacilityType:
           type: string
           description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
           format: string
         CreditFacilityAmount:
-          type: string
-          description: The amount of the credit facility
-          format: amount
+          $ref: '#/components/schemas/amount'
         CreditFacilityCurrency:
-          type: string
-          description: The currency for the facility
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         CreditFacilityRateType:
           type: string
           description: The rate type to be applied to the credit facility
           format: string
         CreditFacilityApplicableRate:
-          type: string
-          description: The applicable rate for the credit facility
-          format: rate
+          $ref: '#/components/schemas/rate'
         RepaymentType:
           type: string
           description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -549,25 +543,17 @@ components:
           description: The accrual method applied to interest calculations
           format: string
         CreditFacilityOriginationDate:
-          type: string
-          description: The origination date for the credit facility
-          format: date
+          $ref: '#/components/schemas/date'
         CreditFacilityMaturityDate:
-          type: string
-          description: The planned maturity date of the credit facility
-          format: date
+          $ref: '#/components/schemas/date'
         CollateralReference:
-          type: string
-          description: Reference to allocated collateral
-          format: object
+          $ref: '#/components/schemas/object'
         CollateralAllocation:
           type: string
           description: The collateral value applied to the credit facility loan
           format: string
         TaxReference:
-          type: string
-          description: Reference identifier linking the account to appropriate tax handling
-          format: object
+          $ref: '#/components/schemas/object'
         CreditFacilityAccessTerms:
           type: string
           description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -577,9 +563,7 @@ components:
           description: Details the one or more underlying loans made against the facility
           format: string
         DrawdownReference:
-          type: string
-          description: Reference to the underlying loan
-          format: object
+          $ref: '#/components/schemas/object'
         DrawdownRecord:
           type: string
           description: Record of the underlying loan details
@@ -617,9 +601,7 @@ components:
           description: 'Description of the role, obligations or entitlements of the associated party'
           format: string
         AssociationReference:
-          type: string
-          description: Reference to the associated party
-          format: object
+          $ref: '#/components/schemas/object'
         CreditFacilityRepaymentSchedule:
           type: string
           description: The schedule for repayments
@@ -656,57 +638,35 @@ components:
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -720,25 +680,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -748,9 +700,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -788,9 +738,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -815,9 +763,7 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             StagedRepaymentStatement:
               type: string
               description: A statement maintained tracking repayments
@@ -842,65 +788,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -914,25 +836,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -942,9 +856,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -982,9 +894,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -1013,65 +923,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1085,25 +971,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -1113,9 +991,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -1153,9 +1029,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -1184,65 +1058,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1256,25 +1106,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -1284,9 +1126,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -1324,9 +1164,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -1438,9 +1276,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1457,17 +1293,13 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -1477,9 +1309,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -1517,9 +1347,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCommentary:
               type: string
               description: A record of customer correspondence/feedback
@@ -1584,9 +1412,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1641,65 +1467,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1713,25 +1515,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -1741,9 +1535,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -1781,9 +1573,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -1839,65 +1629,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1911,25 +1677,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -1939,9 +1697,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -1979,9 +1735,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -2025,65 +1779,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -2097,25 +1827,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -2125,9 +1847,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -2165,9 +1885,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
@@ -2241,65 +1959,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit facility product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityNumber:
               type: string
               description: The associated credit facility account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as the corporate customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the credit facility
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the facility for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityType:
               type: string
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -2313,25 +2007,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the credit facility loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityAccessTerms:
               type: string
               description: 'Access terms that apply (e.g. allowed drawdown terms, repayment)'
@@ -2341,9 +2027,7 @@ components:
               description: Details the one or more underlying loans made against the facility
               format: string
             DrawdownReference:
-              type: string
-              description: Reference to the underlying loan
-              format: object
+              $ref: '#/components/schemas/object'
             DrawdownRecord:
               type: string
               description: Record of the underlying loan details
@@ -2381,9 +2065,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CreditFacilityRepaymentSchedule:
               type: string
               description: The schedule for repayments
