@@ -283,14 +283,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
     ParticipantService:
       type: object
       properties:
@@ -307,7 +299,9 @@ components:
           description: Details of service charge levied against the Network Participant Facility
           format: string
         NetworkParticipantServiceDate/Time:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+          format: date
         NetworkParticipantNetworkServiceRequestWorkProduct:
           type: string
           description: 'Work documentation, forms and schedules produced and referenced during the network service delivery (includes charges, service activity log and results etc.)'
@@ -317,14 +311,6 @@ components:
           description: The result of the request in whatever form appropriate
           format: string
       description: The product features/services available with a financical facility
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: Posted amount  (probably captured as a credit/debit pair)
     ParticipantAccount:
       type: object
       properties:
@@ -337,37 +323,41 @@ components:
           description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
           format: string
         NetworkParticipantFacilityAccountPostingAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Posted amount  (probably captured as a credit/debit pair)
+          format: amount
         NetworkParticipantFacilityAccountPostingValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The value date for the posting
+          format: date
         NetworkParticipantFacilityAccountPostingResult:
           type: string
           description: Confirmation of the posting action
           format: string
       description: The product features/services available with a financical facility
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the participant facility product instance
     CardNetworkParticipantFacility:
       type: object
       properties:
         ProductandServiceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the participant facility product instance
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the participant primary party/owner
+          format: object
         PartyReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the legal entity (typically the customer)
+          format: object
         FacilityTerms:
           type: string
           description: The operational configuration terms/options that govern the participant facility arrangement
           format: string
         ParticipantAcquirerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the Acquiring bank for which the Network orchestrates clearing and settlement processing
+          format: object
         ParticipantAcquirerBankClearingandSettlementTerms:
           type: string
           description: Defines the card clearing fees/terms in force
@@ -377,7 +367,9 @@ components:
           description: Defines the tasks and processing schedule for the participant
           format: string
         ParticipantIssuerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the Issuing bank for which the Network orchestrates clearing and settlement processing
+          format: object
         ParticipantIssuerBankClearingandSettlementTerms:
           type: string
           description: Defines the card clearing fees/terms in force
@@ -394,17 +386,25 @@ components:
           type: object
           properties:
             ProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the participant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the participant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             FacilityTerms:
               type: string
               description: The operational configuration terms/options that govern the participant facility arrangement
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing and settlement processing
+              format: object
             ParticipantAcquirerBankClearingandSettlementTerms:
               type: string
               description: Defines the card clearing fees/terms in force
@@ -414,7 +414,9 @@ components:
               description: Defines the tasks and processing schedule for the participant
               format: string
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing and settlement processing
+              format: object
             ParticipantIssuerBankClearingandSettlementTerms:
               type: string
               description: Defines the card clearing fees/terms in force
@@ -439,9 +441,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             NetworkParticipantFacilityAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             NetworkParticipantFacilityAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
       description: 'Input: ExBQ Execute a posting against the participant''s account'
     ExecuteParticipantAccountResponse:
       type: object
@@ -454,7 +460,9 @@ components:
               description: Reference to the posting transaction against the network participant account
               format: string
             NetworkParticipantFacilityAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             NetworkParticipantFacilityAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -467,17 +475,25 @@ components:
           type: object
           properties:
             ProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the participant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the participant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             FacilityTerms:
               type: string
               description: The operational configuration terms/options that govern the participant facility arrangement
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing and settlement processing
+              format: object
             ParticipantAcquirerBankClearingandSettlementTerms:
               type: string
               description: Defines the card clearing fees/terms in force
@@ -487,7 +503,9 @@ components:
               description: Defines the tasks and processing schedule for the participant
               format: string
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing and settlement processing
+              format: object
             ParticipantIssuerBankClearingandSettlementTerms:
               type: string
               description: Defines the card clearing fees/terms in force
@@ -508,9 +526,13 @@ components:
               description: 'Annotation of the reason for the positing (e.g. posting for fees, chargebacks, settlement)'
               format: string
             NetworkParticipantFacilityAccountPostingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Posted amount  (probably captured as a credit/debit pair)
+              format: amount
             NetworkParticipantFacilityAccountPostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the posting
+              format: date
             NetworkParticipantFacilityAccountPostingResult:
               type: string
               description: Confirmation of the posting action
@@ -535,7 +557,9 @@ components:
               description: Details of service charge levied against the Network Participant Facility
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
             NetworkParticipantNetworkServiceRequestWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the network service delivery (includes charges, service activity log and results etc.)'
@@ -564,7 +588,9 @@ components:
               description: Details of service charge levied against the Network Participant Facility
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
             NetworkParticipantNetworkServiceRequestWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the network service delivery (includes charges, service activity log and results etc.)'
@@ -589,7 +615,9 @@ components:
               description: 'The type of request  (e.g. merchant alert, chargeback arbitration, chargeback reduction)'
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
       description: 'Input: ExBQ Execute an automated participant service request (e.g. merchant alert)'
     ExecuteParticipantServiceResponse:
       type: object
@@ -606,7 +634,9 @@ components:
               description: Details of service charge levied against the Network Participant Facility
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
             NetworkParticipantNetworkServiceRequestWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the network service delivery (includes charges, service activity log and results etc.)'
@@ -631,7 +661,9 @@ components:
               description: 'The type of request  (e.g. merchant alert, chargeback arbitration, chargeback reduction)'
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
       description: 'Input: RqBQ Request manual intervention with a service request (e.g. arbitration)'
     RequestParticipantServiceResponse:
       type: object
@@ -648,7 +680,9 @@ components:
               description: Details of service charge levied against the Network Participant Facility
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
             NetworkParticipantNetworkServiceRequestWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the network service delivery (includes charges, service activity log and results etc.)'
@@ -665,17 +699,25 @@ components:
           type: object
           properties:
             ProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the participant facility product instance
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the participant primary party/owner
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity (typically the customer)
+              format: object
             FacilityTerms:
               type: string
               description: The operational configuration terms/options that govern the participant facility arrangement
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Acquiring bank for which the Network orchestrates clearing and settlement processing
+              format: object
             ParticipantAcquirerBankClearingandSettlementTerms:
               type: string
               description: Defines the card clearing fees/terms in force
@@ -685,7 +727,9 @@ components:
               description: Defines the tasks and processing schedule for the participant
               format: string
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the Issuing bank for which the Network orchestrates clearing and settlement processing
+              format: object
             ParticipantIssuerBankClearingandSettlementTerms:
               type: string
               description: Defines the card clearing fees/terms in force
@@ -710,7 +754,9 @@ components:
               description: Details of service charge levied against the Network Participant Facility
               format: string
             NetworkParticipantServiceDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times associated with the provision of the service (e.g. initiation of service fulfillment)
+              format: date
             NetworkParticipantNetworkServiceRequestWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the network service delivery (includes charges, service activity log and results etc.)'

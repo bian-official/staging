@@ -150,39 +150,37 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the loan account for which the disbursement is made
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The value date for the disbursement payment
     DisbursementTransaction:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the loan account for which the disbursement is made
+          format: object
         AuthorizingEmployeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the authorizing employee
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Reference to the customer owning the loan, used to obtain payment arrangements'
+          format: object
         FundingAccountReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the internal funding account for the disbursement
+          format: object
         PayeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the target for the disbursement
+          format: object
         PayeeProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the account to where the disbursement payment is made
+          format: object
         PayeeBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the payee account bank
+          format: object
         Amount:
           type: string
           description: The amount of the disbursement
@@ -192,7 +190,9 @@ components:
           description: The currency for the payment
           format: string
         ValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The value date for the disbursement payment
+          format: date
       description: 'Execute a well-bounded financial transaction/task, typically involving largely automated/structured fulfillment processing within Disbursement. '
     RetrieveDisbursementTransactionResponse:
       type: object
@@ -201,19 +201,33 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the loan account for which the disbursement is made
+              format: object
             AuthorizingEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the authorizing employee
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the customer owning the loan, used to obtain payment arrangements'
+              format: object
             FundingAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the internal funding account for the disbursement
+              format: object
             PayeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the target for the disbursement
+              format: object
             PayeeProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account to where the disbursement payment is made
+              format: object
             PayeeBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the payee account bank
+              format: object
             Amount:
               type: string
               description: The amount of the disbursement
@@ -223,7 +237,9 @@ components:
               description: The currency for the payment
               format: string
             ValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the disbursement payment
+              format: date
       description: 'Output: ReCR Retrieve details about a disbursement transaction'
   responses:
     BadRequest:

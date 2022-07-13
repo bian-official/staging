@@ -338,93 +338,89 @@ components:
           description: Transaction details
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency that the transaction is made in
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The amount corresponding to the type
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: Significant dates and times associated with the transaction
     Consolidation:
       type: object
       properties:
         CardTransactionRecordReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+          format: object
         CardTransactionRecord:
           type: string
           description: Card transaction details referenced in settlement processing
           format: string
         CardTransactionProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The account number associated with the card transaction
+          format: object
         CardTransactionIssuingBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card holder's issuing bank
+          format: object
         CardTransactionMerchantAcquiringBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant's acquiring bank
+          format: object
         CardTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency that the transaction is made in
+          format: currencycode
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount corresponding to the type
+          format: amount
         CardTransactionMerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant initiating settlement
+          format: object
         CardTransactionLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the point of sale location
+          format: object
         CardTransactionProductandServiceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+          format: object
         CardTransactionDate/Time:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the transaction
+          format: date
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
     CardFinancialSettlementProcedure:
       type: object
       properties:
         NetworkReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card network
+          format: object
         CardFinancialSettlementProcessType:
           type: string
           description: 'Defines the type of settlement process (e.g. scheduled processing, ad-hoc processing)'
           format: string
         CardFinancialSettlementProcessDateOrTime:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The scheduled time for the process - likely initiation time
+          format: date
         CardFinancialSettlementServiceSchedule:
           type: string
           description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
           format: string
         ParticipantAcquirerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+          format: object
         ParticipantIssuerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+          format: object
       description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Card Financial Settlement. '
     InitiateCardFinancialSettlementProcedureRequest:
       type: object
@@ -433,7 +429,9 @@ components:
           type: object
           properties:
             NetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card network
+              format: object
             CardFinancialSettlementProcessType:
               type: string
               description: 'Defines the type of settlement process (e.g. scheduled processing, ad-hoc processing)'
@@ -443,9 +441,13 @@ components:
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
       description: 'Input: InCR Initiate card financial settlement processing'
     InitiateCardFinancialSettlementProcedureResponse:
       type: object
@@ -454,7 +456,9 @@ components:
           type: object
           properties:
             CardFinancialSettlementProcessDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardFinancialSettlementServiceSchedule:
               type: string
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
@@ -471,15 +475,21 @@ components:
               description: 'Defines the type of settlement process (e.g. scheduled processing, ad-hoc processing)'
               format: string
             CardFinancialSettlementProcessDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardFinancialSettlementServiceSchedule:
               type: string
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
       description: 'Input: UpCR Update the card financial settlement processing'
     UpdateCardFinancialSettlementProcedureResponse:
       type: object
@@ -492,15 +502,21 @@ components:
               description: 'Defines the type of settlement process (e.g. scheduled processing, ad-hoc processing)'
               format: string
             CardFinancialSettlementProcessDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardFinancialSettlementServiceSchedule:
               type: string
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
       description: 'Output: UpCR Update the card financial settlement processing'
     RetrieveCardFinancialSettlementProcedureResponse:
       type: object
@@ -509,21 +525,29 @@ components:
           type: object
           properties:
             NetworkReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card network
+              format: object
             CardFinancialSettlementProcessType:
               type: string
               description: 'Defines the type of settlement process (e.g. scheduled processing, ad-hoc processing)'
               format: string
             CardFinancialSettlementProcessDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The scheduled time for the process - likely initiation time
+              format: date
             CardFinancialSettlementServiceSchedule:
               type: string
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
       description: 'Output: ReCR Retrieve details and reports about the card settlement processing'
     UpdateConsolidationRequest:
       type: object
@@ -532,31 +556,49 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Input: UpBQ Update consolidated transaction details for a settlement procedure'
     UpdateConsolidationResponse:
       type: object
@@ -565,31 +607,49 @@ components:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Output: UpBQ Update consolidated transaction details for a settlement procedure'
     RetrieveConsolidationResponse:
       type: object
@@ -602,38 +662,60 @@ components:
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
         Consolidation:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Output: ReBQ Retrieve consolidated transaction details for a settlement procedure'
     RetrieveProcessingResponse:
       type: object
@@ -646,38 +728,60 @@ components:
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
         Consolidation:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         Processing:
           type: object
           properties:
@@ -701,38 +805,60 @@ components:
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
         Consolidation:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         Processing:
           type: object
           properties:
@@ -767,38 +893,60 @@ components:
               description: 'Defines the type and scheduling of card settlement processing, includes Issuer and Acquirer involvement/scheduling details as necessary'
               format: string
             ParticipantAcquirerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Acquiring bank for which the Network orchestrates settlement processing
+              format: object
             ParticipantIssuerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the Issuing bank for which the Network orchestrates settlement processing
+              format: object
         Consolidation:
           type: object
           properties:
             CardTransactionRecordReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction as recorded by issuer and/or acquirer - these are consolidated for the settlement period/window
+              format: object
             CardTransactionProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The account number associated with the card transaction
+              format: object
             CardTransactionIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             CardTransactionMerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating settlement
+              format: object
             CardTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             CardTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             CardTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         Processing:
           type: object
           properties:
