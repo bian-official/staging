@@ -440,19 +440,13 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the inbound correspondence item
     Inbound:
       type: object
       properties:
         InboundCorrespondenceInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the inbound correspondence item
+          format: object
         InboundCorrespondenceRecord:
           type: string
           description: The inbound correspondence message
@@ -470,9 +464,13 @@ components:
           description: The identified source of inbound message (extracted from the content)
           format: string
         InboundCorrespondenceCustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Matched bank customer (from reference details extracted from the content where possible)
+          format: object
         InboundCorrespondenceEmployee/BusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Identified internal addressee (from reference details extracted from the content where possible)
+          format: object
         DateType:
           type: string
           description: 'Key dates used for tracking internal delivery (e.g. receipt date, internal distribution, receipt confirmation date, re-route date)'
@@ -482,21 +480,17 @@ components:
           description: The value of the date and time
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: Date when the response expected. This can result in chasing activities and notification to the sending unit
     OutboundWithResponse:
       type: object
       properties:
         ResponseDueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Date when the response expected. This can result in chasing activities and notification to the sending unit
+          format: date
         ResponseCorrespondenceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the inbound correspondence received that has been matched to the outbound message
+          format: object
         ResponseCorrespondenceRecord:
           type: string
           description: Content of the inbound correspondence
@@ -506,7 +500,9 @@ components:
       type: object
       properties:
         CorrespondenceSourceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Internal source reference to the correspondence item passed for delivery (can be used to match responses)
+          format: object
         CorrespondenceRecord:
           type: string
           description: The correspondence message
@@ -516,7 +512,9 @@ components:
           description: 'The type of correspondence (e.g. confirmation note, mail shot)'
           format: string
         CorrespondenceTemplateReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+          format: object
         CorrespondenceTemplateRecord:
           type: string
           description: The template definition used in correspondence assembly
@@ -534,9 +532,13 @@ components:
           description: The address for message delivery (needs to match channel selection)
           format: string
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: If addressee is identified as a customer with channel preferences for correspondence
+          format: object
         ChannelAccessPreferenceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: '???'
+          format: object
         ChannelAccessPreferenceProfile:
           type: string
           description: The channel usage profile applied for the correspondence
@@ -554,7 +556,9 @@ components:
           description: The associated product/service if applicable
           format: string
         Employee/BusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The sending entity within the bank (can be used for responses)
+          format: object
         DateType:
           type: string
           description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -588,7 +592,9 @@ components:
           description: The session activity report
           format: string
         CorrespondenceServiceSessionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Key dates and times for the session
+          format: date
       description: 'Operate equipment and/or a largely automated facility within Correspondence. '
     InitiateCorrespondenceOperatingSessionRequest:
       type: object
@@ -616,7 +622,9 @@ components:
               description: 'Session reports that can be accessed during the session (e.g. real-time status, session statistics)'
               format: string
             CorrespondenceServiceSessionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times for the session
+              format: date
       description: 'Output: InCR Initiate the correspondence operational facility'
     UpdateCorrespondenceOperatingSessionRequest:
       type: object
@@ -633,7 +641,9 @@ components:
               description: 'Session reports that can be accessed during the session (e.g. real-time status, session statistics)'
               format: string
             CorrespondenceServiceSessionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times for the session
+              format: date
       description: 'Input: UpCR Update settings and details of the operating session (e.g. change priorities)'
     UpdateCorrespondenceOperatingSessionResponse:
       type: object
@@ -650,7 +660,9 @@ components:
               description: 'Session reports that can be accessed during the session (e.g. real-time status, session statistics)'
               format: string
             CorrespondenceServiceSessionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times for the session
+              format: date
       description: 'Output: UpCR Update settings and details of the operating session (e.g. change priorities)'
     ExecuteCorrespondenceOperatingSessionRequest:
       type: object
@@ -670,7 +682,9 @@ components:
           type: object
           properties:
             CorrespondenceServiceSessionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times for the session
+              format: date
       description: 'Output: ExCR Execute an automated task (e.g. statistical analysis)'
     RetrieveCorrespondenceOperatingSessionResponse:
       type: object
@@ -687,12 +701,16 @@ components:
               description: 'Session reports that can be accessed during the session (e.g. real-time status, session statistics)'
               format: string
             CorrespondenceServiceSessionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates and times for the session
+              format: date
         Outbound:
           type: object
           properties:
             CorrespondenceSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Internal source reference to the correspondence item passed for delivery (can be used to match responses)
+              format: object
             CorrespondenceRecord:
               type: string
               description: The correspondence message
@@ -702,7 +720,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -711,7 +731,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -720,18 +740,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -739,8 +763,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -760,7 +786,9 @@ components:
           type: object
           properties:
             CorrespondenceSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Internal source reference to the correspondence item passed for delivery (can be used to match responses)
+              format: object
             CorrespondenceRecord:
               type: string
               description: The correspondence message
@@ -770,7 +798,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -779,7 +809,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -788,18 +818,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -807,8 +841,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -846,7 +882,9 @@ components:
           type: object
           properties:
             CorrespondenceSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Internal source reference to the correspondence item passed for delivery (can be used to match responses)
+              format: object
             CorrespondenceRecord:
               type: string
               description: The correspondence message
@@ -856,7 +894,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -865,7 +905,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -874,18 +914,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -893,8 +937,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -914,7 +960,9 @@ components:
           type: object
           properties:
             CorrespondenceSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Internal source reference to the correspondence item passed for delivery (can be used to match responses)
+              format: object
             CorrespondenceRecord:
               type: string
               description: The correspondence message
@@ -924,7 +972,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -933,7 +983,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -942,18 +992,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -961,8 +1015,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -982,7 +1038,9 @@ components:
           type: object
           properties:
             CorrespondenceSourceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Internal source reference to the correspondence item passed for delivery (can be used to match responses)
+              format: object
             CorrespondenceRecord:
               type: string
               description: The correspondence message
@@ -992,7 +1050,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1001,7 +1061,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1010,18 +1070,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1029,8 +1093,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1058,7 +1124,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1067,7 +1135,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1076,18 +1144,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1095,8 +1167,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1105,9 +1179,13 @@ components:
           type: object
           properties:
             ResponseDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Date when the response expected. This can result in chasing activities and notification to the sending unit
+              format: date
             ResponseCorrespondenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence received that has been matched to the outbound message
+              format: object
             ResponseCorrespondenceRecord:
               type: string
               description: Content of the inbound correspondence
@@ -1153,7 +1231,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1162,7 +1242,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1171,18 +1251,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1190,8 +1274,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1200,9 +1286,13 @@ components:
           type: object
           properties:
             ResponseDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Date when the response expected. This can result in chasing activities and notification to the sending unit
+              format: date
             ResponseCorrespondenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence received that has been matched to the outbound message
+              format: object
             ResponseCorrespondenceRecord:
               type: string
               description: Content of the inbound correspondence
@@ -1230,7 +1320,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1239,7 +1331,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1248,18 +1340,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1267,8 +1363,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1277,9 +1375,13 @@ components:
           type: object
           properties:
             ResponseDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Date when the response expected. This can result in chasing activities and notification to the sending unit
+              format: date
             ResponseCorrespondenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence received that has been matched to the outbound message
+              format: object
             ResponseCorrespondenceRecord:
               type: string
               description: Content of the inbound correspondence
@@ -1307,7 +1409,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1316,7 +1420,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1325,18 +1429,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1344,8 +1452,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1354,9 +1464,13 @@ components:
           type: object
           properties:
             ResponseDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Date when the response expected. This can result in chasing activities and notification to the sending unit
+              format: date
             ResponseCorrespondenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence received that has been matched to the outbound message
+              format: object
             ResponseCorrespondenceRecord:
               type: string
               description: Content of the inbound correspondence
@@ -1376,12 +1490,14 @@ components:
           type: object
           properties:
             InboundCorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence item
+              format: object
             InboundCorrespondenceRecord:
               type: string
               description: The inbound correspondence message
               format: string
-            'InboundCorrespondenceType(e.g.unsolicitedmessage,productOrservicerelated,complaint)':
+            InboundCorrespondenceType(e.g.unsolicitedmessage_productservicerelated_complaint):
               type: string
               description: 'The interpreted type of correspondence (e.g. unsolicited message, product/service related, complaint)'
               format: string
@@ -1394,9 +1510,13 @@ components:
               description: The identified source of inbound message (extracted from the content)
               format: string
             InboundCorrespondenceCustomerReference:
-              $ref: '#/components/schemas/object'
-            InboundCorrespondenceEmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Matched bank customer (from reference details extracted from the content where possible)
+              format: object
+            InboundCorrespondenceEmployeeBusinessUnitReference:
+              type: string
+              description: Identified internal addressee (from reference details extracted from the content where possible)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking internal delivery (e.g. receipt date, internal distribution, receipt confirmation date, re-route date)'
@@ -1434,12 +1554,14 @@ components:
           type: object
           properties:
             InboundCorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence item
+              format: object
             InboundCorrespondenceRecord:
               type: string
               description: The inbound correspondence message
               format: string
-            'InboundCorrespondenceType(e.g.unsolicitedmessage,productOrservicerelated,complaint)':
+            InboundCorrespondenceType(e.g.unsolicitedmessage_productservicerelated_complaint):
               type: string
               description: 'The interpreted type of correspondence (e.g. unsolicited message, product/service related, complaint)'
               format: string
@@ -1452,9 +1574,13 @@ components:
               description: The identified source of inbound message (extracted from the content)
               format: string
             InboundCorrespondenceCustomerReference:
-              $ref: '#/components/schemas/object'
-            InboundCorrespondenceEmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Matched bank customer (from reference details extracted from the content where possible)
+              format: object
+            InboundCorrespondenceEmployeeBusinessUnitReference:
+              type: string
+              description: Identified internal addressee (from reference details extracted from the content where possible)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking internal delivery (e.g. receipt date, internal distribution, receipt confirmation date, re-route date)'
@@ -1474,12 +1600,14 @@ components:
           type: object
           properties:
             InboundCorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence item
+              format: object
             InboundCorrespondenceRecord:
               type: string
               description: The inbound correspondence message
               format: string
-            'InboundCorrespondenceType(e.g.unsolicitedmessage,productOrservicerelated,complaint)':
+            InboundCorrespondenceType(e.g.unsolicitedmessage_productservicerelated_complaint):
               type: string
               description: 'The interpreted type of correspondence (e.g. unsolicited message, product/service related, complaint)'
               format: string
@@ -1492,9 +1620,13 @@ components:
               description: The identified source of inbound message (extracted from the content)
               format: string
             InboundCorrespondenceCustomerReference:
-              $ref: '#/components/schemas/object'
-            InboundCorrespondenceEmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Matched bank customer (from reference details extracted from the content where possible)
+              format: object
+            InboundCorrespondenceEmployeeBusinessUnitReference:
+              type: string
+              description: Identified internal addressee (from reference details extracted from the content where possible)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking internal delivery (e.g. receipt date, internal distribution, receipt confirmation date, re-route date)'
@@ -1514,12 +1646,14 @@ components:
           type: object
           properties:
             InboundCorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the inbound correspondence item
+              format: object
             InboundCorrespondenceRecord:
               type: string
               description: The inbound correspondence message
               format: string
-            'InboundCorrespondenceType(e.g.unsolicitedmessage,productOrservicerelated,complaint)':
+            InboundCorrespondenceType(e.g.unsolicitedmessage_productservicerelated_complaint):
               type: string
               description: 'The interpreted type of correspondence (e.g. unsolicited message, product/service related, complaint)'
               format: string
@@ -1532,9 +1666,13 @@ components:
               description: The identified source of inbound message (extracted from the content)
               format: string
             InboundCorrespondenceCustomerReference:
-              $ref: '#/components/schemas/object'
-            InboundCorrespondenceEmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Matched bank customer (from reference details extracted from the content where possible)
+              format: object
+            InboundCorrespondenceEmployeeBusinessUnitReference:
+              type: string
+              description: Identified internal addressee (from reference details extracted from the content where possible)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking internal delivery (e.g. receipt date, internal distribution, receipt confirmation date, re-route date)'
@@ -1562,7 +1700,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1571,7 +1711,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1580,18 +1720,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1599,8 +1743,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1660,7 +1806,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1669,7 +1817,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1678,18 +1826,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1697,8 +1849,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1733,7 +1887,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1742,7 +1898,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1751,18 +1907,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1770,8 +1930,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'
@@ -1806,7 +1968,9 @@ components:
               description: 'The type of correspondence (e.g. confirmation note, mail shot)'
               format: string
             CorrespondenceTemplateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a template used to assemble standard format correspondence (can be supplied with the correspondence or maintained within the Correspondence service domain as appropriate)
+              format: object
             CorrespondenceTemplateRecord:
               type: string
               description: The template definition used in correspondence assembly
@@ -1815,7 +1979,7 @@ components:
               type: string
               description: The message content (aligned to template as appropriate)
               format: string
-            CorrespondenceMediaOrChannel:
+            CorrespondenceMediaChannel:
               type: string
               description: Identifies the preferred media and channel for delivery of the message
               format: string
@@ -1824,18 +1988,22 @@ components:
               description: The address for message delivery (needs to match channel selection)
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: If addressee is identified as a customer with channel preferences for correspondence
+              format: object
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: '???'
+              format: object
             ChannelAccessPreferenceProfile:
               type: string
               description: The channel usage profile applied for the correspondence
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: The target device defines the format to be used (e.g. email)
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'A description of the customer''s delivery preferences applied to the message (e.g. no paper correspondence, stuffing and batching allowed)'
               format: string
@@ -1843,8 +2011,10 @@ components:
               type: string
               description: The associated product/service if applicable
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The sending entity within the bank (can be used for responses)
+              format: object
             DateType:
               type: string
               description: 'Key dates used for tracking delivery (e.g. generation date, mailing date, receipt confirmation date, re-send date)'

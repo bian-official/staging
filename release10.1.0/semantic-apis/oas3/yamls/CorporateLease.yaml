@@ -495,40 +495,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Corporate Lease Arrangement specific Business Service
     Fulfill:
       type: object
       properties:
@@ -541,7 +507,9 @@ components:
           description: The timing and key actions/milestones involved in completing the fulfillment feature instance
           format: string
         CorporateLeaseFulfillment:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Corporate Lease Arrangement specific Business Service
+          format: businessservice
         FulfillPostconditions:
           type: string
           description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
@@ -591,7 +559,9 @@ components:
           description: The timing and key actions/milestones involved in completing the fulfillment feature instance
           format: string
         CorporateLeaseAdministration:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Corporate Lease Arrangement specific Business Service
+          format: businessservice
         AdministerPostconditions:
           type: string
           description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
@@ -617,22 +587,6 @@ components:
           description: ''
           format: string
       description: "Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility  within Corporate Lease. \nExample: Perform the scheduled (e.g. statements, standing orders) and ad-hoc/requested (e.g. balance inquiries, fund transfers) fulfillment tasks for a customer current account facility."
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the party who is involved in Corporate Lease Arrangement
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The curreny which is arranged in Corporate Lease Arrangement
     CorporateLeaseFacility:
       type: object
       properties:
@@ -657,11 +611,17 @@ components:
           description: The status of Corporate Lease Arrangement
           format: string
         CorporateLeaseFacilityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the party who is involved in Corporate Lease Arrangement
+          format: object
         CorporateLeaseFacilityCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The curreny which is arranged in Corporate Lease Arrangement
+          format: currencycode
         CorporateLeaseFacilityRegulationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the regulation which is defined in Corporate Lease Arrangement
+          format: object
         CorporateLeaseFacilityRegulationType:
           type: string
           description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -679,7 +639,9 @@ components:
           description: The type of account which is linked to Corporate Lease Arrangement
           format: string
         CorporateLeaseFacilityAccountReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the account which is linked to Corporate Lease Arrangement
+          format: object
       description: "Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility  within Corporate Lease. \nExample: Perform the scheduled (e.g. statements, standing orders) and ad-hoc/requested (e.g. balance inquiries, fund transfers) fulfillment tasks for a customer current account facility."
     ControlCorporateLeaseFacilityRequest:
       type: object
@@ -699,7 +661,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -712,9 +674,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -732,7 +698,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Input: CoCR Control the processing of Corporate Lease Facility'
     ControlCorporateLeaseFacilityResponse:
       type: object
@@ -775,7 +743,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -788,9 +756,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -808,7 +780,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Input: EcCR Accept, verify, etc. aspects of Corporate Lease Facility processing'
     ExchangeCorporateLeaseFacilityResponse:
       type: object
@@ -851,7 +825,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -864,9 +838,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -884,7 +862,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Input: ExCR Execute an available automated action for Corporate Lease Facility'
     ExecuteCorporateLeaseFacilityResponse:
       type: object
@@ -927,7 +907,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -940,9 +920,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -960,7 +944,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Input: InCR Instantiate a new Corporate Lease Facility'
     InitiateCorporateLeaseFacilityResponse:
       type: object
@@ -1003,7 +989,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -1016,9 +1002,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -1036,7 +1026,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Output: ReCR Retrieve details about any aspect of Corporate Lease Facility'
     RequestCorporateLeaseFacilityRequest:
       type: object
@@ -1056,7 +1048,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -1069,9 +1061,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -1089,7 +1085,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Input: RqCR Request manual intervention or a decision with respect to Corporate Lease Facility'
     RequestCorporateLeaseFacilityResponse:
       type: object
@@ -1132,7 +1130,7 @@ components:
               type: string
               description: The type of Corporate Lease Arrangement
               format: string
-            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99Or277320:
+            rwc:973a94b2-aa0e-5879-cd94-93b577cadb99277320:
               type: string
               description: "\n"
               format: ''
@@ -1145,9 +1143,13 @@ components:
               description: The status of Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The curreny which is arranged in Corporate Lease Arrangement
+              format: currencycode
             CorporateLeaseFacilityRegulationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the regulation which is defined in Corporate Lease Arrangement
+              format: object
             CorporateLeaseFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Corporate Lease Arrangement
@@ -1165,7 +1167,9 @@ components:
               description: The type of account which is linked to Corporate Lease Arrangement
               format: string
             CorporateLeaseFacilityAccountReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account which is linked to Corporate Lease Arrangement
+              format: object
       description: 'Input: UpCR Update details relating to Corporate Lease Facility'
     UpdateCorporateLeaseFacilityResponse:
       type: object
@@ -1205,7 +1209,9 @@ components:
               description: The timing and key actions/milestones involved in completing the fulfillment feature instance
               format: string
             CorporateLeaseAdministration:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Corporate Lease Arrangement specific Business Service
+              format: businessservice
             AdministerPostconditions:
               type: string
               description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
@@ -1246,7 +1252,9 @@ components:
               description: The timing and key actions/milestones involved in completing the fulfillment feature instance
               format: string
             CorporateLeaseFulfillment:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Corporate Lease Arrangement specific Business Service
+              format: businessservice
             FulfillPostconditions:
               type: string
               description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled

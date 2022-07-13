@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Customer Access Entitlement
-  description: This service domain maintains the details of the allowed channel/device based access to products and services that the customer has in place. &nbsp;This profile is referenced in servicing and fulfillment activity and may include customer preferences and access limits/constraints that span multiple products.
+  description: This service domain maintains the details of the allowed channel/device based access to products and services that the customer has in place.  This profile is referenced in servicing and fulfillment activity and may include customer preferences and access limits/constraints that span multiple products.
   contact:
     name: BIAN
     url: https://bian.org
@@ -17,10 +17,10 @@ paths:
       description: EvCR Establish a customer access profile agreement
       operationId: Evaluate
       requestBody:
-        $ref: '#/components/requestBodies/CustomerAccessProfileAgreement'
+        $ref: '#/components/requestBodies/EvaluateCustomerAccessProfileAgreementRequest'
       responses:
         '200':
-          $ref: '#/components/responses/CustomerAccessProfileAgreement'
+          $ref: '#/components/responses/EvaluateCustomerAccessProfileAgreementResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -43,10 +43,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/customeraccessentitlementid'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerAccessProfileAgreement'
+        $ref: '#/components/requestBodies/UpdateCustomerAccessProfileAgreementRequest'
       responses:
         '200':
-          $ref: '#/components/responses/CustomerAccessProfileAgreement'
+          $ref: '#/components/responses/UpdateCustomerAccessProfileAgreementResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -69,10 +69,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/customeraccessentitlementid'
       requestBody:
-        $ref: '#/components/requestBodies/CustomerAccessProfileAgreement'
+        $ref: '#/components/requestBodies/RequestCustomerAccessProfileAgreementRequest'
       responses:
         '200':
-          $ref: '#/components/responses/CustomerAccessProfileAgreement'
+          $ref: '#/components/responses/RequestCustomerAccessProfileAgreementResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -282,14 +282,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to one of possibly several preferences
     Preferences:
       type: object
       properties:
@@ -298,7 +290,9 @@ components:
           description: Assembles a number of channel access preferences
           format: string
         ChannelAccessPreferenceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to one of possibly several preferences
+          format: object
         ChannelAccessPreferenceType:
           type: string
           description: The type of preference (e.g. for correspondence)
@@ -348,32 +342,184 @@ components:
           description: Details restrictions on allowed product/service by schedule and cumulative access duration
           format: string
       description: "A collection of terms (within some jurisdiction) that can be selected and configured to define a contract /agreement\n\nExamples: Required disclosures"
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The duration that the agreement is in force
     CustomerAccessProfileAgreement:
       type: object
       properties:
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer
+          format: object
         CustomerChannelAccessProfileRecord:
           type: string
           description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
           format: string
         CustomerAccessAgreementValidFromOrToDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The duration that the agreement is in force
+          format: date
         CustomerAccessAgreementSignaturesOrResponsibleParties:
           type: string
           description: Reference to signatories as appropriate
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any associated documents
+          format: object
       description: "Maintain the terms and conditions that apply to a commercial relationship within Customer Access Entitlement.\n\n\n"
+    EvaluateCustomerAccessProfileAgreementRequest:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: string
+              description: Reference to the customer
+              format: object
+            CustomerChannelAccessProfileRecord:
+              type: string
+              description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
+              format: string
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
+              type: string
+              description: Reference to signatories as appropriate
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              type: string
+              description: Reference to any associated documents
+              format: object
+      description: 'Input: EvCR Establish a customer access profile agreement'
+    EvaluateCustomerAccessProfileAgreementResponse:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerChannelAccessProfileRecord:
+              type: string
+              description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
+              format: string
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
+              type: string
+              description: Reference to signatories as appropriate
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              type: string
+              description: Reference to any associated documents
+              format: object
+      description: 'Output: EvCR Establish a customer access profile agreement'
+    UpdateCustomerAccessProfileAgreementRequest:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: string
+              description: Reference to the customer
+              format: object
+            CustomerChannelAccessProfileRecord:
+              type: string
+              description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
+              format: string
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
+              type: string
+              description: Reference to signatories as appropriate
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              type: string
+              description: Reference to any associated documents
+              format: object
+      description: 'Input: UpCR Update details of a customer access profile agreement'
+    UpdateCustomerAccessProfileAgreementResponse:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: string
+              description: Reference to the customer
+              format: object
+            CustomerChannelAccessProfileRecord:
+              type: string
+              description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
+              format: string
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
+              type: string
+              description: Reference to signatories as appropriate
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              type: string
+              description: Reference to any associated documents
+              format: object
+      description: 'Output: UpCR Update details of a customer access profile agreement'
+    RequestCustomerAccessProfileAgreementRequest:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerReference:
+              type: string
+              description: Reference to the customer
+              format: object
+            CustomerChannelAccessProfileRecord:
+              type: string
+              description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
+              format: string
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
+              type: string
+              description: Reference to signatories as appropriate
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              type: string
+              description: Reference to any associated documents
+              format: object
+      description: 'Input: RqCR Request manual intervention in a customer access profile (e.g. handle exceptions)'
+    RequestCustomerAccessProfileAgreementResponse:
+      type: object
+      properties:
+        CustomerAccessProfileAgreement:
+          type: object
+          properties:
+            CustomerChannelAccessProfileRecord:
+              type: string
+              description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
+              format: string
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
+              type: string
+              description: Reference to signatories as appropriate
+              format: string
+            DocumentDirectoryEntryInstanceReference:
+              type: string
+              description: Reference to any associated documents
+              format: object
+      description: 'Output: RqCR Request manual intervention in a customer access profile (e.g. handle exceptions)'
     RetrieveCustomerAccessProfileAgreementResponse:
       type: object
       properties:
@@ -381,19 +527,25 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
-            CustomerAccessAgreementSignaturesOrResponsibleParties:
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
+            CustomerAccessAgreementSignaturesResponsibleParties:
               type: string
               description: Reference to signatories as appropriate
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated documents
+              format: object
       description: 'Output: ReCR Retrieve details about a customer access profile agreement'
     EvaluateRestrictionsRequest:
       type: object
@@ -402,13 +554,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
         Restrictions:
           type: object
           properties:
@@ -420,7 +576,7 @@ components:
               type: string
               description: Details allowed products/services and associated features
               format: string
-            ChannelAccessProductandServiceChannelOrDeviceRestrictions:
+            ChannelAccessProductandServiceChannelDeviceRestrictions:
               type: string
               description: Details restrictions on allowed product/services by channel/device
               format: string
@@ -428,11 +584,11 @@ components:
               type: string
               description: Details restrictions on allowed product/services by location
               format: string
-            ChannelAccessProductandServiceFrequencyOrLimitRestrictions:
+            ChannelAccessProductandServiceFrequencyLimitRestrictions:
               type: string
               description: Details restrictions on allowed product/services by frequency and cumulative amounts - can be cross-product
               format: string
-            ChannelAccessProductandServiceTimeOrDurationRestrictions:
+            ChannelAccessProductandServiceTimeDurationRestrictions:
               type: string
               description: Details restrictions on allowed product/service by schedule and cumulative access duration
               format: string
@@ -458,7 +614,7 @@ components:
               type: string
               description: Details allowed products/services and associated features
               format: string
-            ChannelAccessProductandServiceChannelOrDeviceRestrictions:
+            ChannelAccessProductandServiceChannelDeviceRestrictions:
               type: string
               description: Details restrictions on allowed product/services by channel/device
               format: string
@@ -466,11 +622,11 @@ components:
               type: string
               description: Details restrictions on allowed product/services by location
               format: string
-            ChannelAccessProductandServiceFrequencyOrLimitRestrictions:
+            ChannelAccessProductandServiceFrequencyLimitRestrictions:
               type: string
               description: Details restrictions on allowed product/services by frequency and cumulative amounts - can be cross-product
               format: string
-            ChannelAccessProductandServiceTimeOrDurationRestrictions:
+            ChannelAccessProductandServiceTimeDurationRestrictions:
               type: string
               description: Details restrictions on allowed product/service by schedule and cumulative access duration
               format: string
@@ -482,13 +638,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
         Restrictions:
           type: object
           properties:
@@ -500,7 +660,7 @@ components:
               type: string
               description: Details allowed products/services and associated features
               format: string
-            ChannelAccessProductandServiceChannelOrDeviceRestrictions:
+            ChannelAccessProductandServiceChannelDeviceRestrictions:
               type: string
               description: Details restrictions on allowed product/services by channel/device
               format: string
@@ -508,11 +668,11 @@ components:
               type: string
               description: Details restrictions on allowed product/services by location
               format: string
-            ChannelAccessProductandServiceFrequencyOrLimitRestrictions:
+            ChannelAccessProductandServiceFrequencyLimitRestrictions:
               type: string
               description: Details restrictions on allowed product/services by frequency and cumulative amounts - can be cross-product
               format: string
-            ChannelAccessProductandServiceTimeOrDurationRestrictions:
+            ChannelAccessProductandServiceTimeDurationRestrictions:
               type: string
               description: Details restrictions on allowed product/service by schedule and cumulative access duration
               format: string
@@ -524,13 +684,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
         Restrictions:
           type: object
           properties:
@@ -542,7 +706,7 @@ components:
               type: string
               description: Details allowed products/services and associated features
               format: string
-            ChannelAccessProductandServiceChannelOrDeviceRestrictions:
+            ChannelAccessProductandServiceChannelDeviceRestrictions:
               type: string
               description: Details restrictions on allowed product/services by channel/device
               format: string
@@ -550,11 +714,11 @@ components:
               type: string
               description: Details restrictions on allowed product/services by location
               format: string
-            ChannelAccessProductandServiceFrequencyOrLimitRestrictions:
+            ChannelAccessProductandServiceFrequencyLimitRestrictions:
               type: string
               description: Details restrictions on allowed product/services by frequency and cumulative amounts - can be cross-product
               format: string
-            ChannelAccessProductandServiceTimeOrDurationRestrictions:
+            ChannelAccessProductandServiceTimeDurationRestrictions:
               type: string
               description: Details restrictions on allowed product/service by schedule and cumulative access duration
               format: string
@@ -566,13 +730,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
         Restrictions:
           type: object
           properties:
@@ -584,7 +752,7 @@ components:
               type: string
               description: Details allowed products/services and associated features
               format: string
-            ChannelAccessProductandServiceChannelOrDeviceRestrictions:
+            ChannelAccessProductandServiceChannelDeviceRestrictions:
               type: string
               description: Details restrictions on allowed product/services by channel/device
               format: string
@@ -592,11 +760,11 @@ components:
               type: string
               description: Details restrictions on allowed product/services by location
               format: string
-            ChannelAccessProductandServiceFrequencyOrLimitRestrictions:
+            ChannelAccessProductandServiceFrequencyLimitRestrictions:
               type: string
               description: Details restrictions on allowed product/services by frequency and cumulative amounts - can be cross-product
               format: string
-            ChannelAccessProductandServiceTimeOrDurationRestrictions:
+            ChannelAccessProductandServiceTimeDurationRestrictions:
               type: string
               description: Details restrictions on allowed product/service by schedule and cumulative access duration
               format: string
@@ -608,13 +776,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
         Preferences:
           type: object
           properties:
@@ -623,7 +795,9 @@ components:
               description: Assembles a number of channel access preferences
               format: string
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one of possibly several preferences
+              format: object
             ChannelAccessPreferenceType:
               type: string
               description: The type of preference (e.g. for correspondence)
@@ -632,11 +806,11 @@ components:
               type: string
               description: Consolidates details of the preference
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: Details the specific device or channel with the preference
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'Details the preference (e.g. no paper correspondence, no solicitations)'
               format: string
@@ -663,7 +837,9 @@ components:
               description: Assembles a number of channel access preferences
               format: string
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one of possibly several preferences
+              format: object
             ChannelAccessPreferenceType:
               type: string
               description: The type of preference (e.g. for correspondence)
@@ -680,13 +856,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
       description: 'Input: UpBQ Update details for the preferences in the agreement'
     UpdatePreferencesResponse:
       type: object
@@ -695,13 +875,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
       description: 'Output: UpBQ Update details for the preferences in the agreement'
     RetrievePreferencesResponse:
       type: object
@@ -710,13 +894,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer
+              format: object
             CustomerChannelAccessProfileRecord:
               type: string
               description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
               format: string
-            CustomerAccessAgreementValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            CustomerAccessAgreementValidFromToDate:
+              type: string
+              description: The duration that the agreement is in force
+              format: date
         Preferences:
           type: object
           properties:
@@ -725,7 +913,9 @@ components:
               description: Assembles a number of channel access preferences
               format: string
             ChannelAccessPreferenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one of possibly several preferences
+              format: object
             ChannelAccessPreferenceType:
               type: string
               description: The type of preference (e.g. for correspondence)
@@ -734,11 +924,11 @@ components:
               type: string
               description: Consolidates details of the preference
               format: string
-            ChannelAccessChannelOrDeviceType:
+            ChannelAccessChannelDeviceType:
               type: string
               description: Details the specific device or channel with the preference
               format: string
-            ChannelAccessChannelOrDeviceTypePreference:
+            ChannelAccessChannelDeviceTypePreference:
               type: string
               description: 'Details the preference (e.g. no paper correspondence, no solicitations)'
               format: string
@@ -784,12 +974,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    CustomerAccessProfileAgreement:
-      description: CustomerAccessProfileAgreement
+    EvaluateCustomerAccessProfileAgreementResponse:
+      description: EvaluateCustomerAccessProfileAgreementResponse
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CustomerAccessProfileAgreement'
+            $ref: '#/components/schemas/EvaluateCustomerAccessProfileAgreementResponse'
+    UpdateCustomerAccessProfileAgreementResponse:
+      description: UpdateCustomerAccessProfileAgreementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCustomerAccessProfileAgreementResponse'
+    RequestCustomerAccessProfileAgreementResponse:
+      description: RequestCustomerAccessProfileAgreementResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestCustomerAccessProfileAgreementResponse'
     RetrieveCustomerAccessProfileAgreementResponse:
       description: RetrieveCustomerAccessProfileAgreementResponse
       content:
@@ -855,11 +1057,23 @@ components:
       schema:
         type: string
   requestBodies:
-    CustomerAccessProfileAgreement:
+    EvaluateCustomerAccessProfileAgreementRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CustomerAccessProfileAgreement'
+            $ref: '#/components/schemas/EvaluateCustomerAccessProfileAgreementRequest'
+      required: true
+    UpdateCustomerAccessProfileAgreementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCustomerAccessProfileAgreementRequest'
+      required: true
+    RequestCustomerAccessProfileAgreementRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestCustomerAccessProfileAgreementRequest'
       required: true
     EvaluateRestrictionsRequest:
       content:

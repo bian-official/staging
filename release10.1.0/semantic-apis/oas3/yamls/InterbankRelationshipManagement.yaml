@@ -43,10 +43,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/interbankrelationshipmanagementid'
       requestBody:
-        $ref: '#/components/requestBodies/BankRelationshipManagementPlan'
+        $ref: '#/components/requestBodies/UpdateBankRelationshipManagementPlanRequest'
       responses:
         '200':
-          $ref: '#/components/responses/BankRelationshipManagementPlan'
+          $ref: '#/components/responses/UpdateBankRelationshipManagementPlanResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -230,22 +230,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The date time and location of the contact
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the employee(s) in attendance
     Contact:
       type: object
       properties:
@@ -262,9 +246,13 @@ components:
           description: The record of a customer contact
           format: string
         BankRelationshipContactDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date time and location of the contact
+          format: date
         EmployeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the employee(s) in attendance
+          format: object
         BankRelationshipContactType:
           type: string
           description: 'The reason and or purpose for the contact (e.g. review, issue, product sales, advice, customer enquiry)'
@@ -274,19 +262,25 @@ components:
           description: 'The result of the contact, including follow up tasks'
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to associated documents
+          format: object
       description: "A collection of one or more responsibilities or tasks under management\n\nExamples: Relationship development, Troubleshooting"
     BankRelationshipManagementPlan:
       type: object
       properties:
         BankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated bank
+          format: object
         BankDetails:
           type: string
           description: Key features and details of the bank (e.g. business/segment profile)
           format: string
         EmployeeOrBusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The assigned individual or business unit for the relationship
+          format: object
         BankRelationshipType:
           type: string
           description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
@@ -311,13 +305,17 @@ components:
           type: object
           properties:
             BankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated bank
+              format: object
             BankDetails:
               type: string
               description: Key features and details of the bank (e.g. business/segment profile)
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
             BankRelationshipType:
               type: string
               description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
@@ -337,8 +335,10 @@ components:
         BankRelationshipManagementPlan:
           type: object
           properties:
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
             BankRelationshipType:
               type: string
               description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
@@ -356,6 +356,76 @@ components:
               description: Defines the role and contact details for bank representatives
               format: string
       description: 'Output: CrCR Create an initial bank relationship management plan'
+    UpdateBankRelationshipManagementPlanRequest:
+      type: object
+      properties:
+        BankRelationshipManagementPlan:
+          type: object
+          properties:
+            BankReference:
+              type: string
+              description: Reference to the associated bank
+              format: object
+            BankDetails:
+              type: string
+              description: Key features and details of the bank (e.g. business/segment profile)
+              format: string
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
+            BankRelationshipType:
+              type: string
+              description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
+              format: string
+            BankRelationshipDescription:
+              type: string
+              description: 'A description of the relationship, outlining roles and expectations as appropriate'
+              format: string
+            BankRelationshipBudget:
+              type: string
+              description: The target and actual budget covering expenditures and reciprocal business activity as appropriate
+              format: string
+            BankContactDetails:
+              type: string
+              description: Defines the role and contact details for bank representatives
+              format: string
+      description: 'Input: UpCR Update details of an active bank relationship plan'
+    UpdateBankRelationshipManagementPlanResponse:
+      type: object
+      properties:
+        BankRelationshipManagementPlan:
+          type: object
+          properties:
+            BankReference:
+              type: string
+              description: Reference to the associated bank
+              format: object
+            BankDetails:
+              type: string
+              description: Key features and details of the bank (e.g. business/segment profile)
+              format: string
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
+            BankRelationshipType:
+              type: string
+              description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
+              format: string
+            BankRelationshipDescription:
+              type: string
+              description: 'A description of the relationship, outlining roles and expectations as appropriate'
+              format: string
+            BankRelationshipBudget:
+              type: string
+              description: The target and actual budget covering expenditures and reciprocal business activity as appropriate
+              format: string
+            BankContactDetails:
+              type: string
+              description: Defines the role and contact details for bank representatives
+              format: string
+      description: 'Output: UpCR Update details of an active bank relationship plan'
     RequestBankRelationshipManagementPlanRequest:
       type: object
       properties:
@@ -363,13 +433,17 @@ components:
           type: object
           properties:
             BankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated bank
+              format: object
             BankDetails:
               type: string
               description: Key features and details of the bank (e.g. business/segment profile)
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
             BankRelationshipType:
               type: string
               description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
@@ -389,8 +463,10 @@ components:
         BankRelationshipManagementPlan:
           type: object
           properties:
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
             BankRelationshipType:
               type: string
               description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
@@ -415,13 +491,17 @@ components:
           type: object
           properties:
             BankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated bank
+              format: object
             BankDetails:
               type: string
               description: Key features and details of the bank (e.g. business/segment profile)
               format: string
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The assigned individual or business unit for the relationship
+              format: object
             BankRelationshipType:
               type: string
               description: 'The type of relationship with the bank (e.g. trading partner, joint venture partner)'
@@ -480,9 +560,13 @@ components:
               description: The record of a customer contact
               format: string
             BankRelationshipContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time and location of the contact
+              format: date
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee(s) in attendance
+              format: object
             BankRelationshipContactType:
               type: string
               description: 'The reason and or purpose for the contact (e.g. review, issue, product sales, advice, customer enquiry)'
@@ -492,7 +576,9 @@ components:
               description: 'The result of the contact, including follow up tasks'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
       description: 'Input: UpBQ Update details about the bank contact schedule or a contact record'
     UpdateContactResponse:
       type: object
@@ -505,9 +591,13 @@ components:
               description: The record of a customer contact
               format: string
             BankRelationshipContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time and location of the contact
+              format: date
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee(s) in attendance
+              format: object
             BankRelationshipContactType:
               type: string
               description: 'The reason and or purpose for the contact (e.g. review, issue, product sales, advice, customer enquiry)'
@@ -517,7 +607,9 @@ components:
               description: 'The result of the contact, including follow up tasks'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
       description: 'Output: UpBQ Update details about the bank contact schedule or a contact record'
     RequestContactRequest:
       type: object
@@ -530,15 +622,21 @@ components:
               description: The record of a customer contact
               format: string
             BankRelationshipContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time and location of the contact
+              format: date
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee(s) in attendance
+              format: object
             BankRelationshipContactType:
               type: string
               description: 'The reason and or purpose for the contact (e.g. review, issue, product sales, advice, customer enquiry)'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
       description: 'Input: RqBQ Request manual intervention with the bank relationship'
     RequestContactResponse:
       type: object
@@ -551,7 +649,9 @@ components:
               description: The record of a customer contact
               format: string
             BankRelationshipContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time and location of the contact
+              format: date
             BankRelationshipContactType:
               type: string
               description: 'The reason and or purpose for the contact (e.g. review, issue, product sales, advice, customer enquiry)'
@@ -561,7 +661,9 @@ components:
               description: 'The result of the contact, including follow up tasks'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
       description: 'Output: RqBQ Request manual intervention with the bank relationship'
     RetrieveContactResponse:
       type: object
@@ -582,9 +684,13 @@ components:
               description: The record of a customer contact
               format: string
             BankRelationshipContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time and location of the contact
+              format: date
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee(s) in attendance
+              format: object
             BankRelationshipContactType:
               type: string
               description: 'The reason and or purpose for the contact (e.g. review, issue, product sales, advice, customer enquiry)'
@@ -594,7 +700,9 @@ components:
               description: 'The result of the contact, including follow up tasks'
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to associated documents
+              format: object
       description: 'Output: ReBQ Retrieve details about the contact schedule or specific contacts'
   responses:
     BadRequest:
@@ -639,12 +747,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateBankRelationshipManagementPlanResponse'
-    BankRelationshipManagementPlan:
-      description: BankRelationshipManagementPlan
+    UpdateBankRelationshipManagementPlanResponse:
+      description: UpdateBankRelationshipManagementPlanResponse
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BankRelationshipManagementPlan'
+            $ref: '#/components/schemas/UpdateBankRelationshipManagementPlanResponse'
     RequestBankRelationshipManagementPlanResponse:
       description: RequestBankRelationshipManagementPlanResponse
       content:
@@ -703,11 +811,11 @@ components:
           schema:
             $ref: '#/components/schemas/CreateBankRelationshipManagementPlanRequest'
       required: true
-    BankRelationshipManagementPlan:
+    UpdateBankRelationshipManagementPlanRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BankRelationshipManagementPlan'
+            $ref: '#/components/schemas/UpdateBankRelationshipManagementPlanRequest'
       required: true
     RequestBankRelationshipManagementPlanRequest:
       content:

@@ -386,39 +386,29 @@ components:
           description: 'Description of any known constraints on servicing the customer (sight, hearing, religious considerations)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the legal entity - enables the assembly of the legal relationship structure
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The start date for the relationship
     Reference:
       type: object
       properties:
         PartyLegalEntityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the legal entity - enables the assembly of the legal relationship structure
+          format: object
         PartyName/Salutation:
           type: string
           description: The preferred salutation to be used
           format: string
         GovernmentIssuedIdentityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to government or agency issued identification (e.g. social security number)
+          format: object
         GovernmentIssuedDocumentDetails:
           type: string
           description: Details about and extracted from government issued documents (e.g. driving license/passport details)
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The document reference for associated documents
+          format: object
         ResidencyStatus:
           type: string
           description: The residency status and history as appropriate
@@ -456,29 +446,41 @@ components:
           description: Detail of the customer's political exposure
           format: string
         CorporateCustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the corporate entity (Company for company customers)
+          format: object
         CorporateCustomerLegalEntityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The legal entity reference (for company customers)
+          format: object
         CorporateAddress:
           type: string
           description: The company registered address
           format: string
         CompanyOfficerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to one or more identified company officers for a corporate customer
+          format: object
         CompanyOfficerRole:
           type: string
           description: The specific role played by the identified officer/employee
           format: string
         CustomerSinceDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The start date for the relationship
+          format: date
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
     Associations:
       type: object
       properties:
         EmployeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to a contact at the customer's employer
+          format: object
         AssociateReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Associated individuals of interest
+          format: object
         AssociateType:
           type: string
           description: 'The type of association with the customer (e.g. familial or corporate, includes household associations, for corporations allowed users/buyers)'
@@ -488,15 +490,21 @@ components:
           description: Description of the rights or obligations granted to the associate
           format: string
         AssociationValidFrom/ToDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The start and end dates for the association if appropriate
+          format: date
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to a product or service where the association is linked in some manner (e.g. guarantor)
+          format: object
         PreferredBeneficiary:
           type: string
           description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
           format: preferredbeneficiary
         Proxy/Representative/PowerofAttorneyReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to individuals with specific representation rights (e.g. a lawyer with power of attorney)
+          format: object
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
     BankRelations:
       type: object
@@ -506,61 +514,25 @@ components:
           description: The type of relationship (e.g. relationship manager)
           format: string
         BusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated employee or unit
+          format: object
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
-    datetime:
-      type: object
-      properties:
-        Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        Partyidentification:
-          type: string
-          description: ''
-          format: datatype
-      description: ''
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        PartyType:
-          type: string
-          description: Specifies the type of party in different business contexts. (ISO20022)
-          format: string
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: Reference to the associated customer (can currently be a person or a company)
-    directoryentrydatetypevalues:
-      enum:
-        - OpenDate
-        - RefreshDate
-      type: string
-      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     PartyReferenceDataDirectoryEntry:
       type: object
       properties:
         PartyReference:
-          $ref: '#/components/schemas/party'
+          type: string
+          description: Reference to the associated customer (can currently be a person or a company)
+          format: party
         DirectoryEntryDateType:
-          $ref: '#/components/schemas/directoryentrydatetypevalues'
+          type: string
+          description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+          format: directoryentrydatetypevalues
         DirectoryEntryDate:
-          $ref: '#/components/schemas/datetime'
+          type: string
+          description: Value of the date type
+          format: datetime
       description: Capture and maintain reference information about some type of entitity within Party Reference Data Directory.
     RegisterPartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -569,7 +541,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: InCR Register a customer entity in the catalog'
     UpdatePartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -578,7 +552,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: UpCR Update details about the customer''s directory entry'
     UpdatePartyReferenceDataDirectoryEntryResponse:
       type: object
@@ -587,7 +563,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Output: UpCR Update details about the customer''s directory entry'
     RequestPartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -596,7 +574,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: RqCR Request manual intervention with an entry (e.g. refresh content)'
     RetrievePartyReferenceDataDirectoryEntryResponse:
       type: object
@@ -605,7 +585,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Output: ReCR Retrieve details about a customer directory entry'
     ExecutePartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -614,19 +596,25 @@ components:
           type: object
           properties:
             PartyLegalEntityReference:
-              $ref: '#/components/schemas/object'
-            PartyNameOrSalutation:
+              type: string
+              description: Reference to the legal entity - enables the assembly of the legal relationship structure
+              format: object
+            PartyNameSalutation:
               type: string
               description: The preferred salutation to be used
               format: string
             GovernmentIssuedIdentityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to government or agency issued identification (e.g. social security number)
+              format: object
             GovernmentIssuedDocumentDetails:
               type: string
               description: Details about and extracted from government issued documents (e.g. driving license/passport details)
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             ResidencyStatus:
               type: string
               description: The residency status and history as appropriate
@@ -647,7 +635,7 @@ components:
               type: string
               description: The given email address
               format: string
-            CellOrPhoneNumber:
+            CellPhoneNumber:
               type: string
               description: Any given phone contact numbers
               format: string
@@ -664,46 +652,64 @@ components:
               description: Detail of the customer's political exposure
               format: string
             CorporateCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the corporate entity (Company for company customers)
+              format: object
             CorporateCustomerLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The legal entity reference (for company customers)
+              format: object
             CorporateAddress:
               type: string
               description: The company registered address
               format: string
             CompanyOfficerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more identified company officers for a corporate customer
+              format: object
             CompanyOfficerRole:
               type: string
               description: The specific role played by the identified officer/employee
               format: string
             CustomerSinceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The start date for the relationship
+              format: date
         Associations:
           type: object
           properties:
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a contact at the customer's employer
+              format: object
             AssociateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Associated individuals of interest
+              format: object
             AssociateType:
               type: string
               description: 'The type of association with the customer (e.g. familial or corporate, includes household associations, for corporations allowed users/buyers)'
               format: string
-            AssociateObligationOrDependencyDescription:
+            AssociateObligationDependencyDescription:
               type: string
               description: Description of the rights or obligations granted to the associate
               format: string
-            AssociationValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            AssociationValidFromToDate:
+              type: string
+              description: The start and end dates for the association if appropriate
+              format: date
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a product or service where the association is linked in some manner (e.g. guarantor)
+              format: object
             PreferredBeneficiary:
               type: string
               description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
               format: preferredbeneficiary
-            ProxyOrRepresentativeOrPowerofAttorneyReference:
-              $ref: '#/components/schemas/object'
+            ProxyRepresentativePowerofAttorneyReference:
+              type: string
+              description: Reference to individuals with specific representation rights (e.g. a lawyer with power of attorney)
+              format: object
         Demographics:
           type: object
           properties:
@@ -711,7 +717,7 @@ components:
               type: string
               description: A bank defined classification of the socio-economic rating and prospect
               format: string
-            EthnicityOrReligion:
+            EthnicityReligion:
               type: string
               description: Where needed to ensure the bank's handling of the relationship follows legal and regulatory requirements
               format: string
@@ -738,8 +744,10 @@ components:
               type: string
               description: The type of relationship (e.g. relationship manager)
               format: string
-            BusinessUnitOrEmployeeReference:
-              $ref: '#/components/schemas/object'
+            BusinessUnitEmployeeReference:
+              type: string
+              description: Reference to the associated employee or unit
+              format: object
       description: 'Input: ExCR Execute an automated action against an entry'
     UpdateReferenceRequest:
       type: object
@@ -748,24 +756,32 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Reference:
           type: object
           properties:
             PartyLegalEntityReference:
-              $ref: '#/components/schemas/object'
-            PartyNameOrSalutation:
+              type: string
+              description: Reference to the legal entity - enables the assembly of the legal relationship structure
+              format: object
+            PartyNameSalutation:
               type: string
               description: The preferred salutation to be used
               format: string
             GovernmentIssuedIdentityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to government or agency issued identification (e.g. social security number)
+              format: object
             GovernmentIssuedDocumentDetails:
               type: string
               description: Details about and extracted from government issued documents (e.g. driving license/passport details)
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             ResidencyStatus:
               type: string
               description: The residency status and history as appropriate
@@ -786,7 +802,7 @@ components:
               type: string
               description: The given email address
               format: string
-            CellOrPhoneNumber:
+            CellPhoneNumber:
               type: string
               description: Any given phone contact numbers
               format: string
@@ -803,21 +819,29 @@ components:
               description: Detail of the customer's political exposure
               format: string
             CorporateCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the corporate entity (Company for company customers)
+              format: object
             CorporateCustomerLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The legal entity reference (for company customers)
+              format: object
             CorporateAddress:
               type: string
               description: The company registered address
               format: string
             CompanyOfficerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more identified company officers for a corporate customer
+              format: object
             CompanyOfficerRole:
               type: string
               description: The specific role played by the identified officer/employee
               format: string
             CustomerSinceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The start date for the relationship
+              format: date
       description: 'Input: UpBQ Update details about a reference entry for the customer'
     UpdateReferenceResponse:
       type: object
@@ -826,24 +850,32 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Reference:
           type: object
           properties:
             PartyLegalEntityReference:
-              $ref: '#/components/schemas/object'
-            PartyNameOrSalutation:
+              type: string
+              description: Reference to the legal entity - enables the assembly of the legal relationship structure
+              format: object
+            PartyNameSalutation:
               type: string
               description: The preferred salutation to be used
               format: string
             GovernmentIssuedIdentityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to government or agency issued identification (e.g. social security number)
+              format: object
             GovernmentIssuedDocumentDetails:
               type: string
               description: Details about and extracted from government issued documents (e.g. driving license/passport details)
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             ResidencyStatus:
               type: string
               description: The residency status and history as appropriate
@@ -864,7 +896,7 @@ components:
               type: string
               description: The given email address
               format: string
-            CellOrPhoneNumber:
+            CellPhoneNumber:
               type: string
               description: Any given phone contact numbers
               format: string
@@ -881,21 +913,29 @@ components:
               description: Detail of the customer's political exposure
               format: string
             CorporateCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the corporate entity (Company for company customers)
+              format: object
             CorporateCustomerLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The legal entity reference (for company customers)
+              format: object
             CorporateAddress:
               type: string
               description: The company registered address
               format: string
             CompanyOfficerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more identified company officers for a corporate customer
+              format: object
             CompanyOfficerRole:
               type: string
               description: The specific role played by the identified officer/employee
               format: string
             CustomerSinceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The start date for the relationship
+              format: date
       description: 'Output: UpBQ Update details about a reference entry for the customer'
     RetrieveReferenceResponse:
       type: object
@@ -904,24 +944,32 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Reference:
           type: object
           properties:
             PartyLegalEntityReference:
-              $ref: '#/components/schemas/object'
-            PartyNameOrSalutation:
+              type: string
+              description: Reference to the legal entity - enables the assembly of the legal relationship structure
+              format: object
+            PartyNameSalutation:
               type: string
               description: The preferred salutation to be used
               format: string
             GovernmentIssuedIdentityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to government or agency issued identification (e.g. social security number)
+              format: object
             GovernmentIssuedDocumentDetails:
               type: string
               description: Details about and extracted from government issued documents (e.g. driving license/passport details)
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             ResidencyStatus:
               type: string
               description: The residency status and history as appropriate
@@ -942,7 +990,7 @@ components:
               type: string
               description: The given email address
               format: string
-            CellOrPhoneNumber:
+            CellPhoneNumber:
               type: string
               description: Any given phone contact numbers
               format: string
@@ -959,21 +1007,29 @@ components:
               description: Detail of the customer's political exposure
               format: string
             CorporateCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the corporate entity (Company for company customers)
+              format: object
             CorporateCustomerLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The legal entity reference (for company customers)
+              format: object
             CorporateAddress:
               type: string
               description: The company registered address
               format: string
             CompanyOfficerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more identified company officers for a corporate customer
+              format: object
             CompanyOfficerRole:
               type: string
               description: The specific role played by the identified officer/employee
               format: string
             CustomerSinceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The start date for the relationship
+              format: date
       description: 'Output: ReBQ Retrieve details about reference entries in the directory'
     UpdateAssociationsRequest:
       type: object
@@ -982,32 +1038,44 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Associations:
           type: object
           properties:
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a contact at the customer's employer
+              format: object
             AssociateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Associated individuals of interest
+              format: object
             AssociateType:
               type: string
               description: 'The type of association with the customer (e.g. familial or corporate, includes household associations, for corporations allowed users/buyers)'
               format: string
-            AssociateObligationOrDependencyDescription:
+            AssociateObligationDependencyDescription:
               type: string
               description: Description of the rights or obligations granted to the associate
               format: string
-            AssociationValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            AssociationValidFromToDate:
+              type: string
+              description: The start and end dates for the association if appropriate
+              format: date
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a product or service where the association is linked in some manner (e.g. guarantor)
+              format: object
             PreferredBeneficiary:
               type: string
               description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
               format: preferredbeneficiary
-            ProxyOrRepresentativeOrPowerofAttorneyReference:
-              $ref: '#/components/schemas/object'
+            ProxyRepresentativePowerofAttorneyReference:
+              type: string
+              description: Reference to individuals with specific representation rights (e.g. a lawyer with power of attorney)
+              format: object
       description: 'Input: UpBQ Update details about an association entry for the customer'
     UpdateAssociationsResponse:
       type: object
@@ -1016,32 +1084,44 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Associations:
           type: object
           properties:
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a contact at the customer's employer
+              format: object
             AssociateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Associated individuals of interest
+              format: object
             AssociateType:
               type: string
               description: 'The type of association with the customer (e.g. familial or corporate, includes household associations, for corporations allowed users/buyers)'
               format: string
-            AssociateObligationOrDependencyDescription:
+            AssociateObligationDependencyDescription:
               type: string
               description: Description of the rights or obligations granted to the associate
               format: string
-            AssociationValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            AssociationValidFromToDate:
+              type: string
+              description: The start and end dates for the association if appropriate
+              format: date
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a product or service where the association is linked in some manner (e.g. guarantor)
+              format: object
             PreferredBeneficiary:
               type: string
               description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
               format: preferredbeneficiary
-            ProxyOrRepresentativeOrPowerofAttorneyReference:
-              $ref: '#/components/schemas/object'
+            ProxyRepresentativePowerofAttorneyReference:
+              type: string
+              description: Reference to individuals with specific representation rights (e.g. a lawyer with power of attorney)
+              format: object
       description: 'Output: UpBQ Update details about an association entry for the customer'
     RetrieveAssociationsResponse:
       type: object
@@ -1050,32 +1130,44 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Associations:
           type: object
           properties:
             EmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a contact at the customer's employer
+              format: object
             AssociateReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Associated individuals of interest
+              format: object
             AssociateType:
               type: string
               description: 'The type of association with the customer (e.g. familial or corporate, includes household associations, for corporations allowed users/buyers)'
               format: string
-            AssociateObligationOrDependencyDescription:
+            AssociateObligationDependencyDescription:
               type: string
               description: Description of the rights or obligations granted to the associate
               format: string
-            AssociationValidFromOrToDate:
-              $ref: '#/components/schemas/date'
+            AssociationValidFromToDate:
+              type: string
+              description: The start and end dates for the association if appropriate
+              format: date
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a product or service where the association is linked in some manner (e.g. guarantor)
+              format: object
             PreferredBeneficiary:
               type: string
               description: A potentially complex and structured list of identified beneficiaries with associated contact and payment details as needed
               format: preferredbeneficiary
-            ProxyOrRepresentativeOrPowerofAttorneyReference:
-              $ref: '#/components/schemas/object'
+            ProxyRepresentativePowerofAttorneyReference:
+              type: string
+              description: Reference to individuals with specific representation rights (e.g. a lawyer with power of attorney)
+              format: object
       description: 'Output: ReBQ Retrieve details about association entries in the directory record'
     UpdateDemographicsRequest:
       type: object
@@ -1084,7 +1176,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Demographics:
           type: object
           properties:
@@ -1092,7 +1186,7 @@ components:
               type: string
               description: A bank defined classification of the socio-economic rating and prospect
               format: string
-            EthnicityOrReligion:
+            EthnicityReligion:
               type: string
               description: Where needed to ensure the bank's handling of the relationship follows legal and regulatory requirements
               format: string
@@ -1120,7 +1214,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Demographics:
           type: object
           properties:
@@ -1128,7 +1224,7 @@ components:
               type: string
               description: A bank defined classification of the socio-economic rating and prospect
               format: string
-            EthnicityOrReligion:
+            EthnicityReligion:
               type: string
               description: Where needed to ensure the bank's handling of the relationship follows legal and regulatory requirements
               format: string
@@ -1156,7 +1252,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Demographics:
           type: object
           properties:
@@ -1164,7 +1262,7 @@ components:
               type: string
               description: A bank defined classification of the socio-economic rating and prospect
               format: string
-            EthnicityOrReligion:
+            EthnicityReligion:
               type: string
               description: Where needed to ensure the bank's handling of the relationship follows legal and regulatory requirements
               format: string
@@ -1192,7 +1290,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         BankRelations:
           type: object
           properties:
@@ -1200,8 +1300,10 @@ components:
               type: string
               description: The type of relationship (e.g. relationship manager)
               format: string
-            BusinessUnitOrEmployeeReference:
-              $ref: '#/components/schemas/object'
+            BusinessUnitEmployeeReference:
+              type: string
+              description: Reference to the associated employee or unit
+              format: object
       description: 'Input: UpBQ Update details about a customer''s bank relations entry for the customer'
     UpdateBankRelationsResponse:
       type: object
@@ -1210,7 +1312,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         BankRelations:
           type: object
           properties:
@@ -1218,8 +1322,10 @@ components:
               type: string
               description: The type of relationship (e.g. relationship manager)
               format: string
-            BusinessUnitOrEmployeeReference:
-              $ref: '#/components/schemas/object'
+            BusinessUnitEmployeeReference:
+              type: string
+              description: Reference to the associated employee or unit
+              format: object
       description: 'Output: UpBQ Update details about a customer''s bank relations entry for the customer'
     RetrieveBankRelationsResponse:
       type: object
@@ -1228,7 +1334,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         BankRelations:
           type: object
           properties:
@@ -1236,8 +1344,10 @@ components:
               type: string
               description: The type of relationship (e.g. relationship manager)
               format: string
-            BusinessUnitOrEmployeeReference:
-              $ref: '#/components/schemas/object'
+            BusinessUnitEmployeeReference:
+              type: string
+              description: Reference to the associated employee or unit
+              format: object
       description: 'Output: ReBQ Retrieve details about customer bank relations entries in the directory'
   responses:
     BadRequest:

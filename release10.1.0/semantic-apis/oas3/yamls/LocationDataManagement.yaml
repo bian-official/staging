@@ -318,19 +318,13 @@ components:
           description: 'The allowed usage for the property at the location (e.g. domestic residence, manufacturing, retail)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to the bank customer (if they are owner and/or occupier of the property at the location)
     Occupancy:
       type: object
       properties:
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the bank customer (if they are owner and/or occupier of the property at the location)
+          format: object
         LocationOwner/Title:
           type: string
           description: Registered owner or title holder(s) of the property
@@ -344,13 +338,17 @@ components:
           description: 'The type of occupancy (e.g. residency, business, retail, entertainment)'
           format: string
         LocationOccupierReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Known contact reference details of occupier (e.g. family name, company, retailer)'
+          format: object
         LocationOccupierTerms:
           type: string
           description: 'Nature of the access terms or entitlement of the occupier (e.g. leasehold, rental, public access)'
           format: string
         AlliancePartnerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to a bank alliance partner with some kind of link association to the location (used for location based marketing)
+          format: object
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
     Location:
       type: object
@@ -388,106 +386,21 @@ components:
           description: 'The general purpose and neighborhood of the property  (e.g. residential, industrial, commercial)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: 'A description of the property, particularly if it has landmark characteristics.'
-    datetime:
-      type: object
-      properties:
-        Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
-      description: 'Key dates associated with the directory entry (e.g. open date, refresh date).'
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: 'The tracked status (e.g. under construction or repair, inhabited, vacant).'
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: The estimated (book) value of the property at the location - rental and purchase as appropriate.
-    identifier:
-      type: object
-      properties:
-        Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
-      description: ''
-    addresstypevalues:
-      enum:
-        - PostalAddress
-        - GeolocationAddress
-        - LatitudeAddress
-        - LongitudeAddress
-        - ElectronicAddress
-      type: string
-      description: ">\n* `PostalAddress` - \n* `GeolocationAddress` - \n* `LatitudeAddress` - \n* `LongitudeAddress` - \n* `ElectronicAddress` - \n"
-    address:
-      type: object
-      properties:
-        AddressType:
-          $ref: '#/components/schemas/addresstypevalues'
-      description: ''
-    location:
-      type: object
-      properties:
-        LocationDescription:
-          $ref: '#/components/schemas/text'
-        LocationDateTime:
-          $ref: '#/components/schemas/datetime'
-        LocationStatus:
-          $ref: '#/components/schemas/status'
-        LocationType:
-          type: string
-          description: 'Type of location (e.g. building, point of interest, virtual location/device).'
-          format: string
-        LocationZoningType:
-          $ref: '#/components/schemas/text'
-        LocationNeighborhoodType:
-          $ref: '#/components/schemas/text'
-        LocationConstructionType:
-          $ref: '#/components/schemas/text'
-        LocationOccupancyType:
-          $ref: '#/components/schemas/text'
-        LocationValue:
-          $ref: '#/components/schemas/value'
-        LocationCapacity:
-          $ref: '#/components/schemas/text'
-        LocationIdentification:
-          $ref: '#/components/schemas/identifier'
-        LocationAddress:
-          $ref: '#/components/schemas/address'
-      description: Reference to associated location (can be a physical or electronic location)
-    directoryentrydatetypevalues:
-      enum:
-        - OpenDate
-        - RefreshDate
-      type: string
-      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     LocationDirectoryEntry:
       type: object
       properties:
         LocationReference:
-          $ref: '#/components/schemas/location'
+          type: string
+          description: Reference to associated location (can be a physical or electronic location)
+          format: location
         DirectoryEntryDateType:
-          $ref: '#/components/schemas/directoryentrydatetypevalues'
+          type: string
+          description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+          format: directoryentrydatetypevalues
         DirectoryEntryDate:
-          $ref: '#/components/schemas/datetime'
+          type: string
+          description: Value of the date type
+          format: datetime
       description: Capture and maintain reference information about some type of entitity within Location Data Management.
     RegisterLocationDirectoryEntryRequest:
       type: object
@@ -496,9 +409,13 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: InCR Register a location in the catalog'
     UpdateLocationDirectoryEntryRequest:
       type: object
@@ -507,9 +424,13 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: UpCR Update details about the location''s directory entry'
     UpdateLocationDirectoryEntryResponse:
       type: object
@@ -518,9 +439,13 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Output: UpCR Update details about the location''s directory entry'
     RequestLocationDirectoryEntryRequest:
       type: object
@@ -529,7 +454,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: RqCR Request manual intervention with an entry (e.g. refresh content)'
     RetrieveLocationDirectoryEntryResponse:
       type: object
@@ -538,9 +465,13 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Output: ReCR Retrieve details about a location directory entry'
     ExecuteLocationDirectoryEntryRequest:
       type: object
@@ -595,8 +526,10 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            LocationOwnerOrTitle:
+              type: string
+              description: Reference to the bank customer (if they are owner and/or occupier of the property at the location)
+              format: object
+            LocationOwnerTitle:
               type: string
               description: Registered owner or title holder(s) of the property
               format: string
@@ -609,13 +542,17 @@ components:
               description: 'The type of occupancy (e.g. residency, business, retail, entertainment)'
               format: string
             LocationOccupierReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Known contact reference details of occupier (e.g. family name, company, retailer)'
+              format: object
             LocationOccupierTerms:
               type: string
               description: 'Nature of the access terms or entitlement of the occupier (e.g. leasehold, rental, public access)'
               format: string
             AlliancePartnerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a bank alliance partner with some kind of link association to the location (used for location based marketing)
+              format: object
       description: 'Input: ExCR Execute an automated action against an entry'
     UpdateLocationRequest:
       type: object
@@ -624,7 +561,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Location:
           type: object
           properties:
@@ -668,7 +607,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Location:
           type: object
           properties:
@@ -712,9 +653,13 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Location:
           type: object
           properties:
@@ -758,7 +703,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Use:
           type: object
           properties:
@@ -778,7 +725,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Use:
           type: object
           properties:
@@ -798,9 +747,13 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Use:
           type: object
           properties:
@@ -820,13 +773,17 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Occupancy:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            LocationOwnerOrTitle:
+              type: string
+              description: Reference to the bank customer (if they are owner and/or occupier of the property at the location)
+              format: object
+            LocationOwnerTitle:
               type: string
               description: Registered owner or title holder(s) of the property
               format: string
@@ -839,13 +796,17 @@ components:
               description: 'The type of occupancy (e.g. residency, business, retail, entertainment)'
               format: string
             LocationOccupierReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Known contact reference details of occupier (e.g. family name, company, retailer)'
+              format: object
             LocationOccupierTerms:
               type: string
               description: 'Nature of the access terms or entitlement of the occupier (e.g. leasehold, rental, public access)'
               format: string
             AlliancePartnerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a bank alliance partner with some kind of link association to the location (used for location based marketing)
+              format: object
       description: 'Input: UpBQ Update details about a location''s occupancy'
     UpdateOccupancyResponse:
       type: object
@@ -854,13 +815,17 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Occupancy:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            LocationOwnerOrTitle:
+              type: string
+              description: Reference to the bank customer (if they are owner and/or occupier of the property at the location)
+              format: object
+            LocationOwnerTitle:
               type: string
               description: Registered owner or title holder(s) of the property
               format: string
@@ -873,13 +838,17 @@ components:
               description: 'The type of occupancy (e.g. residency, business, retail, entertainment)'
               format: string
             LocationOccupierReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Known contact reference details of occupier (e.g. family name, company, retailer)'
+              format: object
             LocationOccupierTerms:
               type: string
               description: 'Nature of the access terms or entitlement of the occupier (e.g. leasehold, rental, public access)'
               format: string
             AlliancePartnerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a bank alliance partner with some kind of link association to the location (used for location based marketing)
+              format: object
       description: 'Output: UpBQ Update details about a location''s occupancy'
     RetrieveOccupancyResponse:
       type: object
@@ -888,15 +857,21 @@ components:
           type: object
           properties:
             LocationReference:
-              $ref: '#/components/schemas/location'
+              type: string
+              description: Reference to associated location (can be a physical or electronic location)
+              format: location
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Occupancy:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            LocationOwnerOrTitle:
+              type: string
+              description: Reference to the bank customer (if they are owner and/or occupier of the property at the location)
+              format: object
+            LocationOwnerTitle:
               type: string
               description: Registered owner or title holder(s) of the property
               format: string
@@ -909,13 +884,17 @@ components:
               description: 'The type of occupancy (e.g. residency, business, retail, entertainment)'
               format: string
             LocationOccupierReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Known contact reference details of occupier (e.g. family name, company, retailer)'
+              format: object
             LocationOccupierTerms:
               type: string
               description: 'Nature of the access terms or entitlement of the occupier (e.g. leasehold, rental, public access)'
               format: string
             AlliancePartnerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a bank alliance partner with some kind of link association to the location (used for location based marketing)
+              format: object
       description: 'Output: ReBQ Retrieve details about location''s occupancy entry in the directory'
   responses:
     BadRequest:

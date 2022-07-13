@@ -280,14 +280,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        Object:
-          type: string
-          description: ''
-          format: datatype
-      description: Reference to market trades impacting the position during the current trading period
     Position:
       type: object
       properties:
@@ -296,7 +288,9 @@ components:
           description: The security that the bank position is traded for
           format: string
         PositionMarketOrderTradeInitiationInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to market trades impacting the position during the current trading period
+          format: object
         BankSecurityPositionSecurityPAndLRecord:
           type: string
           description: 'The consolidated record of trading activity against the position during the trading period, including the derived position P&L'
@@ -322,9 +316,13 @@ components:
           description: The terms covering the clearing and settlement of the trade
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The document reference for the trade confirmation notice
+          format: object
         CorrespondenceInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the correspondence generated for the trade confirmation
+          format: object
         WholesaleTradeStatus:
           type: string
           description: Status tracking for the wholesale trade
@@ -350,7 +348,9 @@ components:
       type: object
       properties:
         WholesaleTradeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'If the market trade is not executed against the bank position, but directly in the wholesale market, this refers to the actual wholesale trading record'
+          format: object
         MarketTradeTransactionInstanceProcessingStatus:
           type: string
           description: 'The tracked and returned processing status of the market trade (e.g. pending, partially complete, complete)'
@@ -364,11 +364,17 @@ components:
       type: object
       properties:
         MarketOrderTransactionInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the market order that is to be executed in the markets
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the account primary party/owner for the market order
+          format: object
         EmployeeOrBusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The employee/business unit placing the market order
+          format: object
         CustomerMarketOrderProcessingInstruction:
           type: string
           description: Any customer specific processing preferences or requirements
@@ -378,9 +384,13 @@ components:
           description: The details of the market order transaction
           format: string
         InvestmentAccountArrangementInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the underlying investment account supporting the transaction
+          format: object
         CurrentAccountArrangementInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the underlying cash account supporting the transaction
+          format: object
         MarketOrderType:
           type: string
           description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -402,7 +412,9 @@ components:
           description: Value of the specific date type
           format: string
         MarketOrderTradeInitiationInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated market trade if the order is executed in the market directly
+          format: object
       description: 'Execute a well-bounded financial transaction/task, typically involving largely automated/structured fulfillment processing within Market Order Execution. '
     InitiateMarketTradeTransactionRequest:
       type: object
@@ -411,19 +423,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -441,7 +463,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Input: InCR Initiate a market trade'
     InitiateMarketTradeTransactionResponse:
       type: object
@@ -450,15 +474,21 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -476,7 +506,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Output: InCR Initiate a market trade'
     UpdateMarketTradeTransactionRequest:
       type: object
@@ -485,19 +517,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -515,7 +557,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Input: UpCR Update details on an active market trade request'
     UpdateMarketTradeTransactionResponse:
       type: object
@@ -524,19 +568,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -554,7 +608,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Output: UpCR Update details on an active market trade request'
     RequestMarketTradeTransactionRequest:
       type: object
@@ -563,19 +619,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -593,7 +659,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Input: RqCR Request manual intervention to an active market trade'
     RequestMarketTradeTransactionResponse:
       type: object
@@ -602,15 +670,21 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -628,7 +702,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Output: RqCR Request manual intervention to an active market trade'
     RetrieveMarketTradeTransactionResponse:
       type: object
@@ -637,19 +713,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -667,7 +753,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
       description: 'Output: ReCR Retrieve details about a market trade'
     InitiateQuoteRequest:
       type: object
@@ -676,19 +764,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -706,7 +804,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
         Quote:
           type: object
           properties:
@@ -726,15 +826,21 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -752,7 +858,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
         Quote:
           type: object
           properties:
@@ -772,19 +880,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -802,7 +920,9 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
         Quote:
           type: object
           properties:
@@ -822,19 +942,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -852,12 +982,16 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
         TradeInitiation:
           type: object
           properties:
             WholesaleTradeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'If the market trade is not executed against the bank position, but directly in the wholesale market, this refers to the actual wholesale trading record'
+              format: object
             MarketTradeTransactionInstanceProcessingStatus:
               type: string
               description: 'The tracked and returned processing status of the market trade (e.g. pending, partially complete, complete)'
@@ -870,15 +1004,21 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -896,12 +1036,16 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
         TradeInitiation:
           type: object
           properties:
             WholesaleTradeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'If the market trade is not executed against the bank position, but directly in the wholesale market, this refers to the actual wholesale trading record'
+              format: object
             MarketTradeTransactionInstanceProcessingStatus:
               type: string
               description: 'The tracked and returned processing status of the market trade (e.g. pending, partially complete, complete)'
@@ -918,19 +1062,29 @@ components:
           type: object
           properties:
             MarketOrderTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the market order that is to be executed in the markets
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
-            EmployeeOrBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner for the market order
+              format: object
+            EmployeeBusinessUnitReference:
+              type: string
+              description: The employee/business unit placing the market order
+              format: object
             CustomerMarketOrderProcessingInstruction:
               type: string
               description: Any customer specific processing preferences or requirements
               format: string
             InvestmentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying investment account supporting the transaction
+              format: object
             CurrentAccountArrangementInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the underlying cash account supporting the transaction
+              format: object
             MarketOrderType:
               type: string
               description: 'The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)'
@@ -948,12 +1102,16 @@ components:
               description: 'Key dates associated with the transaction (e.g. order capture, trade execution, order completion)'
               format: string
             MarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated market trade if the order is executed in the market directly
+              format: object
         TradeInitiation:
           type: object
           properties:
             WholesaleTradeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'If the market trade is not executed against the bank position, but directly in the wholesale market, this refers to the actual wholesale trading record'
+              format: object
             MarketTradeTransactionInstanceProcessingStatus:
               type: string
               description: 'The tracked and returned processing status of the market trade (e.g. pending, partially complete, complete)'
@@ -974,7 +1132,9 @@ components:
               description: The security that the bank position is traded for
               format: string
             PositionMarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to market trades impacting the position during the current trading period
+              format: object
             WholesaleTrade:
               type: string
               description: The record of trades made in the wholesale markets by the bank to manage its net security position. Note for larger market orders/trades there may be a corresponding wholesale transaction as appropriate)
@@ -999,7 +1159,9 @@ components:
               description: The security that the bank position is traded for
               format: string
             PositionMarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to market trades impacting the position during the current trading period
+              format: object
             BankSecurityPositionSecurityPAndLRecord:
               type: string
               description: 'The consolidated record of trading activity against the position during the trading period, including the derived position P&L'
@@ -1025,9 +1187,13 @@ components:
               description: The terms covering the clearing and settlement of the trade
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the trade confirmation notice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence generated for the trade confirmation
+              format: object
             WholesaleTradeStatus:
               type: string
               description: Status tracking for the wholesale trade
@@ -1044,7 +1210,9 @@ components:
               description: The security that the bank position is traded for
               format: string
             PositionMarketOrderTradeInitiationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to market trades impacting the position during the current trading period
+              format: object
             BankSecurityPositionSecurityPAndLRecord:
               type: string
               description: 'The consolidated record of trading activity against the position during the trading period, including the derived position P&L'
@@ -1070,9 +1238,13 @@ components:
               description: The terms covering the clearing and settlement of the trade
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the trade confirmation notice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence generated for the trade confirmation
+              format: object
             WholesaleTradeStatus:
               type: string
               description: Status tracking for the wholesale trade
