@@ -805,7 +805,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones making up the workstep
-    name:
+    attribute:
       type: object
       properties:
         Name:
@@ -813,14 +813,46 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservicetypevalues:
+    businessservice:
       type: object
       properties:
-        Businessservicetypevalues:
+        BusinessServiceName:
+          $ref: '#/components/schemas/attribute'
+        BusinessServiceType:
+          $ref: '#/components/schemas/attribute'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/attribute'
+      description: The Market Trade Cash Settlement Workstep specific Business Service
+    procedure:
+      type: object
+      properties:
+        ProcedureType:
+          $ref: '#/components/schemas/attribute'
+        ProcedureDateTime:
+          $ref: '#/components/schemas/attribute'
+        ProcedureRequest:
+          $ref: '#/components/schemas/attribute'
+        ProcedureSchedule:
           type: string
-          description: ''
-          format: enumeration
-      description: ''
+          description: Timetable to process something (most refers to the Asset Type)
+          format: attribute
+        ProcedureStatus:
+          $ref: '#/components/schemas/attribute'
+      description: Reference to Market Trade Cash Settlement Workstep
+    workstep:
+      type: object
+      properties:
+        WorkstepResult:
+          $ref: '#/components/schemas/attribute'
+        WorkstepType:
+          $ref: '#/components/schemas/attribute'
+        WorkstepDescription:
+          $ref: '#/components/schemas/attribute'
+        WorkstepDateTime:
+          $ref: '#/components/schemas/attribute'
+        WorkstepStatus:
+          $ref: '#/components/schemas/attribute'
+      description: Reference to Market Trade Cash Settlement Workstep
     text:
       type: object
       properties:
@@ -828,152 +860,7 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Market Trade Cash Settlement Workstep specific Business Service
-    proceduretype:
-      type: object
-      properties:
-        Proceduretype:
-          type: string
-          description: Data type specifies the classification of procedure
-          format: datatype
-      description: A Classification value that distinguishes between the type of process undertaken within Procedure
-    datetime:
-      type: object
-      properties:
-        Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
-      description: ''
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: ''
-    instructionlifecyclestatus:
-      type: object
-      properties:
-        Instructionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-          format: datatype
-      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-    identifier:
-      type: object
-      properties:
-        Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
-      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    instructiontypevalues:
-      enum:
-        - PaymentInstruction
-        - DeliveryOrder
-        - InformationRequest
-        - ExchangeInstruction
-        - AllocationInstruction
-      type: string
-      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
-    log:
-      type: object
-      properties:
-        LogType:
-          type: string
-          description: ''
-          format: string
-        LogPeriod:
-          type: string
-          description: ''
-          format: string
-        LogDate:
-          type: string
-          description: Key dates associated with the log (e.g. start time).
-          format: string
-        LogIdentification:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    instruction:
-      type: object
-      properties:
-        InstructionDueDate:
-          $ref: '#/components/schemas/date'
-        InstructionStatus:
-          $ref: '#/components/schemas/instructionlifecyclestatus'
-        InstructionIdentifier:
-          $ref: '#/components/schemas/identifier'
-        InstructionType:
-          $ref: '#/components/schemas/instructiontypevalues'
-        InstructionResult:
-          $ref: '#/components/schemas/text'
-        InstructionDescription:
-          $ref: '#/components/schemas/text'
-        InstructionLog:
-          $ref: '#/components/schemas/log'
-        InstructionPurpose:
-          $ref: '#/components/schemas/text'
-      description: Request to process something (most refers to Asset Type)
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: "The status of  Procedure\n"
-    procedure:
-      type: object
-      properties:
-        ProcedureType:
-          $ref: '#/components/schemas/proceduretype'
-        ProcedureDateTime:
-          $ref: '#/components/schemas/datetime'
-        ProcedureRequest:
-          $ref: '#/components/schemas/instruction'
-        ProcedureSchedule:
-          $ref: '#/components/schemas/schedule'
-        ProcedureStatus:
-          $ref: '#/components/schemas/status'
-      description: Reference to Market Trade Cash Settlement Workstep
-    worksteptype:
-      type: object
-      properties:
-        Worksteptype:
-          type: string
-          description: Data type specifies the classification of workstep
-          format: datatype
-      description: A Classification value that distinguishes between the type of workstep undertaken within Procedure
-    workstep:
-      type: object
-      properties:
-        WorkstepResult:
-          type: string
-          description: ''
-          format: string
-        WorkstepType:
-          $ref: '#/components/schemas/worksteptype'
-        WorkstepDescription:
-          $ref: '#/components/schemas/text'
-        WorkstepDateTime:
-          $ref: '#/components/schemas/datetime'
-        WorkstepStatus:
-          $ref: '#/components/schemas/status'
-      description: Reference to Market Trade Cash Settlement Workstep
+      description: The type of Market Trade Cash Settlement Workstep
     MarketTradeCashSettlementWorkstep:
       type: object
       properties:
@@ -1054,10 +941,36 @@ components:
       type: object
       properties:
         FeatureType:
-          type: string
-          description: ''
-          format: string
+          $ref: '#/components/schemas/attribute'
       description: A selected optional business service as subject matter of Trade Settlement Procedure
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/attribute'
+        InstructionStatus:
+          $ref: '#/components/schemas/attribute'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/attribute'
+        InstructionType:
+          $ref: '#/components/schemas/attribute'
+        InstructionResult:
+          $ref: '#/components/schemas/attribute'
+        InstructionDescription:
+          $ref: '#/components/schemas/attribute'
+        InstructionLog:
+          $ref: '#/components/schemas/attribute'
+        InstructionPurpose:
+          $ref: '#/components/schemas/attribute'
+      description: Request to process Trade Settlement Procedure
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: The status of Trade Settlement Procedure
     financialfacility:
       type: object
       properties:
@@ -1066,6 +979,14 @@ components:
           description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
           format: class
       description: Reference to the Financial Facility related to Trade Settlement Procedure
+    proceduretype:
+      type: object
+      properties:
+        Proceduretype:
+          type: string
+          description: Data type specifies the classification of procedure
+          format: datatype
+      description: A Classification value that distinguishes between the type of process undertaken within Trade Settlement Procedure
     servicetype:
       type: object
       properties:
@@ -1082,44 +1003,21 @@ components:
           description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
           format: datatype
       description: A Classification value that distinguishes between the type of products/services related to Trade Settlement Procedure
-    productidentification:
-      type: object
-      properties:
-        Productidentification:
-          type: string
-          description: ''
-          format: datatype
-      description: The identifier of product e.g. ISIN Code.
-    producttypevalues:
-      enum:
-        - BankingProduct
-        - FinancialProduct
-        - LoanProduct
-      type: string
-      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
-    productlifecyclestatus:
-      type: object
-      properties:
-        Productlifecyclestatus:
-          type: string
-          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
-          format: datatype
-      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
       properties:
         ProductIdentification:
-          $ref: '#/components/schemas/productidentification'
+          $ref: '#/components/schemas/attribute'
         ProductType:
-          $ref: '#/components/schemas/producttypevalues'
+          $ref: '#/components/schemas/attribute'
         ProductLifecycleStatus:
-          $ref: '#/components/schemas/productlifecyclestatus'
+          $ref: '#/components/schemas/attribute'
         ProductPriority:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         ProductDescription:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         ProductVersion:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
       description: Reference to the product or service that is related to Trade Settlement Procedure
     transactiontype:
       type: object
@@ -1129,142 +1027,55 @@ components:
           description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
           format: datatype
       description: A Classification value that distinguishes between the type of transactions in Trade Settlement Procedure
-    transactiondate:
-      type: object
-      properties:
-        Transactiondate:
-          type: string
-          description: ''
-          format: datatype
-      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    transactiontypevalues:
-      enum:
-        - FinancialTransaction
-        - BusinessTransaction
-        - BankingTransaction
-        - AccountingTransaction
-        - BookingTransaction
-        - AllocationTransaction
-        - DeliveryTransaction
-      type: string
-      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n"
-    transactionlifecyclestatus:
-      type: object
-      properties:
-        Transactionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
-      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
       properties:
         TransactionIdentification:
-          $ref: '#/components/schemas/identifier'
+          $ref: '#/components/schemas/attribute'
         TransactionDate:
-          $ref: '#/components/schemas/transactiondate'
+          $ref: '#/components/schemas/attribute'
         TransactionType:
-          $ref: '#/components/schemas/transactiontypevalues'
+          $ref: '#/components/schemas/attribute'
         TransactionDescription:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         TransactionStatus:
-          $ref: '#/components/schemas/transactionlifecyclestatus'
+          $ref: '#/components/schemas/attribute'
         TransactionName:
-          $ref: '#/components/schemas/name'
+          $ref: '#/components/schemas/attribute'
       description: Reference to the transaction that is related to Trade Settlement Procedure
-    actiontypevalues:
-      enum:
-        - Initiate
-        - Execute
-        - Create
-        - Transfer
-        - Pay
-        - Deliver
-      type: string
-      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
-    action:
-      type: object
-      properties:
-        ActionType:
-          $ref: '#/components/schemas/actiontypevalues'
-      description: ''
-    arrangementlifecyclestatus:
-      type: object
-      properties:
-        Arrangementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
-          format: datatype
-      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
-    subject:
-      type: object
-      properties:
-        Subject:
-          type: string
-          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
-          format: class
-      description: ''
     arrangement:
       type: object
       properties:
         ArrangementAction:
-          $ref: '#/components/schemas/action'
+          $ref: '#/components/schemas/attribute'
         ArrangementStartDate:
-          $ref: '#/components/schemas/datetime'
+          $ref: '#/components/schemas/attribute'
         ArrangementEndDate:
-          $ref: '#/components/schemas/datetime'
+          $ref: '#/components/schemas/attribute'
         ArrangementStatus:
-          $ref: '#/components/schemas/arrangementlifecyclestatus'
+          $ref: '#/components/schemas/attribute'
         ArrangementSubjectMatter:
-          $ref: '#/components/schemas/subject'
+          $ref: '#/components/schemas/attribute'
       description: Reference to the Financial Transaction Arrangement that is related to Trade Settlement Procedure
-    agreementtypevalues:
-      enum:
-        - CustomerAgreement
-        - SupplierAgreement
-        - ProductBrokerAgreement
-        - ProductSaleAgreement
-        - FiduciaryAgreement
-        - CommissionSaleAgreement
-        - ServicingMandateAgreement
-        - ChannelAccessAgreement
-      type: string
-      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
-    datetimeperiod:
-      type: object
-      properties:
-        Datetimeperiod:
-          type: string
-          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
-          format: datatype
-      description: "Period during which the agreement is valid\n"
-    agreementlifecyclestatus:
-      type: object
-      properties:
-        Agreementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
-          format: datatype
-      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
     agreement:
       type: object
       properties:
         AgreementSignedDate:
-          $ref: '#/components/schemas/date'
+          $ref: '#/components/schemas/attribute'
         AgreementType:
-          $ref: '#/components/schemas/agreementtypevalues'
+          $ref: '#/components/schemas/attribute'
         AgreementValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
+          $ref: '#/components/schemas/attribute'
         AgreementVersion:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         AgreementStatus:
-          $ref: '#/components/schemas/agreementlifecyclestatus'
+          $ref: '#/components/schemas/attribute'
         AgreementSubjectMatter:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         AgreementIdentification:
-          $ref: '#/components/schemas/identifier'
+          $ref: '#/components/schemas/attribute'
         AgreementDate:
-          $ref: '#/components/schemas/datetime'
+          $ref: '#/components/schemas/attribute'
       description: Reference to the Customer Agreement that is related to Trade Settlement Procedure
     TradeSettlementProcedure:
       type: object

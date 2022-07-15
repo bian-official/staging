@@ -1352,7 +1352,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in completing the transaction task
-    name:
+    attribute:
       type: object
       properties:
         Name:
@@ -1360,82 +1360,31 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
-          $ref: '#/components/schemas/name'
+          $ref: '#/components/schemas/attribute'
         BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
+          $ref: '#/components/schemas/attribute'
         BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
       description: The Seller Obligation Confirmation Task specific Business Service
-    identifier:
-      type: object
-      properties:
-        Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
-      description: An identifier that allows to uniquely refer to an instance of a transaction.
-    transactiondate:
-      type: object
-      properties:
-        Transactiondate:
-          type: string
-          description: ''
-          format: datatype
-      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    transactiontypevalues:
-      enum:
-        - FinancialTransaction
-        - BusinessTransaction
-        - BankingTransaction
-        - AccountingTransaction
-        - BookingTransaction
-        - AllocationTransaction
-        - DeliveryTransaction
-      type: string
-      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n"
-    transactionlifecyclestatus:
-      type: object
-      properties:
-        Transactionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
-      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
       properties:
         TransactionIdentification:
-          $ref: '#/components/schemas/identifier'
+          $ref: '#/components/schemas/attribute'
         TransactionDate:
-          $ref: '#/components/schemas/transactiondate'
+          $ref: '#/components/schemas/attribute'
         TransactionType:
-          $ref: '#/components/schemas/transactiontypevalues'
+          $ref: '#/components/schemas/attribute'
         TransactionDescription:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         TransactionStatus:
-          $ref: '#/components/schemas/transactionlifecyclestatus'
+          $ref: '#/components/schemas/attribute'
         TransactionName:
-          $ref: '#/components/schemas/name'
+          $ref: '#/components/schemas/attribute'
       description: Reference to Seller Obligation Confirmation Task
     task:
       type: object
@@ -1445,6 +1394,14 @@ components:
           description: ''
           format: datatype
       description: Reference to Seller Obligation Confirmation Task
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The type of Seller Obligation Confirmation Task
     SellerObligationConfirmationTask:
       type: object
       properties:
@@ -1573,25 +1530,26 @@ components:
       type: object
       properties:
         FeeType:
-          type: string
-          description: Type of the applied Fee
-          format: string
+          $ref: '#/components/schemas/attribute'
         AccruedFeeAmount:
-          type: string
-          description: 'Total fee charged '
-          format: string
+          $ref: '#/components/schemas/attribute'
         FeeAmount:
-          type: string
-          description: "Amount of money paid for the charge\nAmount of money asked or paid for the charge (ISO20022)\n"
-          format: string
+          $ref: '#/components/schemas/attribute'
       description: ''
-    interesttransactiontypevalues:
-      enum:
-        - InterestAllocationTransaction
-        - InterestPaymentTransaction
-        - InterestAdjustmentTransaction
-      type: string
-      description: ">\n* `InterestAllocationTransaction` - \n* `InterestPaymentTransaction` - \n* `InterestAdjustmentTransaction` - \n"
+    interesttransaction:
+      type: object
+      properties:
+        InterestTransactionAmount:
+          $ref: '#/components/schemas/attribute'
+        InterestTransactionDescription:
+          $ref: '#/components/schemas/attribute'
+        InterestTransactionType:
+          $ref: '#/components/schemas/attribute'
+        InterestRate:
+          $ref: '#/components/schemas/attribute'
+        InteretType:
+          $ref: '#/components/schemas/attribute'
+      description: ''
     rate:
       type: object
       properties:
@@ -1599,26 +1557,6 @@ components:
           type: string
           description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
           format: datatype
-      description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
-    interesttransaction:
-      type: object
-      properties:
-        InterestTransactionAmount:
-          type: string
-          description: Amount of applied interest
-          format: string
-        InterestTransactionDescription:
-          type: string
-          description: Description of InterestTransaction
-          format: string
-        InterestTransactionType:
-          $ref: '#/components/schemas/interesttransactiontypevalues'
-        InterestRate:
-          $ref: '#/components/schemas/rate'
-        InteretType:
-          type: string
-          description: "Type of an applied Interest\n\nSpecifies the type of interest associated with a trade. (ISO20022)"
-          format: string
       description: ''
     workproduct:
       type: object
@@ -1654,24 +1592,24 @@ components:
         LetterofCreditWorkProduct:
           $ref: '#/components/schemas/workproduct'
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
-    servicetype:
-      type: object
-      properties:
-        Servicetype:
-          type: string
-          description: Data type specifies the classification of service
-          format: datatype
-      description: ''
     service:
       type: object
       properties:
         ServiceName:
-          $ref: '#/components/schemas/name'
+          $ref: '#/components/schemas/attribute'
         ServiceDescription:
-          $ref: '#/components/schemas/text'
+          $ref: '#/components/schemas/attribute'
         ServiceType:
-          $ref: '#/components/schemas/servicetype'
+          $ref: '#/components/schemas/attribute'
       description: A selected optional business service as subject matter of Letter Of Credit Transaction
+    transactionlifecyclestatus:
+      type: object
+      properties:
+        Transactionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
+      description: The status of Letter Of Credit Transaction
     actiontype:
       type: object
       properties:
