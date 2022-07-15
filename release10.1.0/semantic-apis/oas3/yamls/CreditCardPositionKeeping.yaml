@@ -294,7 +294,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in capturing the event
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -302,52 +302,14 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservice:
+    businessservicetypevalues:
       type: object
       properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
-        BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
-      description: The Card Transaction Event specific Business Service
-    log:
-      type: object
-      properties:
-        LogType:
-          $ref: '#/components/schemas/attribute'
-        LogPeriod:
-          $ref: '#/components/schemas/attribute'
-        LogDate:
-          $ref: '#/components/schemas/attribute'
-        LogIdentification:
-          $ref: '#/components/schemas/attribute'
-      description: Reference to Card Transaction Event
-    event:
-      type: object
-      properties:
-        EventType:
-          $ref: '#/components/schemas/attribute'
-        EventDateTime:
-          $ref: '#/components/schemas/attribute'
-        EventDescription:
-          $ref: '#/components/schemas/attribute'
-        EventSource:
-          $ref: '#/components/schemas/attribute'
-        EventLocation:
-          $ref: '#/components/schemas/attribute'
-        EventAction:
-          $ref: '#/components/schemas/attribute'
-        EventStatus:
-          $ref: '#/components/schemas/attribute'
-        EventValue:
-          $ref: '#/components/schemas/attribute'
-        EventValidityPeriod:
-          $ref: '#/components/schemas/attribute'
-        EventIdentification:
-          $ref: '#/components/schemas/attribute'
-      description: Reference to Card Transaction Event
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
     text:
       type: object
       properties:
@@ -355,7 +317,81 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The type of Card Transaction Event
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Card Transaction Event specific Business Service
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Card Transaction Event
+    event:
+      type: object
+      properties:
+        EventType:
+          type: string
+          description: ''
+          format: string
+        EventDateTime:
+          type: string
+          description: ''
+          format: string
+        EventDescription:
+          type: string
+          description: ''
+          format: string
+        EventSource:
+          type: string
+          description: ''
+          format: string
+        EventLocation:
+          type: string
+          description: ''
+          format: string
+        EventAction:
+          type: string
+          description: ''
+          format: string
+        EventStatus:
+          type: string
+          description: ''
+          format: string
+        EventValue:
+          type: string
+          description: ''
+          format: string
+        EventValidityPeriod:
+          type: string
+          description: ''
+          format: string
+        EventIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Card Transaction Event
     CardTransactionEvent:
       type: object
       properties:
@@ -382,15 +418,23 @@ components:
         CreditCardPositionKeepingLog:
           $ref: '#/components/schemas/log'
       description: The Card Transaction Event is one of the specific types of events that is recorded in the Card Transaction Event
+    servicetype:
+      type: object
+      properties:
+        Servicetype:
+          type: string
+          description: Data type specifies the classification of service
+          format: datatype
+      description: ''
     service:
       type: object
       properties:
         ServiceName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         ServiceDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ServiceType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/servicetype'
       description: A selected optional business service as subject matter of Credit Card Position Log
     involvedparty:
       type: object
@@ -404,21 +448,33 @@ components:
       type: object
       properties:
         BusinessFunction:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         Goal:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: Reference to the business unit which is involved in Credit Card Position Log
     position:
       type: object
       properties:
         PositionValue:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         PositionQuantity:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         PositionDate:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: The date on which the state of something is calculated
+          format: string
         PositionAmount:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: The position of Credit Card Position Log
     positiontype:
       type: object
@@ -428,23 +484,79 @@ components:
           description: 'A classification of the position. '
           format: class
       description: A classification value expressing the kind of position withing the Credit Card Position Log
+    limittype:
+      type: object
+      properties:
+        Limittype:
+          type: string
+          description: ''
+          format: datatype
+      description: Nature of the limit.
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: Currency unit used to specify the limit amount. (ISO20022)
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: Period at which the limit is effective. (ISO20022)
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: 'Amount of money of the limit, expressed in a currency. (ISO20022)'
+    limitstatus:
+      type: object
+      properties:
+        Limitstatus:
+          type: string
+          description: ''
+          format: datatype
+      description: Current status of the limit.
+    rate:
+      type: object
+      properties:
+        Rate:
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
+      description: Specifies that the limit is a percentage of a related amount. (ISO20022)
+    frequency:
+      type: object
+      properties:
+        Frequency:
+          type: string
+          description: Specifies the regularity of an event. (ISO20022)
+          format: datatype
+      description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
     limitarrangement:
       type: object
       properties:
         LimitType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/limittype'
         LimitCurrency:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/currencycode'
         LimitValidityPeriod:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetimeperiod'
         LimitAmount:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/amount'
         LimitStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/limitstatus'
         LimitRate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/rate'
         LimitFrequency:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/frequency'
       description: Reference to the time limitation related to the position of Credit Card Position Log
     CreditCardPositionLog:
       type: object

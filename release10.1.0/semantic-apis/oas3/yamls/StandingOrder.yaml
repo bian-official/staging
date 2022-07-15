@@ -324,7 +324,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -332,15 +332,31 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: The Standing Order Fulfillment specific Business Service
     financialfacility:
       type: object
@@ -358,14 +374,6 @@ components:
           description: ''
           format: datatype
       description: Reference to Standing Order Fulfillment
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Standing Order Fulfillment
     StandingOrderFulfillment:
       type: object
       properties:
@@ -404,14 +412,6 @@ components:
           description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
           format: datatype
       description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
     StandingOrderPayment:
       type: object
       properties:
@@ -462,7 +462,9 @@ components:
       type: object
       properties:
         FeatureType:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: A selected optional product feature as subject matter of Standing Order Arrangement
     bankingproducttype:
       type: object
@@ -488,30 +490,64 @@ components:
           description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
           format: datatype
       description: The curreny which is arranged in Standing Order Arrangement
+    rulesettype:
+      type: object
+      properties:
+        Rulesettype:
+          type: string
+          description: Data type specifies the classification of RuleSet
+          format: datatype
+      description: ''
     ruleset:
       type: object
       properties:
         RuleSetDefinition:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         RuleSetInterpretation:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         RuleSetType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/rulesettype'
         RuleSetName:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         RuleSetIdentification:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: Reference to the regulation which is defined in Standing Order Arrangement
     rulesettypevalues:
-      enum:
-        - Policy
-        - Regulation
-        - Law
-        - Guideline
-        - Criterion
-        - Standard
-      type: string
-      description: ">\n* `Policy` - \n* `Regulation` - \n* `Law` - \n* `Guideline` - \n* `Criterion` - \n* `Standard` - \n"
+      type: object
+      properties:
+        Policy:
+          type: string
+          description: ''
+          format: ''
+        Regulation:
+          type: string
+          description: ''
+          format: ''
+        Law:
+          type: string
+          description: ''
+          format: ''
+        Guideline:
+          type: string
+          description: ''
+          format: ''
+        Criterion:
+          type: string
+          description: ''
+          format: ''
+        Standard:
+          type: string
+          description: ''
+          format: ''
+      description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
     jurisdiction:
       type: object
       properties:
@@ -524,58 +560,169 @@ components:
       type: object
       properties:
         BusinessFunction:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         Goal:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
     accounttypevalues:
-      enum:
-        - DebitAccount
-        - CreditAccount
-        - VostroAcount
-        - NostroAccount
-        - PaymentAccount
-        - SettlementAccount
-        - SavingAccount
-        - CurrentAccount
-        - Cashaccount
-      type: string
-      description: ">\n* `DebitAccount` - \n* `CreditAccount` - \n* `VostroAcount` - In correspondent banking, an account held by one bank on behalf of another bank (the customer bank); the customer bank regards this account as its nostro account. (ECB)\n* `NostroAccount` - In correspondent banking, an account held by a customer bank on the books of another bank acting as a service provider. The other bank regards this account as a loro account. (ECB)\n* `PaymentAccount` - \n* `SettlementAccount` - A specific purpose account used to post debit and credit entries as a result of the transaction. (ISO20022)\n\nAccount which is used for settlement. (ISO20022)\n* `SavingAccount` - \n* `CurrentAccount` - \n* `Cashaccount` - \n"
+      type: object
+      properties:
+        DebitAccount:
+          type: string
+          description: ''
+          format: ''
+        CreditAccount:
+          type: string
+          description: ''
+          format: ''
+        VostroAcount:
+          type: string
+          description: 'In correspondent banking, an account held by one bank on behalf of another bank (the customer bank); the customer bank regards this account as its nostro account. (ECB)'
+          format: ''
+        NostroAccount:
+          type: string
+          description: 'In correspondent banking, an account held by a customer bank on the books of another bank acting as a service provider. The other bank regards this account as a loro account. (ECB)'
+          format: ''
+        PaymentAccount:
+          type: string
+          description: ''
+          format: ''
+        SettlementAccount:
+          type: string
+          description: "A specific purpose account used to post debit and credit entries as a result of the transaction. (ISO20022)\n\nAccount which is used for settlement. (ISO20022)"
+          format: ''
+        SavingAccount:
+          type: string
+          description: ''
+          format: ''
+        CurrentAccount:
+          type: string
+          description: ''
+          format: ''
+        Cashaccount:
+          type: string
+          description: ''
+          format: ''
+      description: The type of account which is linked to Standing Order Arrangement
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        Accountidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        Accountdate:
+          type: string
+          description: ''
+          format: datatype
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttype:
+      type: object
+      properties:
+        Accounttype:
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalance:
+      type: object
+      properties:
+        Accountbalance:
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrency:
+      type: object
+      properties:
+        Accountcurrency:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
     account:
       type: object
       properties:
         AccountStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/accountstatus'
         AccountIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/accountidentification'
         AccountDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/accountdate'
         AccountType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/accounttype'
         AccountPurpose:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         AccountBalance:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/accountbalance'
         AccountCurrency:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/accountcurrency'
         AccountDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: Reference to the account which is linked to Standing Order Arrangement
+    productidentification:
+      type: object
+      properties:
+        Productidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      type: object
+      properties:
+        BankingProduct:
+          type: string
+          description: ''
+          format: ''
+        FinancialProduct:
+          type: string
+          description: ''
+          format: ''
+        LoanProduct:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category/type/class of product like financial product. Product can be categorized according to different perspectives.  '
+    productlifecyclestatus:
+      type: object
+      properties:
+        Productlifecyclestatus:
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
       properties:
         ProductIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: Reference to the product which is linked to Standing Order Arrangement
     StandingOrderFacility:
       type: object

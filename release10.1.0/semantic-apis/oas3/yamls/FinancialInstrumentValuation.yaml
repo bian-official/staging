@@ -805,7 +805,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones making up the workstep
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -813,46 +813,14 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservice:
+    businessservicetypevalues:
       type: object
       properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
-        BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
-      description: The Asset Valuation Approach Selection Workstep specific Business Service
-    procedure:
-      type: object
-      properties:
-        ProcedureType:
-          $ref: '#/components/schemas/attribute'
-        ProcedureDateTime:
-          $ref: '#/components/schemas/attribute'
-        ProcedureRequest:
-          $ref: '#/components/schemas/attribute'
-        ProcedureSchedule:
+        Businessservicetypevalues:
           type: string
-          description: Timetable to process something (most refers to the Asset Type)
-          format: attribute
-        ProcedureStatus:
-          $ref: '#/components/schemas/attribute'
-      description: Reference to Asset Valuation Approach Selection Workstep
-    workstep:
-      type: object
-      properties:
-        WorkstepResult:
-          $ref: '#/components/schemas/attribute'
-        WorkstepType:
-          $ref: '#/components/schemas/attribute'
-        WorkstepDescription:
-          $ref: '#/components/schemas/attribute'
-        WorkstepDateTime:
-          $ref: '#/components/schemas/attribute'
-        WorkstepStatus:
-          $ref: '#/components/schemas/attribute'
-      description: Reference to Asset Valuation Approach Selection Workstep
+          description: ''
+          format: enumeration
+      description: ''
     text:
       type: object
       properties:
@@ -860,7 +828,167 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The type of Asset Valuation Approach Selection Workstep
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Asset Valuation Approach Selection Workstep specific Business Service
+    proceduretype:
+      type: object
+      properties:
+        Proceduretype:
+          type: string
+          description: Data type specifies the classification of procedure
+          format: datatype
+      description: A Classification value that distinguishes between the type of process undertaken within Procedure
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: ''
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    instructionlifecyclestatus:
+      type: object
+      properties:
+        Instructionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
+      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
+    instructiontypevalues:
+      type: object
+      properties:
+        PaymentInstruction:
+          type: string
+          description: ''
+          format: ''
+        DeliveryOrder:
+          type: string
+          description: ''
+          format: ''
+        InformationRequest:
+          type: string
+          description: ''
+          format: ''
+        ExchangeInstruction:
+          type: string
+          description: ''
+          format: ''
+        AllocationInstruction:
+          type: string
+          description: ''
+          format: ''
+      description: "Classification Value classifying the instruction according to the \"type of action\" to be applied to a subject matter.\n\nexamples: payment instruction, withdrawal instruction, blocking instruction, accounting instruction, sending instruction, purchase instruction blocked deposit, a blocked securities portfolio, pawn, etc."
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/date'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to process something (most refers to Asset Type)
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: "The status of  Procedure\n"
+    procedure:
+      type: object
+      properties:
+        ProcedureType:
+          $ref: '#/components/schemas/proceduretype'
+        ProcedureDateTime:
+          $ref: '#/components/schemas/datetime'
+        ProcedureRequest:
+          $ref: '#/components/schemas/instruction'
+        ProcedureSchedule:
+          $ref: '#/components/schemas/schedule'
+        ProcedureStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to Asset Valuation Approach Selection Workstep
+    worksteptype:
+      type: object
+      properties:
+        Worksteptype:
+          type: string
+          description: Data type specifies the classification of workstep
+          format: datatype
+      description: A Classification value that distinguishes between the type of workstep undertaken within Procedure
+    workstep:
+      type: object
+      properties:
+        WorkstepResult:
+          type: string
+          description: ''
+          format: string
+        WorkstepType:
+          $ref: '#/components/schemas/worksteptype'
+        WorkstepDescription:
+          $ref: '#/components/schemas/text'
+        WorkstepDateTime:
+          $ref: '#/components/schemas/datetime'
+        WorkstepStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to Asset Valuation Approach Selection Workstep
     AssetValuationApproachSelectionWorkstep:
       type: object
       properties:
@@ -941,36 +1069,10 @@ components:
       type: object
       properties:
         FeatureType:
-          $ref: '#/components/schemas/attribute'
-      description: A selected optional business service as subject matter of Market Asset Valuation Procedure
-    instruction:
-      type: object
-      properties:
-        InstructionDueDate:
-          $ref: '#/components/schemas/attribute'
-        InstructionStatus:
-          $ref: '#/components/schemas/attribute'
-        InstructionIdentifier:
-          $ref: '#/components/schemas/attribute'
-        InstructionType:
-          $ref: '#/components/schemas/attribute'
-        InstructionResult:
-          $ref: '#/components/schemas/attribute'
-        InstructionDescription:
-          $ref: '#/components/schemas/attribute'
-        InstructionLog:
-          $ref: '#/components/schemas/attribute'
-        InstructionPurpose:
-          $ref: '#/components/schemas/attribute'
-      description: Request to process Market Asset Valuation Procedure
-    status:
-      type: object
-      properties:
-        Status:
           type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Market Asset Valuation Procedure
+          description: ''
+          format: string
+      description: A selected optional business service as subject matter of Market Asset Valuation Procedure
     financialfacility:
       type: object
       properties:
@@ -979,14 +1081,6 @@ components:
           description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
           format: class
       description: Reference to the Financial Facility related to Market Asset Valuation Procedure
-    proceduretype:
-      type: object
-      properties:
-        Proceduretype:
-          type: string
-          description: Data type specifies the classification of procedure
-          format: datatype
-      description: A Classification value that distinguishes between the type of process undertaken within Market Asset Valuation Procedure
     servicetype:
       type: object
       properties:
@@ -1003,21 +1097,53 @@ components:
           description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
           format: datatype
       description: A Classification value that distinguishes between the type of products/services related to Market Asset Valuation Procedure
+    productidentification:
+      type: object
+      properties:
+        Productidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      type: object
+      properties:
+        BankingProduct:
+          type: string
+          description: ''
+          format: ''
+        FinancialProduct:
+          type: string
+          description: ''
+          format: ''
+        LoanProduct:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category/type/class of product like financial product. Product can be categorized according to different perspectives.  '
+    productlifecyclestatus:
+      type: object
+      properties:
+        Productlifecyclestatus:
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
       properties:
         ProductIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: Reference to the product or service that is related to Market Asset Valuation Procedure
     transactiontype:
       type: object
@@ -1027,55 +1153,205 @@ components:
           description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
           format: datatype
       description: A Classification value that distinguishes between the type of transactions in Market Asset Valuation Procedure
+    transactiondate:
+      type: object
+      properties:
+        Transactiondate:
+          type: string
+          description: ''
+          format: datatype
+      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
+    transactiontypevalues:
+      type: object
+      properties:
+        FinancialTransaction:
+          type: string
+          description: ''
+          format: ''
+        BusinessTransaction:
+          type: string
+          description: ''
+          format: ''
+        BankingTransaction:
+          type: string
+          description: ''
+          format: ''
+        AccountingTransaction:
+          type: string
+          description: ''
+          format: ''
+        BookingTransaction:
+          type: string
+          description: ''
+          format: ''
+        AllocationTransaction:
+          type: string
+          description: ''
+          format: ''
+        DeliveryTransaction:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. '
+    transactionlifecyclestatus:
+      type: object
+      properties:
+        Transactionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
+      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
       properties:
         TransactionIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/identifier'
         TransactionDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/transactiondate'
         TransactionType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/transactiontypevalues'
         TransactionDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         TransactionStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/transactionlifecyclestatus'
         TransactionName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
       description: Reference to the transaction that is related to Market Asset Valuation Procedure
+    actiontypevalues:
+      type: object
+      properties:
+        Initiate:
+          type: string
+          description: ''
+          format: ''
+        Execute:
+          type: string
+          description: ''
+          format: ''
+        Create:
+          type: string
+          description: ''
+          format: ''
+        Transfer:
+          type: string
+          description: ''
+          format: ''
+        Pay:
+          type: string
+          description: ''
+          format: ''
+        Deliver:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    action:
+      type: object
+      properties:
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
+      description: ''
+    arrangementlifecyclestatus:
+      type: object
+      properties:
+        Arrangementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
+      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
+    subject:
+      type: object
+      properties:
+        Subject:
+          type: string
+          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
+          format: class
+      description: ''
     arrangement:
       type: object
       properties:
         ArrangementAction:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/action'
         ArrangementStartDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
         ArrangementEndDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
         ArrangementStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/subject'
       description: Reference to the Financial Transaction Arrangement that is related to Market Asset Valuation Procedure
+    agreementtypevalues:
+      type: object
+      properties:
+        CustomerAgreement:
+          type: string
+          description: ''
+          format: ''
+        SupplierAgreement:
+          type: string
+          description: ''
+          format: ''
+        ProductBrokerAgreement:
+          type: string
+          description: ''
+          format: ''
+        ProductSaleAgreement:
+          type: string
+          description: ''
+          format: ''
+        FiduciaryAgreement:
+          type: string
+          description: ''
+          format: ''
+        CommissionSaleAgreement:
+          type: string
+          description: ''
+          format: ''
+        ServicingMandateAgreement:
+          type: string
+          description: ''
+          format: ''
+        ChannelAccessAgreement:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category of agreement. Agreement type is very often referred to product. But, the term product does not cover all kinds of agreements. An Agreement can be subtyped from the perspective of various aspects of interest. One can classify the agreement from the perspective of format type (e.g., verbal agreement, written agreement). Other one can classify agreement based on duration like short-term agreement or long-term agreement.'
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: "Period during which the agreement is valid\n"
+    agreementlifecyclestatus:
+      type: object
+      properties:
+        Agreementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+          format: datatype
+      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
     agreement:
       type: object
       properties:
         AgreementSignedDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/date'
         AgreementType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/agreementtypevalues'
         AgreementValidityPeriod:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetimeperiod'
         AgreementVersion:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         AgreementStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/agreementlifecyclestatus'
         AgreementSubjectMatter:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         AgreementIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/identifier'
         AgreementDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
       description: Reference to the Customer Agreement that is related to Market Asset Valuation Procedure
     MarketAssetValuationProcedure:
       type: object

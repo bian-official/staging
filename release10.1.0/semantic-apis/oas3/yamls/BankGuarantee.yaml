@@ -1352,7 +1352,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in completing the transaction task
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -1360,31 +1360,103 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: The Bank Guarantee Collections Task specific Business Service
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: An identifier that allows to uniquely refer to an instance of a transaction.
+    transactiondate:
+      type: object
+      properties:
+        Transactiondate:
+          type: string
+          description: ''
+          format: datatype
+      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
+    transactiontypevalues:
+      type: object
+      properties:
+        FinancialTransaction:
+          type: string
+          description: ''
+          format: ''
+        BusinessTransaction:
+          type: string
+          description: ''
+          format: ''
+        BankingTransaction:
+          type: string
+          description: ''
+          format: ''
+        AccountingTransaction:
+          type: string
+          description: ''
+          format: ''
+        BookingTransaction:
+          type: string
+          description: ''
+          format: ''
+        AllocationTransaction:
+          type: string
+          description: ''
+          format: ''
+        DeliveryTransaction:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. '
+    transactionlifecyclestatus:
+      type: object
+      properties:
+        Transactionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
+      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
       properties:
         TransactionIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/identifier'
         TransactionDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/transactiondate'
         TransactionType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/transactiontypevalues'
         TransactionDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         TransactionStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/transactionlifecyclestatus'
         TransactionName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
       description: Reference to Bank Guarantee Collections Task
     task:
       type: object
@@ -1394,14 +1466,6 @@ components:
           description: ''
           format: datatype
       description: Reference to Bank Guarantee Collections Task
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Bank Guarantee Collections Task
     BankGuaranteeCollectionsTask:
       type: object
       properties:
@@ -1530,26 +1594,34 @@ components:
       type: object
       properties:
         FeeType:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: Type of the applied Fee
+          format: string
         AccruedFeeAmount:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: 'Total fee charged '
+          format: string
         FeeAmount:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: "Amount of money paid for the charge\nAmount of money asked or paid for the charge (ISO20022)\n"
+          format: string
       description: ''
-    interesttransaction:
+    interesttransactiontypevalues:
       type: object
       properties:
-        InterestTransactionAmount:
-          $ref: '#/components/schemas/attribute'
-        InterestTransactionDescription:
-          $ref: '#/components/schemas/attribute'
-        InterestTransactionType:
-          $ref: '#/components/schemas/attribute'
-        InterestRate:
-          $ref: '#/components/schemas/attribute'
-        InteretType:
-          $ref: '#/components/schemas/attribute'
-      description: ''
+        InterestAllocationTransaction:
+          type: string
+          description: ''
+          format: ''
+        InterestPaymentTransaction:
+          type: string
+          description: ''
+          format: ''
+        InterestAdjustmentTransaction:
+          type: string
+          description: ''
+          format: ''
+      description: 'A classification of InterestTransaction eg., Allocation Transaction, Payment Transaction, adjustment Transaction and etc. '
     rate:
       type: object
       properties:
@@ -1557,6 +1629,26 @@ components:
           type: string
           description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
           format: datatype
+      description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
+    interesttransaction:
+      type: object
+      properties:
+        InterestTransactionAmount:
+          type: string
+          description: Amount of applied interest
+          format: string
+        InterestTransactionDescription:
+          type: string
+          description: Description of InterestTransaction
+          format: string
+        InterestTransactionType:
+          $ref: '#/components/schemas/interesttransactiontypevalues'
+        InterestRate:
+          $ref: '#/components/schemas/rate'
+        InteretType:
+          type: string
+          description: "Type of an applied Interest\n\nSpecifies the type of interest associated with a trade. (ISO20022)"
+          format: string
       description: ''
     workproduct:
       type: object
@@ -1592,64 +1684,123 @@ components:
         BankGuaranteeWorkProduct:
           $ref: '#/components/schemas/workproduct'
       description: The Bank Guarantee Collections Task is a discrete action or task that is required in the execution of the Bank Guarantee Collections Task
+    servicetype:
+      type: object
+      properties:
+        Servicetype:
+          type: string
+          description: Data type specifies the classification of service
+          format: datatype
+      description: ''
     service:
       type: object
       properties:
         ServiceName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         ServiceDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ServiceType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/servicetype'
       description: A selected optional business service as subject matter of Bank Guarantee Transaction
-    transactionlifecyclestatus:
+    bankguaranteetransactiontypevalues:
       type: object
       properties:
-        Transactionlifecyclestatus:
+        BGPaymentTransaction:
           type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
-      description: The status of Bank Guarantee Transaction
-    bankguaranteetransactiontypevalues:
-      enum:
-        - BGPaymentTransaction
-        - BGIssuingTransaction
-        - BGBookingTransaction
-        - CollateralAllocationTransaction
-        - BGBookingTransaction
-      type: string
-      description: ">\n* `BGPaymentTransaction` - \n* `BGIssuingTransaction` - \n* `BGBookingTransaction` - \n* `CollateralAllocationTransaction` - \n* `BGBookingTransaction` - \n"
+          description: ''
+          format: ''
+        BGIssuingTransaction:
+          type: string
+          description: ''
+          format: ''
+        BGBookingTransaction:
+          type: string
+          description: ''
+          format: ''
+        CollateralAllocationTransaction:
+          type: string
+          description: ''
+          format: ''
+      description: A Classification value that specifies type of transaction for this  Bank Guarantee Transaction
     bankguaranteetransaction:
       type: object
       properties:
         BankGuaranteeTransactionType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/bankguaranteetransactiontypevalues'
       description: An unique reference to an item or an occurrence of Bank Guarantee Transaction
+    documenttype:
+      type: object
+      properties:
+        DocumentType:
+          type: string
+          description: A Classification Hierarchy that distinguishes between Documents according to the nature of the Information represented.
+          format: class
+      description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: ''
+    documentdatetimetypevalues:
+      type: object
+      properties:
+        Creationdate:
+          type: string
+          description: ''
+          format: ''
+        Capturingdate:
+          type: string
+          description: ''
+          format: ''
+        Versiondate:
+          type: string
+          description: ''
+          format: ''
+        Valuedate:
+          type: string
+          description: ''
+          format: ''
+        Issuedate:
+          type: string
+          description: ''
+          format: ''
+      description: ''
     document:
       type: object
       properties:
         DocumentIdentifer:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/identifier'
         DocumentVersion:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         DocumentType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/documenttype'
         DocumentStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/status'
         DocumentDateTime:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
         DocumentName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         DocumentDateTimeType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/documentdatetimetypevalues'
         DocumentPurpose:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         DocumentFormat:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         DocumentSubject:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         DocumentDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: ''
     bankguaranteeagreement:
       type: object

@@ -1014,7 +1014,7 @@ components:
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
       description: The version reference for the property value
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -1022,25 +1022,61 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: The Equity Instrument property specific  Business Service
+    directoryentrydatetypevalues:
+      type: object
+      properties:
+        OpenDate:
+          type: string
+          description: ''
+          format: ''
+        RefreshDate:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/date'
         DirectoryEntryStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/status'
       description: Reference to Equity Instrument property
     object:
       type: object
@@ -1164,35 +1200,87 @@ components:
           description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
           format: datatype
       description: The version of Financial Instrument Directory Entry
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Financial Instrument Directory Entry
     log:
       type: object
       properties:
         LogType:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         LogPeriod:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         LogDate:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
         LogIdentification:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+    financialinstrumenttypevalues:
+      type: object
+      properties:
+        Loan:
+          type: string
+          description: ''
+          format: ''
+        Bond:
+          type: string
+          description: ''
+          format: ''
+        Deposit:
+          type: string
+          description: ''
+          format: ''
+        Stock:
+          type: string
+          description: ''
+          format: ''
+        Option:
+          type: string
+          description: ''
+          format: ''
+        Share:
+          type: string
+          description: ''
+          format: ''
+        Debt:
+          type: string
+          description: "Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)"
+          format: ''
+        Letterofcredit:
+          type: string
+          description: 'Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary''s compliance with the terms and conditions set forth in the undertaking. (ISO20022)'
+          format: ''
+        Security:
+          type: string
+          description: Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)
+          format: ''
+        Derivative:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    financialinstrumentidentification:
+      type: object
+      properties:
+        Financialinstrumentidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
     financialinstrument:
       type: object
       properties:
         FinancialInstrumentType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/financialinstrumenttypevalues'
         FinancialInstrumentIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/financialinstrumentidentification'
         FinancialInstrumentName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
       description: ''
     financialmarket:
       type: object

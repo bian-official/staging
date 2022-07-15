@@ -540,7 +540,7 @@ components:
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
       description: The version reference for the property value
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -548,25 +548,61 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/name'
         BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/businessservicetypevalues'
         BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: The In-force Product property specific  Business Service
+    directoryentrydatetypevalues:
+      type: object
+      properties:
+        OpenDate:
+          type: string
+          description: ''
+          format: ''
+        RefreshDate:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/date'
         DirectoryEntryStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/status'
       description: Reference to In-force Product property
     object:
       type: object
@@ -636,25 +672,25 @@ components:
           description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
           format: datatype
       description: The version of Customer Products And Services Directory Entry
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Customer Products And Services Directory Entry
     log:
       type: object
       properties:
         LogType:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         LogPeriod:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
         LogDate:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
         LogIdentification:
-          $ref: '#/components/schemas/attribute'
+          type: string
+          description: ''
+          format: string
       description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
     involvedparty:
       type: object
@@ -664,21 +700,53 @@ components:
           description: ''
           format: datatype
       description: ''
+    productidentification:
+      type: object
+      properties:
+        Productidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      type: object
+      properties:
+        BankingProduct:
+          type: string
+          description: ''
+          format: ''
+        FinancialProduct:
+          type: string
+          description: ''
+          format: ''
+        LoanProduct:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category/type/class of product like financial product. Product can be categorized according to different perspectives.  '
+    productlifecyclestatus:
+      type: object
+      properties:
+        Productlifecyclestatus:
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
       properties:
         ProductIdentification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/productidentification'
         ProductType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/producttypevalues'
         ProductLifecycleStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/productlifecyclestatus'
         ProductPriority:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ProductDescription:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         ProductVersion:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
       description: ''
     productsalesagreement:
       type: object

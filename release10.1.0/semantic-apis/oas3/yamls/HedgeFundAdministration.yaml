@@ -1672,7 +1672,7 @@ components:
           description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
           format: datatype
       description: The timing and key actions/milestones involved in completing the routine
-    attribute:
+    name:
       type: object
       properties:
         Name:
@@ -1680,42 +1680,14 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservice:
+    businessservicetypevalues:
       type: object
       properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/attribute'
-        BusinessServiceType:
-          $ref: '#/components/schemas/attribute'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/attribute'
-      description: The Fund Management Routine specific Business Service
-    plan:
-      type: object
-      properties:
-        PlanGoal:
-          $ref: '#/components/schemas/attribute'
-        PlanBudget:
-          $ref: '#/components/schemas/attribute'
-        PlannedAction:
-          $ref: '#/components/schemas/attribute'
-        PlanType:
-          $ref: '#/components/schemas/attribute'
-        PlanOrganisation:
-          $ref: '#/components/schemas/attribute'
-        PlanValidityPeriod:
-          $ref: '#/components/schemas/attribute'
-        PlanDescription:
-          $ref: '#/components/schemas/attribute'
-      description: Reference to Fund Management Routine
-    plannedaction:
-      type: object
-      properties:
-        PlannedAction:
+        Businessservicetypevalues:
           type: string
-          description: 'An action that is arranged in a plan for doing or achieving something '
-          format: class
-      description: Reference to Fund Management Routine
+          description: ''
+          format: enumeration
+      description: ''
     text:
       type: object
       properties:
@@ -1723,7 +1695,105 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The type of Fund Management Routine
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Fund Management Routine specific Business Service
+    goal:
+      type: object
+      properties:
+        GoalType:
+          type: string
+          description: The type of goal
+          format: string
+        GoalDefinition:
+          type: string
+          description: 'A definition of the goal, including the intended actions required to achieve the goal'
+          format: string
+        GoalOrganization:
+          type: string
+          description: Identifies the interested parties and their roles and responsibilities for the specific actions supporting the achievement of the goal
+          format: string
+        GoalResult:
+          type: string
+          description: 'Assessment of how the work is progressing towards achieving the goal, including projections of likely outcomes'
+          format: string
+      description: ''
+    budgettype:
+      type: object
+      properties:
+        Budgettype:
+          type: string
+          description: ''
+          format: datatype
+      description: A Classification value that specifies the type of Budget
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: ''
+    budgetarrangement:
+      type: object
+      properties:
+        BudgetType:
+          $ref: '#/components/schemas/budgettype'
+        BudgetAmount:
+          $ref: '#/components/schemas/amount'
+      description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
+    plannedaction:
+      type: object
+      properties:
+        PlannedAction:
+          type: string
+          description: 'An action that is arranged in a plan for doing or achieving something '
+          format: class
+      description: 'An action that is arranged in a plan for doing or achieving something '
+    plantype:
+      type: object
+      properties:
+        Plantype:
+          type: string
+          description: 'Data type specifies the classification of a Plan '
+          format: datatype
+      description: A Classification value that specifies the type of Plan
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: ''
+    plan:
+      type: object
+      properties:
+        PlanGoal:
+          $ref: '#/components/schemas/goal'
+        PlanBudget:
+          $ref: '#/components/schemas/budgetarrangement'
+        PlannedAction:
+          $ref: '#/components/schemas/plannedaction'
+        PlanType:
+          $ref: '#/components/schemas/plantype'
+        PlanOrganisation:
+          type: string
+          description: ''
+          format: string
+        PlanValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PlanDescription:
+          $ref: '#/components/schemas/text'
+      description: Reference to Fund Management Routine
     FundManagementRoutine:
       type: object
       properties:
@@ -1904,35 +1974,179 @@ components:
         FundPerformanceFeeRoutineType:
           $ref: '#/components/schemas/text'
       description: The Fund Management Routine is an activity that is performed as one aspect of carrying out the Fund Management Routine
+    analysistypevalues:
+      type: object
+      properties:
+        PerformanceAnalysis:
+          type: string
+          description: ''
+          format: ''
+        ActivityAnalysis:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: An identifier that allows to uniquely refer to an instance of a Document.
+    documenttype:
+      type: object
+      properties:
+        DocumentType:
+          type: string
+          description: A Classification Hierarchy that distinguishes between Documents according to the nature of the Information represented.
+          format: class
+      description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: ''
+    documentdatetimetypevalues:
+      type: object
+      properties:
+        Creationdate:
+          type: string
+          description: ''
+          format: ''
+        Capturingdate:
+          type: string
+          description: ''
+          format: ''
+        Versiondate:
+          type: string
+          description: ''
+          format: ''
+        Valuedate:
+          type: string
+          description: ''
+          format: ''
+        Issuedate:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    document:
+      type: object
+      properties:
+        DocumentIdentifer:
+          $ref: '#/components/schemas/identifier'
+        DocumentVersion:
+          $ref: '#/components/schemas/text'
+        DocumentType:
+          $ref: '#/components/schemas/documenttype'
+        DocumentStatus:
+          $ref: '#/components/schemas/status'
+        DocumentDateTime:
+          $ref: '#/components/schemas/datetime'
+        DocumentName:
+          $ref: '#/components/schemas/name'
+        DocumentDateTimeType:
+          $ref: '#/components/schemas/documentdatetimetypevalues'
+        DocumentPurpose:
+          $ref: '#/components/schemas/text'
+        DocumentFormat:
+          $ref: '#/components/schemas/text'
+        DocumentSubject:
+          $ref: '#/components/schemas/text'
+        DocumentDescription:
+          $ref: '#/components/schemas/text'
+      description: ''
     analysis:
       type: object
       properties:
         AnalysisType:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/analysistypevalues'
         AnalysisResult:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
         AnalysisPeriod:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetimeperiod'
         AnalysisDocument:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/document'
         AnalysisDateTime:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
         AnalysisSpecification:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/text'
+      description: ''
+    actiontypevalues:
+      type: object
+      properties:
+        Initiate:
+          type: string
+          description: ''
+          format: ''
+        Execute:
+          type: string
+          description: ''
+          format: ''
+        Create:
+          type: string
+          description: ''
+          format: ''
+        Transfer:
+          type: string
+          description: ''
+          format: ''
+        Pay:
+          type: string
+          description: ''
+          format: ''
+        Deliver:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    action:
+      type: object
+      properties:
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
+      description: ''
+    arrangementlifecyclestatus:
+      type: object
+      properties:
+        Arrangementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
+          format: datatype
+      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
+    subject:
+      type: object
+      properties:
+        Subject:
+          type: string
+          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
+          format: class
       description: ''
     arrangement:
       type: object
       properties:
         ArrangementAction:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/action'
         ArrangementStartDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
         ArrangementEndDate:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/datetime'
         ArrangementStatus:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/arrangementlifecyclestatus'
         ArrangementSubjectMatter:
-          $ref: '#/components/schemas/attribute'
+          $ref: '#/components/schemas/subject'
       description: ''
     HedgeFundAdministrationOutcome:
       type: object
@@ -1946,22 +2160,6 @@ components:
         HedgeFundAdministrationAdministrationTask:
           $ref: '#/components/schemas/arrangement'
       description: The Fund Management Routine is an activity that is performed as one aspect of carrying out the Fund Management Routine
-    budgettype:
-      type: object
-      properties:
-        Budgettype:
-          type: string
-          description: ''
-          format: datatype
-      description: A Classification value that distinguishes between Budgets within Hedge Fund Administrative Plan according to the type of resource and/or activity that is budgetted
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: Amount of budget which is arranged whitin Hedge Fund Administrative Plan
     assignment:
       type: object
       properties:
@@ -1982,18 +2180,14 @@ components:
       type: object
       properties:
         ObjectProperties:
-          $ref: '#/components/schemas/attribute'
-        ObjectDescription:
-          $ref: '#/components/schemas/attribute'
-      description: The subject matter of Hedge Fund Administrative Plan
-    plantype:
-      type: object
-      properties:
-        Plantype:
           type: string
-          description: 'Data type specifies the classification of a Plan '
-          format: datatype
-      description: The type of Hedge Fund Administrative Plan
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: The subject matter of Hedge Fund Administrative Plan
     HedgeFundAdministrativePlan:
       type: object
       properties:
