@@ -516,129 +516,391 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation before the property is valid/meaningful
+    schedule:
+      type: object
+      properties:
+        Schedule:
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
+      description: The schedule and timing for which the property value is valid
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The version reference for the property value
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Counterparty Permitted Transaction property specific  Business Service
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
+    directoryentry:
+      type: object
+      properties:
+        DirectoryEntryDateType:
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
+        DirectoryEntryDate:
+          $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to Counterparty Permitted Transaction property
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Counterparty Permitted Transaction property
     CounterpartyPermittedTransactionproperty:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Counterparty Permitted Transaction property specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CounterpartyDirectoryEntryReference:
-          type: string
-          description: Reference to Counterparty Permitted Transaction property
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         CounterpartyPermittedTransactionpropertyReference:
-          type: string
-          description: Reference to Counterparty Permitted Transaction property
-          format: object
+          $ref: '#/components/schemas/object'
         CounterpartyPermittedTransactionpropertyType:
-          type: string
-          description: The type of Counterparty Permitted Transaction property
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Counterparty Permitted Transaction property properties that represent a discrete aspect of the Counterparty Permitted Transaction property
     CounterpartyEntityReferenceproperty:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Counterparty Entity Reference property specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CounterpartyDirectoryEntryReference:
-          type: string
-          description: Reference to Counterparty Entity Reference property
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         CounterpartyEntityReferencepropertyReference:
-          type: string
-          description: Reference to Counterparty Entity Reference property
-          format: object
+          $ref: '#/components/schemas/object'
         CounterpartyEntityReferencepropertyType:
-          type: string
-          description: The type of Counterparty Entity Reference property
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Counterparty Permitted Transaction property properties that represent a discrete aspect of the Counterparty Permitted Transaction property
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
     CounterpartyAdministrationOutcome:
       type: object
       properties:
         CounterpartyAdministrationEntry:
-          type: string
-          description: ''
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         CounterpartyAdministrationWorkProduct:
+          $ref: '#/components/schemas/workproduct'
+      description: The Counterparty Permitted Transaction property properties that represent a discrete aspect of the Counterparty Permitted Transaction property
+    number:
+      type: object
+      properties:
+        Number:
+          type: string
+          description: "A mathematical number that is assigned or is determined by calculation. (UN/CEFACT)\n\nNumber of objects represented as an integer. (ISO20022)\n- total number of digits: 18\n- number of digits in fractional part: 0"
+          format: datatype
+      description: The version of Counterparty Directory Entry
+    log:
+      type: object
+      properties:
+        LogType:
           type: string
           description: ''
-          format: workproduct
-      description: The Counterparty Permitted Transaction property properties that represent a discrete aspect of the Counterparty Permitted Transaction property
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
+    involvedparty:
+      type: object
+      properties:
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    agreementtypevalues:
+      enum:
+        - CustomerAgreement
+        - SupplierAgreement
+        - ProductBrokerAgreement
+        - ProductSaleAgreement
+        - FiduciaryAgreement
+        - CommissionSaleAgreement
+        - ServicingMandateAgreement
+        - ChannelAccessAgreement
+      type: string
+      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: "Period during which the agreement is valid\n"
+    agreementlifecyclestatus:
+      type: object
+      properties:
+        Agreementlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+          format: datatype
+      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: 'The identifier of agreement like Agreement Number, Contract Number, Contract Registration Number, etc. '
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: 'A characteristic of agreement which refers to 1) LifecycleDate of agreement (e.g., SignedDate, TerminatedDate, FulfilledDate) OR 2) ArrangedDate of agreement (e.g., StartingDate, EndingDate, ValidityPeriod, EffectiveDate).'
+    agreement:
+      type: object
+      properties:
+        AgreementSignedDate:
+          $ref: '#/components/schemas/date'
+        AgreementType:
+          $ref: '#/components/schemas/agreementtypevalues'
+        AgreementValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AgreementVersion:
+          $ref: '#/components/schemas/text'
+        AgreementStatus:
+          $ref: '#/components/schemas/agreementlifecyclestatus'
+        AgreementSubjectMatter:
+          $ref: '#/components/schemas/text'
+        AgreementIdentification:
+          $ref: '#/components/schemas/identifier'
+        AgreementDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    financialtransactiontypevalues:
+      enum:
+        - Pricingtransaction
+        - Feetransaction
+        - Withdrawaltransaction
+        - Deposittransaction
+        - Paymenttransaction
+        - Clearingtransaction
+        - Settlementtransaction
+        - Reconciliationtransaction
+        - Updatetransaction
+        - Securitiestransaction
+      type: string
+      description: ">\n* `Pricingtransaction` - \n* `Feetransaction` - \n* `Withdrawaltransaction` - \n* `Deposittransaction` - \n* `Paymenttransaction` - \n* `Clearingtransaction` - \n* `Settlementtransaction` - \n* `Reconciliationtransaction` - \n* `Updatetransaction` - \n* `Securitiestransaction` - \n"
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: ''
+    accountstatus:
+      type: object
+      properties:
+        Accountstatus:
+          type: string
+          description: Specifies the current state of an account. (ISO20022)
+          format: datatype
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        Accountidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        Accountdate:
+          type: string
+          description: ''
+          format: datatype
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttype:
+      type: object
+      properties:
+        Accounttype:
+          type: string
+          description: 'A classification of accounts based on their purpose '
+          format: datatype
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalance:
+      type: object
+      properties:
+        Accountbalance:
+          type: string
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrency:
+      type: object
+      properties:
+        Accountcurrency:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
+          $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
+        AccountBalance:
+          $ref: '#/components/schemas/accountbalance'
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: ''
+    financialtransaction:
+      type: object
+      properties:
+        FinancialTransactionType:
+          $ref: '#/components/schemas/financialtransactiontypevalues'
+        FinancialTransactionCurrency:
+          $ref: '#/components/schemas/currencycode'
+        FinancialTransactionAmount:
+          $ref: '#/components/schemas/amount'
+        FinancialTransactionFromAccount:
+          $ref: '#/components/schemas/account'
+        FinancialTransactionTargetAccount:
+          $ref: '#/components/schemas/account'
+        FinancialTransactionDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
     CounterpartyDirectoryEntry:
       type: object
       properties:
         CounterpartyDirectoryEntryDescription:
-          type: string
-          description: Documentation of Counterparty Directory Entry
-          format: text
+          $ref: '#/components/schemas/text'
         CounterpartyDirectoryEntrySchedule:
-          type: string
-          description: The timetable to capture and maintain Counterparty Directory Entry
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         CounterpartyDirectoryEntryVersion:
-          type: string
-          description: The version of Counterparty Directory Entry
-          format: number
+          $ref: '#/components/schemas/number'
         CounterpartyDirectoryEntryStatus:
-          type: string
-          description: The status of Counterparty Directory Entry
-          format: status
+          $ref: '#/components/schemas/status'
         CounterpartyDirectoryEntryUsageLog:
-          type: string
-          description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-          format: log
+          $ref: '#/components/schemas/log'
         CounterpartyDirectoryEntryUpdateLog:
-          type: string
-          description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-          format: log
+          $ref: '#/components/schemas/log'
         CounterpartyDirectoryEntryServiceConfiguration:
-          type: string
-          description: The configuration of Counterparty Directory Entry
-          format: text
+          $ref: '#/components/schemas/text'
         CounterpartyDirectoryEntryReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         ConterpartyReference:
-          type: string
-          description: ''
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         AgreementReference:
-          type: string
-          description: ''
-          format: agreement
+          $ref: '#/components/schemas/agreement'
         FinancialTransactionReference:
-          type: string
-          description: ''
-          format: financialtransaction
+          $ref: '#/components/schemas/financialtransaction'
       description: Capture and maintain reference information about some type of entitity within Counterparty Administration.
     ControlCounterpartyDirectoryEntryRequest:
       type: object
@@ -647,37 +909,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Control Counterparty Directory Entry'
     ControlCounterpartyDirectoryEntryResponse:
       type: object
@@ -686,37 +932,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Control Counterparty Directory Entry'
     ExecuteCounterpartyDirectoryEntryRequest:
       type: object
@@ -725,37 +955,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Execute Counterparty Directory Entry'
     ExecuteCounterpartyDirectoryEntryResponse:
       type: object
@@ -764,37 +978,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Execute Counterparty Directory Entry'
     NotifyCounterpartyDirectoryEntryRequest:
       type: object
@@ -803,37 +1001,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Notify Counterparty Directory Entry'
     NotifyCounterpartyDirectoryEntryResponse:
       type: object
@@ -842,37 +1024,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Notify Counterparty Directory Entry'
     RegisterCounterpartyDirectoryEntryRequest:
       type: object
@@ -881,37 +1047,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Register Counterparty Directory Entry'
     RegisterCounterpartyDirectoryEntryResponse:
       type: object
@@ -920,37 +1070,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Register Counterparty Directory Entry'
     RequestCounterpartyDirectoryEntryRequest:
       type: object
@@ -959,37 +1093,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Request Counterparty Directory Entry'
     RequestCounterpartyDirectoryEntryResponse:
       type: object
@@ -998,37 +1116,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Request Counterparty Directory Entry'
     RetrieveCounterpartyDirectoryEntryRequest:
       type: object
@@ -1037,37 +1139,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Retrieve Counterparty Directory Entry'
     RetrieveCounterpartyDirectoryEntryResponse:
       type: object
@@ -1076,37 +1162,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Retrieve Counterparty Directory Entry'
     UpdateCounterpartyDirectoryEntryRequest:
       type: object
@@ -1115,37 +1185,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Update Counterparty Directory Entry'
     UpdateCounterpartyDirectoryEntryResponse:
       type: object
@@ -1154,37 +1208,21 @@ components:
           type: object
           properties:
             CounterpartyDirectoryEntryDescription:
-              type: string
-              description: Documentation of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Counterparty Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CounterpartyDirectoryEntryVersion:
-              type: string
-              description: The version of Counterparty Directory Entry
-              format: number
+              $ref: '#/components/schemas/number'
             CounterpartyDirectoryEntryStatus:
-              type: string
-              description: The status of Counterparty Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CounterpartyDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Counterparty Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CounterpartyDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Counterparty Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CounterpartyDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Counterparty Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Update Counterparty Directory Entry'
   responses:
     BadRequest:

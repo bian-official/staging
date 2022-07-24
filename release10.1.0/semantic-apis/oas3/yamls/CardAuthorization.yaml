@@ -277,13 +277,23 @@ components:
           type: string
           format: string
       description: Status Attributes
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: Refers to the file where lost/stolen card details are maintained. This is a file accessed using external service access
     StandIn:
       type: object
       properties:
         NegativeFileReference:
-          type: string
-          description: Refers to the file where lost/stolen card details are maintained. This is a file accessed using external service access
-          format: object
+          $ref: '#/components/schemas/object'
         CardAccountStandInAuthorizationResult:
           type: string
           description: The result of the stand in authorization check
@@ -341,9 +351,7 @@ components:
       type: object
       properties:
         CardTransactionProductInstanceReference:
-          type: string
-          description: The card account number/identification associated with the card transaction - matched to Issuer's card account instance
-          format: object
+          $ref: '#/components/schemas/object'
         CardHolderAccountPassword:
           type: string
           description: The password may be held at the customer or account level
@@ -353,9 +361,7 @@ components:
           description: The PIN may be held at device or customer level
           format: string
         AuthenticationSecretQuestionReference:
-          type: string
-          description: Use if customer details/questions used to verify identity
-          format: object
+          $ref: '#/components/schemas/object'
         AuthenticationSecretQuestionTemplate:
           type: string
           description: Question text and expected customer response - given value is compared
@@ -369,81 +375,75 @@ components:
           description: The result of the card holder's authentication check
           format: string
       description: "All kind of verifications \n\nExamples: Password verification"
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency that the transaction is made in
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: The amount corresponding to the type
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: Significant dates and times associated with the transaction
     CreditCardAuthorizationAssessment:
       type: object
       properties:
         NetworkReference:
-          type: string
-          description: Reference to the network the authentication is processed through
-          format: object
+          $ref: '#/components/schemas/object'
         ParticipantAcquirerBankReference:
-          type: string
-          description: Reference to the Acquiring bank requesting authorization
-          format: object
+          $ref: '#/components/schemas/object'
         ParticipantIssuerBankReference:
-          type: string
-          description: Reference to the Issuing bank providing authorization
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionRecord:
           type: string
           description: The card transaction submitted for authorization by the merchant
           format: string
         CardTransactionProductInstanceReference:
-          type: string
-          description: The account number associated with the card transaction
-          format: object
+          $ref: '#/components/schemas/object'
         CardHolderReference:
-          type: string
-          description: The identity of the account holder submitting the transaction
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionIssuedDeviceReference:
-          type: string
-          description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionNetworkReference:
-          type: string
-          description: Reference to the network the card transaction is handled by as recorded with the transaction
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionIssuingBankReference:
-          type: string
-          description: Refers to the card holder's issuing bank as recorded with the transaction
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionMerchantAcquiringBankReference:
-          type: string
-          description: Refers to the merchant's acquiring bank as recorded with the transaction
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          type: string
-          description: The currency that the transaction is made in
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          type: string
-          description: The amount corresponding to the type
-          format: amount
+          $ref: '#/components/schemas/amount'
         CardTransactionMerchantReference:
-          type: string
-          description: Refers to the merchant initiating settlement
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionLocationReference:
-          type: string
-          description: Refers to the point of sale location
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionProductandServiceReference:
-          type: string
-          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionDateTime:
-          type: string
-          description: Significant dates and times associated with the transaction
-          format: date
+          $ref: '#/components/schemas/date'
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -464,73 +464,45 @@ components:
           type: object
           properties:
             NetworkReference:
-              type: string
-              description: Reference to the network the authentication is processed through
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantAcquirerBankReference:
-              type: string
-              description: Reference to the Acquiring bank requesting authorization
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantIssuerBankReference:
-              type: string
-              description: Reference to the Issuing bank providing authorization
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionRecord:
               type: string
               description: The card transaction submitted for authorization by the merchant
               format: string
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: string
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -551,9 +523,7 @@ components:
           type: object
           properties:
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionAuthorizationRecord:
               type: string
               description: 'Details the reference, amount, timestamp of the transaction authorization'
@@ -566,73 +536,45 @@ components:
           type: object
           properties:
             NetworkReference:
-              type: string
-              description: Reference to the network the authentication is processed through
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantAcquirerBankReference:
-              type: string
-              description: Reference to the Acquiring bank requesting authorization
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantIssuerBankReference:
-              type: string
-              description: Reference to the Issuing bank providing authorization
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionRecord:
               type: string
               description: The card transaction submitted for authorization by the merchant
               format: string
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: string
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -653,73 +595,45 @@ components:
           type: object
           properties:
             NetworkReference:
-              type: string
-              description: Reference to the network the authentication is processed through
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantAcquirerBankReference:
-              type: string
-              description: Reference to the Acquiring bank requesting authorization
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantIssuerBankReference:
-              type: string
-              description: Reference to the Issuing bank providing authorization
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionRecord:
               type: string
               description: The card transaction submitted for authorization by the merchant
               format: string
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: string
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -740,73 +654,45 @@ components:
           type: object
           properties:
             NetworkReference:
-              type: string
-              description: Reference to the network the authentication is processed through
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantAcquirerBankReference:
-              type: string
-              description: Reference to the Acquiring bank requesting authorization
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantIssuerBankReference:
-              type: string
-              description: Reference to the Issuing bank providing authorization
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionRecord:
               type: string
               description: The card transaction submitted for authorization by the merchant
               format: string
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: string
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -866,16 +752,12 @@ components:
               description: The card transaction submitted for authorization by the merchant
               format: string
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
         Authentication:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The card account number/identification associated with the card transaction - matched to Issuer's card account instance
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderAccountPassword:
               type: string
               description: The password may be held at the customer or account level
@@ -885,9 +767,7 @@ components:
               description: The PIN may be held at device or customer level
               format: string
             AuthenticationSecretQuestionReference:
-              type: string
-              description: Use if customer details/questions used to verify identity
-              format: object
+              $ref: '#/components/schemas/object'
             AuthenticationSecretQuestionTemplate:
               type: string
               description: Question text and expected customer response - given value is compared
@@ -908,13 +788,9 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
         CreditCheck:
           type: object
           properties:
@@ -930,73 +806,45 @@ components:
           type: object
           properties:
             NetworkReference:
-              type: string
-              description: Reference to the network the authentication is processed through
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantAcquirerBankReference:
-              type: string
-              description: Reference to the Acquiring bank requesting authorization
-              format: object
+              $ref: '#/components/schemas/object'
             ParticipantIssuerBankReference:
-              type: string
-              description: Reference to the Issuing bank providing authorization
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionRecord:
               type: string
               description: The card transaction submitted for authorization by the merchant
               format: string
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardHolderReference:
-              type: string
-              description: The identity of the account holder submitting the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuedDeviceReference:
-              type: string
-              description: Reference to the issued device submitted to authorize the transaction (e.g. card number)
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank as recorded with the transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1024,9 +872,7 @@ components:
           type: object
           properties:
             NegativeFileReference:
-              type: string
-              description: Refers to the file where lost/stolen card details are maintained. This is a file accessed using external service access
-              format: object
+              $ref: '#/components/schemas/object'
             CardAccountStandInAuthorizationResult:
               type: string
               description: The result of the stand in authorization check
