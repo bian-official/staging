@@ -17,10 +17,10 @@ paths:
       description: InCR Initiate a customer workbench operating session
       operationId: Initiate
       requestBody:
-        $ref: '#/components/requestBodies/InitiateCustomerWorkbenchOperatingSessionRequest'
+        $ref: '#/components/requestBodies/CustomerWorkbenchOperatingSession'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateCustomerWorkbenchOperatingSessionResponse'
+          $ref: '#/components/responses/CustomerWorkbenchOperatingSession'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -43,10 +43,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/customerworkbenchid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateCustomerWorkbenchOperatingSessionRequest'
+        $ref: '#/components/requestBodies/CustomerWorkbenchOperatingSession'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateCustomerWorkbenchOperatingSessionResponse'
+          $ref: '#/components/responses/CustomerWorkbenchOperatingSession'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -146,10 +146,10 @@ paths:
         - $ref: '#/components/parameters/customerworkbenchid'
         - $ref: '#/components/parameters/broadcastid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateBroadcastRequest'
+        $ref: '#/components/requestBodies/Broadcast'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateBroadcastResponse'
+          $ref: '#/components/responses/Broadcast'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -495,14 +495,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The timestamp for the broadcast
     Broadcast:
       type: object
       properties:
@@ -510,8 +502,10 @@ components:
           type: string
           description: Text of the broadcast message
           format: string
-        CustomerWorkbenchBroadcastRecordDate/Time:
-          $ref: '#/components/schemas/date'
+        CustomerWorkbenchBroadcastRecordDateTime:
+          type: string
+          description: The timestamp for the broadcast
+          format: date
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     Browsing:
       type: object
@@ -528,7 +522,7 @@ components:
     Contact:
       type: object
       properties:
-        ContactStart/EndTime:
+        ContactStartEndTime:
           type: string
           description: Logged duration of the contact
           format: string
@@ -560,7 +554,7 @@ components:
     ProductandServiceAccess:
       type: object
       properties:
-        CustomerDetails/Preferences:
+        CustomerDetailsPreferences:
           type: string
           description: Locally maintained values used for auto-fill and local validation
           format: string
@@ -572,7 +566,7 @@ components:
           type: string
           description: Locally record of product/service screen access
           format: string
-        AccessStart/EndTime:
+        AccessStartEndTime:
           type: string
           description: Logged time and duration spent on product/service screens
           format: string
@@ -581,23 +575,13 @@ components:
           description: 'Local copies of requested information, application forms etc.'
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: The customer running the workbench device
     CustomerWorkbenchOperatingSession:
       type: object
       properties:
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The customer running the workbench device
+          format: object
         CustomerWorkbenchDeviceType:
           type: string
           description: 'The type of user device (e.g. mobile, laptop, workstation )'
@@ -610,7 +594,7 @@ components:
           type: string
           description: The make of the device if known
           format: string
-        CustomerWorkbenchDeviceOperatingSystemOrVersionNumber:
+        CustomerWorkbenchDeviceOperatingSystemVersionNumber:
           type: string
           description: The operating system type and version (use to match downloaded software)
           format: string
@@ -626,137 +610,11 @@ components:
           type: string
           description: The version number(s) of device resident bank software
           format: string
-        LastUpdateDateOrTime:
-          $ref: '#/components/schemas/date'
+        LastUpdateDateTime:
+          type: string
+          description: The last update date time stamp for local bank software
+          format: date
       description: 'Operate equipment and/or a largely automated facility within Customer Workbench. '
-    InitiateCustomerWorkbenchOperatingSessionRequest:
-      type: object
-      properties:
-        CustomerWorkbenchOperatingSession:
-          type: object
-          properties:
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            CustomerWorkbenchDeviceType:
-              type: string
-              description: 'The type of user device (e.g. mobile, laptop, workstation )'
-              format: string
-            CustomerWorkbenchDeviceRegistration:
-              type: string
-              description: 'Reference to device properties used to identify the device  (e.g. URL, ANI, serial number)'
-              format: string
-            CustomerWorkbenchDeviceManufacturer:
-              type: string
-              description: The make of the device if known
-              format: string
-            CustomerWorkbenchDeviceOperatingSystemVersionNumber:
-              type: string
-              description: The operating system type and version (use to match downloaded software)
-              format: string
-            CustomerWorkbenchDeviceAccessPermissions:
-              type: string
-              description: 'The bank''s access permissions (e.g. local storage access, administrator permissions, system download permission)'
-              format: string
-            InstalledBankApplicationType:
-              type: string
-              description: Details of the local bank applications
-              format: string
-            InstalledBankApplicationVersionNumber:
-              type: string
-              description: The version number(s) of device resident bank software
-              format: string
-            LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
-      description: 'Input: InCR Initiate a customer workbench operating session'
-    InitiateCustomerWorkbenchOperatingSessionResponse:
-      type: object
-      properties:
-        CustomerWorkbenchOperatingSession:
-          type: object
-          properties:
-            CustomerWorkbenchDeviceAccessPermissions:
-              type: string
-              description: 'The bank''s access permissions (e.g. local storage access, administrator permissions, system download permission)'
-              format: string
-      description: 'Output: InCR Initiate a customer workbench operating session'
-    UpdateCustomerWorkbenchOperatingSessionRequest:
-      type: object
-      properties:
-        CustomerWorkbenchOperatingSession:
-          type: object
-          properties:
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            CustomerWorkbenchDeviceType:
-              type: string
-              description: 'The type of user device (e.g. mobile, laptop, workstation )'
-              format: string
-            CustomerWorkbenchDeviceRegistration:
-              type: string
-              description: 'Reference to device properties used to identify the device  (e.g. URL, ANI, serial number)'
-              format: string
-            CustomerWorkbenchDeviceManufacturer:
-              type: string
-              description: The make of the device if known
-              format: string
-            CustomerWorkbenchDeviceOperatingSystemVersionNumber:
-              type: string
-              description: The operating system type and version (use to match downloaded software)
-              format: string
-            CustomerWorkbenchDeviceAccessPermissions:
-              type: string
-              description: 'The bank''s access permissions (e.g. local storage access, administrator permissions, system download permission)'
-              format: string
-            InstalledBankApplicationType:
-              type: string
-              description: Details of the local bank applications
-              format: string
-            InstalledBankApplicationVersionNumber:
-              type: string
-              description: The version number(s) of device resident bank software
-              format: string
-            LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
-      description: 'Input: UpCR Update details of a workbench session'
-    UpdateCustomerWorkbenchOperatingSessionResponse:
-      type: object
-      properties:
-        CustomerWorkbenchOperatingSession:
-          type: object
-          properties:
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            CustomerWorkbenchDeviceType:
-              type: string
-              description: 'The type of user device (e.g. mobile, laptop, workstation )'
-              format: string
-            CustomerWorkbenchDeviceRegistration:
-              type: string
-              description: 'Reference to device properties used to identify the device  (e.g. URL, ANI, serial number)'
-              format: string
-            CustomerWorkbenchDeviceManufacturer:
-              type: string
-              description: The make of the device if known
-              format: string
-            CustomerWorkbenchDeviceOperatingSystemVersionNumber:
-              type: string
-              description: The operating system type and version (use to match downloaded software)
-              format: string
-            CustomerWorkbenchDeviceAccessPermissions:
-              type: string
-              description: 'The bank''s access permissions (e.g. local storage access, administrator permissions, system download permission)'
-              format: string
-            InstalledBankApplicationType:
-              type: string
-              description: Details of the local bank applications
-              format: string
-            InstalledBankApplicationVersionNumber:
-              type: string
-              description: The version number(s) of device resident bank software
-              format: string
-            LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
-      description: 'Output: UpCR Update details of a workbench session'
     RetrieveCustomerWorkbenchOperatingSessionResponse:
       type: object
       properties:
@@ -764,7 +622,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The customer running the workbench device
+              format: object
             CustomerWorkbenchDeviceType:
               type: string
               description: 'The type of user device (e.g. mobile, laptop, workstation )'
@@ -794,7 +654,9 @@ components:
               description: The version number(s) of device resident bank software
               format: string
             LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The last update date time stamp for local bank software
+              format: date
       description: 'Output: ReCR Retrieve details about the workbench session'
     InitiateSWUpdateRequest:
       type: object
@@ -803,7 +665,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The customer running the workbench device
+              format: object
             CustomerWorkbenchDeviceType:
               type: string
               description: 'The type of user device (e.g. mobile, laptop, workstation )'
@@ -833,7 +697,9 @@ components:
               description: The version number(s) of device resident bank software
               format: string
             LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The last update date time stamp for local bank software
+              format: date
         SWUpdate:
           type: object
           properties:
@@ -865,7 +731,9 @@ components:
               description: The version number(s) of device resident bank software
               format: string
             LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The last update date time stamp for local bank software
+              format: date
       description: 'Output: InBQ Initiate a SW update'
     RetrieveSWUpdateResponse:
       type: object
@@ -874,7 +742,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The customer running the workbench device
+              format: object
             CustomerWorkbenchDeviceType:
               type: string
               description: 'The type of user device (e.g. mobile, laptop, workstation )'
@@ -904,7 +774,9 @@ components:
               description: The version number(s) of device resident bank software
               format: string
             LastUpdateDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The last update date time stamp for local bank software
+              format: date
         SWUpdate:
           type: object
           properties:
@@ -921,28 +793,6 @@ components:
               description: The downloaded executable image
               format: string
       description: 'Output: ReBQ Retrieve details about a SW update'
-    InitiateBroadcastRequest:
-      type: object
-      properties:
-        Broadcast:
-          type: object
-          properties:
-            CustomerWorkbenchBroadcastRecord:
-              type: string
-              description: Text of the broadcast message
-              format: string
-            CustomerWorkbenchBroadcastRecordDateTime:
-              $ref: '#/components/schemas/date'
-      description: 'Input: InBQ Initiate a workstation broadcast'
-    InitiateBroadcastResponse:
-      type: object
-      properties:
-        Broadcast:
-          type: object
-          properties:
-            CustomerWorkbenchBroadcastRecordDateTime:
-              $ref: '#/components/schemas/date'
-      description: 'Output: InBQ Initiate a workstation broadcast'
     RequestBroadcastResponse:
       type: object
       properties:
@@ -954,7 +804,9 @@ components:
               description: Text of the broadcast message
               format: string
             CustomerWorkbenchBroadcastRecordDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The timestamp for the broadcast
+              format: date
       description: 'Output: ReBQ Retrieve details about a workstation broadcast'
     RetrieveBrowsingResponse:
       type: object
@@ -1298,18 +1150,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    InitiateCustomerWorkbenchOperatingSessionResponse:
-      description: InitiateCustomerWorkbenchOperatingSessionResponse
+    CustomerWorkbenchOperatingSession:
+      description: CustomerWorkbenchOperatingSession
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateCustomerWorkbenchOperatingSessionResponse'
-    UpdateCustomerWorkbenchOperatingSessionResponse:
-      description: UpdateCustomerWorkbenchOperatingSessionResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerWorkbenchOperatingSessionResponse'
+            $ref: '#/components/schemas/CustomerWorkbenchOperatingSession'
     RetrieveCustomerWorkbenchOperatingSessionResponse:
       description: RetrieveCustomerWorkbenchOperatingSessionResponse
       content:
@@ -1328,12 +1174,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveSWUpdateResponse'
-    InitiateBroadcastResponse:
-      description: InitiateBroadcastResponse
+    Broadcast:
+      description: Broadcast
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateBroadcastResponse'
+            $ref: '#/components/schemas/Broadcast'
     RequestBroadcastResponse:
       description: RequestBroadcastResponse
       content:
@@ -1444,17 +1290,11 @@ components:
       schema:
         type: string
   requestBodies:
-    InitiateCustomerWorkbenchOperatingSessionRequest:
+    CustomerWorkbenchOperatingSession:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateCustomerWorkbenchOperatingSessionRequest'
-      required: true
-    UpdateCustomerWorkbenchOperatingSessionRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerWorkbenchOperatingSessionRequest'
+            $ref: '#/components/schemas/CustomerWorkbenchOperatingSession'
       required: true
     InitiateSWUpdateRequest:
       content:
@@ -1462,11 +1302,11 @@ components:
           schema:
             $ref: '#/components/schemas/InitiateSWUpdateRequest'
       required: true
-    InitiateBroadcastRequest:
+    Broadcast:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateBroadcastRequest'
+            $ref: '#/components/schemas/Broadcast'
       required: true
     Browsing:
       content:

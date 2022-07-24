@@ -255,31 +255,13 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the associated customer billing transaction
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The amount of the customer bill
     Tracking:
       type: object
       properties:
         CustomerBillingProcedureInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated customer billing transaction
+          format: object
         CustomerBillingParty:
           type: string
           description: The billed customer
@@ -297,43 +279,41 @@ components:
           description: The content of the billing statement used in the bill
           format: string
         CustomerBillingAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the customer bill
+          format: amount
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency of the payment
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: Key dates associated with the transaction (e.g. value date)
     Repayment:
       type: object
       properties:
         TransactionPayerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the payer of the funds
+          format: object
         TransactionPayerProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the source of the payment funds
+          format: object
         TransactionPayerBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the payers account holding bank
+          format: object
         TransactionType:
           type: string
           description: The type of repayment transaction (e.g. wire)
           format: string
         TransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the repayment transaction (amount applied to the open item outstanding balance)
+          format: amount
         TransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency of the payment
+          format: currencycode
         TransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Key dates associated with the transaction (e.g. value date)
+          format: date
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
     OpenItemProcedure:
       type: object
@@ -347,9 +327,13 @@ components:
           description: Specific detail of the open item for reference
           format: string
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated loan account
+          format: object
         PartyReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer/party responsible
+          format: object
         LoanRepaymentSchedule:
           type: string
           description: Payment schedule used for staged payments
@@ -359,7 +343,9 @@ components:
           description: The outstanding balance
           format: string
         LoanTerminationDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date the loan agreement is terminated
+          format: date
         RepaymentStatement:
           type: string
           description: A statement of repayment transactions made against the item
@@ -380,9 +366,13 @@ components:
               description: Specific detail of the open item for reference
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated loan account
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer/party responsible
+              format: object
             LoanRepaymentSchedule:
               type: string
               description: Payment schedule used for staged payments
@@ -392,7 +382,9 @@ components:
               description: The outstanding balance
               format: string
             LoanTerminationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the loan agreement is terminated
+              format: date
       description: 'Input: InCR Initiate an open item procedure'
     InitiateOpenItemProcedureResponse:
       type: object
@@ -420,9 +412,13 @@ components:
               description: Specific detail of the open item for reference
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated loan account
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer/party responsible
+              format: object
             LoanRepaymentSchedule:
               type: string
               description: Payment schedule used for staged payments
@@ -432,7 +428,9 @@ components:
               description: The outstanding balance
               format: string
             LoanTerminationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the loan agreement is terminated
+              format: date
             RepaymentStatement:
               type: string
               description: A statement of repayment transactions made against the item
@@ -445,7 +443,9 @@ components:
           type: object
           properties:
             CustomerBillingProcedureInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer billing transaction
+              format: object
             CustomerBillingParty:
               type: string
               description: The billed customer
@@ -463,7 +463,9 @@ components:
               description: The content of the billing statement used in the bill
               format: string
             CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the customer bill
+              format: amount
       description: 'Output: ReBQ Retrieve tracking details about an open item'
     InitiateRepaymentRequest:
       type: object
@@ -480,9 +482,13 @@ components:
               description: Specific detail of the open item for reference
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated loan account
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer/party responsible
+              format: object
             LoanRepaymentSchedule:
               type: string
               description: Payment schedule used for staged payments
@@ -492,7 +498,9 @@ components:
               description: The outstanding balance
               format: string
             LoanTerminationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the loan agreement is terminated
+              format: date
             RepaymentStatement:
               type: string
               description: A statement of repayment transactions made against the item
@@ -501,21 +509,33 @@ components:
           type: object
           properties:
             TransactionPayerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the payer of the funds
+              format: object
             TransactionPayerProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the source of the payment funds
+              format: object
             TransactionPayerBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the payers account holding bank
+              format: object
             TransactionType:
               type: string
               description: The type of repayment transaction (e.g. wire)
               format: string
             TransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the repayment transaction (amount applied to the open item outstanding balance)
+              format: amount
             TransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency of the payment
+              format: currencycode
             TransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates associated with the transaction (e.g. value date)
+              format: date
       description: 'Input: InBQ Initiate repayment transaction against an open item'
     InitiateRepaymentResponse:
       type: object
@@ -524,7 +544,9 @@ components:
           type: object
           properties:
             TransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Key dates associated with the transaction (e.g. value date)
+              format: date
       description: 'Output: InBQ Initiate repayment transaction against an open item'
     RetrieveRepaymentResponse:
       type: object
@@ -541,9 +563,13 @@ components:
               description: Specific detail of the open item for reference
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated loan account
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer/party responsible
+              format: object
             LoanRepaymentSchedule:
               type: string
               description: Payment schedule used for staged payments

@@ -252,10 +252,10 @@ paths:
         - $ref: '#/components/parameters/knowledgeexchangeid'
         - $ref: '#/components/parameters/review_refinementandeditingid'
       requestBody:
-        $ref: '#/components/requestBodies/ExchangeReview_RefinementandEditingRequest'
+        $ref: '#/components/requestBodies/Review_RefinementandEditing'
       responses:
         '200':
-          $ref: '#/components/responses/ExchangeReview_RefinementandEditingResponse'
+          $ref: '#/components/responses/Review_RefinementandEditing'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -593,10 +593,10 @@ paths:
         - $ref: '#/components/parameters/knowledgeexchangeid'
         - $ref: '#/components/parameters/review_refinementandeditingid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateReview_RefinementandEditingRequest'
+        $ref: '#/components/requestBodies/Review_RefinementandEditing'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateReview_RefinementandEditingResponse'
+          $ref: '#/components/responses/Review_RefinementandEditing'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -636,70 +636,38 @@ components:
           description: ''
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Intellectual Property Exchange Operating Session specific Business Service
     Review_RefinementandEditing:
       type: object
       properties:
-        'Review,RefinementandEditingPreconditions':
+        Review_RefinementandEditingPreconditions:
           type: string
           description: The required status/situation and or tasks that need to be completed prior to the invocation of the feature
           format: string
-        'Review,RefinementandEditingFunctionSchedule':
+        Review_RefinementandEditingFunctionSchedule:
           type: string
           description: The schedule and timing of the function
           format: string
-        'ContentReview,RefinementandEditing':
-          $ref: '#/components/schemas/businessservice'
-        'ContentReview,RefinementandEditingServiceType':
+        ContentReview_RefinementandEditing:
+          type: string
+          description: The Intellectual Property Exchange Operating Session specific Business Service
+          format: businessservice
+        ContentReview_RefinementandEditingServiceType:
           type: string
           description: Reference to the specific business service type
           format: string
-        'ContentReview,RefinementandEditingServiceDescription':
+        ContentReview_RefinementandEditingServiceDescription:
           type: string
           description: Description of the performed business service
           format: string
-        'ContentReview,RefinementandEditingServiceInputsandOuputs':
+        ContentReview_RefinementandEditingServiceInputsandOuputs:
           type: string
           description: Mandatory and optional inputs and output information for the business service
           format: string
-        'ContentReview,RefinementandEditingServiceWorkProduct':
+        ContentReview_RefinementandEditingServiceWorkProduct:
           type: string
           description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
           format: string
-        'ContentReview,RefinementandEditingServiceName':
+        ContentReview_RefinementandEditingServiceName:
           type: string
           description: ''
           format: string
@@ -716,7 +684,9 @@ components:
           description: The schedule and timing of the function
           format: string
         ContentCaptureandClassification:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Intellectual Property Exchange Operating Session specific Business Service
+          format: businessservice
         ContentCaptureandClassificationServiceType:
           type: string
           description: Reference to the specific business service type
@@ -750,7 +720,9 @@ components:
           description: The schedule and timing of the function
           format: string
         ContentMaintenanceandAccessAdministration:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Intellectual Property Exchange Operating Session specific Business Service
+          format: businessservice
         ContentMaintenanceandAccessAdministrationServiceType:
           type: string
           description: Reference to the specific business service type
@@ -784,7 +756,9 @@ components:
           description: The schedule and timing of the function
           format: string
         ContentArchiving:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Intellectual Property Exchange Operating Session specific Business Service
+          format: businessservice
         ContentArchivingServiceType:
           type: string
           description: Reference to the specific business service type
@@ -818,7 +792,9 @@ components:
           description: The schedule and timing of the function
           format: string
         ContentIndexingandPublication:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Intellectual Property Exchange Operating Session specific Business Service
+          format: businessservice
         ContentIndexingandPublicationServiceType:
           type: string
           description: Reference to the specific business service type
@@ -840,18 +816,6 @@ components:
           description: ''
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the party who is involved in Intellectual Property Exchange Operating Session
     IntellectualPropertyExchangeOperatingSession:
       type: object
       properties:
@@ -868,9 +832,13 @@ components:
           description: Reference to the log of (usage) ativities/events  of Intellectual Property Exchange Operating Session
           format: string
         IntellectualPropertyExchangeOperatingSessionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the party who is involved in Intellectual Property Exchange Operating Session
+          format: object
         IntellectualPropertyExchangeOperatingSessionServiceProviderReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Reference to the party who provides the services of Intellectual Property Exchange Operating Session '
+          format: object
         IntellectualPropertyExchangeOperatingSessionType:
           type: string
           description: 'A Classification value that distinguishes between the type of operations within Intellectual Property Exchange Operating Session '
@@ -907,9 +875,13 @@ components:
               description: Reference to the log of (usage) ativities/events  of Intellectual Property Exchange Operating Session
               format: string
             IntellectualPropertyExchangeOperatingSessionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Intellectual Property Exchange Operating Session
+              format: object
             IntellectualPropertyExchangeOperatingSessionServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the party who provides the services of Intellectual Property Exchange Operating Session '
+              format: object
             IntellectualPropertyExchangeOperatingSessionType:
               type: string
               description: 'A Classification value that distinguishes between the type of operations within Intellectual Property Exchange Operating Session '
@@ -927,80 +899,6 @@ components:
               description: The configuration of Intellectual Property Exchange Operating Session
               format: string
       description: 'Output: ReCR Retrieve details about any aspect of Intellectual Property Exchange Operating Session'
-    ExchangeReview_RefinementandEditingRequest:
-      type: object
-      properties:
-        Review_RefinementandEditing:
-          type: object
-          properties:
-            Review_RefinementandEditingPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the invocation of the feature
-              format: string
-            Review_RefinementandEditingFunctionSchedule:
-              type: string
-              description: The schedule and timing of the function
-              format: string
-            ContentReview_RefinementandEditing:
-              $ref: '#/components/schemas/businessservice'
-            ContentReview_RefinementandEditingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ContentReview_RefinementandEditingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ContentReview_RefinementandEditingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ContentReview_RefinementandEditingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ContentReview_RefinementandEditingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: EcBQ Accept, verify, etc. aspects of Review, Refinement and Editing processing'
-    ExchangeReview_RefinementandEditingResponse:
-      type: object
-      properties:
-        Review_RefinementandEditing:
-          type: object
-          properties:
-            Review_RefinementandEditingPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the invocation of the feature
-              format: string
-            Review_RefinementandEditingFunctionSchedule:
-              type: string
-              description: The schedule and timing of the function
-              format: string
-            ContentReview_RefinementandEditing:
-              $ref: '#/components/schemas/businessservice'
-            ContentReview_RefinementandEditingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ContentReview_RefinementandEditingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ContentReview_RefinementandEditingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ContentReview_RefinementandEditingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ContentReview_RefinementandEditingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: EcBQ Accept, verify, etc. aspects of Review, Refinement and Editing processing'
     RetrieveArchivingResponse:
       type: object
       properties:
@@ -1016,7 +914,9 @@ components:
               description: The schedule and timing of the function
               format: string
             ContentArchiving:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Intellectual Property Exchange Operating Session specific Business Service
+              format: businessservice
             ContentArchivingServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1053,7 +953,9 @@ components:
               description: The schedule and timing of the function
               format: string
             ContentCaptureandClassification:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Intellectual Property Exchange Operating Session specific Business Service
+              format: businessservice
             ContentCaptureandClassificationServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1090,7 +992,9 @@ components:
               description: The schedule and timing of the function
               format: string
             ContentIndexingandPublication:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Intellectual Property Exchange Operating Session specific Business Service
+              format: businessservice
             ContentIndexingandPublicationServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1127,7 +1031,9 @@ components:
               description: The schedule and timing of the function
               format: string
             ContentMaintenanceandAccessAdministration:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Intellectual Property Exchange Operating Session specific Business Service
+              format: businessservice
             ContentMaintenanceandAccessAdministrationServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1164,7 +1070,9 @@ components:
               description: The schedule and timing of the function
               format: string
             ContentReview_RefinementandEditing:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Intellectual Property Exchange Operating Session specific Business Service
+              format: businessservice
             ContentReview_RefinementandEditingServiceType:
               type: string
               description: Reference to the specific business service type
@@ -1186,80 +1094,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: ReBQ Retrieve details about any aspect of Review, Refinement and Editing'
-    UpdateReview_RefinementandEditingRequest:
-      type: object
-      properties:
-        Review_RefinementandEditing:
-          type: object
-          properties:
-            Review_RefinementandEditingPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the invocation of the feature
-              format: string
-            Review_RefinementandEditingFunctionSchedule:
-              type: string
-              description: The schedule and timing of the function
-              format: string
-            ContentReview_RefinementandEditing:
-              $ref: '#/components/schemas/businessservice'
-            ContentReview_RefinementandEditingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ContentReview_RefinementandEditingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ContentReview_RefinementandEditingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ContentReview_RefinementandEditingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ContentReview_RefinementandEditingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Review, Refinement and Editing'
-    UpdateReview_RefinementandEditingResponse:
-      type: object
-      properties:
-        Review_RefinementandEditing:
-          type: object
-          properties:
-            Review_RefinementandEditingPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the invocation of the feature
-              format: string
-            Review_RefinementandEditingFunctionSchedule:
-              type: string
-              description: The schedule and timing of the function
-              format: string
-            ContentReview_RefinementandEditing:
-              $ref: '#/components/schemas/businessservice'
-            ContentReview_RefinementandEditingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ContentReview_RefinementandEditingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ContentReview_RefinementandEditingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ContentReview_RefinementandEditingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ContentReview_RefinementandEditingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Review, Refinement and Editing'
   responses:
     BadRequest:
       description: BadRequest
@@ -1321,12 +1155,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/IndexingandPublication'
-    ExchangeReview_RefinementandEditingResponse:
-      description: ExchangeReview_RefinementandEditingResponse
+    Review_RefinementandEditing:
+      description: Review_RefinementandEditing
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ExchangeReview_RefinementandEditingResponse'
+            $ref: '#/components/schemas/Review_RefinementandEditing'
     RetrieveArchivingResponse:
       description: RetrieveArchivingResponse
       content:
@@ -1363,12 +1197,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/MaintenanceandAccessAdministration'
-    UpdateReview_RefinementandEditingResponse:
-      description: UpdateReview_RefinementandEditingResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateReview_RefinementandEditingResponse'
   parameters:
     knowledgeexchangeid:
       name: knowledgeexchangeid
@@ -1431,21 +1259,15 @@ components:
           schema:
             $ref: '#/components/schemas/IndexingandPublication'
       required: true
-    ExchangeReview_RefinementandEditingRequest:
+    Review_RefinementandEditing:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ExchangeReview_RefinementandEditingRequest'
+            $ref: '#/components/schemas/Review_RefinementandEditing'
       required: true
     MaintenanceandAccessAdministration:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/MaintenanceandAccessAdministration'
-      required: true
-    UpdateReview_RefinementandEditingRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateReview_RefinementandEditingRequest'
       required: true

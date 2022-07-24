@@ -17,10 +17,10 @@ paths:
       description: InCR Initiate servicing event history tracking for a servicing resource
       operationId: Initiate
       requestBody:
-        $ref: '#/components/requestBodies/InitiateServicingEventLogRequest'
+        $ref: '#/components/requestBodies/ServicingEventLog'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateServicingEventLogRequest'
+          $ref: '#/components/responses/ServicingEventLog'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -43,10 +43,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/servicingeventhistoryid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateServicingEventLogRequest'
+        $ref: '#/components/requestBodies/ServicingEventLog'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateServicingEventLogResponse'
+          $ref: '#/components/responses/ServicingEventLog'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -94,10 +94,10 @@ paths:
         - $ref: '#/components/parameters/servicingeventhistoryid'
         - $ref: '#/components/parameters/assignmentid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateAssignmentRequest'
+        $ref: '#/components/requestBodies/Assignment'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateAssignmentResponse'
+          $ref: '#/components/responses/Assignment'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -121,10 +121,10 @@ paths:
         - $ref: '#/components/parameters/servicingeventhistoryid'
         - $ref: '#/components/parameters/assignmentid'
       requestBody:
-        $ref: '#/components/requestBodies/CaptureAssignmentRequest'
+        $ref: '#/components/requestBodies/Assignment'
       responses:
         '200':
-          $ref: '#/components/responses/CaptureAssignmentRequest'
+          $ref: '#/components/responses/Assignment'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -252,10 +252,10 @@ paths:
         - $ref: '#/components/parameters/servicingeventhistoryid'
         - $ref: '#/components/parameters/issueid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateIssueRequest'
+        $ref: '#/components/requestBodies/Issue'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateIssueResponse'
+          $ref: '#/components/responses/Issue'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -414,27 +414,21 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the service position where issue arises
     Issue:
       type: object
       properties:
         ServicingPositionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the service position where issue arises
+          format: object
         ServicingPositionSessionReference:
-          $ref: '#/components/schemas/object'
-        Employee/BusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the servicing session
+          format: object
+        EmployeeBusinessUnitReference:
+          type: string
+          description: Reference to the employee or unit raising the issue
+          format: object
         ProductionIssueType:
           type: string
           description: Defines the type of event/error being recorded (e.g. support facility failure)
@@ -455,7 +449,7 @@ components:
     Assignment:
       type: object
       properties:
-        Date/Time/Location:
+        DateTimeLocation:
           type: string
           description: 'Key dates and times associated with the assignment (e.g. start, end, break duration, available/idle time)'
           format: string
@@ -476,17 +470,21 @@ components:
           description: 'The type of service support facility engaged (e.g. commission tracking, on-line help, action logging)'
           format: string
         ServicingFacilityInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any record generated from he use of the facility
+          format: object
       description: "A collection of the events/transactions recorded by the log\n\nExamples: Customer life event, Servicing event"
     Session:
       type: object
       properties:
-        SessionStart/EndTime:
+        SessionStartEndTime:
           type: string
           description: The start and duration of the dialogue
           format: string
         CustomerContactReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the complete contact record for the customer contact
+          format: object
         SessionMechanism:
           type: string
           description: 'The type of channel device involved in the session exchange (e.g. web, phone, chat, video, VOIP, face to face at a branch - note there can be concurrent sessions within a single customer contact)'
@@ -508,7 +506,9 @@ components:
           description: In cases a prompt or script can provided to structure the interaction for self-service and assisted interactions
           format: string
         SessionDialogueLogReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to a dialogue log that is built up
+          format: object
         SessionDialogueLog:
           type: string
           description: 'The dialogue log, used for training and root cause analysis etc.  (e.g. click-stream, video/audio recording)'
@@ -522,43 +522,14 @@ components:
       type: object
       properties:
         ServicingPositionReference:
-          $ref: '#/components/schemas/object'
-        EmployeeOrBusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The servicing position for the log (if the log is organized to track specific positions)
+          format: object
+        EmployeeBusinessUnitReference:
+          type: string
+          description: Employee/unit assigned to the servicing position (if the log is organized to track specific servicing reps that might work at different positions)
+          format: object
       description: 'Maintain a log of transactions or activity, typically a financial account/journal or a log of activity to support behavioral analysis within Servicing Event History. '
-    InitiateServicingEventLogRequest:
-      type: object
-      properties:
-        ServicingEventLog:
-          type: object
-          properties:
-            ServicingPositionReference:
-              $ref: '#/components/schemas/object'
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-      description: 'Input: InCR Initiate servicing event history tracking for a servicing resource'
-    UpdateServicingEventLogRequest:
-      type: object
-      properties:
-        ServicingEventLog:
-          type: object
-          properties:
-            ServicingPositionReference:
-              $ref: '#/components/schemas/object'
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-      description: 'Input: UpCR Update details about the log'
-    UpdateServicingEventLogResponse:
-      type: object
-      properties:
-        ServicingEventLog:
-          type: object
-          properties:
-            ServicingPositionReference:
-              $ref: '#/components/schemas/object'
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-      description: 'Output: UpCR Update details about the log'
     RetrieveServicingEventLogResponse:
       type: object
       properties:
@@ -566,67 +537,14 @@ components:
           type: object
           properties:
             ServicingPositionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The servicing position for the log (if the log is organized to track specific positions)
+              format: object
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Employee/unit assigned to the servicing position (if the log is organized to track specific servicing reps that might work at different positions)
+              format: object
       description: 'Output: ReCR Retrieve details about the servicing event log'
-    UpdateAssignmentRequest:
-      type: object
-      properties:
-        Assignment:
-          type: object
-          properties:
-            DateTimeLocation:
-              type: string
-              description: 'Key dates and times associated with the assignment (e.g. start, end, break duration, available/idle time)'
-              format: string
-            ServicingPositionActivityReport:
-              type: string
-              description: 'Log of servicing activity at that position during the session (e.g. contacts, sales, issues, breaks)'
-              format: string
-            ServicingPositionActivityStatistics:
-              type: string
-              description: 'Accumulated statistics during the session (e.g. average contact time, wait time, service utilization, facility usage)'
-              format: string
-      description: 'Input: UpBQ Update captured assignment event details'
-    UpdateAssignmentResponse:
-      type: object
-      properties:
-        Assignment:
-          type: object
-          properties:
-            DateTimeLocation:
-              type: string
-              description: 'Key dates and times associated with the assignment (e.g. start, end, break duration, available/idle time)'
-              format: string
-            ServicingPositionActivityReport:
-              type: string
-              description: 'Log of servicing activity at that position during the session (e.g. contacts, sales, issues, breaks)'
-              format: string
-            ServicingPositionActivityStatistics:
-              type: string
-              description: 'Accumulated statistics during the session (e.g. average contact time, wait time, service utilization, facility usage)'
-              format: string
-      description: 'Output: UpBQ Update captured assignment event details'
-    CaptureAssignmentRequest:
-      type: object
-      properties:
-        Assignment:
-          type: object
-          properties:
-            DateTimeLocation:
-              type: string
-              description: 'Key dates and times associated with the assignment (e.g. start, end, break duration, available/idle time)'
-              format: string
-            ServicingPositionActivityReport:
-              type: string
-              description: 'Log of servicing activity at that position during the session (e.g. contacts, sales, issues, breaks)'
-              format: string
-            ServicingPositionActivityStatistics:
-              type: string
-              description: 'Accumulated statistics during the session (e.g. average contact time, wait time, service utilization, facility usage)'
-              format: string
-      description: 'Input: CaBQ Capture servicing position assignment event details'
     RetrieveAssignmentResponse:
       type: object
       properties:
@@ -657,7 +575,9 @@ components:
               description: The start and duration of the dialogue
               format: string
             CustomerContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the complete contact record for the customer contact
+              format: object
             SessionMechanism:
               type: string
               description: 'The type of channel device involved in the session exchange (e.g. web, phone, chat, video, VOIP, face to face at a branch - note there can be concurrent sessions within a single customer contact)'
@@ -679,7 +599,9 @@ components:
               description: In cases a prompt or script can provided to structure the interaction for self-service and assisted interactions
               format: string
             SessionDialogueLogReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a dialogue log that is built up
+              format: object
             SessionDialogueResult:
               type: string
               description: 'The outcome of the dialogue (e.g. customer satisfied, on-ward routing, hang-up)'
@@ -696,7 +618,9 @@ components:
               description: The start and duration of the dialogue
               format: string
             CustomerContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the complete contact record for the customer contact
+              format: object
             SessionMechanism:
               type: string
               description: 'The type of channel device involved in the session exchange (e.g. web, phone, chat, video, VOIP, face to face at a branch - note there can be concurrent sessions within a single customer contact)'
@@ -718,7 +642,9 @@ components:
               description: In cases a prompt or script can provided to structure the interaction for self-service and assisted interactions
               format: string
             SessionDialogueLogReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a dialogue log that is built up
+              format: object
             SessionDialogueResult:
               type: string
               description: 'The outcome of the dialogue (e.g. customer satisfied, on-ward routing, hang-up)'
@@ -735,7 +661,9 @@ components:
               description: The start and duration of the dialogue
               format: string
             CustomerContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the complete contact record for the customer contact
+              format: object
             SessionMechanism:
               type: string
               description: 'The type of channel device involved in the session exchange (e.g. web, phone, chat, video, VOIP, face to face at a branch - note there can be concurrent sessions within a single customer contact)'
@@ -757,7 +685,9 @@ components:
               description: In cases a prompt or script can provided to structure the interaction for self-service and assisted interactions
               format: string
             SessionDialogueLogReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a dialogue log that is built up
+              format: object
             SessionDialogueResult:
               type: string
               description: 'The outcome of the dialogue (e.g. customer satisfied, on-ward routing, hang-up)'
@@ -774,7 +704,9 @@ components:
               description: The start and duration of the dialogue
               format: string
             CustomerContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the complete contact record for the customer contact
+              format: object
             SessionMechanism:
               type: string
               description: 'The type of channel device involved in the session exchange (e.g. web, phone, chat, video, VOIP, face to face at a branch - note there can be concurrent sessions within a single customer contact)'
@@ -796,70 +728,14 @@ components:
               description: In cases a prompt or script can provided to structure the interaction for self-service and assisted interactions
               format: string
             SessionDialogueLogReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a dialogue log that is built up
+              format: object
             SessionDialogueResult:
               type: string
               description: 'The outcome of the dialogue (e.g. customer satisfied, on-ward routing, hang-up)'
               format: string
       description: 'Output: ReBQ Retrieve customer servicing event details'
-    UpdateIssueRequest:
-      type: object
-      properties:
-        Issue:
-          type: object
-          properties:
-            ServicingPositionReference:
-              $ref: '#/components/schemas/object'
-            ServicingPositionSessionReference:
-              $ref: '#/components/schemas/object'
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-            ProductionIssueType:
-              type: string
-              description: Defines the type of event/error being recorded (e.g. support facility failure)
-              format: string
-            ProductionIssueDescription:
-              type: string
-              description: 'Description of the issue and involved functions, parties'
-              format: string
-            ProductionIssueDiagnosis:
-              type: string
-              description: An evaluation of the event cause and impact
-              format: string
-            ProductionIssueResolutionTask:
-              type: string
-              description: Description of corrective actions and assigned parties
-              format: string
-      description: 'Input: UpBQ Update captured servicing issue event details'
-    UpdateIssueResponse:
-      type: object
-      properties:
-        Issue:
-          type: object
-          properties:
-            ServicingPositionReference:
-              $ref: '#/components/schemas/object'
-            ServicingPositionSessionReference:
-              $ref: '#/components/schemas/object'
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-            ProductionIssueType:
-              type: string
-              description: Defines the type of event/error being recorded (e.g. support facility failure)
-              format: string
-            ProductionIssueDescription:
-              type: string
-              description: 'Description of the issue and involved functions, parties'
-              format: string
-            ProductionIssueDiagnosis:
-              type: string
-              description: An evaluation of the event cause and impact
-              format: string
-            ProductionIssueResolutionTask:
-              type: string
-              description: Description of corrective actions and assigned parties
-              format: string
-      description: 'Output: UpBQ Update captured servicing issue event details'
     CaptureIssueRequest:
       type: object
       properties:
@@ -867,16 +743,24 @@ components:
           type: object
           properties:
             CustomerContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the complete contact record for the customer contact
+              format: object
         Issue:
           type: object
           properties:
             ServicingPositionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the service position where issue arises
+              format: object
             ServicingPositionSessionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the servicing session
+              format: object
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee or unit raising the issue
+              format: object
             ProductionIssueType:
               type: string
               description: Defines the type of event/error being recorded (e.g. support facility failure)
@@ -901,11 +785,17 @@ components:
           type: object
           properties:
             ServicingPositionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the service position where issue arises
+              format: object
             ServicingPositionSessionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the servicing session
+              format: object
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee or unit raising the issue
+              format: object
             ProductionIssueType:
               type: string
               description: Defines the type of event/error being recorded (e.g. support facility failure)
@@ -930,7 +820,9 @@ components:
           type: object
           properties:
             CustomerContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the complete contact record for the customer contact
+              format: object
         ServicingFacility:
           type: object
           properties:
@@ -939,7 +831,9 @@ components:
               description: 'The type of service support facility engaged (e.g. commission tracking, on-line help, action logging)'
               format: string
             ServicingFacilityInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any record generated from he use of the facility
+              format: object
       description: 'Input: CaBQ Capture  facility utilization event details'
     RetrieveServicingFacilityResponse:
       type: object
@@ -952,7 +846,9 @@ components:
               description: 'The type of service support facility engaged (e.g. commission tracking, on-line help, action logging)'
               format: string
             ServicingFacilityInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any record generated from he use of the facility
+              format: object
       description: 'Output: ReBQ Retrieve  facility utilization event details'
   responses:
     BadRequest:
@@ -991,36 +887,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    InitiateServicingEventLogRequest:
-      description: InitiateServicingEventLogRequest
+    ServicingEventLog:
+      description: ServicingEventLog
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateServicingEventLogRequest'
-    UpdateServicingEventLogResponse:
-      description: UpdateServicingEventLogResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateServicingEventLogResponse'
+            $ref: '#/components/schemas/ServicingEventLog'
     RetrieveServicingEventLogResponse:
       description: RetrieveServicingEventLogResponse
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveServicingEventLogResponse'
-    UpdateAssignmentResponse:
-      description: UpdateAssignmentResponse
+    Assignment:
+      description: Assignment
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateAssignmentResponse'
-    CaptureAssignmentRequest:
-      description: CaptureAssignmentRequest
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureAssignmentRequest'
+            $ref: '#/components/schemas/Assignment'
     RetrieveAssignmentResponse:
       description: RetrieveAssignmentResponse
       content:
@@ -1045,12 +929,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveSessionResponse'
-    UpdateIssueResponse:
-      description: UpdateIssueResponse
+    Issue:
+      description: Issue
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateIssueResponse'
+            $ref: '#/components/schemas/Issue'
     CaptureIssueRequest:
       description: CaptureIssueRequest
       content:
@@ -1118,29 +1002,17 @@ components:
       schema:
         type: string
   requestBodies:
-    InitiateServicingEventLogRequest:
+    ServicingEventLog:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateServicingEventLogRequest'
+            $ref: '#/components/schemas/ServicingEventLog'
       required: true
-    UpdateServicingEventLogRequest:
+    Assignment:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateServicingEventLogRequest'
-      required: true
-    UpdateAssignmentRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateAssignmentRequest'
-      required: true
-    CaptureAssignmentRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CaptureAssignmentRequest'
+            $ref: '#/components/schemas/Assignment'
       required: true
     UpdateSessionRequest:
       content:
@@ -1154,11 +1026,11 @@ components:
           schema:
             $ref: '#/components/schemas/CaptureSessionRequest'
       required: true
-    UpdateIssueRequest:
+    Issue:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateIssueRequest'
+            $ref: '#/components/schemas/Issue'
       required: true
     CaptureIssueRequest:
       content:

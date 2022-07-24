@@ -224,10 +224,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/troubleshootingid'
       requestBody:
-        $ref: '#/components/requestBodies/CaptureTroubleshootingRequest'
+        $ref: '#/components/requestBodies/Troubleshooting'
       responses:
         '200':
-          $ref: '#/components/responses/CaptureTroubleshootingResponse'
+          $ref: '#/components/responses/Troubleshooting'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -305,10 +305,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/representbankinterestsid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateRepresentBankInterestsRequest'
+        $ref: '#/components/requestBodies/RepresentBankInterests'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateRepresentBankInterestsResponse'
+          $ref: '#/components/responses/RepresentBankInterests'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -332,10 +332,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/troubleshootingid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateTroubleshootingRequest'
+        $ref: '#/components/requestBodies/Troubleshooting'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateTroubleshootingResponse'
+          $ref: '#/components/responses/Troubleshooting'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -513,10 +513,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/representbankinterestsid'
       requestBody:
-        $ref: '#/components/requestBodies/RequestRepresentBankInterestsRequest'
+        $ref: '#/components/requestBodies/RepresentBankInterests'
       responses:
         '200':
-          $ref: '#/components/responses/RequestRepresentBankInterestsResponse'
+          $ref: '#/components/responses/RepresentBankInterests'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -540,10 +540,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/troubleshootingid'
       requestBody:
-        $ref: '#/components/requestBodies/RequestTroubleshootingRequest'
+        $ref: '#/components/requestBodies/Troubleshooting'
       responses:
         '200':
-          $ref: '#/components/responses/RequestTroubleshootingResponse'
+          $ref: '#/components/responses/Troubleshooting'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -621,10 +621,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/representbankinterestsid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateRepresentBankInterestsRequest'
+        $ref: '#/components/requestBodies/RepresentBankInterests'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateRepresentBankInterestsResponse'
+          $ref: '#/components/responses/RepresentBankInterests'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -648,10 +648,10 @@ paths:
         - $ref: '#/components/parameters/regulatoryandlegalauthorityid'
         - $ref: '#/components/parameters/troubleshootingid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateTroubleshootingRequest'
+        $ref: '#/components/requestBodies/Troubleshooting'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateTroubleshootingResponse'
+          $ref: '#/components/responses/Troubleshooting'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -679,52 +679,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: The operating unit/employee responsible for undertaking the duty
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
     MaintainRelations:
       type: object
       properties:
@@ -732,14 +686,18 @@ components:
           type: string
           description: The required status/situation before the duty/obligation can be met
           format: string
-        MaintainRelationsBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        MaintainRelationsBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for undertaking the duty
+          format: object
         MaintainRelationsWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         MaintainRelations:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
+          format: businessservice
         MaintainRelationsPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -772,14 +730,18 @@ components:
           type: string
           description: The required status/situation before the duty/obligation can be met
           format: string
-        EstablishRelationsBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        EstablishRelationsBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for undertaking the duty
+          format: object
         EstablishRelationsWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         EstablishRelations:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
+          format: businessservice
         EstablishRelationsPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -836,14 +798,18 @@ components:
           type: string
           description: The required status/situation before the duty/obligation can be met
           format: string
-        RepresentBankInterestsBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        RepresentBankInterestsBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for undertaking the duty
+          format: object
         RepresentBankInterestsWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
+          format: businessservice
         RepresentBankInterestsPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -876,14 +842,18 @@ components:
           type: string
           description: The required status/situation before the duty/obligation can be met
           format: string
-        TroubleshootingBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        TroubleshootingBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for undertaking the duty
+          format: object
         TroubleshootingWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
+          format: businessservice
         TroubleshootingPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -917,7 +887,9 @@ components:
           description: The type of Regulatory&Legal Authority Relationship ManagementPlan
           format: string
         RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+          format: object
         RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
           type: string
           description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -950,7 +922,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -998,7 +972,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1046,7 +1022,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1094,7 +1072,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1142,7 +1122,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1190,7 +1172,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1219,7 +1203,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1267,7 +1253,9 @@ components:
               description: The type of Regulatory&Legal Authority Relationship ManagementPlan
               format: string
             RegulatoryAndLegalAuthorityRelationshipManagementPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to Regulatory&Legal Authority Relationship ManagementPlan
+              format: object
             RegulatoryAndLegalAuthorityRelationshipManagementPlanBudgetType:
               type: string
               description: A Classification value that distinguishes between Budgets within Regulatory&Legal Authority Relationship ManagementPlan according to the type of resource and/or activity that is budgetted
@@ -1304,92 +1292,6 @@ components:
               description: 'Reference to  Regulatory&Legal Authority Relationship ManagementPlan '
               format: string
       description: 'Output: UpCR Update details relating to Regulatory And Legal Authority Relationship Management Plan'
-    CaptureTroubleshootingRequest:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: CaBQ Capture Troubleshooting activity or event related information'
-    CaptureTroubleshootingResponse:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: CaBQ Capture Troubleshooting activity or event related information'
     InitiateEstablishRelationsRequest:
       type: object
       properties:
@@ -1401,7 +1303,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1442,7 +1346,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1483,7 +1389,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1524,7 +1432,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1554,178 +1464,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: InBQ Instantiate a new Maintain Relations'
-    InitiateRepresentBankInterestsRequest:
-      type: object
-      properties:
-        RepresentBankInterests:
-          type: object
-          properties:
-            RepresentBankInterestsPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RepresentBankInterestsWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            RepresentBankInterestsPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            RepresentBankInterestsServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RepresentBankInterestsServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RepresentBankInterestsServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RepresentBankInterestsServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RepresentBankInterestsServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Represent Bank Interests'
-    InitiateRepresentBankInterestsResponse:
-      type: object
-      properties:
-        RepresentBankInterests:
-          type: object
-          properties:
-            RepresentBankInterestsPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RepresentBankInterestsWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            RepresentBankInterestsPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            RepresentBankInterestsServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RepresentBankInterestsServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RepresentBankInterestsServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RepresentBankInterestsServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RepresentBankInterestsServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Represent Bank Interests'
-    InitiateTroubleshootingRequest:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Troubleshooting'
-    InitiateTroubleshootingResponse:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Troubleshooting'
     RetrieveEstablishRelationsResponse:
       type: object
       properties:
@@ -1737,7 +1475,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1778,7 +1518,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1819,13 +1561,17 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             RepresentBankInterestsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
               format: string
             BusinessService:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
+              format: businessservice
             RepresentBankInterestsPostconditions:
               type: string
               description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -1862,13 +1608,17 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             TroubleshootingWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
               format: string
             BusinessService:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Regulatory&Legal Authority Relationship ManagementPlan specific Business Service
+              format: businessservice
             TroubleshootingPostconditions:
               type: string
               description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -1905,7 +1655,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1946,7 +1698,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -1987,7 +1741,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -2028,7 +1784,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -2058,178 +1816,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: RqBQ Request manual intervention or a decision with respect to Maintain Relations'
-    RequestRepresentBankInterestsRequest:
-      type: object
-      properties:
-        RepresentBankInterests:
-          type: object
-          properties:
-            RepresentBankInterestsPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RepresentBankInterestsWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            RepresentBankInterestsPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            RepresentBankInterestsServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RepresentBankInterestsServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RepresentBankInterestsServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RepresentBankInterestsServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RepresentBankInterestsServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: RqBQ Request manual intervention or a decision with respect to Represent Bank Interests'
-    RequestRepresentBankInterestsResponse:
-      type: object
-      properties:
-        RepresentBankInterests:
-          type: object
-          properties:
-            RepresentBankInterestsPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RepresentBankInterestsWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            RepresentBankInterestsPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            RepresentBankInterestsServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RepresentBankInterestsServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RepresentBankInterestsServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RepresentBankInterestsServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RepresentBankInterestsServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: RqBQ Request manual intervention or a decision with respect to Represent Bank Interests'
-    RequestTroubleshootingRequest:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: RqBQ Request manual intervention or a decision with respect to Troubleshooting'
-    RequestTroubleshootingResponse:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: RqBQ Request manual intervention or a decision with respect to Troubleshooting'
     UpdateEstablishRelationsRequest:
       type: object
       properties:
@@ -2241,7 +1827,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -2282,7 +1870,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             EstablishRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             EstablishRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -2323,7 +1913,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -2364,7 +1956,9 @@ components:
               description: The required status/situation before the duty/obligation can be met
               format: string
             MaintainRelationsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for undertaking the duty
+              format: object
             MaintainRelationsWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in fulfilling the duty
@@ -2394,178 +1988,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: UpBQ Update details relating to Maintain Relations'
-    UpdateRepresentBankInterestsRequest:
-      type: object
-      properties:
-        RepresentBankInterests:
-          type: object
-          properties:
-            RepresentBankInterestsPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RepresentBankInterestsWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            RepresentBankInterestsPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            RepresentBankInterestsServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RepresentBankInterestsServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RepresentBankInterestsServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RepresentBankInterestsServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RepresentBankInterestsServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Represent Bank Interests'
-    UpdateRepresentBankInterestsResponse:
-      type: object
-      properties:
-        RepresentBankInterests:
-          type: object
-          properties:
-            RepresentBankInterestsPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            RepresentBankInterestsBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RepresentBankInterestsWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            RepresentBankInterestsPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            RepresentBankInterestsServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RepresentBankInterestsServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RepresentBankInterestsServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RepresentBankInterestsServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RepresentBankInterestsServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Represent Bank Interests'
-    UpdateTroubleshootingRequest:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Troubleshooting'
-    UpdateTroubleshootingResponse:
-      type: object
-      properties:
-        Troubleshooting:
-          type: object
-          properties:
-            TroubleshootingPreconditions:
-              type: string
-              description: The required status/situation before the duty/obligation can be met
-              format: string
-            TroubleshootingBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            TroubleshootingWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in fulfilling the duty
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            TroubleshootingPostconditions:
-              type: string
-              description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
-              format: string
-            TroubleshootingServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            TroubleshootingServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            TroubleshootingServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            TroubleshootingServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            TroubleshootingServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Troubleshooting'
   responses:
     BadRequest:
       description: BadRequest
@@ -2651,12 +2073,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateRegulatoryAndLegalAuthorityRelationshipManagementPlanResponse'
-    CaptureTroubleshootingResponse:
-      description: CaptureTroubleshootingResponse
+    Troubleshooting:
+      description: Troubleshooting
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureTroubleshootingResponse'
+            $ref: '#/components/schemas/Troubleshooting'
     InitiateEstablishRelationsResponse:
       description: InitiateEstablishRelationsResponse
       content:
@@ -2669,18 +2091,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InitiateMaintainRelationsResponse'
-    InitiateRepresentBankInterestsResponse:
-      description: InitiateRepresentBankInterestsResponse
+    RepresentBankInterests:
+      description: RepresentBankInterests
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateRepresentBankInterestsResponse'
-    InitiateTroubleshootingResponse:
-      description: InitiateTroubleshootingResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateTroubleshootingResponse'
+            $ref: '#/components/schemas/RepresentBankInterests'
     RetrieveEstablishRelationsResponse:
       description: RetrieveEstablishRelationsResponse
       content:
@@ -2717,18 +2133,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RequestMaintainRelationsResponse'
-    RequestRepresentBankInterestsResponse:
-      description: RequestRepresentBankInterestsResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestRepresentBankInterestsResponse'
-    RequestTroubleshootingResponse:
-      description: RequestTroubleshootingResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestTroubleshootingResponse'
     UpdateEstablishRelationsResponse:
       description: UpdateEstablishRelationsResponse
       content:
@@ -2741,18 +2145,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateMaintainRelationsResponse'
-    UpdateRepresentBankInterestsResponse:
-      description: UpdateRepresentBankInterestsResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateRepresentBankInterestsResponse'
-    UpdateTroubleshootingResponse:
-      description: UpdateTroubleshootingResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateTroubleshootingResponse'
   parameters:
     regulatoryandlegalauthorityid:
       name: regulatoryandlegalauthorityid
@@ -2832,11 +2224,11 @@ components:
           schema:
             $ref: '#/components/schemas/UpdateRegulatoryAndLegalAuthorityRelationshipManagementPlanRequest'
       required: true
-    CaptureTroubleshootingRequest:
+    Troubleshooting:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureTroubleshootingRequest'
+            $ref: '#/components/schemas/Troubleshooting'
       required: true
     InitiateEstablishRelationsRequest:
       content:
@@ -2850,17 +2242,11 @@ components:
           schema:
             $ref: '#/components/schemas/InitiateMaintainRelationsRequest'
       required: true
-    InitiateRepresentBankInterestsRequest:
+    RepresentBankInterests:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateRepresentBankInterestsRequest'
-      required: true
-    InitiateTroubleshootingRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateTroubleshootingRequest'
+            $ref: '#/components/schemas/RepresentBankInterests'
       required: true
     RequestEstablishRelationsRequest:
       content:
@@ -2874,18 +2260,6 @@ components:
           schema:
             $ref: '#/components/schemas/RequestMaintainRelationsRequest'
       required: true
-    RequestRepresentBankInterestsRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestRepresentBankInterestsRequest'
-      required: true
-    RequestTroubleshootingRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestTroubleshootingRequest'
-      required: true
     UpdateEstablishRelationsRequest:
       content:
         application/json:
@@ -2897,16 +2271,4 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateMaintainRelationsRequest'
-      required: true
-    UpdateRepresentBankInterestsRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateRepresentBankInterestsRequest'
-      required: true
-    UpdateTroubleshootingRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateTroubleshootingRequest'
       required: true

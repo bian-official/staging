@@ -349,23 +349,13 @@ components:
           description: 'Work documentation, forms and schedules produced and referenced during the task'
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the received payment
     Payment:
       type: object
       properties:
         PaymentTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the received payment
+          format: object
         PaymentTransaction:
           type: string
           description: Payment transaction details
@@ -383,14 +373,6 @@ components:
           description: The task to contact the customer and request/negotiate payment
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The date and time of the contact
     Contact:
       type: object
       properties:
@@ -403,19 +385,25 @@ components:
           description: Content of the reminder message
           format: string
         ContactDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time of the contact
+          format: date
         ContactResult:
           type: string
           description: Any response arising from the contact
           format: string
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The document reference for associated documents
+          format: object
         DocumentContent:
           type: string
           description: Document copy/content
           format: string
         CorrespondenceInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the correspondence generated and received
+          format: object
         CorrespondenceContent:
           type: string
           description: Correspondence content
@@ -429,19 +417,13 @@ components:
           description: 'Work documentation, forms and schedules produced and referenced during the task'
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The primary account currency
     DelinquentAccountProcedure:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The linked credit product reference
+          format: object
         ProductAccountNumber:
           type: string
           description: The associated account number in any suitable format (e.g. IBAN)
@@ -451,17 +433,25 @@ components:
           description: The type of product
           format: string
         CustomerReference:
-          $ref: '#/components/schemas/object'
-        BankBranchOrLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the account primary party/owner
+          format: object
+        BankBranchLocationReference:
+          type: string
+          description: Bank branch associated with the account for booking purposes
+          format: object
         IssuedDevice:
           type: string
           description: Reference to an issued device associated with the facility (such as a card or key fob)
           format: string
         AccountCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The primary account currency
+          format: currencycode
         TaxReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference identifier linking the account to appropriate tax handling
+          format: object
         Associations:
           type: string
           description: Definition of the associations to the account
@@ -470,12 +460,14 @@ components:
           type: string
           description: 'The type of association (e.g. guarantor, co-signer)'
           format: string
-        AssociationObligationOrEntitlement:
+        AssociationObligationEntitlement:
           type: string
           description: 'Description of the role, obligations or entitlements of the associated party'
           format: string
         AssociationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated party
+          format: object
         LinkedAccounts:
           type: string
           description: Definition of the associations to the account
@@ -505,7 +497,9 @@ components:
           description: The current calculated position
           format: string
         CollateralAssetAllocationInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer's collateral holdings and allocations
+          format: object
         CollateralAssetAllocationProfile:
           type: string
           description: Record of collateral applied to the customer products
@@ -523,33 +517,45 @@ components:
           description: Customer billing transactions (and associated payments)
           format: string
         BillingTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to individual transactions
+          format: object
         PaymentTransactions:
           type: string
           description: Payments deposited to the account
           format: string
         PaymentTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to individual transactions
+          format: object
         ProductTransactions:
           type: string
           description: Product execution transactions (payments)
           format: string
         ProductTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to individual transactions
+          format: object
         InterestTransactions:
           type: string
           description: Interest accrued against the account
           format: string
         InterestTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to individual transactions
+          format: object
         FeeTransactions:
           type: string
           description: Fees applied against the account
           format: string
         FeeTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to individual transactions
+          format: object
         CreditPlanReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to a linked credit plan if applicable
+          format: object
         CreditPlanType:
           type: string
           description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -566,7 +572,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -576,17 +584,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -600,7 +616,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -630,7 +648,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -644,33 +664,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -698,7 +730,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -708,17 +742,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -732,7 +774,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -762,7 +806,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -776,33 +822,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -819,7 +877,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -829,17 +889,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -853,7 +921,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -883,7 +953,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -897,33 +969,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -940,7 +1024,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -950,17 +1036,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -974,7 +1068,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -1004,7 +1100,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -1018,33 +1116,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -1061,7 +1171,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -1071,17 +1183,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -1095,7 +1215,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -1125,7 +1247,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -1139,33 +1263,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -1212,19 +1348,25 @@ components:
               description: Content of the reminder message
               format: string
             ContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the contact
+              format: date
             ContactResult:
               type: string
               description: Any response arising from the contact
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             DocumentContent:
               type: string
               description: Document copy/content
               format: string
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence generated and received
+              format: object
             CorrespondenceContent:
               type: string
               description: Correspondence content
@@ -1245,7 +1387,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -1255,17 +1399,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -1279,7 +1431,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -1309,7 +1463,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -1323,33 +1479,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -1374,19 +1542,25 @@ components:
               description: Content of the reminder message
               format: string
             ContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the contact
+              format: date
             ContactResult:
               type: string
               description: Any response arising from the contact
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             DocumentContent:
               type: string
               description: Document copy/content
               format: string
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence generated and received
+              format: object
             CorrespondenceContent:
               type: string
               description: Correspondence content
@@ -1399,7 +1573,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -1409,17 +1585,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -1433,7 +1617,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -1463,7 +1649,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -1477,33 +1665,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'
@@ -1524,19 +1724,25 @@ components:
               description: Content of the reminder message
               format: string
             ContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the contact
+              format: date
             ContactResult:
               type: string
               description: Any response arising from the contact
               format: string
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             DocumentContent:
               type: string
               description: Document copy/content
               format: string
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence generated and received
+              format: object
             CorrespondenceContent:
               type: string
               description: Correspondence content
@@ -1549,7 +1755,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -1559,7 +1767,9 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
@@ -1576,7 +1786,9 @@ components:
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
       description: 'Output: InBQ Initiate payment processing against the delinquent account'
     UpdatePaymentRequest:
       type: object
@@ -1585,7 +1797,9 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the received payment
+              format: object
       description: 'Input: UpBQ Update a payment transaction'
     UpdatePaymentResponse:
       type: object
@@ -1594,7 +1808,9 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the received payment
+              format: object
       description: 'Output: UpBQ Update a payment transaction'
     RetrievePaymentResponse:
       type: object
@@ -1603,7 +1819,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -1613,13 +1831,17 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
       description: 'Output: ReBQ Retrieve details about a payment made against the delinquent account'
     RetrieveResolutionResponse:
       type: object
@@ -1628,7 +1850,9 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The linked credit product reference
+              format: object
             ProductAccountNumber:
               type: string
               description: The associated account number in any suitable format (e.g. IBAN)
@@ -1638,17 +1862,25 @@ components:
               description: The type of product
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the account primary party/owner
+              format: object
             BankBranchLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Bank branch associated with the account for booking purposes
+              format: object
             IssuedDevice:
               type: string
               description: Reference to an issued device associated with the facility (such as a card or key fob)
               format: string
             AccountCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The primary account currency
+              format: currencycode
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the account to appropriate tax handling
+              format: object
             Associations:
               type: string
               description: Definition of the associations to the account
@@ -1662,7 +1894,9 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated party
+              format: object
             LinkedAccounts:
               type: string
               description: Definition of the associations to the account
@@ -1692,7 +1926,9 @@ components:
               description: The current calculated position
               format: string
             CollateralAssetAllocationInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer's collateral holdings and allocations
+              format: object
             CollateralAssetAllocationProfile:
               type: string
               description: Record of collateral applied to the customer products
@@ -1706,33 +1942,45 @@ components:
               description: Customer billing transactions (and associated payments)
               format: string
             BillingTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             PaymentTransactions:
               type: string
               description: Payments deposited to the account
               format: string
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             ProductTransactions:
               type: string
               description: Product execution transactions (payments)
               format: string
             ProductTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             InterestTransactions:
               type: string
               description: Interest accrued against the account
               format: string
             InterestTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             FeeTransactions:
               type: string
               description: Fees applied against the account
               format: string
             FeeTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to individual transactions
+              format: object
             CreditPlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to a linked credit plan if applicable
+              format: object
             CreditPlanType:
               type: string
               description: 'The credit plan type (e.g. (Cash, Credit, Charge, Balance Transfer, Promotions, Securitized, etc.)'

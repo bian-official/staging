@@ -17,10 +17,10 @@ paths:
       description: InCR Initiate customer billing for a customer
       operationId: Initiate
       requestBody:
-        $ref: '#/components/requestBodies/InitiateCustomerBillingProcedureRequest'
+        $ref: '#/components/requestBodies/CustomerBillingProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateCustomerBillingProcedureResponse'
+          $ref: '#/components/responses/CustomerBillingProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -43,10 +43,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/customerbillingid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateCustomerBillingProcedureRequest'
+        $ref: '#/components/requestBodies/CustomerBillingProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateCustomerBillingProcedureResponse'
+          $ref: '#/components/responses/CustomerBillingProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -69,10 +69,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/customerbillingid'
       requestBody:
-        $ref: '#/components/requestBodies/ExecuteCustomerBillingProcedureRequest'
+        $ref: '#/components/requestBodies/CustomerBillingProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/ExecuteCustomerBillingProcedureResponse'
+          $ref: '#/components/responses/CustomerBillingProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -95,10 +95,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/customerbillingid'
       requestBody:
-        $ref: '#/components/requestBodies/RequestCustomerBillingProcedureRequest'
+        $ref: '#/components/requestBodies/CustomerBillingProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/RequestCustomerBillingProcedureResponse'
+          $ref: '#/components/responses/CustomerBillingProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -250,10 +250,10 @@ paths:
         - $ref: '#/components/parameters/customerbillingid'
         - $ref: '#/components/parameters/paymentsid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiatePaymentsRequest'
+        $ref: '#/components/requestBodies/CustomerBillingProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/InitiatePaymentsRequest'
+          $ref: '#/components/responses/CustomerBillingProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -333,36 +333,18 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the received payment transaction
     Payments:
       type: object
       properties:
         PaymentTransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the received payment transaction
+          format: object
         PaymentTransaction:
           type: string
           description: The payment transaction details
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The date the invoice is issued
     Invoicing:
       type: object
       properties:
@@ -371,11 +353,17 @@ components:
           description: The customer invoice record
           format: string
         InvoiceDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date the invoice is issued
+          format: date
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The document reference for the sent invoice
+          format: object
         CorrespondenceInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the correspondence that generated the dispatch
+          format: object
         Invoice:
           type: string
           description: The content of the invoice (in any suitable media of format)
@@ -397,7 +385,9 @@ components:
           description: Content of the reminder message
           format: string
         ContactDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time of the contact
+          format: date
         ContactResult:
           type: string
           description: Any response arising from the contact
@@ -411,14 +401,6 @@ components:
           description: 'Work documentation, forms and schedules produced and referenced during the task'
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The total amount due
     CustomerBillingProcedure:
       type: object
       properties:
@@ -431,12 +413,18 @@ components:
           description: Description that annotates the bill as appropriate
           format: string
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer for the billing
+          format: object
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The product instance associated with the charge
+          format: object
         CustomerAgreementReference:
-          $ref: '#/components/schemas/object'
-        CustomerBillingProductandServiceOrActionDescription:
+          type: string
+          description: The agreement covering the product arrangement (referenced for any specific billing terms and conditions)
+          format: object
+        CustomerBillingProductandServiceActionDescription:
           type: string
           description: Breakdown and description of the billed service or activities
           format: string
@@ -457,9 +445,13 @@ components:
           description: The itemized breakdown of the charges with references
           format: string
         CustomerBillingAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The total amount due
+          format: amount
         CustomerBillingPaymentDueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The due date for payment
+          format: date
         CustomerBillingPaymentDetails:
           type: string
           description: The payment details (e.g. payment account)
@@ -469,388 +461,6 @@ components:
           description: The target and actual billing activities and dates
           format: string
       description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Customer Billing. '
-    InitiateCustomerBillingProcedureRequest:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Input: InCR Initiate customer billing for a customer'
-    InitiateCustomerBillingProcedureResponse:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Output: InCR Initiate customer billing for a customer'
-    UpdateCustomerBillingProcedureRequest:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Input: UpCR Update details of a customer billing transaction'
-    UpdateCustomerBillingProcedureResponse:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Output: UpCR Update details of a customer billing transaction'
-    ExecuteCustomerBillingProcedureRequest:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Input: ExCR Execute an automated action against an active bill (e.g. resubmit)'
-    ExecuteCustomerBillingProcedureResponse:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Output: ExCR Execute an automated action against an active bill (e.g. resubmit)'
-    RequestCustomerBillingProcedureRequest:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Input: RqCR Request manual intervention with an active billing procedure'
-    RequestCustomerBillingProcedureResponse:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Output: RqCR Request manual intervention with an active billing procedure'
     RetrieveCustomerBillingProcedureResponse:
       type: object
       properties:
@@ -866,11 +476,17 @@ components:
               description: Description that annotates the bill as appropriate
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer for the billing
+              format: object
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product instance associated with the charge
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The agreement covering the product arrangement (referenced for any specific billing terms and conditions)
+              format: object
             CustomerBillingProductandServiceActionDescription:
               type: string
               description: Breakdown and description of the billed service or activities
@@ -892,9 +508,13 @@ components:
               description: The itemized breakdown of the charges with references
               format: string
             CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The total amount due
+              format: amount
             CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The due date for payment
+              format: date
             CustomerBillingPaymentDetails:
               type: string
               description: The payment details (e.g. payment account)
@@ -915,11 +535,17 @@ components:
               description: The customer invoice record
               format: string
             InvoiceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the invoice is issued
+              format: date
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the sent invoice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence that generated the dispatch
+              format: object
             InvoicingWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the analysis (for future reference)'
@@ -936,11 +562,17 @@ components:
               description: The customer invoice record
               format: string
             InvoiceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the invoice is issued
+              format: date
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the sent invoice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence that generated the dispatch
+              format: object
             InvoicingWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the analysis (for future reference)'
@@ -961,11 +593,17 @@ components:
               description: Description that annotates the bill as appropriate
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer for the billing
+              format: object
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product instance associated with the charge
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The agreement covering the product arrangement (referenced for any specific billing terms and conditions)
+              format: object
             CustomerBillingProductandServiceActionDescription:
               type: string
               description: Breakdown and description of the billed service or activities
@@ -987,9 +625,13 @@ components:
               description: The itemized breakdown of the charges with references
               format: string
             CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The total amount due
+              format: amount
             CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The due date for payment
+              format: date
             CustomerBillingPaymentDetails:
               type: string
               description: The payment details (e.g. payment account)
@@ -1006,11 +648,17 @@ components:
               description: The customer invoice record
               format: string
             InvoiceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the invoice is issued
+              format: date
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the sent invoice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence that generated the dispatch
+              format: object
             InvoicingWorkProduct:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the analysis (for future reference)'
@@ -1031,11 +679,17 @@ components:
               description: Description that annotates the bill as appropriate
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer for the billing
+              format: object
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product instance associated with the charge
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The agreement covering the product arrangement (referenced for any specific billing terms and conditions)
+              format: object
             CustomerBillingProductandServiceActionDescription:
               type: string
               description: Breakdown and description of the billed service or activities
@@ -1057,9 +711,13 @@ components:
               description: The itemized breakdown of the charges with references
               format: string
             CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The total amount due
+              format: amount
             CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The due date for payment
+              format: date
             CustomerBillingPaymentDetails:
               type: string
               description: The payment details (e.g. payment account)
@@ -1076,11 +734,17 @@ components:
               description: The customer invoice record
               format: string
             InvoiceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the invoice is issued
+              format: date
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the sent invoice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence that generated the dispatch
+              format: object
       description: 'Input: InBQ Initiate tracking and reminder task against an active billing procedure'
     InitiateTrackingandRemindersResponse:
       type: object
@@ -1104,7 +768,9 @@ components:
               description: Content of the reminder message
               format: string
             ContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the contact
+              format: date
             ContactResult:
               type: string
               description: Any response arising from the contact
@@ -1133,11 +799,17 @@ components:
               description: Description that annotates the bill as appropriate
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer for the billing
+              format: object
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product instance associated with the charge
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The agreement covering the product arrangement (referenced for any specific billing terms and conditions)
+              format: object
             CustomerBillingProductandServiceActionDescription:
               type: string
               description: Breakdown and description of the billed service or activities
@@ -1159,9 +831,13 @@ components:
               description: The itemized breakdown of the charges with references
               format: string
             CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The total amount due
+              format: amount
             CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The due date for payment
+              format: date
             CustomerBillingPaymentDetails:
               type: string
               description: The payment details (e.g. payment account)
@@ -1178,11 +854,17 @@ components:
               description: The customer invoice record
               format: string
             InvoiceDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date the invoice is issued
+              format: date
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for the sent invoice
+              format: object
             CorrespondenceInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the correspondence that generated the dispatch
+              format: object
         TrackingandReminders:
           type: object
           properties:
@@ -1195,7 +877,9 @@ components:
               description: Content of the reminder message
               format: string
             ContactDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the contact
+              format: date
             ContactResult:
               type: string
               description: Any response arising from the contact
@@ -1223,61 +907,10 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the received payment transaction
+              format: object
       description: 'Output: InBQ Initiate payment processing against a billing transaction'
-    InitiatePaymentsRequest:
-      type: object
-      properties:
-        CustomerBillingProcedure:
-          type: object
-          properties:
-            CustomerBillingTransactionType:
-              type: string
-              description: 'The type of customer billing (e.g. product fees, penalties)'
-              format: string
-            CustomerBillingTransactionDescription:
-              type: string
-              description: Description that annotates the bill as appropriate
-              format: string
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
-            CustomerBillingProductandServiceActionDescription:
-              type: string
-              description: Breakdown and description of the billed service or activities
-              format: string
-            CustomerBillingParty:
-              type: string
-              description: The legal entity being charged (will usually be the customer)
-              format: string
-            CustomerBillingAddress:
-              type: string
-              description: The billing address (can be an electronic location
-              format: string
-            CustomerBillingPeriod:
-              type: string
-              description: The billing period is appropriate (e.g. for an on-going service)
-              format: string
-            CustomerBillingStatement:
-              type: string
-              description: The itemized breakdown of the charges with references
-              format: string
-            CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
-            CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
-            CustomerBillingPaymentDetails:
-              type: string
-              description: The payment details (e.g. payment account)
-              format: string
-            CustomerBillingPaymentSchedule:
-              type: string
-              description: The target and actual billing activities and dates
-              format: string
-      description: 'Input: InBQ Initiate payment processing against a billing transaction'
     UpdatePaymentsRequest:
       type: object
       properties:
@@ -1285,7 +918,9 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the received payment transaction
+              format: object
       description: 'Input: UpBQ Update payment details for a billing transaction'
     UpdatePaymentsResponse:
       type: object
@@ -1294,7 +929,9 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the received payment transaction
+              format: object
       description: 'Output: UpBQ Update payment details for a billing transaction'
     RetrievePaymentsResponse:
       type: object
@@ -1311,11 +948,17 @@ components:
               description: Description that annotates the bill as appropriate
               format: string
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer for the billing
+              format: object
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product instance associated with the charge
+              format: object
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The agreement covering the product arrangement (referenced for any specific billing terms and conditions)
+              format: object
             CustomerBillingProductandServiceActionDescription:
               type: string
               description: Breakdown and description of the billed service or activities
@@ -1337,9 +980,13 @@ components:
               description: The itemized breakdown of the charges with references
               format: string
             CustomerBillingAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The total amount due
+              format: amount
             CustomerBillingPaymentDueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The due date for payment
+              format: date
             CustomerBillingPaymentDetails:
               type: string
               description: The payment details (e.g. payment account)
@@ -1352,7 +999,9 @@ components:
           type: object
           properties:
             PaymentTransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the received payment transaction
+              format: object
       description: 'Output: ReBQ Retrieve payment processing details'
   responses:
     BadRequest:
@@ -1391,30 +1040,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    InitiateCustomerBillingProcedureResponse:
-      description: InitiateCustomerBillingProcedureResponse
+    CustomerBillingProcedure:
+      description: CustomerBillingProcedure
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateCustomerBillingProcedureResponse'
-    UpdateCustomerBillingProcedureResponse:
-      description: UpdateCustomerBillingProcedureResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerBillingProcedureResponse'
-    ExecuteCustomerBillingProcedureResponse:
-      description: ExecuteCustomerBillingProcedureResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteCustomerBillingProcedureResponse'
-    RequestCustomerBillingProcedureResponse:
-      description: RequestCustomerBillingProcedureResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestCustomerBillingProcedureResponse'
+            $ref: '#/components/schemas/CustomerBillingProcedure'
     RetrieveCustomerBillingProcedureResponse:
       description: RetrieveCustomerBillingProcedureResponse
       content:
@@ -1445,12 +1076,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveTrackingandRemindersResponse'
-    InitiatePaymentsRequest:
-      description: InitiatePaymentsRequest
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePaymentsRequest'
     UpdatePaymentsResponse:
       description: UpdatePaymentsResponse
       content:
@@ -1493,29 +1118,11 @@ components:
       schema:
         type: string
   requestBodies:
-    InitiateCustomerBillingProcedureRequest:
+    CustomerBillingProcedure:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateCustomerBillingProcedureRequest'
-      required: true
-    UpdateCustomerBillingProcedureRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerBillingProcedureRequest'
-      required: true
-    ExecuteCustomerBillingProcedureRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExecuteCustomerBillingProcedureRequest'
-      required: true
-    RequestCustomerBillingProcedureRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestCustomerBillingProcedureRequest'
+            $ref: '#/components/schemas/CustomerBillingProcedure'
       required: true
     UpdateInvoicingRequest:
       content:
@@ -1528,12 +1135,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InitiateTrackingandRemindersRequest'
-      required: true
-    InitiatePaymentsRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePaymentsRequest'
       required: true
     UpdatePaymentsRequest:
       content:

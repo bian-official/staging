@@ -177,14 +177,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The date of the transaction
     FinancialTransactionCapture:
       type: object
       properties:
@@ -197,28 +189,10 @@ components:
           description: The logged financial transaction. Note the log can be structured with double entry representations (i.e. capture credit/debit pair)
           format: string
         PostingValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date of the transaction
+          format: date
       description: "A collection of the events/transactions recorded by the log\n\nExamples: Customer life event, Servicing event"
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: The product/service for which this is a financial transaction log
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency for the logged  transactions
     FinancialPositionLog:
       type: object
       properties:
@@ -227,13 +201,21 @@ components:
           description: The type of financial transaction log (e.g. customer transactions)
           format: string
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The product/service for which this is a financial transaction log
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the product or service account holder/customer for the log if appropriate
+          format: object
         CounterpartyReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Reference to a counterparty for the log if appropriate (e.g. merchant reference, card network reference)'
+          format: object
         BaseCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency for the logged  transactions
+          format: currencycode
         InterestApplicationRecord:
           type: string
           description: The record of applied interest if interest calculations are supported
@@ -295,7 +277,9 @@ components:
           description: Value of the specific date type
           format: string
         InitiationDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the log was initiated. Note the log will have a complex internal calendar structure for extract and reporting
+          format: date
         Status:
           type: string
           description: 'The status of the log entry (e.g. active, in-suspense etc.)'
@@ -312,13 +296,21 @@ components:
               description: The type of financial transaction log (e.g. customer transactions)
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product/service for which this is a financial transaction log
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product or service account holder/customer for the log if appropriate
+              format: object
             CounterpartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to a counterparty for the log if appropriate (e.g. merchant reference, card network reference)'
+              format: object
             BaseCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the logged  transactions
+              format: currencycode
             InterestApplicationRecord:
               type: string
               description: The record of applied interest if interest calculations are supported
@@ -352,7 +344,9 @@ components:
               description: 'The type of key dates associated with the block  (e.g. start, expiry)'
               format: string
             InitiationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the log was initiated. Note the log will have a complex internal calendar structure for extract and reporting
+              format: date
       description: 'Input: InCR Initiate a position keeping transaction log'
     InitiateFinancialPositionLogResponse:
       type: object
@@ -412,13 +406,21 @@ components:
               description: The type of financial transaction log (e.g. customer transactions)
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product/service for which this is a financial transaction log
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product or service account holder/customer for the log if appropriate
+              format: object
             CounterpartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to a counterparty for the log if appropriate (e.g. merchant reference, card network reference)'
+              format: object
             BaseCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the logged  transactions
+              format: currencycode
             InterestApplicationRecord:
               type: string
               description: The record of applied interest if interest calculations are supported
@@ -452,7 +454,9 @@ components:
               description: 'The type of key dates associated with the block  (e.g. start, expiry)'
               format: string
             InitiationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the log was initiated. Note the log will have a complex internal calendar structure for extract and reporting
+              format: date
             Status:
               type: string
               description: 'The status of the log entry (e.g. active, in-suspense etc.)'
@@ -469,13 +473,21 @@ components:
               description: The type of financial transaction log (e.g. customer transactions)
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product/service for which this is a financial transaction log
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product or service account holder/customer for the log if appropriate
+              format: object
             CounterpartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to a counterparty for the log if appropriate (e.g. merchant reference, card network reference)'
+              format: object
             BaseCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the logged  transactions
+              format: currencycode
             InterestApplicationRecord:
               type: string
               description: The record of applied interest if interest calculations are supported
@@ -509,7 +521,9 @@ components:
               description: 'The type of key dates associated with the block  (e.g. start, expiry)'
               format: string
             InitiationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the log was initiated. Note the log will have a complex internal calendar structure for extract and reporting
+              format: date
             Status:
               type: string
               description: 'The status of the log entry (e.g. active, in-suspense etc.)'
@@ -526,13 +540,21 @@ components:
               description: The type of financial transaction log (e.g. customer transactions)
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product/service for which this is a financial transaction log
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product or service account holder/customer for the log if appropriate
+              format: object
             CounterpartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to a counterparty for the log if appropriate (e.g. merchant reference, card network reference)'
+              format: object
             BaseCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the logged  transactions
+              format: currencycode
             InterestApplicationRecord:
               type: string
               description: The record of applied interest if interest calculations are supported
@@ -586,7 +608,9 @@ components:
               description: 'The type of key dates associated with the block  (e.g. start, expiry)'
               format: string
             InitiationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the log was initiated. Note the log will have a complex internal calendar structure for extract and reporting
+              format: date
             Status:
               type: string
               description: 'The status of the log entry (e.g. active, in-suspense etc.)'
@@ -607,7 +631,9 @@ components:
               description: The logged financial transaction. Note the log can be structured with double entry representations (i.e. capture credit/debit pair)
               format: string
             PostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date of the transaction
+              format: date
       description: 'Output: ReBQ Retrieve details of financial transactions captured in the log'
   responses:
     BadRequest:

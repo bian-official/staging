@@ -17,10 +17,10 @@ paths:
       description: InCR Initiate a fraud case
       operationId: Initiate
       requestBody:
-        $ref: '#/components/requestBodies/InitiateFraudResolutionProcedureRequest'
+        $ref: '#/components/requestBodies/FraudResolutionProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateFraudResolutionProcedureResponse'
+          $ref: '#/components/responses/FraudResolutionProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -43,10 +43,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/fraudresolutionid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateFraudResolutionProcedureRequest'
+        $ref: '#/components/requestBodies/FraudResolutionProcedure'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateFraudResolutionProcedureResponse'
+          $ref: '#/components/responses/FraudResolutionProcedure'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -144,10 +144,10 @@ paths:
         - $ref: '#/components/parameters/fraudresolutionid'
         - $ref: '#/components/parameters/caseresolutionid'
       requestBody:
-        $ref: '#/components/requestBodies/RequestCaseResolutionRequest'
+        $ref: '#/components/requestBodies/CaseResolution'
       responses:
         '200':
-          $ref: '#/components/responses/RequestCaseResolutionRequest'
+          $ref: '#/components/responses/CaseResolution'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -208,18 +208,6 @@ components:
           description: The result of the case analysis
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Employee and or business unit responsible for the resolution
     CaseResolution:
       type: object
       properties:
@@ -227,36 +215,54 @@ components:
           type: string
           description: 'Record sets out, defines and assigns resolution tasks'
           format: string
-        Employee/BusinessUnitReference:
-          $ref: '#/components/schemas/object'
+        EmployeeBusinessUnitReference:
+          type: string
+          description: Employee and or business unit responsible for the resolution
+          format: object
         CorrespondenceReference:
-          $ref: '#/components/schemas/object'
-        Adjustment/ChargebackReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Reference to all correspondence (e.g. confirmation messages sent to involved parties, includes internal and external legal/law enforcement authorities)'
+          format: object
+        AdjustmentChargebackReference:
+          type: string
+          description: Reference to any associated adjustment or chargeback transaction initiated by the resolution
+          format: object
         ConsortiaReportingInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the consortia notification transaction for fraud resultion activity
+          format: object
         DocumentDirectoryEntryInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The document reference for associated documents
+          format: object
         PaymentOrderReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any financial adjustments that are made during the case
+          format: object
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
     CaseDetermination:
       type: object
       properties:
         CustomerAgreementReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the involved customer's agreement
+          format: object
         CustomerAgreement:
           type: string
           description: Customer agreement accessed to determine constraints on resolution approach
           format: string
         MerchantAgreementReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the involved merchant's agreement
+          format: object
         MerchantAgreement:
           type: string
           description: Merchant agreement accessed to determine constraints on resolution approach
           format: string
         InterestedPartyAgreementReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the interested party's agreement
+          format: object
         InterestedPartyAgreement:
           type: string
           description: Interested party agreement accessed to determine constraints on resolution approach
@@ -274,17 +280,29 @@ components:
           description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
           format: string
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the product/service associated with case
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer associated with case if applicable
+          format: object
         MerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the merchant associated with case if applicable
+          format: object
         InterstedPartyReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to any other interested parties (such as intermediaries)
+          format: object
         ContactReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Customer contact reference if the case was raised during a customer contact
+          format: object
         TransactionReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to one or more product transactions associated with the case
+          format: object
         TransactionRecord:
           type: string
           description: Record contains all details of the transaction (not itemized)
@@ -297,8 +315,10 @@ components:
           type: string
           description: Specific dates and ties of significance to the case
           format: string
-        EmployeeOrBusinessUnitReference:
-          $ref: '#/components/schemas/object'
+        EmployeeBusinessUnitReference:
+          type: string
+          description: Business unit and or employee reference where the case was raised
+          format: object
         FraudCaseWorkProducts:
           type: string
           description: 'File of consolidated notes, forms and documents for the case'
@@ -312,176 +332,6 @@ components:
           description: The processing status for the case
           format: string
       description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Fraud Resolution. '
-    InitiateFraudResolutionProcedureRequest:
-      type: object
-      properties:
-        FraudResolutionProcedure:
-          type: object
-          properties:
-            FraudCaseType:
-              type: string
-              description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
-              format: string
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            MerchantReference:
-              $ref: '#/components/schemas/object'
-            InterstedPartyReference:
-              $ref: '#/components/schemas/object'
-            ContactReference:
-              $ref: '#/components/schemas/object'
-            TransactionReference:
-              $ref: '#/components/schemas/object'
-            TransactionRecord:
-              type: string
-              description: Record contains all details of the transaction (not itemized)
-              format: string
-            CaseLocation:
-              type: string
-              description: Record of a physical address or electronic venue the fraud was detected
-              format: string
-            Date:
-              type: string
-              description: Specific dates and ties of significance to the case
-              format: string
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-            FraudCaseWorkProducts:
-              type: string
-              description: 'File of consolidated notes, forms and documents for the case'
-              format: string
-            FraudCaseResolutionSchedule:
-              type: string
-              description: Target and actual dates for case processing/resolution
-              format: string
-            FraudCaseStatus:
-              type: string
-              description: The processing status for the case
-              format: string
-      description: 'Input: InCR Initiate a fraud case'
-    InitiateFraudResolutionProcedureResponse:
-      type: object
-      properties:
-        FraudResolutionProcedure:
-          type: object
-          properties:
-            FraudCaseType:
-              type: string
-              description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
-              format: string
-            FraudCaseWorkProducts:
-              type: string
-              description: 'File of consolidated notes, forms and documents for the case'
-              format: string
-            FraudCaseResolutionSchedule:
-              type: string
-              description: Target and actual dates for case processing/resolution
-              format: string
-            FraudCaseStatus:
-              type: string
-              description: The processing status for the case
-              format: string
-      description: 'Output: InCR Initiate a fraud case'
-    UpdateFraudResolutionProcedureRequest:
-      type: object
-      properties:
-        FraudResolutionProcedure:
-          type: object
-          properties:
-            FraudCaseType:
-              type: string
-              description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
-              format: string
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            MerchantReference:
-              $ref: '#/components/schemas/object'
-            InterstedPartyReference:
-              $ref: '#/components/schemas/object'
-            ContactReference:
-              $ref: '#/components/schemas/object'
-            TransactionReference:
-              $ref: '#/components/schemas/object'
-            TransactionRecord:
-              type: string
-              description: Record contains all details of the transaction (not itemized)
-              format: string
-            CaseLocation:
-              type: string
-              description: Record of a physical address or electronic venue the fraud was detected
-              format: string
-            Date:
-              type: string
-              description: Specific dates and ties of significance to the case
-              format: string
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-            FraudCaseWorkProducts:
-              type: string
-              description: 'File of consolidated notes, forms and documents for the case'
-              format: string
-            FraudCaseResolutionSchedule:
-              type: string
-              description: Target and actual dates for case processing/resolution
-              format: string
-            FraudCaseStatus:
-              type: string
-              description: The processing status for the case
-              format: string
-      description: 'Input: UpCR Update details of an active fraud case'
-    UpdateFraudResolutionProcedureResponse:
-      type: object
-      properties:
-        FraudResolutionProcedure:
-          type: object
-          properties:
-            FraudCaseType:
-              type: string
-              description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
-              format: string
-            ProductInstanceReference:
-              $ref: '#/components/schemas/object'
-            CustomerReference:
-              $ref: '#/components/schemas/object'
-            MerchantReference:
-              $ref: '#/components/schemas/object'
-            InterstedPartyReference:
-              $ref: '#/components/schemas/object'
-            ContactReference:
-              $ref: '#/components/schemas/object'
-            TransactionReference:
-              $ref: '#/components/schemas/object'
-            TransactionRecord:
-              type: string
-              description: Record contains all details of the transaction (not itemized)
-              format: string
-            CaseLocation:
-              type: string
-              description: Record of a physical address or electronic venue the fraud was detected
-              format: string
-            Date:
-              type: string
-              description: Specific dates and ties of significance to the case
-              format: string
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-            FraudCaseWorkProducts:
-              type: string
-              description: 'File of consolidated notes, forms and documents for the case'
-              format: string
-            FraudCaseResolutionSchedule:
-              type: string
-              description: Target and actual dates for case processing/resolution
-              format: string
-            FraudCaseStatus:
-              type: string
-              description: The processing status for the case
-              format: string
-      description: 'Output: UpCR Update details of an active fraud case'
     RetrieveFraudResolutionProcedureResponse:
       type: object
       properties:
@@ -493,17 +343,29 @@ components:
               description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product/service associated with case
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer associated with case if applicable
+              format: object
             MerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant associated with case if applicable
+              format: object
             InterstedPartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any other interested parties (such as intermediaries)
+              format: object
             ContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Customer contact reference if the case was raised during a customer contact
+              format: object
             TransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more product transactions associated with the case
+              format: object
             TransactionRecord:
               type: string
               description: Record contains all details of the transaction (not itemized)
@@ -517,7 +379,9 @@ components:
               description: Specific dates and ties of significance to the case
               format: string
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Business unit and or employee reference where the case was raised
+              format: object
             FraudCaseWorkProducts:
               type: string
               description: 'File of consolidated notes, forms and documents for the case'
@@ -542,17 +406,29 @@ components:
               description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product/service associated with case
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer associated with case if applicable
+              format: object
             MerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant associated with case if applicable
+              format: object
             InterstedPartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any other interested parties (such as intermediaries)
+              format: object
             ContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Customer contact reference if the case was raised during a customer contact
+              format: object
             TransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more product transactions associated with the case
+              format: object
             TransactionRecord:
               type: string
               description: Record contains all details of the transaction (not itemized)
@@ -566,7 +442,9 @@ components:
               description: Specific dates and ties of significance to the case
               format: string
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Business unit and or employee reference where the case was raised
+              format: object
             FraudCaseWorkProducts:
               type: string
               description: 'File of consolidated notes, forms and documents for the case'
@@ -598,17 +476,29 @@ components:
               description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product/service associated with case
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer associated with case if applicable
+              format: object
             MerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant associated with case if applicable
+              format: object
             InterstedPartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any other interested parties (such as intermediaries)
+              format: object
             ContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Customer contact reference if the case was raised during a customer contact
+              format: object
             TransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more product transactions associated with the case
+              format: object
             TransactionRecord:
               type: string
               description: Record contains all details of the transaction (not itemized)
@@ -622,7 +512,9 @@ components:
               description: Specific dates and ties of significance to the case
               format: string
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Business unit and or employee reference where the case was raised
+              format: object
             FraudCaseWorkProducts:
               type: string
               description: 'File of consolidated notes, forms and documents for the case'
@@ -646,39 +538,22 @@ components:
           type: object
           properties:
             CustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the involved customer's agreement
+              format: object
             MerchantAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the involved merchant's agreement
+              format: object
             InterestedPartyAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the interested party's agreement
+              format: object
             FraudCaseDeterminationRecord:
               type: string
               description: Record of rules and guidelines applied to determine fraud case resolution
               format: string
       description: 'Output: ReCR Retrieve information about an active fraud case determination'
-    RequestCaseResolutionRequest:
-      type: object
-      properties:
-        CaseResolution:
-          type: object
-          properties:
-            FraudCaseResolutionRecord:
-              type: string
-              description: 'Record sets out, defines and assigns resolution tasks'
-              format: string
-            EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
-            CorrespondenceReference:
-              $ref: '#/components/schemas/object'
-            AdjustmentChargebackReference:
-              $ref: '#/components/schemas/object'
-            ConsortiaReportingInstanceReference:
-              $ref: '#/components/schemas/object'
-            DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
-            PaymentOrderReference:
-              $ref: '#/components/schemas/object'
-      description: 'Input: RqBQ Request reworking of resolution to a case'
     RetrieveCaseResolutionResponse:
       type: object
       properties:
@@ -690,17 +565,29 @@ components:
               description: 'Type of case (e.g.  disputed charge, merchant fraud, stolen/fake device)'
               format: string
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the product/service associated with case
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer associated with case if applicable
+              format: object
             MerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the merchant associated with case if applicable
+              format: object
             InterstedPartyReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any other interested parties (such as intermediaries)
+              format: object
             ContactReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Customer contact reference if the case was raised during a customer contact
+              format: object
             TransactionReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to one or more product transactions associated with the case
+              format: object
             TransactionRecord:
               type: string
               description: Record contains all details of the transaction (not itemized)
@@ -714,7 +601,9 @@ components:
               description: Specific dates and ties of significance to the case
               format: string
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Business unit and or employee reference where the case was raised
+              format: object
             FraudCaseWorkProducts:
               type: string
               description: 'File of consolidated notes, forms and documents for the case'
@@ -749,15 +638,25 @@ components:
               description: 'Record sets out, defines and assigns resolution tasks'
               format: string
             CorrespondenceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to all correspondence (e.g. confirmation messages sent to involved parties, includes internal and external legal/law enforcement authorities)'
+              format: object
             AdjustmentChargebackReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any associated adjustment or chargeback transaction initiated by the resolution
+              format: object
             ConsortiaReportingInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the consortia notification transaction for fraud resultion activity
+              format: object
             DocumentDirectoryEntryInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The document reference for associated documents
+              format: object
             PaymentOrderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to any financial adjustments that are made during the case
+              format: object
       description: 'Output: ReCR Retrieve information about an active fraud case resolution'
   responses:
     BadRequest:
@@ -796,18 +695,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/HTTPError'
-    InitiateFraudResolutionProcedureResponse:
-      description: InitiateFraudResolutionProcedureResponse
+    FraudResolutionProcedure:
+      description: FraudResolutionProcedure
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateFraudResolutionProcedureResponse'
-    UpdateFraudResolutionProcedureResponse:
-      description: UpdateFraudResolutionProcedureResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateFraudResolutionProcedureResponse'
+            $ref: '#/components/schemas/FraudResolutionProcedure'
     RetrieveFraudResolutionProcedureResponse:
       description: RetrieveFraudResolutionProcedureResponse
       content:
@@ -826,12 +719,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveCaseDeterminationResponse'
-    RequestCaseResolutionRequest:
-      description: RequestCaseResolutionRequest
+    CaseResolution:
+      description: CaseResolution
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RequestCaseResolutionRequest'
+            $ref: '#/components/schemas/CaseResolution'
     RetrieveCaseResolutionResponse:
       description: RetrieveCaseResolutionResponse
       content:
@@ -868,21 +761,15 @@ components:
       schema:
         type: string
   requestBodies:
-    InitiateFraudResolutionProcedureRequest:
+    FraudResolutionProcedure:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateFraudResolutionProcedureRequest'
+            $ref: '#/components/schemas/FraudResolutionProcedure'
       required: true
-    UpdateFraudResolutionProcedureRequest:
+    CaseResolution:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateFraudResolutionProcedureRequest'
-      required: true
-    RequestCaseResolutionRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestCaseResolutionRequest'
+            $ref: '#/components/schemas/CaseResolution'
       required: true

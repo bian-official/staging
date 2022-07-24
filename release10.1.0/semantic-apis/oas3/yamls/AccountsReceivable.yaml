@@ -198,10 +198,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/customernegotiationid'
       requestBody:
-        $ref: '#/components/requestBodies/ExchangeCustomerNegotiationRequest'
+        $ref: '#/components/requestBodies/CustomerNegotiation'
       responses:
         '200':
-          $ref: '#/components/responses/ExchangeCustomerNegotiationResponse'
+          $ref: '#/components/responses/CustomerNegotiation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -252,10 +252,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/customernegotiationid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateCustomerNegotiationRequest'
+        $ref: '#/components/requestBodies/CustomerNegotiation'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateCustomerNegotiationResponse'
+          $ref: '#/components/responses/CustomerNegotiation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -279,10 +279,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/paymentid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiatePaymentRequest'
+        $ref: '#/components/requestBodies/Payment'
       responses:
         '200':
-          $ref: '#/components/responses/InitiatePaymentResponse'
+          $ref: '#/components/responses/Payment'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -333,10 +333,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/resolutionid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateResolutionRequest'
+        $ref: '#/components/requestBodies/Resolution'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateResolutionResponse'
+          $ref: '#/components/responses/Resolution'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -460,10 +460,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/customernegotiationid'
       requestBody:
-        $ref: '#/components/requestBodies/RequestCustomerNegotiationRequest'
+        $ref: '#/components/requestBodies/CustomerNegotiation'
       responses:
         '200':
-          $ref: '#/components/responses/RequestCustomerNegotiationResponse'
+          $ref: '#/components/responses/CustomerNegotiation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -487,10 +487,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/customernegotiationid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateCustomerNegotiationRequest'
+        $ref: '#/components/requestBodies/CustomerNegotiation'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateCustomerNegotiationResponse'
+          $ref: '#/components/responses/CustomerNegotiation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -514,10 +514,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/paymentid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdatePaymentRequest'
+        $ref: '#/components/requestBodies/Payment'
       responses:
         '200':
-          $ref: '#/components/responses/UpdatePaymentResponse'
+          $ref: '#/components/responses/Payment'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -568,10 +568,10 @@ paths:
         - $ref: '#/components/parameters/accountsreceivableid'
         - $ref: '#/components/parameters/resolutionid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateResolutionRequest'
+        $ref: '#/components/requestBodies/Resolution'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateResolutionResponse'
+          $ref: '#/components/responses/Resolution'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -611,52 +611,6 @@ components:
           description: ''
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: The operating unit/employee responsible for the workstep
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Accounts Receivable Procedure specific Business Service
     Resolution:
       type: object
       properties:
@@ -664,14 +618,18 @@ components:
           type: string
           description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
           format: string
-        ResolutionBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        ResolutionBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: object
         ResolutionWorkSchedule:
           type: string
           description: The timing and key actions/milestones making up the workstep
           format: string
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Accounts Receivable Procedure specific Business Service
+          format: businessservice
         ResolutionPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -704,14 +662,18 @@ components:
           type: string
           description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
           format: string
-        PaymentBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        PaymentBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: object
         PaymentWorkSchedule:
           type: string
           description: The timing and key actions/milestones making up the workstep
           format: string
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Accounts Receivable Procedure specific Business Service
+          format: businessservice
         PaymentPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -744,14 +706,18 @@ components:
           type: string
           description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
           format: string
-        CustomerNegotiationBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        CustomerNegotiationBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: object
         CustomerNegotiationWorkSchedule:
           type: string
           description: The timing and key actions/milestones making up the workstep
           format: string
         PaymentNegotation:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Accounts Receivable Procedure specific Business Service
+          format: businessservice
         CustomerNegotiationPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -784,14 +750,18 @@ components:
           type: string
           description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
           format: string
-        ReceivablesEvaluationBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        ReceivablesEvaluationBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: object
         ReceivablesEvaluationWorkSchedule:
           type: string
           description: The timing and key actions/milestones making up the workstep
           format: string
         ReceivablesEvaluation:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Accounts Receivable Procedure specific Business Service
+          format: businessservice
         ReceivablesEvaluationPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -841,17 +811,29 @@ components:
           description: The status of Accounts Receivable Procedure
           format: string
         AccountsReceivableProcedureReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the party who is involved in Accounts Receivable Procedure
+          format: object
         AccountsReceivableProcedureBusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the business unit which is involved in Accounts Receivable Procedure
+          format: object
         AccountsReceivableProcedureServiceProviderReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the party who is the service provider of Accounts Receivable Procedure
+          format: object
         AccountsReceivableProcedureFinancialFacilityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+          format: object
         AccountsReceivableProcedureEmployeeReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the employee who is involved in Accounts Receivable Procedure
+          format: object
         AccountsReceivableProcedureCustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer who is involved in Accounts Receivable Procedure
+          format: object
         AccountsReceivableProcedureType:
           type: string
           description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -885,7 +867,9 @@ components:
           description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
           format: string
         AccountsReceivableProcedureCustomerAgreementReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+          format: object
       description: "Complete work tasks following a defined procedure in support of general office activities and product and service delivery  within Accounts Receivable. \nExample: Process the evaluation and completion of customer offers."
     ControlAccountsReceivableProcedureRequest:
       type: object
@@ -914,17 +898,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -954,7 +950,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Input: CoCR Control the processing of Accounts Receivable Procedure'
     ControlAccountsReceivableProcedureResponse:
       type: object
@@ -1010,17 +1008,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -1050,7 +1060,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Input: EcCR Accept, verify, etc. aspects of Accounts Receivable Procedure processing'
     ExchangeAccountsReceivableProcedureResponse:
       type: object
@@ -1106,17 +1118,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -1146,7 +1170,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Input: ExCR Execute an available automated action for Accounts Receivable Procedure'
     ExecuteAccountsReceivableProcedureResponse:
       type: object
@@ -1202,17 +1228,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -1242,7 +1280,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Input: InCR Instantiate a new Accounts Receivable Procedure'
     InitiateAccountsReceivableProcedureResponse:
       type: object
@@ -1298,17 +1338,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -1338,7 +1390,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Output: ReCR Retrieve details about any aspect of Accounts Receivable Procedure'
     RequestAccountsReceivableProcedureRequest:
       type: object
@@ -1367,17 +1421,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -1407,7 +1473,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Input: RqCR Request manual intervention or a decision with respect to Accounts Receivable Procedure'
     RequestAccountsReceivableProcedureResponse:
       type: object
@@ -1463,17 +1531,29 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
             AccountsReceivableProcedureReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the business unit which is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureServiceProviderReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the party who is the service provider of Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Financial Facility related to  Accounts Receivable Procedure '
+              format: object
             AccountsReceivableProcedureEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the employee who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureCustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer who is involved in Accounts Receivable Procedure
+              format: object
             AccountsReceivableProcedureType:
               type: string
               description: A Classification value that distinguishes between the type of process undertaken within Accounts Receivable Procedure
@@ -1503,7 +1583,9 @@ components:
               description: 'Reference to the Financial Transaction Arrangement that is related to  Accounts Receivable Procedure '
               format: string
             AccountsReceivableProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Reference to the Customer Agreement that is related to  Accounts Receivable Procedure '
+              format: object
       description: 'Input: UpCR Update details relating to Accounts Receivable Procedure'
     UpdateAccountsReceivableProcedureResponse:
       type: object
@@ -1532,92 +1614,6 @@ components:
               description: The status of Accounts Receivable Procedure
               format: string
       description: 'Output: UpCR Update details relating to Accounts Receivable Procedure'
-    ExchangeCustomerNegotiationRequest:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: EcBQ Accept, verify, etc. aspects of Customer Negotiation processing'
-    ExchangeCustomerNegotiationResponse:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: EcBQ Accept, verify, etc. aspects of Customer Negotiation processing'
     ExchangeReceivablesEvaluationRequest:
       type: object
       properties:
@@ -1629,7 +1625,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -1670,7 +1668,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -1700,178 +1700,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: EcBQ Accept, verify, etc. aspects of Receivables Evaluation processing'
-    InitiateCustomerNegotiationRequest:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Customer Negotiation'
-    InitiateCustomerNegotiationResponse:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Customer Negotiation'
-    InitiatePaymentRequest:
-      type: object
-      properties:
-        Payment:
-          type: object
-          properties:
-            PaymentPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            PaymentBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            PaymentWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            PaymentPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            PaymentServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            PaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            PaymentServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            PaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            PaymentServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Payment'
-    InitiatePaymentResponse:
-      type: object
-      properties:
-        Payment:
-          type: object
-          properties:
-            PaymentPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            PaymentBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            PaymentWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            PaymentPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            PaymentServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            PaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            PaymentServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            PaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            PaymentServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Payment'
     InitiateReceivablesEvaluationRequest:
       type: object
       properties:
@@ -1883,7 +1711,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -1924,7 +1754,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -1954,92 +1786,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: InBQ Instantiate a new Receivables Evaluation'
-    InitiateResolutionRequest:
-      type: object
-      properties:
-        Resolution:
-          type: object
-          properties:
-            ResolutionPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            ResolutionBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ResolutionWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ResolutionPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            ResolutionServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ResolutionServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ResolutionServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ResolutionServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ResolutionServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Resolution'
-    InitiateResolutionResponse:
-      type: object
-      properties:
-        Resolution:
-          type: object
-          properties:
-            ResolutionPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            ResolutionBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ResolutionWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ResolutionPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            ResolutionServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ResolutionServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ResolutionServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ResolutionServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ResolutionServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Resolution'
     RetrieveCustomerNegotiationResponse:
       type: object
       properties:
@@ -2051,13 +1797,17 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             CustomerNegotiationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
               format: string
             PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Accounts Receivable Procedure specific Business Service
+              format: businessservice
             CustomerNegotiationPostconditions:
               type: string
               description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -2094,13 +1844,17 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             PaymentBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             PaymentWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
               format: string
             BusinessService:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Accounts Receivable Procedure specific Business Service
+              format: businessservice
             PaymentPostconditions:
               type: string
               description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -2137,7 +1891,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -2178,13 +1934,17 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ResolutionBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ResolutionWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
               format: string
             BusinessService:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Accounts Receivable Procedure specific Business Service
+              format: businessservice
             ResolutionPostconditions:
               type: string
               description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -2210,264 +1970,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: ReBQ Retrieve details about any aspect of Resolution'
-    RequestCustomerNegotiationRequest:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: RqBQ Request manual intervention or a decision with respect to Customer Negotiation'
-    RequestCustomerNegotiationResponse:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: RqBQ Request manual intervention or a decision with respect to Customer Negotiation'
-    UpdateCustomerNegotiationRequest:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Customer Negotiation'
-    UpdateCustomerNegotiationResponse:
-      type: object
-      properties:
-        CustomerNegotiation:
-          type: object
-          properties:
-            CustomerNegotiationPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            CustomerNegotiationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            CustomerNegotiationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            PaymentNegotation:
-              $ref: '#/components/schemas/businessservice'
-            CustomerNegotiationPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            CustomerNegotiationPaymentNegotationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            CustomerNegotiationPaymentNegotationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            CustomerNegotiationPaymentNegotationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            CustomerNegotiationPaymentNegotationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Customer Negotiation'
-    UpdatePaymentRequest:
-      type: object
-      properties:
-        Payment:
-          type: object
-          properties:
-            PaymentPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            PaymentBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            PaymentWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            PaymentPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            PaymentServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            PaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            PaymentServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            PaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            PaymentServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Payment'
-    UpdatePaymentResponse:
-      type: object
-      properties:
-        Payment:
-          type: object
-          properties:
-            PaymentPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            PaymentBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            PaymentWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            PaymentPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            PaymentServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            PaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            PaymentServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            PaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            PaymentServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Payment'
     UpdateReceivablesEvaluationRequest:
       type: object
       properties:
@@ -2479,7 +1981,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -2520,7 +2024,9 @@ components:
               description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
               format: string
             ReceivablesEvaluationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for the workstep
+              format: object
             ReceivablesEvaluationWorkSchedule:
               type: string
               description: The timing and key actions/milestones making up the workstep
@@ -2550,92 +2056,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: UpBQ Update details relating to Receivables Evaluation'
-    UpdateResolutionRequest:
-      type: object
-      properties:
-        Resolution:
-          type: object
-          properties:
-            ResolutionPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            ResolutionBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ResolutionWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ResolutionPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            ResolutionServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ResolutionServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ResolutionServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ResolutionServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ResolutionServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Resolution'
-    UpdateResolutionResponse:
-      type: object
-      properties:
-        Resolution:
-          type: object
-          properties:
-            ResolutionPreconditions:
-              type: string
-              description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-              format: string
-            ResolutionBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ResolutionWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones making up the workstep
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ResolutionPostconditions:
-              type: string
-              description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
-              format: string
-            ResolutionServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ResolutionServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ResolutionServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ResolutionServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ResolutionServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Resolution'
   responses:
     BadRequest:
       description: BadRequest
@@ -2715,42 +2135,36 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateAccountsReceivableProcedureResponse'
-    ExchangeCustomerNegotiationResponse:
-      description: ExchangeCustomerNegotiationResponse
+    CustomerNegotiation:
+      description: CustomerNegotiation
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ExchangeCustomerNegotiationResponse'
+            $ref: '#/components/schemas/CustomerNegotiation'
     ExchangeReceivablesEvaluationResponse:
       description: ExchangeReceivablesEvaluationResponse
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ExchangeReceivablesEvaluationResponse'
-    InitiateCustomerNegotiationResponse:
-      description: InitiateCustomerNegotiationResponse
+    Payment:
+      description: Payment
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateCustomerNegotiationResponse'
-    InitiatePaymentResponse:
-      description: InitiatePaymentResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePaymentResponse'
+            $ref: '#/components/schemas/Payment'
     InitiateReceivablesEvaluationResponse:
       description: InitiateReceivablesEvaluationResponse
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/InitiateReceivablesEvaluationResponse'
-    InitiateResolutionResponse:
-      description: InitiateResolutionResponse
+    Resolution:
+      description: Resolution
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateResolutionResponse'
+            $ref: '#/components/schemas/Resolution'
     RetrieveCustomerNegotiationResponse:
       description: RetrieveCustomerNegotiationResponse
       content:
@@ -2775,36 +2189,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveResolutionResponse'
-    RequestCustomerNegotiationResponse:
-      description: RequestCustomerNegotiationResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestCustomerNegotiationResponse'
-    UpdateCustomerNegotiationResponse:
-      description: UpdateCustomerNegotiationResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerNegotiationResponse'
-    UpdatePaymentResponse:
-      description: UpdatePaymentResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdatePaymentResponse'
     UpdateReceivablesEvaluationResponse:
       description: UpdateReceivablesEvaluationResponse
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateReceivablesEvaluationResponse'
-    UpdateResolutionResponse:
-      description: UpdateResolutionResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateResolutionResponse'
   parameters:
     accountsreceivableid:
       name: accountsreceivableid
@@ -2878,11 +2268,11 @@ components:
           schema:
             $ref: '#/components/schemas/UpdateAccountsReceivableProcedureRequest'
       required: true
-    ExchangeCustomerNegotiationRequest:
+    CustomerNegotiation:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ExchangeCustomerNegotiationRequest'
+            $ref: '#/components/schemas/CustomerNegotiation'
       required: true
     ExchangeReceivablesEvaluationRequest:
       content:
@@ -2890,17 +2280,11 @@ components:
           schema:
             $ref: '#/components/schemas/ExchangeReceivablesEvaluationRequest'
       required: true
-    InitiateCustomerNegotiationRequest:
+    Payment:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateCustomerNegotiationRequest'
-      required: true
-    InitiatePaymentRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiatePaymentRequest'
+            $ref: '#/components/schemas/Payment'
       required: true
     InitiateReceivablesEvaluationRequest:
       content:
@@ -2908,39 +2292,15 @@ components:
           schema:
             $ref: '#/components/schemas/InitiateReceivablesEvaluationRequest'
       required: true
-    InitiateResolutionRequest:
+    Resolution:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/InitiateResolutionRequest'
-      required: true
-    RequestCustomerNegotiationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestCustomerNegotiationRequest'
-      required: true
-    UpdateCustomerNegotiationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCustomerNegotiationRequest'
-      required: true
-    UpdatePaymentRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdatePaymentRequest'
+            $ref: '#/components/schemas/Resolution'
       required: true
     UpdateReceivablesEvaluationRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateReceivablesEvaluationRequest'
-      required: true
-    UpdateResolutionRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateResolutionRequest'
       required: true

@@ -224,10 +224,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/assuranceid'
       requestBody:
-        $ref: '#/components/requestBodies/CaptureAssuranceRequest'
+        $ref: '#/components/requestBodies/Assurance'
       responses:
         '200':
-          $ref: '#/components/responses/CaptureAssuranceResponse'
+          $ref: '#/components/responses/Assurance'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -251,10 +251,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/registrationid'
       requestBody:
-        $ref: '#/components/requestBodies/CaptureRegistrationRequest'
+        $ref: '#/components/requestBodies/Registration'
       responses:
         '200':
-          $ref: '#/components/responses/CaptureRegistrationResponse'
+          $ref: '#/components/responses/Registration'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -278,10 +278,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/valuationid'
       requestBody:
-        $ref: '#/components/requestBodies/CaptureValuationRequest'
+        $ref: '#/components/requestBodies/Valuation'
       responses:
         '200':
-          $ref: '#/components/responses/CaptureValuationResponse'
+          $ref: '#/components/responses/Valuation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -305,10 +305,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/assuranceid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateAssuranceRequest'
+        $ref: '#/components/requestBodies/Assurance'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateAssuranceResponse'
+          $ref: '#/components/responses/Assurance'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -332,10 +332,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/registrationid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateRegistrationRequest'
+        $ref: '#/components/requestBodies/Registration'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateRegistrationResponse'
+          $ref: '#/components/responses/Registration'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -359,10 +359,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/valuationid'
       requestBody:
-        $ref: '#/components/requestBodies/InitiateValuationRequest'
+        $ref: '#/components/requestBodies/Valuation'
       responses:
         '200':
-          $ref: '#/components/responses/InitiateValuationResponse'
+          $ref: '#/components/responses/Valuation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -461,10 +461,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/assuranceid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateAssuranceRequest'
+        $ref: '#/components/requestBodies/Assurance'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateAssuranceResponse'
+          $ref: '#/components/responses/Assurance'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -488,10 +488,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/registrationid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateRegistrationRequest'
+        $ref: '#/components/requestBodies/Registration'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateRegistrationResponse'
+          $ref: '#/components/responses/Registration'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -515,10 +515,10 @@ paths:
         - $ref: '#/components/parameters/leasingitemadministrationid'
         - $ref: '#/components/parameters/valuationid'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateValuationRequest'
+        $ref: '#/components/requestBodies/Valuation'
       responses:
         '200':
-          $ref: '#/components/responses/UpdateValuationResponse'
+          $ref: '#/components/responses/Valuation'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -546,52 +546,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: The operating unit/employee responsible for performing the routine
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Leasing Item Administrative Plan specific Business Service
     Registration:
       type: object
       properties:
@@ -599,14 +553,18 @@ components:
           type: string
           description: The required status/situation before the routine can be undertaken
           format: string
-        RegistrationBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        RegistrationBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for performing the routine
+          format: object
         RegistrationWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in completing the routine
           format: string
         CollateralRegistration:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Leasing Item Administrative Plan specific Business Service
+          format: businessservice
         RegistrationPostconditions:
           type: string
           description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
@@ -639,14 +597,18 @@ components:
           type: string
           description: The required status/situation before the routine can be undertaken
           format: string
-        AssuranceBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        AssuranceBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for performing the routine
+          format: object
         AssuranceWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in completing the routine
           format: string
         CollateralItemAssurance:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Leasing Item Administrative Plan specific Business Service
+          format: businessservice
         AssurancePostconditions:
           type: string
           description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
@@ -699,14 +661,18 @@ components:
           type: string
           description: The required status/situation before the routine can be undertaken
           format: string
-        ValuationBusinessUnit/EmployeeReference:
-          $ref: '#/components/schemas/object'
+        ValuationBusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for performing the routine
+          format: object
         ValuationWorkSchedule:
           type: string
           description: The timing and key actions/milestones involved in completing the routine
           format: string
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Leasing Item Administrative Plan specific Business Service
+          format: businessservice
         ValuationPostconditions:
           type: string
           description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
@@ -752,7 +718,9 @@ components:
           description: A plan that defines clerical support for LeasingItem
           format: string
         LeasingItemAdministrativePlanReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Party who is involved in  Leasing Item Administrative Plan
+          format: object
       description: "Handle and assign the day to day activities, capture time, costs and income for an operational unit  within Leasing Item Administration. \nExample: Administer the time reporting and billing for the specialist sales support team."
     CaptureLeasingItemAdministrativePlanRequest:
       type: object
@@ -773,7 +741,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: CaCR Capture Leasing Item Administrative Plan activity or event related information'
     CaptureLeasingItemAdministrativePlanResponse:
       type: object
@@ -813,7 +783,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: CoCR Control the processing of Leasing Item Administrative Plan'
     ControlLeasingItemAdministrativePlanResponse:
       type: object
@@ -853,7 +825,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: EcCR Accept, verify, etc. aspects of Leasing Item Administrative Plan processing'
     ExchangeLeasingItemAdministrativePlanResponse:
       type: object
@@ -893,7 +867,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: GrCR Obtain permission to act in relation to Leasing Item Administrative Plan'
     GrantLeasingItemAdministrativePlanResponse:
       type: object
@@ -933,7 +909,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: InCR Instantiate a new Leasing Item Administrative Plan'
     InitiateLeasingItemAdministrativePlanResponse:
       type: object
@@ -973,7 +951,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Output: ReCR Retrieve details about any aspect of Leasing Item Administrative Plan'
     RequestLeasingItemAdministrativePlanRequest:
       type: object
@@ -994,7 +974,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: RqCR Request manual intervention or a decision with respect to Leasing Item Administrative Plan'
     RequestLeasingItemAdministrativePlanResponse:
       type: object
@@ -1034,7 +1016,9 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
             LeasingItemAdministrativePlanReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Party who is involved in  Leasing Item Administrative Plan
+              format: object
       description: 'Input: UpCR Update details relating to Leasing Item Administrative Plan'
     UpdateLeasingItemAdministrativePlanResponse:
       type: object
@@ -1055,522 +1039,6 @@ components:
               description: A plan that defines clerical support for LeasingItem
               format: string
       description: 'Output: UpCR Update details relating to Leasing Item Administrative Plan'
-    CaptureAssuranceRequest:
-      type: object
-      properties:
-        Assurance:
-          type: object
-          properties:
-            AssurancePreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            AssuranceWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
-            AssurancePostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            AssuranceCollateralItemAssuranceServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            AssuranceCollateralItemAssuranceServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            AssuranceCollateralItemAssuranceServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: CaBQ Capture Assurance activity or event related information'
-    CaptureAssuranceResponse:
-      type: object
-      properties:
-        Assurance:
-          type: object
-          properties:
-            AssurancePreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            AssuranceWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
-            AssurancePostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            AssuranceCollateralItemAssuranceServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            AssuranceCollateralItemAssuranceServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            AssuranceCollateralItemAssuranceServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: CaBQ Capture Assurance activity or event related information'
-    CaptureRegistrationRequest:
-      type: object
-      properties:
-        Registration:
-          type: object
-          properties:
-            RegistrationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RegistrationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
-            RegistrationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            RegistrationCollateralRegistrationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RegistrationCollateralRegistrationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RegistrationCollateralRegistrationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RegistrationCollateralRegistrationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RegistrationCollateralRegistrationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: CaBQ Capture Registration activity or event related information'
-    CaptureRegistrationResponse:
-      type: object
-      properties:
-        Registration:
-          type: object
-          properties:
-            RegistrationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RegistrationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
-            RegistrationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            RegistrationCollateralRegistrationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RegistrationCollateralRegistrationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RegistrationCollateralRegistrationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RegistrationCollateralRegistrationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RegistrationCollateralRegistrationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: CaBQ Capture Registration activity or event related information'
-    CaptureValuationRequest:
-      type: object
-      properties:
-        Valuation:
-          type: object
-          properties:
-            ValuationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ValuationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ValuationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            ValuationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ValuationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ValuationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ValuationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ValuationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: CaBQ Capture Valuation activity or event related information'
-    CaptureValuationResponse:
-      type: object
-      properties:
-        Valuation:
-          type: object
-          properties:
-            ValuationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ValuationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ValuationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            ValuationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ValuationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ValuationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ValuationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ValuationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: CaBQ Capture Valuation activity or event related information'
-    InitiateAssuranceRequest:
-      type: object
-      properties:
-        Assurance:
-          type: object
-          properties:
-            AssurancePreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            AssuranceWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
-            AssurancePostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            AssuranceCollateralItemAssuranceServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            AssuranceCollateralItemAssuranceServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            AssuranceCollateralItemAssuranceServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Assurance'
-    InitiateAssuranceResponse:
-      type: object
-      properties:
-        Assurance:
-          type: object
-          properties:
-            AssurancePreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            AssuranceWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
-            AssurancePostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            AssuranceCollateralItemAssuranceServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            AssuranceCollateralItemAssuranceServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            AssuranceCollateralItemAssuranceServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Assurance'
-    InitiateRegistrationRequest:
-      type: object
-      properties:
-        Registration:
-          type: object
-          properties:
-            RegistrationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RegistrationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
-            RegistrationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            RegistrationCollateralRegistrationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RegistrationCollateralRegistrationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RegistrationCollateralRegistrationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RegistrationCollateralRegistrationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RegistrationCollateralRegistrationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Registration'
-    InitiateRegistrationResponse:
-      type: object
-      properties:
-        Registration:
-          type: object
-          properties:
-            RegistrationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RegistrationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
-            RegistrationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            RegistrationCollateralRegistrationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RegistrationCollateralRegistrationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RegistrationCollateralRegistrationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RegistrationCollateralRegistrationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RegistrationCollateralRegistrationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Registration'
-    InitiateValuationRequest:
-      type: object
-      properties:
-        Valuation:
-          type: object
-          properties:
-            ValuationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ValuationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ValuationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            ValuationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ValuationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ValuationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ValuationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ValuationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: InBQ Instantiate a new Valuation'
-    InitiateValuationResponse:
-      type: object
-      properties:
-        Valuation:
-          type: object
-          properties:
-            ValuationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ValuationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ValuationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            ValuationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ValuationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ValuationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ValuationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ValuationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: InBQ Instantiate a new Valuation'
     RetrieveAssuranceResponse:
       type: object
       properties:
@@ -1582,13 +1050,17 @@ components:
               description: The required status/situation before the routine can be undertaken
               format: string
             AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for performing the routine
+              format: object
             AssuranceWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in completing the routine
               format: string
             CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Leasing Item Administrative Plan specific Business Service
+              format: businessservice
             AssurancePostconditions:
               type: string
               description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
@@ -1625,13 +1097,17 @@ components:
               description: The required status/situation before the routine can be undertaken
               format: string
             RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for performing the routine
+              format: object
             RegistrationWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in completing the routine
               format: string
             CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Leasing Item Administrative Plan specific Business Service
+              format: businessservice
             RegistrationPostconditions:
               type: string
               description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
@@ -1668,13 +1144,17 @@ components:
               description: The required status/situation before the routine can be undertaken
               format: string
             ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The operating unit/employee responsible for performing the routine
+              format: object
             ValuationWorkSchedule:
               type: string
               description: The timing and key actions/milestones involved in completing the routine
               format: string
             BusinessService:
-              $ref: '#/components/schemas/businessservice'
+              type: string
+              description: The Leasing Item Administrative Plan specific Business Service
+              format: businessservice
             ValuationPostconditions:
               type: string
               description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
@@ -1700,264 +1180,6 @@ components:
               description: "\n"
               format: string
       description: 'Output: ReBQ Retrieve details about any aspect of Valuation'
-    UpdateAssuranceRequest:
-      type: object
-      properties:
-        Assurance:
-          type: object
-          properties:
-            AssurancePreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            AssuranceWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
-            AssurancePostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            AssuranceCollateralItemAssuranceServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            AssuranceCollateralItemAssuranceServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            AssuranceCollateralItemAssuranceServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Assurance'
-    UpdateAssuranceResponse:
-      type: object
-      properties:
-        Assurance:
-          type: object
-          properties:
-            AssurancePreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            AssuranceBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            AssuranceWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralItemAssurance:
-              $ref: '#/components/schemas/businessservice'
-            AssurancePostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            AssuranceCollateralItemAssuranceServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            AssuranceCollateralItemAssuranceServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            AssuranceCollateralItemAssuranceServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            AssuranceCollateralItemAssuranceServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Assurance'
-    UpdateRegistrationRequest:
-      type: object
-      properties:
-        Registration:
-          type: object
-          properties:
-            RegistrationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RegistrationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
-            RegistrationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            RegistrationCollateralRegistrationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RegistrationCollateralRegistrationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RegistrationCollateralRegistrationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RegistrationCollateralRegistrationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RegistrationCollateralRegistrationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Registration'
-    UpdateRegistrationResponse:
-      type: object
-      properties:
-        Registration:
-          type: object
-          properties:
-            RegistrationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            RegistrationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            RegistrationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            CollateralRegistration:
-              $ref: '#/components/schemas/businessservice'
-            RegistrationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            RegistrationCollateralRegistrationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            RegistrationCollateralRegistrationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            RegistrationCollateralRegistrationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            RegistrationCollateralRegistrationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            RegistrationCollateralRegistrationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Registration'
-    UpdateValuationRequest:
-      type: object
-      properties:
-        Valuation:
-          type: object
-          properties:
-            ValuationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ValuationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ValuationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            ValuationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ValuationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ValuationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ValuationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ValuationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Input: UpBQ Update details relating to Valuation'
-    UpdateValuationResponse:
-      type: object
-      properties:
-        Valuation:
-          type: object
-          properties:
-            ValuationPreconditions:
-              type: string
-              description: The required status/situation before the routine can be undertaken
-              format: string
-            ValuationBusinessUnitEmployeeReference:
-              $ref: '#/components/schemas/object'
-            ValuationWorkSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the routine
-              format: string
-            BusinessService:
-              $ref: '#/components/schemas/businessservice'
-            ValuationPostconditions:
-              type: string
-              description: The completion status once the routine has been completed (note the need to fulfill a routine may recur frequently)
-              format: string
-            ValuationServiceType:
-              type: string
-              description: Reference to the specific business service type
-              format: string
-            ValuationServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: string
-            ValuationServiceInputsandOuputs:
-              type: string
-              description: Mandatory and optional inputs and output information for the business service
-              format: string
-            ValuationServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: string
-            ValuationServiceName:
-              type: string
-              description: "\n"
-              format: string
-      description: 'Output: UpBQ Update details relating to Valuation'
   responses:
     BadRequest:
       description: BadRequest
@@ -2043,42 +1265,24 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateLeasingItemAdministrativePlanResponse'
-    CaptureAssuranceResponse:
-      description: CaptureAssuranceResponse
+    Assurance:
+      description: Assurance
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureAssuranceResponse'
-    CaptureRegistrationResponse:
-      description: CaptureRegistrationResponse
+            $ref: '#/components/schemas/Assurance'
+    Registration:
+      description: Registration
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureRegistrationResponse'
-    CaptureValuationResponse:
-      description: CaptureValuationResponse
+            $ref: '#/components/schemas/Registration'
+    Valuation:
+      description: Valuation
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureValuationResponse'
-    InitiateAssuranceResponse:
-      description: InitiateAssuranceResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateAssuranceResponse'
-    InitiateRegistrationResponse:
-      description: InitiateRegistrationResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateRegistrationResponse'
-    InitiateValuationResponse:
-      description: InitiateValuationResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateValuationResponse'
+            $ref: '#/components/schemas/Valuation'
     RetrieveAssuranceResponse:
       description: RetrieveAssuranceResponse
       content:
@@ -2097,24 +1301,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/RetrieveValuationResponse'
-    UpdateAssuranceResponse:
-      description: UpdateAssuranceResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateAssuranceResponse'
-    UpdateRegistrationResponse:
-      description: UpdateRegistrationResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateRegistrationResponse'
-    UpdateValuationResponse:
-      description: UpdateValuationResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateValuationResponse'
   parameters:
     leasingitemadministrationid:
       name: leasingitemadministrationid
@@ -2187,57 +1373,21 @@ components:
           schema:
             $ref: '#/components/schemas/UpdateLeasingItemAdministrativePlanRequest'
       required: true
-    CaptureAssuranceRequest:
+    Assurance:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureAssuranceRequest'
+            $ref: '#/components/schemas/Assurance'
       required: true
-    CaptureRegistrationRequest:
+    Registration:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureRegistrationRequest'
+            $ref: '#/components/schemas/Registration'
       required: true
-    CaptureValuationRequest:
+    Valuation:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CaptureValuationRequest'
-      required: true
-    InitiateAssuranceRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateAssuranceRequest'
-      required: true
-    InitiateRegistrationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateRegistrationRequest'
-      required: true
-    InitiateValuationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InitiateValuationRequest'
-      required: true
-    UpdateAssuranceRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateAssuranceRequest'
-      required: true
-    UpdateRegistrationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateRegistrationRequest'
-      required: true
-    UpdateValuationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateValuationRequest'
+            $ref: '#/components/schemas/Valuation'
       required: true
