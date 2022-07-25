@@ -651,6 +651,34 @@ components:
           type: string
           format: string
       description: Status Attributes
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: Reference to an associated statement (that is included in the generated invoice)
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: The amount of the required repayment
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The due date for the payment
     Billing:
       type: object
       properties:
@@ -675,22 +703,24 @@ components:
           description: The period (from-to) covered by the invoice
           format: string
         BillingTransactionStatementReference:
-          type: string
-          description: Reference to an associated statement (that is included in the generated invoice)
-          format: object
+          $ref: '#/components/schemas/object'
         BillingTransactionAmount:
-          type: string
-          description: The amount of the required repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         BillingTransactionMinimumRequiredPayment:
           type: string
           description: The minimum required payment (for partial payment)
           format: string
         BillingTransactionPaymentDueDate:
-          type: string
-          description: The due date for the payment
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
+    rate:
+      type: object
+      properties:
+        Rate:
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
+      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
@@ -699,17 +729,11 @@ components:
           description: Applicable interest rate type
           format: string
         InterestRateApplicationSchedule:
-          type: string
-          description: The processing schedule for applying interest rates to the account
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: string
-          description: The collection of applicable interest rate 'buckets'
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRate:
-          type: string
-          description: The rate value to be applied
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -731,9 +755,7 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          type: string
-          description: Record of accrued interest
-          format: amount
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -755,10 +777,16 @@ components:
           description: 'The range of terms applied to the pan (e.g. minimum payment, payment grace period, interest rate reference, installment plans, …)'
           format: string
         CreditPlanAccountReference:
-          type: string
-          description: Reference to the account where the credit plan is linked
-          format: object
+          $ref: '#/components/schemas/object'
       description: The product features/services available with a financical facility
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency that the transaction is made in
     CardTransaction:
       type: object
       properties:
@@ -767,53 +795,33 @@ components:
           description: The card transaction record
           format: string
         CardTransactionProductInstanceReference:
-          type: string
-          description: The account number associated with the card transaction
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionNetworkReference:
-          type: string
-          description: Reference to the network the card transaction is handled by
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionIssuingBankReference:
-          type: string
-          description: Refers to the card holder's issuing bank
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionMerchantAcquiringBankReference:
-          type: string
-          description: Refers to the merchant's acquiring bank
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          type: string
-          description: The currency that the transaction is made in
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          type: string
-          description: The amount corresponding to the type
-          format: amount
+          $ref: '#/components/schemas/amount'
         CardTransactionMerchantReference:
-          type: string
-          description: Refers to the merchant initiating settlement
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionLocationReference:
-          type: string
-          description: Refers to the point of sale location
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionProductandServiceReference:
-          type: string
-          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-          format: object
+          $ref: '#/components/schemas/object'
         CardTransactionDateTime:
-          type: string
-          description: Significant dates and times associated with the transaction
-          format: date
+          $ref: '#/components/schemas/date'
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -839,33 +847,19 @@ components:
           description: 'The type of repayment (e.g. scheduled repayment linked to associated billing record, ad-hoc repayment)'
           format: string
         BillingInstanceReference:
-          type: string
-          description: Reference to the associated bill for which this can be full or partial repayment)
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerReference:
-          type: string
-          description: Reference to the payer
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerProductInstanceReference:
-          type: string
-          description: Reference to the account where the payment is made from
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerBankReference:
-          type: string
-          description: Reference to the payer's bank
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionAmount:
-          type: string
-          description: The amount of the repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         RepaymentTransactionCurrency:
-          type: string
-          description: The currency used for the repayment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         RepaymentTransactionValueDate:
-          type: string
-          description: The value date for the repayment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     IssuedDevice:
       type: object
@@ -955,9 +949,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -971,33 +963,19 @@ components:
       type: object
       properties:
         ProductInstanceReference:
-          type: string
-          description: Reference to the credit/charge card account product instance
-          format: object
+          $ref: '#/components/schemas/object'
         CustomerReference:
-          type: string
-          description: Reference to the card account primary party/owner
-          format: object
+          $ref: '#/components/schemas/object'
         PartyReference:
-          type: string
-          description: Reference to the legal entity (typically the customer)
-          format: object
+          $ref: '#/components/schemas/object'
         BankBranchLocationReference:
-          type: string
-          description: Bank branch associated with the card account for booking purposes
-          format: object
+          $ref: '#/components/schemas/object'
         AccountCurrency:
-          type: string
-          description: The primary account currency
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         SecondaryBillingCurrency:
-          type: string
-          description: Required for dual currency accounts
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         TaxReference:
-          type: string
-          description: Reference identifier linking the account to appropriate tax handling
-          format: object
+          $ref: '#/components/schemas/object'
         EntitlementOptionDefinition:
           type: string
           description: The definition of an applicable entitlement option
@@ -1043,9 +1021,7 @@ components:
           description: 'Description of the role, obligations or entitlements of the associated party'
           format: string
         AssociationReference:
-          type: string
-          description: Reference to the associated party
-          format: object
+          $ref: '#/components/schemas/object'
         LinkedAccounts:
           type: string
           description: Definition of the linked account's association to the account
@@ -1110,29 +1086,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1174,9 +1138,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -1229,9 +1191,7 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1288,33 +1248,19 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1360,9 +1306,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -1423,33 +1367,19 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1495,9 +1425,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -1558,33 +1486,19 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1630,9 +1544,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -1693,29 +1605,17 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             RestrictionOptionSetting:
               type: string
               description: The setting for the restriction option
@@ -1772,13 +1672,9 @@ components:
               description: Applicable interest rate type
               format: string
             InterestRateApplicationSchedule:
-              type: string
-              description: The processing schedule for applying interest rates to the account
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestRateConfiguration:
-              type: string
-              description: The collection of applicable interest rate 'buckets'
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestApplicationRecord:
               type: string
               description: The record of applied interest
@@ -1800,9 +1696,7 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              type: string
-              description: Record of accrued interest
-              format: amount
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -1902,9 +1796,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1921,33 +1813,19 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -1993,9 +1871,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -2100,9 +1976,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -2139,9 +2013,7 @@ components:
               description: The period (from-to) covered by the invoice
               format: string
             BillingTransactionStatementReference:
-              type: string
-              description: Reference to an associated statement (that is included in the generated invoice)
-              format: object
+              $ref: '#/components/schemas/object'
       description: 'Input: ExBQ Execute the billing process for a card account'
     ExecuteBillingResponse:
       type: object
@@ -2170,17 +2042,13 @@ components:
               description: The period (from-to) covered by the invoice
               format: string
             BillingTransactionAmount:
-              type: string
-              description: The amount of the required repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             BillingTransactionMinimumRequiredPayment:
               type: string
               description: The minimum required payment (for partial payment)
               format: string
             BillingTransactionPaymentDueDate:
-              type: string
-              description: The due date for the payment
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ExBQ Execute the billing process for a card account'
     RetrieveBillingResponse:
       type: object
@@ -2189,33 +2057,19 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             RestrictionOptionDefinition:
               type: string
               description: The definition of an applicable restriction option
@@ -2288,9 +2142,7 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              type: string
-              description: Record of accrued interest
-              format: amount
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -2319,9 +2171,7 @@ components:
               description: The derived fee or penalty amount applied
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -2354,21 +2204,15 @@ components:
               description: The period (from-to) covered by the invoice
               format: string
             BillingTransactionStatementReference:
-              type: string
-              description: Reference to an associated statement (that is included in the generated invoice)
-              format: object
+              $ref: '#/components/schemas/object'
             BillingTransactionAmount:
-              type: string
-              description: The amount of the required repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             BillingTransactionMinimumRequiredPayment:
               type: string
               description: The minimum required payment (for partial payment)
               format: string
             BillingTransactionPaymentDueDate:
-              type: string
-              description: The due date for the payment
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a billing process for a card account'
     RetrieveRepaymentResponse:
       type: object
@@ -2377,17 +2221,11 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
         Repayment:
           type: object
           properties:
@@ -2400,33 +2238,19 @@ components:
               description: 'The type of repayment (e.g. scheduled repayment linked to associated billing record, ad-hoc repayment)'
               format: string
             BillingInstanceReference:
-              type: string
-              description: Reference to the associated bill for which this can be full or partial repayment)
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerReference:
-              type: string
-              description: Reference to the payer
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerProductInstanceReference:
-              type: string
-              description: Reference to the account where the payment is made from
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerBankReference:
-              type: string
-              description: Reference to the payer's bank
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionAmount:
-              type: string
-              description: The amount of the repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             RepaymentTransactionCurrency:
-              type: string
-              description: The currency used for the repayment
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             RepaymentTransactionValueDate:
-              type: string
-              description: The value date for the repayment transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve detail about a repayment transaction'
     UpdateCardTransactionRequest:
       type: object
@@ -2435,49 +2259,31 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2498,49 +2304,31 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2561,49 +2349,31 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2624,9 +2394,7 @@ components:
           type: object
           properties:
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ExBQ Execute a card account transaction'
     RetrieveCardTransactionResponse:
       type: object
@@ -2635,64 +2403,40 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
         CardTransaction:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2713,21 +2457,13 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AllowedAccess:
               type: string
               description: 'Defines allowed access paths/channels supported (e.g. POS, ATM, Local/International, Merchant Categories)'
@@ -2757,9 +2493,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -2935,21 +2669,13 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the card account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             AllowedAccess:
               type: string
               description: 'Defines allowed access paths/channels supported (e.g. POS, ATM, Local/International, Merchant Categories)'
@@ -2979,9 +2705,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LinkedAccounts:
               type: string
               description: Definition of the linked account's association to the account
@@ -3057,17 +2781,11 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -3096,9 +2814,7 @@ components:
               description: 'The range of terms applied to the pan (e.g. minimum payment, payment grace period, interest rate reference, installment plans, …)'
               format: string
             CreditPlanAccountReference:
-              type: string
-              description: Reference to the account where the credit plan is linked
-              format: object
+              $ref: '#/components/schemas/object'
       description: 'Input: InBQ Initiate a credit plan linked to the card account'
     UpdateCreditPlanRequest:
       type: object
@@ -3107,49 +2823,31 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -3174,9 +2872,7 @@ components:
               description: 'The range of terms applied to the pan (e.g. minimum payment, payment grace period, interest rate reference, installment plans, …)'
               format: string
             CreditPlanAccountReference:
-              type: string
-              description: Reference to the account where the credit plan is linked
-              format: object
+              $ref: '#/components/schemas/object'
       description: 'Input: UpBQ Update details of the credit plan'
     UpdateCreditPlanResponse:
       type: object
@@ -3185,49 +2881,31 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -3252,9 +2930,7 @@ components:
               description: 'The range of terms applied to the pan (e.g. minimum payment, payment grace period, interest rate reference, installment plans, …)'
               format: string
             CreditPlanAccountReference:
-              type: string
-              description: Reference to the account where the credit plan is linked
-              format: object
+              $ref: '#/components/schemas/object'
       description: 'Output: UpBQ Update details of the credit plan'
     RetrieveCreditPlanResponse:
       type: object
@@ -3263,17 +2939,11 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the credit/charge card account product instance
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerReference:
-              type: string
-              description: Reference to the card account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: Reference to the legal entity (typically the customer)
-              format: object
+              $ref: '#/components/schemas/object'
             EntitlementOptionDefinition:
               type: string
               description: The definition of an applicable entitlement option
@@ -3294,49 +2964,31 @@ components:
           type: object
           properties:
             CardTransactionProductInstanceReference:
-              type: string
-              description: The account number associated with the card transaction
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionNetworkReference:
-              type: string
-              description: Reference to the network the card transaction is handled by
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionIssuingBankReference:
-              type: string
-              description: Refers to the card holder's issuing bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionMerchantAcquiringBankReference:
-              type: string
-              description: Refers to the merchant's acquiring bank
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             CardTransactionMerchantReference:
-              type: string
-              description: Refers to the merchant initiating settlement
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionLocationReference:
-              type: string
-              description: Refers to the point of sale location
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionProductandServiceReference:
-              type: string
-              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
-              format: object
+              $ref: '#/components/schemas/object'
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -3361,9 +3013,7 @@ components:
               description: 'The range of terms applied to the pan (e.g. minimum payment, payment grace period, interest rate reference, installment plans, …)'
               format: string
             CreditPlanAccountReference:
-              type: string
-              description: Reference to the account where the credit plan is linked
-              format: object
+              $ref: '#/components/schemas/object'
       description: 'Output: ReBQ Retrieve details about a linked credit plan'
   responses:
     BadRequest:

@@ -411,101 +411,359 @@ components:
           type: string
           format: string
       description: Status Attributes
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: Reference to M&A Candidate Selection and Evaluation Topic
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The type of M&A Candidate Selection and Evaluation Topic
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The M&A Candidate Selection and Evaluation Topic specific Business Service
+    involvedparty:
+      type: object
+      properties:
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
+      description: The operating unit/employee responsible for providing the advice/recommendation
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The completion status once the advice/recommendation has been provided
+    schedule:
+      type: object
+      properties:
+        Schedule:
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
+      description: The timing and key actions/milestones involved in providing the advice/recommendation
     M&ACandidateSelectionandEvaluationTopic:
       type: object
       properties:
         MergersAndAcquisitionAdviceReference:
-          type: string
-          description: Reference to M&A Candidate Selection and Evaluation Topic
-          format: object
+          $ref: '#/components/schemas/object'
         M&ACandidateSelectionandEvaluationTopicReference:
-          type: string
-          description: Reference to M&A Candidate Selection and Evaluation Topic
-          format: object
+          $ref: '#/components/schemas/object'
         M&ACandidateSelectionandEvaluationTopicType:
-          type: string
-          description: The type of M&A Candidate Selection and Evaluation Topic
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The M&A Candidate Selection and Evaluation Topic specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         BusinessUnitEmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for providing the advice/recommendation
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Postconditions:
-          type: string
-          description: The completion status once the advice/recommendation has been provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Preconditions:
-          type: string
-          description: The required status/situation before the advice/recommendation can be provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in providing the advice/recommendation
-          format: schedule
+          $ref: '#/components/schemas/schedule'
       description: The M&A Candidate Selection and Evaluation Topic advice is one specific topic that can be included in providing M&A Candidate Selection and Evaluation Topic
+    task:
+      type: object
+      properties:
+        Task:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    project:
+      type: object
+      properties:
+        ProjectName:
+          type: string
+          description: The name of project
+          format: string
+        ProjectType:
+          type: string
+          description: A classification of the project
+          format: string
+        ProjectDescription:
+          type: string
+          description: 'A description of the scope, goal and make-up of the project'
+          format: string
+        ProjectOrganisation:
+          type: string
+          description: ''
+          format: string
+        ProjectSchedule:
+          type: string
+          description: ''
+          format: string
+        ProjectDateTime:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
+    analysistypevalues:
+      enum:
+        - PerformanceAnalysis
+        - ActivityAnalysis
+      type: string
+      description: ">\n* `PerformanceAnalysis` - \n* `ActivityAnalysis` - \n"
+    datetimeperiod:
+      type: object
+      properties:
+        Datetimeperiod:
+          type: string
+          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
+          format: datatype
+      description: The period covered by the analysis (from to date time)
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: An identifier that allows to uniquely refer to an instance of a Document.
+    documenttype:
+      type: object
+      properties:
+        DocumentType:
+          type: string
+          description: A Classification Hierarchy that distinguishes between Documents according to the nature of the Information represented.
+          format: class
+      description: 'Specifies the type of the document, for example commercial invoice. (ISO20022)'
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: ''
+    documentdatetimetypevalues:
+      enum:
+        - Creationdate
+        - Capturingdate
+        - Versiondate
+        - Valuedate
+        - Issuedate
+      type: string
+      description: ">\n* `Creationdate` - \n* `Capturingdate` - \n* `Versiondate` - \n* `Valuedate` - \n* `Issuedate` - \n"
+    document:
+      type: object
+      properties:
+        DocumentIdentifer:
+          $ref: '#/components/schemas/identifier'
+        DocumentVersion:
+          $ref: '#/components/schemas/text'
+        DocumentType:
+          $ref: '#/components/schemas/documenttype'
+        DocumentStatus:
+          $ref: '#/components/schemas/status'
+        DocumentDateTime:
+          $ref: '#/components/schemas/datetime'
+        DocumentName:
+          $ref: '#/components/schemas/name'
+        DocumentDateTimeType:
+          $ref: '#/components/schemas/documentdatetimetypevalues'
+        DocumentPurpose:
+          $ref: '#/components/schemas/text'
+        DocumentFormat:
+          $ref: '#/components/schemas/text'
+        DocumentSubject:
+          $ref: '#/components/schemas/text'
+        DocumentDescription:
+          $ref: '#/components/schemas/text'
+      description: ''
+    analysis:
+      type: object
+      properties:
+        AnalysisType:
+          $ref: '#/components/schemas/analysistypevalues'
+        AnalysisResult:
+          $ref: '#/components/schemas/text'
+        AnalysisPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AnalysisDocument:
+          $ref: '#/components/schemas/document'
+        AnalysisDateTime:
+          $ref: '#/components/schemas/datetime'
+        AnalysisSpecification:
+          $ref: '#/components/schemas/text'
+      description: ''
+    assignment:
+      type: object
+      properties:
+        Assignment:
+          type: string
+          description: "Assignment of something to an InvolvedParty\n\nMake-up of staff allocation and delivery expectations !!!!\n"
+          format: datatype
+      description: ''
     MergersandAcquisitionsAdvisoryOutcome:
       type: object
       properties:
         MergersandAcquisitionsAdvisoryTask:
-          type: string
-          description: ''
-          format: task
+          $ref: '#/components/schemas/task'
         MergersandAcquisitionsAdvisoryProject:
-          type: string
-          description: ''
-          format: project
+          $ref: '#/components/schemas/project'
         MergersandAcquisitionsAdvisoryWorkProduct:
-          type: string
-          description: ''
-          format: workproduct
+          $ref: '#/components/schemas/workproduct'
         MergersandAcquisitionsAdvisoryWorkforceAnalysis:
-          type: string
-          description: ''
-          format: analysis
+          $ref: '#/components/schemas/analysis'
         MergersandAcquisitionsAdvisoryWorkforceAssignment:
+          $ref: '#/components/schemas/assignment'
+      description: The M&A Candidate Selection and Evaluation Topic advice is one specific topic that can be included in providing M&A Candidate Selection and Evaluation Topic
+    feature:
+      type: object
+      properties:
+        FeatureType:
           type: string
           description: ''
-          format: assignment
-      description: The M&A Candidate Selection and Evaluation Topic advice is one specific topic that can be included in providing M&A Candidate Selection and Evaluation Topic
+          format: string
+      description: 'A selected option, identified by Parameter Type'
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    instructionlifecyclestatus:
+      type: object
+      properties:
+        Instructionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+          format: datatype
+      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDueDate:
+          $ref: '#/components/schemas/date'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to advise
+    actiontype:
+      type: object
+      properties:
+        Actiontype:
+          type: string
+          description: Data type that specifies type of business action
+          format: datatype
+      description: A Classification value that distinguishes between the type of actions undertaken within Mergers And Acquisition Advice
     MergersAndAcquisitionAdvice:
       type: object
       properties:
         MergersAndAcquisitionAdviceSubjectAreaType:
-          type: string
-          description: A Classification value that distinguishes between the subject matters of Mergers And Acquisition Advice
-          format: text
+          $ref: '#/components/schemas/text'
         MergersAndAcquisitionAdviceParameterType:
-          type: string
-          description: A Classification value that distinguishes between Options defined within Mergers And Acquisition Advice
-          format: text
+          $ref: '#/components/schemas/text'
         MergersAndAcquisitionAdviceSelectedOption:
-          type: string
-          description: 'A selected option, identified by Parameter Type'
-          format: feature
+          $ref: '#/components/schemas/feature'
         MergersAndAcquisitionAdviceRequest:
-          type: string
-          description: Request to advise
-          format: instruction
+          $ref: '#/components/schemas/instruction'
         MergersAndAcquisitionAdviceUsageLog:
-          type: string
-          description: Reference to the log of (usage) ativities/events of Mergers And Acquisition Advice
-          format: log
+          $ref: '#/components/schemas/log'
         MergersAndAcquisitionAdviceFeedback:
-          type: string
-          description: Information about reactions to an Advise which is used as a basis for improvement for the Mergers And Acquisition Advice.
-          format: text
+          $ref: '#/components/schemas/text'
         MergersAndAcquisitionAdviceType:
-          type: string
-          description: A Classification value that distinguishes between the type of actions undertaken within Mergers And Acquisition Advice
-          format: actiontype
+          $ref: '#/components/schemas/actiontype'
         MergersAndAcquisitionAdviceReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Mergers And Acquisition Advice
-          format: object
+          $ref: '#/components/schemas/object'
       description: Provide specialist advice and/or support as an ongoing service or for a specific task/event within Mergers and Acquisitions Advisory
   responses:
     BadRequest:

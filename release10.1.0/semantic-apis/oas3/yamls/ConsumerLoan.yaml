@@ -570,6 +570,22 @@ components:
           type: string
           format: string
       description: Status Attributes
+    rate:
+      type: object
+      properties:
+        Rate:
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
+      description: The processing schedule for applying interest rates to the account
+    amount:
+      type: object
+      properties:
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: Record of accrued interest
     Interest:
       type: object
       properties:
@@ -578,17 +594,11 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          type: string
-          description: The processing schedule for applying interest rates to the account
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: string
-          description: The collection of applicable rates
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRate:
-          type: string
-          description: The interest rate value to be applied (note could be variable)
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -610,9 +620,7 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          type: string
-          description: Record of accrued interest
-          format: amount
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -666,33 +674,49 @@ components:
           description: Calculated loss/costs of restructuring
           format: string
       description: The product features/services available with a financical facility
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the party to whom the payment is made
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency of the payment
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The value date for the payment transaction
     Disbursement:
       type: object
       properties:
         DisbursementPayeeReference:
-          type: string
-          description: Reference to the party to whom the payment is made
-          format: object
+          $ref: '#/components/schemas/object'
         DisbursementPayeeProductInstanceReference:
-          type: string
-          description: Reference to the account to which the payment is made
-          format: object
+          $ref: '#/components/schemas/object'
         DisbursementPayeeBankReference:
-          type: string
-          description: Reference to the bank where the payee account is held
-          format: object
+          $ref: '#/components/schemas/object'
         DisbursementAmount:
-          type: string
-          description: The amount of the payment
-          format: amount
+          $ref: '#/components/schemas/amount'
         DisbursementCurrency:
-          type: string
-          description: The currency of the payment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         DisbursementValueDate:
-          type: string
-          description: The value date for the payment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     Repayment:
       type: object
@@ -702,29 +726,17 @@ components:
           description: 'The type of repayment (e.g. scheduled repayment, balloon/early termination)'
           format: string
         RepaymentTransactionPayerReference:
-          type: string
-          description: Reference to the payer
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerProductInstanceReference:
-          type: string
-          description: Reference to the account where the payment is made from
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionPayerBankReference:
-          type: string
-          description: Reference to the payer's bank
-          format: object
+          $ref: '#/components/schemas/object'
         RepaymentTransactionAmount:
-          type: string
-          description: The amount of the repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         RepaymentTransactionCurrency:
-          type: string
-          description: The currency used for the repayment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         RepaymentTransactionValueDate:
-          type: string
-          description: The value date for the repayment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -778,9 +790,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -802,21 +812,13 @@ components:
           description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
           format: string
         PaymentTransactionPayeeReference:
-          type: string
-          description: Reference to the party to whom the payment is made
-          format: object
+          $ref: '#/components/schemas/object'
         PaymentTransactionPayeeAccountReference:
-          type: string
-          description: Reference to the account to which the payment is made
-          format: object
+          $ref: '#/components/schemas/object'
         PaymentTransactionPayeeBankReference:
-          type: string
-          description: Reference to the bank where the payee account is held
-          format: object
+          $ref: '#/components/schemas/object'
         PaymentTransactionAmount:
-          type: string
-          description: The amount (and currency if applicable) of the payment
-          format: amount
+          $ref: '#/components/schemas/amount'
         PaymentTransactionFeeType:
           type: string
           description: The fee type applied to the payment transaction
@@ -826,9 +828,7 @@ components:
           description: The fee charge applied to the transaction
           format: string
         PaymentTransactionDate:
-          type: string
-          description: The various key dates and times associated with the payment transaction
-          format: date
+          $ref: '#/components/schemas/date'
         PaymentTransactionPaymentMechanism:
           type: string
           description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -838,9 +838,7 @@ components:
           description: Description of the purpose including any external reference to the transaction
           format: string
         PaymentTransactionBankBranchLocationReference:
-          type: string
-          description: Reference to the location the payment transaction is initiated from
-          format: object
+          $ref: '#/components/schemas/object'
         PaymentTransactionStatus:
           type: string
           description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -850,65 +848,41 @@ components:
       type: object
       properties:
         ProductInstanceReference:
-          type: string
-          description: Reference to the loan product instance
-          format: object
+          $ref: '#/components/schemas/object'
         ConsumerLoanNumber:
           type: string
           description: The associated loan account number in any suitable format
           format: string
         CustomerReference:
-          type: string
-          description: Reference to the account primary party/owner
-          format: object
+          $ref: '#/components/schemas/object'
         PartyReference:
-          type: string
-          description: 'The legal entity reference for the borrower, likely to be the same as customer'
-          format: object
+          $ref: '#/components/schemas/object'
         CustomerAgreementReference:
-          type: string
-          description: Reference to the associated customer agreement
-          format: object
+          $ref: '#/components/schemas/object'
         CustomerCreditAssessmentReference:
-          type: string
-          description: Reference to an associated credit assessment
-          format: object
+          $ref: '#/components/schemas/object'
         InsuranceReference:
-          type: string
-          description: Reference to applicable insurance arrangements
-          format: object
+          $ref: '#/components/schemas/object'
         DelinquencyCollectionReference:
-          type: string
-          description: Reference to collections/delinquency processing made against the loan
-          format: object
+          $ref: '#/components/schemas/object'
         BankBranchLocationReference:
-          type: string
-          description: Bank branch associated with the account for booking purposes
-          format: object
+          $ref: '#/components/schemas/object'
         BankAccountingUnitReference:
-          type: string
-          description: Bank accounting unit associated with the account for booking purposes
-          format: object
+          $ref: '#/components/schemas/object'
         LoanType:
           type: string
           description: 'The specific type of loan (e.g. term, revolving, evergreen)'
           format: string
         LoanAmount:
-          type: string
-          description: The amount of the loan
-          format: amount
+          $ref: '#/components/schemas/amount'
         LoanCurrency:
-          type: string
-          description: The currency for the loan account
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         LoanRateType:
           type: string
           description: The rate type to be applied to the loan
           format: string
         LoanApplicableRate:
-          type: string
-          description: The applicable rate for the loan
-          format: rate
+          $ref: '#/components/schemas/rate'
         RepaymentType:
           type: string
           description: The type of repayment arrangement in place (e.g. structured)
@@ -922,25 +896,17 @@ components:
           description: The accrual method applied to interest calculations
           format: string
         LoanOriginationDate:
-          type: string
-          description: The origination date for the loan
-          format: date
+          $ref: '#/components/schemas/date'
         LoanMaturityDate:
-          type: string
-          description: The planned maturity date of the loan
-          format: date
+          $ref: '#/components/schemas/date'
         CollateralReference:
-          type: string
-          description: Reference to allocated collateral
-          format: object
+          $ref: '#/components/schemas/object'
         CollateralAllocation:
           type: string
           description: The collateral value applied to the loan
           format: string
         TaxReference:
-          type: string
-          description: Reference identifier linking the account to appropriate tax handling
-          format: object
+          $ref: '#/components/schemas/object'
         LoanAccessTerms:
           type: string
           description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -974,9 +940,7 @@ components:
           description: 'Description of the role, obligations or entitlements of the associated party'
           format: string
         AssociationReference:
-          type: string
-          description: Reference to the associated party
-          format: object
+          $ref: '#/components/schemas/object'
         LoanRepaymentSchedule:
           type: string
           description: The schedule for loan repayments
@@ -1013,57 +977,35 @@ components:
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1077,25 +1019,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -1129,9 +1063,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -1156,9 +1088,7 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             StagedRepaymentStatement:
               type: string
               description: A statement maintained tracking repayments
@@ -1183,65 +1113,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1255,25 +1161,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -1307,9 +1205,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -1338,65 +1234,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1410,25 +1282,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -1462,9 +1326,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -1493,65 +1355,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1565,25 +1403,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -1617,9 +1447,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -1648,9 +1476,7 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
@@ -1660,21 +1486,15 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestType:
               type: string
               description: The type of interest to be applied (e.g. prime plus)
@@ -1684,13 +1504,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanOutstandingBalance:
               type: string
               description: The outstanding balance
@@ -1707,13 +1523,9 @@ components:
               description: Applicable rate type
               format: string
             InterestRateApplicationSchedule:
-              type: string
-              description: The processing schedule for applying interest rates to the account
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestRateConfiguration:
-              type: string
-              description: The collection of applicable rates
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestApplicationRecord:
               type: string
               description: The record of applied interest
@@ -1735,9 +1547,7 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              type: string
-              description: Record of accrued interest
-              format: amount
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -1837,9 +1647,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1856,17 +1664,13 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -1900,9 +1704,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCommentary:
               type: string
               description: A record of customer correspondence/feedback
@@ -1967,9 +1769,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1986,25 +1786,17 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanOutstandingBalance:
               type: string
               description: The outstanding balance
@@ -2017,29 +1809,17 @@ components:
           type: object
           properties:
             DisbursementPayeeReference:
-              type: string
-              description: Reference to the party to whom the payment is made
-              format: object
+              $ref: '#/components/schemas/object'
             DisbursementPayeeProductInstanceReference:
-              type: string
-              description: Reference to the account to which the payment is made
-              format: object
+              $ref: '#/components/schemas/object'
             DisbursementPayeeBankReference:
-              type: string
-              description: Reference to the bank where the payee account is held
-              format: object
+              $ref: '#/components/schemas/object'
             DisbursementAmount:
-              type: string
-              description: The amount of the payment
-              format: amount
+              $ref: '#/components/schemas/amount'
             DisbursementCurrency:
-              type: string
-              description: The currency of the payment
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             DisbursementValueDate:
-              type: string
-              description: The value date for the payment transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a disbursement paid against a consumer loan'
     RequestMaintenanceRequest:
       type: object
@@ -2086,65 +1866,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2158,25 +1914,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -2210,9 +1958,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -2268,21 +2014,15 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -2323,21 +2063,13 @@ components:
               description: 'The type of payment transaction (e.g. customer payment, standing order, direct debit, bill pay)'
               format: string
             PaymentTransactionPayeeReference:
-              type: string
-              description: Reference to the party to whom the payment is made
-              format: object
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeAccountReference:
-              type: string
-              description: Reference to the account to which the payment is made
-              format: object
+              $ref: '#/components/schemas/object'
             PaymentTransactionPayeeBankReference:
-              type: string
-              description: Reference to the bank where the payee account is held
-              format: object
+              $ref: '#/components/schemas/object'
             PaymentTransactionAmount:
-              type: string
-              description: The amount (and currency if applicable) of the payment
-              format: amount
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
@@ -2347,9 +2079,7 @@ components:
               description: The fee charge applied to the transaction
               format: string
             PaymentTransactionDate:
-              type: string
-              description: The various key dates and times associated with the payment transaction
-              format: date
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
               description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -2359,9 +2089,7 @@ components:
               description: Description of the purpose including any external reference to the transaction
               format: string
             PaymentTransactionBankBranchLocationReference:
-              type: string
-              description: Reference to the location the payment transaction is initiated from
-              format: object
+              $ref: '#/components/schemas/object'
             PaymentTransactionStatus:
               type: string
               description: 'The processing status of the transaction (e.g. captured, approved, initiated, confirmed, settled)'
@@ -2389,29 +2117,17 @@ components:
               description: 'The type of repayment (e.g. scheduled repayment, balloon/early termination)'
               format: string
             RepaymentTransactionPayerReference:
-              type: string
-              description: Reference to the payer
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerProductInstanceReference:
-              type: string
-              description: Reference to the account where the payment is made from
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerBankReference:
-              type: string
-              description: Reference to the payer's bank
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionAmount:
-              type: string
-              description: The amount of the repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             RepaymentTransactionCurrency:
-              type: string
-              description: The currency used for the repayment
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             RepaymentTransactionValueDate:
-              type: string
-              description: The value date for the repayment transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: UpBQ Update a repayment transaction made to the consumer loan'
     UpdateRepaymentResponse:
       type: object
@@ -2435,29 +2151,17 @@ components:
               description: 'The type of repayment (e.g. scheduled repayment, balloon/early termination)'
               format: string
             RepaymentTransactionPayerReference:
-              type: string
-              description: Reference to the payer
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerProductInstanceReference:
-              type: string
-              description: Reference to the account where the payment is made from
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerBankReference:
-              type: string
-              description: Reference to the payer's bank
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionAmount:
-              type: string
-              description: The amount of the repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             RepaymentTransactionCurrency:
-              type: string
-              description: The currency used for the repayment
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             RepaymentTransactionValueDate:
-              type: string
-              description: The value date for the repayment transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: UpBQ Update a repayment transaction made to the consumer loan'
     RetrieveRepaymentResponse:
       type: object
@@ -2466,21 +2170,15 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2521,29 +2219,17 @@ components:
               description: 'The type of repayment (e.g. scheduled repayment, balloon/early termination)'
               format: string
             RepaymentTransactionPayerReference:
-              type: string
-              description: Reference to the payer
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerProductInstanceReference:
-              type: string
-              description: Reference to the account where the payment is made from
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionPayerBankReference:
-              type: string
-              description: Reference to the payer's bank
-              format: object
+              $ref: '#/components/schemas/object'
             RepaymentTransactionAmount:
-              type: string
-              description: The amount of the repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             RepaymentTransactionCurrency:
-              type: string
-              description: The currency used for the repayment
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             RepaymentTransactionValueDate:
-              type: string
-              description: The value date for the repayment transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a consumer loan repayment'
     InitiateRestructuringRequest:
       type: object
@@ -2552,65 +2238,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2624,25 +2286,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -2676,9 +2330,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -2752,65 +2404,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2824,25 +2452,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -2876,9 +2496,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -2922,65 +2540,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2994,25 +2588,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -3046,9 +2632,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments
@@ -3122,65 +2706,41 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: Reference to the loan product instance
-              format: object
+              $ref: '#/components/schemas/object'
             ConsumerLoanNumber:
               type: string
               description: The associated loan account number in any suitable format
               format: string
             CustomerReference:
-              type: string
-              description: Reference to the account primary party/owner
-              format: object
+              $ref: '#/components/schemas/object'
             PartyReference:
-              type: string
-              description: 'The legal entity reference for the borrower, likely to be the same as customer'
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerAgreementReference:
-              type: string
-              description: Reference to the associated customer agreement
-              format: object
+              $ref: '#/components/schemas/object'
             CustomerCreditAssessmentReference:
-              type: string
-              description: Reference to an associated credit assessment
-              format: object
+              $ref: '#/components/schemas/object'
             InsuranceReference:
-              type: string
-              description: Reference to applicable insurance arrangements
-              format: object
+              $ref: '#/components/schemas/object'
             DelinquencyCollectionReference:
-              type: string
-              description: Reference to collections/delinquency processing made against the loan
-              format: object
+              $ref: '#/components/schemas/object'
             BankBranchLocationReference:
-              type: string
-              description: Bank branch associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             BankAccountingUnitReference:
-              type: string
-              description: Bank accounting unit associated with the account for booking purposes
-              format: object
+              $ref: '#/components/schemas/object'
             LoanType:
               type: string
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              type: string
-              description: The amount of the loan
-              format: amount
+              $ref: '#/components/schemas/amount'
             LoanCurrency:
-              type: string
-              description: The currency for the loan account
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              type: string
-              description: The applicable rate for the loan
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -3194,25 +2754,17 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              type: string
-              description: The origination date for the loan
-              format: date
+              $ref: '#/components/schemas/date'
             LoanMaturityDate:
-              type: string
-              description: The planned maturity date of the loan
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
-              type: string
-              description: Reference to allocated collateral
-              format: object
+              $ref: '#/components/schemas/object'
             CollateralAllocation:
               type: string
               description: The collateral value applied to the loan
               format: string
             TaxReference:
-              type: string
-              description: Reference identifier linking the account to appropriate tax handling
-              format: object
+              $ref: '#/components/schemas/object'
             LoanAccessTerms:
               type: string
               description: Access terms that apply (e.g. allowed payments/withdrawals)
@@ -3246,9 +2798,7 @@ components:
               description: 'Description of the role, obligations or entitlements of the associated party'
               format: string
             AssociationReference:
-              type: string
-              description: Reference to the associated party
-              format: object
+              $ref: '#/components/schemas/object'
             LoanRepaymentSchedule:
               type: string
               description: The schedule for loan repayments

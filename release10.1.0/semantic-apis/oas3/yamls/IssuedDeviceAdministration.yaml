@@ -651,6 +651,18 @@ components:
           description: The tracked sequence numbering (e.g. cheque number range issued)
           format: string
       description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
+    object:
+      type: object
+      properties:
+        ObjectProperties:
+          type: string
+          description: ''
+          format: string
+        ObjectDescription:
+          type: string
+          description: ''
+          format: string
+      description: Used for device personalization
     DeviceAssignment:
       type: object
       properties:
@@ -663,9 +675,7 @@ components:
           description: Operating system version for smart devices
           format: string
         CustomerCustomizationReference:
-          type: string
-          description: Used for device personalization
-          format: object
+          $ref: '#/components/schemas/object'
         Deliverymethod:
           type: string
           description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
@@ -727,17 +737,21 @@ components:
           description: The timing and frequency of access/use - includes errors for fraud detection
           format: string
       description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: The date the issued device is registered
     IssuedDeviceAllocation:
       type: object
       properties:
         CustomerReference:
-          type: string
-          description: Reference to the holder of the issued device
-          format: object
+          $ref: '#/components/schemas/object'
         ProductInstanceReference:
-          type: string
-          description: 'Linked products and services, there can be many'
-          format: object
+          $ref: '#/components/schemas/object'
         IssuedDeviceType:
           type: string
           description: The type of device allocated (used to reference assignment type)
@@ -747,13 +761,9 @@ components:
           description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
           format: string
         IssueDate:
-          type: string
-          description: The date the issued device is registered
-          format: date
+          $ref: '#/components/schemas/date'
         ValidFrom-ToDate:
-          type: string
-          description: The refresh period for the issued device
-          format: date
+          $ref: '#/components/schemas/date'
       description: "Maintain an inventory or holding of some resource and make assignments/allocations as requested  within Issued Device Administration. \nExample: Track the inventory and administer the distribution of central cash holdings throughout the branch & ATM network."
     InitiateIssuedDeviceAllocationRequest:
       type: object
@@ -762,13 +772,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -778,9 +784,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: PrCR Allocate an issued device (selected type will internally invoke assignment type)'
     InitiateIssuedDeviceAllocationResponse:
       type: object
@@ -789,21 +793,15 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: PrCR Allocate an issued device (selected type will internally invoke assignment type)'
     RetrieveIssuedDeviceAllocationResponse:
       type: object
@@ -812,13 +810,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -828,13 +822,9 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReCR Retrieve details about an allocation'
     InitiatePasswordAssignmentRequest:
       type: object
@@ -843,13 +833,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -859,13 +845,9 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
@@ -881,25 +863,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
@@ -919,13 +893,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -935,9 +905,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
@@ -957,13 +925,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -973,9 +937,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
@@ -1017,13 +979,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1033,13 +991,9 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         PasswordAssignment:
           type: object
           properties:
@@ -1067,13 +1021,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1083,13 +1033,9 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
@@ -1105,25 +1051,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
@@ -1147,13 +1085,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1163,9 +1097,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
@@ -1185,13 +1117,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1201,9 +1129,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
@@ -1245,13 +1171,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1261,9 +1183,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         QuestionAssignment:
           type: object
           properties:
@@ -1295,13 +1215,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1311,9 +1227,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         DeviceAssignment:
           type: object
           properties:
@@ -1322,9 +1236,7 @@ components:
               description: Operating system version for smart devices
               format: string
             CustomerCustomizationReference:
-              type: string
-              description: Used for device personalization
-              format: object
+              $ref: '#/components/schemas/object'
             Deliverymethod:
               type: string
               description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
@@ -1349,13 +1261,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1365,9 +1273,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         DeviceAssignment:
           type: object
           properties:
@@ -1376,9 +1282,7 @@ components:
               description: Operating system version for smart devices
               format: string
             CustomerCustomizationReference:
-              type: string
-              description: Used for device personalization
-              format: object
+              $ref: '#/components/schemas/object'
             Deliverymethod:
               type: string
               description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
@@ -1425,13 +1329,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1441,9 +1341,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         DeviceAssignment:
           type: object
           properties:
@@ -1452,9 +1350,7 @@ components:
               description: Operating system version for smart devices
               format: string
             CustomerCustomizationReference:
-              type: string
-              description: Used for device personalization
-              format: object
+              $ref: '#/components/schemas/object'
             Deliverymethod:
               type: string
               description: 'Details how device and replacements are distributed (e.g. mail, courier, collect at branch, kiosk)'
@@ -1479,13 +1375,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1495,13 +1387,9 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
@@ -1521,25 +1409,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
@@ -1555,13 +1435,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1571,9 +1447,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
@@ -1593,13 +1467,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1609,9 +1479,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
@@ -1631,13 +1499,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1647,9 +1511,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         BiometricAssignment:
           type: object
           properties:
@@ -1669,13 +1531,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1685,9 +1543,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         ReaderAssignment:
           type: object
           properties:
@@ -1715,13 +1571,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1731,9 +1583,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         ReaderAssignment:
           type: object
           properties:
@@ -1783,13 +1633,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1799,9 +1645,7 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         ReaderAssignment:
           type: object
           properties:
@@ -1829,13 +1673,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
@@ -1845,13 +1685,9 @@ components:
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         ChequesAssignment:
           type: object
           properties:
@@ -1871,25 +1707,17 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             AssociatedPermissions:
               type: string
               description: 'Access/usage entitlements, can be by product instance (e.g. value, location, frequency and duration access constraints)'
               format: string
             IssueDate:
-              type: string
-              description: The date the issued device is registered
-              format: date
+              $ref: '#/components/schemas/date'
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         ChequesAssignment:
           type: object
           properties:
@@ -1905,21 +1733,15 @@ components:
           type: object
           properties:
             CustomerReference:
-              type: string
-              description: Reference to the holder of the issued device
-              format: object
+              $ref: '#/components/schemas/object'
             ProductInstanceReference:
-              type: string
-              description: 'Linked products and services, there can be many'
-              format: object
+              $ref: '#/components/schemas/object'
             IssuedDeviceType:
               type: string
               description: The type of device allocated (used to reference assignment type)
               format: string
             ValidFrom-ToDate:
-              type: string
-              description: The refresh period for the issued device
-              format: date
+              $ref: '#/components/schemas/date'
         ChequesAssignment:
           type: object
           properties:
