@@ -306,18 +306,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference identifier linking the entity to appropriate tax authority
     Reference:
       type: object
       properties:
@@ -358,7 +346,9 @@ components:
           description: 'The primary, and additional regulators as appropriate'
           format: string
         TaxReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference identifier linking the entity to appropriate tax authority
+          format: object
         ContactRole:
           type: string
           description: The bank's contact role or roles established to maintain the relationship with the bank (e.g. CEO)
@@ -372,7 +362,9 @@ components:
       type: object
       properties:
         LegalEntityAssociationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated entity (e.g. company or individual)
+          format: object
         LegalEntityAssociationType:
           type: string
           description: Nature or type of association (e.g. corporate or familial)
@@ -382,22 +374,18 @@ components:
           description: 'Description of the association and applicable obligations  (e.g. shareholder, director, guardian, guarantor)'
           format: string
         ParentLegalEntityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference the parent entity if applicable
+          format: object
         SubsidiaryLegalEntityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference the subsidiary entity if applicable
+          format: object
         ShareholdingProfile:
           type: string
           description: List of major shareholders and shareholdings of significance
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    rate:
-      type: object
-      properties:
-        Rate:
-          type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
-      description: Past and projected growth rates
     Profile:
       type: object
       properties:
@@ -414,7 +402,9 @@ components:
           description: The projected economic performance for the entity
           format: string
         OrganizationGrowthRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: Past and projected growth rates
+          format: rate
         OrganizationProfitabilityStocks:
           type: string
           description: Analysis of past performance  (a summary description)
@@ -424,61 +414,25 @@ components:
           description: 'Description of revenues, production volumes and staff turnover  a summary description)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
-    datetime:
-      type: object
-      properties:
-        Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        Partyidentification:
-          type: string
-          description: ''
-          format: datatype
-      description: ''
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        PartyType:
-          type: string
-          description: Specifies the type of party in different business contexts. (ISO20022)
-          format: string
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: Reference to the associated party (one or more linked by role to the legal entity)
-    directoryentrydatetypevalues:
-      enum:
-        - OpenDate
-        - RefreshDate
-      type: string
-      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     LegalEntityDirectoryEntry:
       type: object
       properties:
         LegalEntityReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the legal entity that is the subject of the entry
+          format: object
         PartyReference:
-          $ref: '#/components/schemas/party'
+          type: string
+          description: Reference to the associated party (one or more linked by role to the legal entity)
+          format: party
         DirectoryEntryDateType:
-          $ref: '#/components/schemas/directoryentrydatetypevalues'
+          type: string
+          description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+          format: directoryentrydatetypevalues
         DirectoryEntryDate:
-          $ref: '#/components/schemas/datetime'
+          type: string
+          description: Value of the date type
+          format: datetime
       description: Capture and maintain reference information about some type of entitity within Legal Entity Directory.
     RegisterLegalEntityDirectoryEntryRequest:
       type: object
@@ -487,11 +441,17 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: InCR Register a new legal entity in the catalog'
     UpdateLegalEntityDirectoryEntryRequest:
       type: object
@@ -500,11 +460,17 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: UpCR Update details about the legal entity directory entry'
     UpdateLegalEntityDirectoryEntryResponse:
       type: object
@@ -513,11 +479,17 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Output: UpCR Update details about the legal entity directory entry'
     RequestLegalEntityDirectoryEntryRequest:
       type: object
@@ -526,7 +498,9 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Input: RqCR Request manual intervention with an entry (e.g. refresh content)'
     RetrieveLegalEntityDirectoryEntryResponse:
       type: object
@@ -535,11 +509,17 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
       description: 'Output: ReCR Retrieve details about a legal entity directory entry'
     ExecuteLegalEntityDirectoryEntryRequest:
       type: object
@@ -584,7 +564,9 @@ components:
               description: 'The primary, and additional regulators as appropriate'
               format: string
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the entity to appropriate tax authority
+              format: object
             ContactRole:
               type: string
               description: The bank's contact role or roles established to maintain the relationship with the bank (e.g. CEO)
@@ -609,7 +591,9 @@ components:
               description: The projected economic performance for the entity
               format: string
             OrganizationGrowthRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: Past and projected growth rates
+              format: rate
             OrganizationProfitabilityStocks:
               type: string
               description: Analysis of past performance  (a summary description)
@@ -622,7 +606,9 @@ components:
           type: object
           properties:
             LegalEntityAssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated entity (e.g. company or individual)
+              format: object
             LegalEntityAssociationType:
               type: string
               description: Nature or type of association (e.g. corporate or familial)
@@ -632,9 +618,13 @@ components:
               description: 'Description of the association and applicable obligations  (e.g. shareholder, director, guardian, guarantor)'
               format: string
             ParentLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the parent entity if applicable
+              format: object
             SubsidiaryLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the subsidiary entity if applicable
+              format: object
             ShareholdingProfile:
               type: string
               description: List of major shareholders and shareholdings of significance
@@ -647,7 +637,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Reference:
           type: object
           properties:
@@ -688,7 +680,9 @@ components:
               description: 'The primary, and additional regulators as appropriate'
               format: string
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the entity to appropriate tax authority
+              format: object
             ContactRole:
               type: string
               description: The bank's contact role or roles established to maintain the relationship with the bank (e.g. CEO)
@@ -705,7 +699,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Reference:
           type: object
           properties:
@@ -746,7 +742,9 @@ components:
               description: 'The primary, and additional regulators as appropriate'
               format: string
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the entity to appropriate tax authority
+              format: object
             ContactRole:
               type: string
               description: The bank's contact role or roles established to maintain the relationship with the bank (e.g. CEO)
@@ -763,11 +761,17 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Reference:
           type: object
           properties:
@@ -808,7 +812,9 @@ components:
               description: 'The primary, and additional regulators as appropriate'
               format: string
             TaxReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference identifier linking the entity to appropriate tax authority
+              format: object
             ContactRole:
               type: string
               description: The bank's contact role or roles established to maintain the relationship with the bank (e.g. CEO)
@@ -825,7 +831,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Profile:
           type: object
           properties:
@@ -842,7 +850,9 @@ components:
               description: The projected economic performance for the entity
               format: string
             OrganizationGrowthRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: Past and projected growth rates
+              format: rate
             OrganizationProfitabilityStocks:
               type: string
               description: Analysis of past performance  (a summary description)
@@ -859,7 +869,9 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Profile:
           type: object
           properties:
@@ -876,7 +888,9 @@ components:
               description: The projected economic performance for the entity
               format: string
             OrganizationGrowthRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: Past and projected growth rates
+              format: rate
             OrganizationProfitabilityStocks:
               type: string
               description: Analysis of past performance  (a summary description)
@@ -893,11 +907,17 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Profile:
           type: object
           properties:
@@ -914,7 +934,9 @@ components:
               description: The projected economic performance for the entity
               format: string
             OrganizationGrowthRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: Past and projected growth rates
+              format: rate
             OrganizationProfitabilityStocks:
               type: string
               description: Analysis of past performance  (a summary description)
@@ -931,12 +953,16 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Associations:
           type: object
           properties:
             LegalEntityAssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated entity (e.g. company or individual)
+              format: object
             LegalEntityAssociationType:
               type: string
               description: Nature or type of association (e.g. corporate or familial)
@@ -946,9 +972,13 @@ components:
               description: 'Description of the association and applicable obligations  (e.g. shareholder, director, guardian, guarantor)'
               format: string
             ParentLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the parent entity if applicable
+              format: object
             SubsidiaryLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the subsidiary entity if applicable
+              format: object
             ShareholdingProfile:
               type: string
               description: List of major shareholders and shareholdings of significance
@@ -961,12 +991,16 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              $ref: '#/components/schemas/datetime'
+              type: string
+              description: Value of the date type
+              format: datetime
         Associations:
           type: object
           properties:
             LegalEntityAssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated entity (e.g. company or individual)
+              format: object
             LegalEntityAssociationType:
               type: string
               description: Nature or type of association (e.g. corporate or familial)
@@ -976,9 +1010,13 @@ components:
               description: 'Description of the association and applicable obligations  (e.g. shareholder, director, guardian, guarantor)'
               format: string
             ParentLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the parent entity if applicable
+              format: object
             SubsidiaryLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the subsidiary entity if applicable
+              format: object
             ShareholdingProfile:
               type: string
               description: List of major shareholders and shareholdings of significance
@@ -991,16 +1029,24 @@ components:
           type: object
           properties:
             LegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the legal entity that is the subject of the entry
+              format: object
             PartyReference:
-              $ref: '#/components/schemas/party'
+              type: string
+              description: Reference to the associated party (one or more linked by role to the legal entity)
+              format: party
             DirectoryEntryDateType:
-              $ref: '#/components/schemas/directoryentrydatetypevalues'
+              type: string
+              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+              format: directoryentrydatetypevalues
         Associations:
           type: object
           properties:
             LegalEntityAssociationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated entity (e.g. company or individual)
+              format: object
             LegalEntityAssociationType:
               type: string
               description: Nature or type of association (e.g. corporate or familial)
@@ -1010,9 +1056,13 @@ components:
               description: 'Description of the association and applicable obligations  (e.g. shareholder, director, guardian, guarantor)'
               format: string
             ParentLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the parent entity if applicable
+              format: object
             SubsidiaryLegalEntityReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference the subsidiary entity if applicable
+              format: object
             ShareholdingProfile:
               type: string
               description: List of major shareholders and shareholdings of significance
