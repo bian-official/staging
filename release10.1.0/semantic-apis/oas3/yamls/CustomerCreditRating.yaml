@@ -280,23 +280,13 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the internal bank product and service activity report that is used for the credit assessment
     InternalReporting:
       type: object
       properties:
         ProductandServiceActivityReportReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the internal bank product and service activity report that is used for the credit assessment
+          format: object
         ProductandServiceActivityReportSchedule:
           type: string
           description: The schedule for the upload of the data file/report
@@ -306,14 +296,6 @@ components:
           description: The report data file/report of customer production activity
           format: string
       description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The date time the credit report was downloaded (content will define refresh history)
     ExternalReporting:
       type: object
       properties:
@@ -334,15 +316,21 @@ components:
           description: The customer's credit report from the agency
           format: string
         RatingAgencyCreditReportDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date time the credit report was downloaded (content will define refresh history)
+          format: date
       description: "A collection of information feeds/measures that can be used to track the status of one or more items/entitites\n\nExamples: Composite position, Customer alert"
     Alerts:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The product/service instance that generated the alert
+          format: object
         EmployeeBusinessUnitReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The individual source of the alert - if not automated by production
+          format: object
         CustomerCreditAlertType:
           type: string
           description: 'The type of alert (e.g. missed payment, limit breach)'
@@ -360,7 +348,9 @@ components:
       type: object
       properties:
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the associated customer (can currently be a person or a company)
+          format: object
         CustomerCreditRatingStatusType:
           type: string
           description: 'The type of credit status being monitored (e.g. consumer, small business, corporate)'
@@ -374,13 +364,17 @@ components:
           description: The record of the underlying credit assessment performed to support the credit rating state
           format: string
         AssessmentCustomerBehaviorModelReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the customer behavior model(s) used to develop any underlying analysis for determining the credit state
+          format: object
         CreditRatingAssessmentType:
           type: string
           description: The type of analysis performed to support the credit state
           format: string
         CreditRatingAssessmentDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the supporting credit assessment was developed
+          format: date
         CreditRatingAssessmentWorkProducts:
           type: string
           description: 'Work documentation, forms and schedules produced and referenced during the analysis'
@@ -406,7 +400,9 @@ components:
           description: A structured report outlining basis for the credit rating
           format: string
         CustomerCreditRatingDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date/time the value was last refreshed
+          format: date
       description: 'Monitor and define the status/rating of some entity within Customer Credit Rating. '
     InitiateCustomerCreditRatingStateRequest:
       type: object
@@ -415,7 +411,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             CustomerCreditRatingStatusType:
               type: string
               description: 'The type of credit status being monitored (e.g. consumer, small business, corporate)'
@@ -433,7 +431,9 @@ components:
               description: A record of the customers credit state
               format: string
             CustomerCreditRatingDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the value was last refreshed
+              format: date
       description: 'Input: InCR Initiate credit state monitoring for a customer'
     InitiateCustomerCreditRatingStateResponse:
       type: object
@@ -458,7 +458,9 @@ components:
               description: A structured report outlining basis for the credit rating
               format: string
             CustomerCreditRatingDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the value was last refreshed
+              format: date
       description: 'Output: InCR Initiate credit state monitoring for a customer'
     ExecuteCustomerCreditRatingStateRequest:
       type: object
@@ -471,13 +473,17 @@ components:
               description: The record of the underlying credit assessment performed to support the credit rating state
               format: string
             AssessmentCustomerBehaviorModelReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer behavior model(s) used to develop any underlying analysis for determining the credit state
+              format: object
             CreditRatingAssessmentType:
               type: string
               description: The type of analysis performed to support the credit state
               format: string
             CreditRatingAssessmentDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the supporting credit assessment was developed
+              format: date
       description: 'Input: ExCR Execute an automated task for credit state (e.g. auto refresh)'
     ExecuteCustomerCreditRatingStateResponse:
       type: object
@@ -490,7 +496,9 @@ components:
               description: The record of the underlying credit assessment performed to support the credit rating state
               format: string
             CreditRatingAssessmentDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the supporting credit assessment was developed
+              format: date
             CreditRatingAssessmentWorkProducts:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the analysis'
@@ -511,13 +519,17 @@ components:
               description: The record of the underlying credit assessment performed to support the credit rating state
               format: string
             AssessmentCustomerBehaviorModelReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer behavior model(s) used to develop any underlying analysis for determining the credit state
+              format: object
             CreditRatingAssessmentType:
               type: string
               description: The type of analysis performed to support the credit state
               format: string
             CreditRatingAssessmentDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the supporting credit assessment was developed
+              format: date
       description: 'Input: RqCR Request manual intervention for credit state (e.g. revise underlying assessment)'
     RequestCustomerCreditRatingStateResponse:
       type: object
@@ -530,7 +542,9 @@ components:
               description: The record of the underlying credit assessment performed to support the credit rating state
               format: string
             CreditRatingAssessmentDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the supporting credit assessment was developed
+              format: date
             CreditRatingAssessmentWorkProducts:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the analysis'
@@ -547,7 +561,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
             CustomerCreditRatingStatusType:
               type: string
               description: 'The type of credit status being monitored (e.g. consumer, small business, corporate)'
@@ -561,13 +577,17 @@ components:
               description: The record of the underlying credit assessment performed to support the credit rating state
               format: string
             AssessmentCustomerBehaviorModelReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the customer behavior model(s) used to develop any underlying analysis for determining the credit state
+              format: object
             CreditRatingAssessmentType:
               type: string
               description: The type of analysis performed to support the credit state
               format: string
             CreditRatingAssessmentDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time the supporting credit assessment was developed
+              format: date
             CreditRatingAssessmentWorkProducts:
               type: string
               description: 'Work documentation, forms and schedules produced and referenced during the analysis'
@@ -585,7 +605,9 @@ components:
               description: A structured report outlining basis for the credit rating
               format: string
             CustomerCreditRatingDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date/time the value was last refreshed
+              format: date
       description: 'Output: ReCR Retrieve details about credit state monitoring for a customer'
     CaptureAlertsRequest:
       type: object
@@ -594,14 +616,20 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
         Alerts:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product/service instance that generated the alert
+              format: object
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The individual source of the alert - if not automated by production
+              format: object
             CustomerCreditAlertType:
               type: string
               description: 'The type of alert (e.g. missed payment, limit breach)'
@@ -633,14 +661,20 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
         Alerts:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The product/service instance that generated the alert
+              format: object
             EmployeeBusinessUnitReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The individual source of the alert - if not automated by production
+              format: object
             CustomerCreditAlertType:
               type: string
               description: 'The type of alert (e.g. missed payment, limit breach)'
@@ -661,12 +695,16 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
         InternalReporting:
           type: object
           properties:
             ProductandServiceActivityReportReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the internal bank product and service activity report that is used for the credit assessment
+              format: object
             ProductandServiceActivityReportSchedule:
               type: string
               description: The schedule for the upload of the data file/report
@@ -690,12 +728,16 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
         InternalReporting:
           type: object
           properties:
             ProductandServiceActivityReportReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the internal bank product and service activity report that is used for the credit assessment
+              format: object
             ProductandServiceActivityReportSchedule:
               type: string
               description: The schedule for the upload of the data file/report
@@ -708,7 +750,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
         ExternalReporting:
           type: object
           properties:
@@ -721,7 +765,9 @@ components:
               description: 'Defines the type of credit assessment report provided  (e.g. reference check, credit score, long/short form credit report)'
               format: string
             RatingAgencyCreditReportDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time the credit report was downloaded (content will define refresh history)
+              format: date
       description: 'Input: CaBQ Capture external credit reports to support credit analysis and state'
     CaptureExternalReportingResponse:
       type: object
@@ -738,7 +784,9 @@ components:
               description: Reference to the report provided by the agency
               format: string
             RatingAgencyCreditReportDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time the credit report was downloaded (content will define refresh history)
+              format: date
       description: 'Output: CaBQ Capture external credit reports to support credit analysis and state'
     RetrieveExternalReportingResponse:
       type: object
@@ -747,7 +795,9 @@ components:
           type: object
           properties:
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the associated customer (can currently be a person or a company)
+              format: object
         ExternalReporting:
           type: object
           properties:
@@ -764,7 +814,9 @@ components:
               description: Reference to the report provided by the agency
               format: string
             RatingAgencyCreditReportDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date time the credit report was downloaded (content will define refresh history)
+              format: date
       description: 'Output: ReBQ Retrieve details about external reporting to the credit monitoring activity'
   responses:
     BadRequest:

@@ -340,85 +340,73 @@ components:
           type: string
           format: string
       description: Status Attributes
-    object:
-      type: object
-      properties:
-        ObjectProperties:
-          type: string
-          description: ''
-          format: string
-        ObjectDescription:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the card product identifier/number
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: As detailed on the plastic/token
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency that the transaction is made in
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The amount corresponding to the type
     CardTransaction:
       type: object
       properties:
         ProductInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Reference to the card product identifier/number
+          format: object
         CustomerReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: The card holder as detailed on the plastic
+          format: object
         Cardexpirationdate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: As detailed on the plastic/token
+          format: date
         CardCVV:
           type: string
           description: As detailed on the plastic/token
           format: string
         CardIssuingBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card holder's issuing bank
+          format: object
         MerchantAcquiringBankReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant's acquiring bank
+          format: object
         eCommerceTransactionType:
           type: string
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         eCommerceTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency that the transaction is made in
+          format: currencycode
         eCommerceTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         eCommerceTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount corresponding to the type
+          format: amount
         eCommerceTransactionMerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant initiating the transaction
+          format: object
         eCommerceTransactionLocationReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the point of sale location
+          format: object
         eCommerceTransactionProductandServiceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+          format: object
         eCommerceTransactionDateTime:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the transaction
+          format: date
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     TransactionAuthorization:
       type: object
       properties:
         eCommerceTransactionInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card transaction that is being authorized - note all fields may not be required
+          format: object
         eCommerceTransactionAuthorizationResponse:
           type: string
           description: The result of the transaction authorization request
@@ -428,7 +416,9 @@ components:
       type: object
       properties:
         eCommerceTransactionInstanceReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the card transaction that is being authenticated - note all fields may not be required
+          format: object
         eCommerceTransactionAuthenticationResponse:
           type: string
           description: The result of the card authentication request
@@ -438,9 +428,13 @@ components:
       type: object
       properties:
         eCommerceBatchTransactionDateTime:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the batch transaction
+          format: date
         TransactionMerchantReference:
-          $ref: '#/components/schemas/object'
+          type: string
+          description: Refers to the merchant initiating the batch
+          format: object
         eCommerceBatchTransactionRecord:
           type: string
           description: Batch record contains multiple Card Transactions
@@ -456,37 +450,57 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Input: InBQ Initiate a card transaction (initiated at merchant location)'
     UpdateCardTransactionRequest:
       type: object
@@ -495,37 +509,57 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Input: UpBQ Update details of a card transaction'
     UpdateCardTransactionResponse:
       type: object
@@ -534,37 +568,57 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Output: UpBQ Update details of a card transaction'
     RetrieveCardTransactionResponse:
       type: object
@@ -573,37 +627,57 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
       description: 'Output: ReBQ Retrieve details about a card transaction'
     UpdateTransactionBatchRequest:
       type: object
@@ -612,42 +686,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionBatch:
           type: object
           properties:
             eCommerceBatchTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the batch transaction
+              format: date
             eCommerceBatchTransactionRecord:
               type: string
               description: Batch record contains multiple Card Transactions
@@ -660,42 +756,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionBatch:
           type: object
           properties:
             eCommerceBatchTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the batch transaction
+              format: date
             eCommerceBatchTransactionRecord:
               type: string
               description: Batch record contains multiple Card Transactions
@@ -708,42 +826,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionBatch:
           type: object
           properties:
             eCommerceBatchTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the batch transaction
+              format: date
             eCommerceBatchTransactionRecord:
               type: string
               description: Batch record contains multiple Card Transactions
@@ -756,42 +896,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionBatch:
           type: object
           properties:
             eCommerceBatchTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the batch transaction
+              format: date
             eCommerceBatchTransactionRecord:
               type: string
               description: Batch record contains multiple Card Transactions
@@ -804,42 +966,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         CardAuthentication:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authenticated - note all fields may not be required
+              format: object
             eCommerceTransactionAuthenticationResponse:
               type: string
               description: The result of the card authentication request
@@ -852,42 +1036,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         CardAuthentication:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authenticated - note all fields may not be required
+              format: object
             eCommerceTransactionAuthenticationResponse:
               type: string
               description: The result of the card authentication request
@@ -900,42 +1106,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         CardAuthentication:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authenticated - note all fields may not be required
+              format: object
             eCommerceTransactionAuthenticationResponse:
               type: string
               description: The result of the card authentication request
@@ -948,42 +1176,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         CardAuthentication:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authenticated - note all fields may not be required
+              format: object
             eCommerceTransactionAuthenticationResponse:
               type: string
               description: The result of the card authentication request
@@ -996,42 +1246,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionAuthorization:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authorized - note all fields may not be required
+              format: object
             eCommerceTransactionAuthorizationResponse:
               type: string
               description: The result of the transaction authorization request
@@ -1044,42 +1316,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionAuthorization:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authorized - note all fields may not be required
+              format: object
             eCommerceTransactionAuthorizationResponse:
               type: string
               description: The result of the transaction authorization request
@@ -1092,42 +1386,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionAuthorization:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authorized - note all fields may not be required
+              format: object
             eCommerceTransactionAuthorizationResponse:
               type: string
               description: The result of the transaction authorization request
@@ -1140,42 +1456,64 @@ components:
           type: object
           properties:
             ProductInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Reference to the card product identifier/number
+              format: object
             CustomerReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: The card holder as detailed on the plastic
+              format: object
             Cardexpirationdate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: As detailed on the plastic/token
+              format: date
             CardCVV:
               type: string
               description: As detailed on the plastic/token
               format: string
             CardIssuingBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card holder's issuing bank
+              format: object
             MerchantAcquiringBankReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant's acquiring bank
+              format: object
             eCommerceTransactionType:
               type: string
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             eCommerceTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency that the transaction is made in
+              format: currencycode
             eCommerceTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
               format: string
             eCommerceTransactionMerchantReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the merchant initiating the transaction
+              format: object
             eCommerceTransactionLocationReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the point of sale location
+              format: object
             eCommerceTransactionProductandServiceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: 'Details of the transaction (e.g. purchased service/product, purpose)'
+              format: object
             eCommerceTransactionDateTime:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Significant dates and times associated with the transaction
+              format: date
         TransactionAuthorization:
           type: object
           properties:
             eCommerceTransactionInstanceReference:
-              $ref: '#/components/schemas/object'
+              type: string
+              description: Refers to the card transaction that is being authorized - note all fields may not be required
+              format: object
             eCommerceTransactionAuthorizationResponse:
               type: string
               description: The result of the transaction authorization request
