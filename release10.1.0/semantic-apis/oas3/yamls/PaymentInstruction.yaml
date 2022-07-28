@@ -781,536 +781,213 @@ components:
           type: string
           format: string
       description: Status Attributes
-    condition:
-      type: object
-      properties:
-        Condition:
-          type: string
-          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
-          format: class
-      description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
-    involvedparty:
-      type: object
-      properties:
-        Involvedparty:
-          type: string
-          description: ''
-          format: datatype
-      description: The operating unit/employee responsible for the workstep
-    schedule:
-      type: object
-      properties:
-        Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
-      description: The timing and key actions/milestones making up the workstep
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Payment Instruction Workstep specific Business Service
-    proceduretype:
-      type: object
-      properties:
-        Proceduretype:
-          type: string
-          description: Data type specifies the classification of procedure
-          format: datatype
-      description: A Classification value that distinguishes between the type of process undertaken within Procedure
-    datetime:
-      type: object
-      properties:
-        Datetime:
-          type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
-      description: ''
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: ''
-    instructionlifecyclestatus:
-      type: object
-      properties:
-        Instructionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-          format: datatype
-      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-    identifier:
-      type: object
-      properties:
-        Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
-      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    instructiontypevalues:
-      enum:
-        - PaymentInstruction
-        - DeliveryOrder
-        - InformationRequest
-        - ExchangeInstruction
-        - AllocationInstruction
-      type: string
-      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n"
-    log:
-      type: object
-      properties:
-        LogType:
-          type: string
-          description: ''
-          format: string
-        LogPeriod:
-          type: string
-          description: ''
-          format: string
-        LogDate:
-          type: string
-          description: Key dates associated with the log (e.g. start time).
-          format: string
-        LogIdentification:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    instruction:
-      type: object
-      properties:
-        InstructionDueDate:
-          $ref: '#/components/schemas/date'
-        InstructionStatus:
-          $ref: '#/components/schemas/instructionlifecyclestatus'
-        InstructionIdentifier:
-          $ref: '#/components/schemas/identifier'
-        InstructionType:
-          $ref: '#/components/schemas/instructiontypevalues'
-        InstructionResult:
-          $ref: '#/components/schemas/text'
-        InstructionDescription:
-          $ref: '#/components/schemas/text'
-        InstructionLog:
-          $ref: '#/components/schemas/log'
-        InstructionPurpose:
-          $ref: '#/components/schemas/text'
-      description: Request to process something (most refers to Asset Type)
-    status:
-      type: object
-      properties:
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: "The status of  Procedure\n"
-    procedure:
-      type: object
-      properties:
-        ProcedureType:
-          $ref: '#/components/schemas/proceduretype'
-        ProcedureDateTime:
-          $ref: '#/components/schemas/datetime'
-        ProcedureRequest:
-          $ref: '#/components/schemas/instruction'
-        ProcedureSchedule:
-          $ref: '#/components/schemas/schedule'
-        ProcedureStatus:
-          $ref: '#/components/schemas/status'
-      description: Reference to Payment Instruction Workstep
-    worksteptype:
-      type: object
-      properties:
-        Worksteptype:
-          type: string
-          description: Data type specifies the classification of workstep
-          format: datatype
-      description: A Classification value that distinguishes between the type of workstep undertaken within Procedure
-    workstep:
-      type: object
-      properties:
-        WorkstepResult:
-          type: string
-          description: ''
-          format: string
-        WorkstepType:
-          $ref: '#/components/schemas/worksteptype'
-        WorkstepDescription:
-          $ref: '#/components/schemas/text'
-        WorkstepDateTime:
-          $ref: '#/components/schemas/datetime'
-        WorkstepStatus:
-          $ref: '#/components/schemas/status'
-      description: Reference to Payment Instruction Workstep
     PaymentInstructionWorkstep:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition
         BusinessUnitEmployeeReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: involvedparty
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones making up the workstep
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Payment Instruction Workstep specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition
         PaymentInstructionProcedureReference:
-          $ref: '#/components/schemas/procedure'
+          type: string
+          description: Reference to Payment Instruction Workstep
+          format: procedure
         PaymentInstructionWorkstepReference:
-          $ref: '#/components/schemas/workstep'
+          type: string
+          description: Reference to Payment Instruction Workstep
+          format: workstep
         PaymentInstructionWorkstepType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Payment Instruction Workstep
+          format: text
       description: A course of action for doing Payment Instruction Workstep in the context of executing the Payment Instruction Workstep
     AgreementConfirmationWorkstep:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition
         BusinessUnitEmployeeReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: involvedparty
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones making up the workstep
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Agreement Confirmation Workstep specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition
         PaymentInstructionProcedureReference:
-          $ref: '#/components/schemas/procedure'
+          type: string
+          description: Reference to Agreement Confirmation Workstep
+          format: procedure
         AgreementConfirmationWorkstepReference:
-          $ref: '#/components/schemas/workstep'
+          type: string
+          description: Reference to Agreement Confirmation Workstep
+          format: workstep
         AgreementConfirmationWorkstepType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Agreement Confirmation Workstep
+          format: text
       description: A course of action for doing Payment Instruction Workstep in the context of executing the Payment Instruction Workstep
     ComplianceCheckWorkstep:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
-        BusinessUnitEmployeeReference:
-          $ref: '#/components/schemas/involvedparty'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        Postconditions:
-          $ref: '#/components/schemas/condition'
-        PaymentInstructionProcedureReference:
-          $ref: '#/components/schemas/procedure'
-        ComplianceCheckWorkstepReference:
-          $ref: '#/components/schemas/workstep'
-        ComplianceCheckWorkstepType:
-          $ref: '#/components/schemas/text'
-      description: A course of action for doing Payment Instruction Workstep in the context of executing the Payment Instruction Workstep
-    workproduct:
-      type: object
-      properties:
-        Workproduct:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
-      description: ''
+          description: The required status/situation and or tasks that need to be completed prior to the initiation of the workstep
+          format: condition
+        BusinessUnitEmployeeReference:
+          type: string
+          description: The operating unit/employee responsible for the workstep
+          format: involvedparty
+        Schedule:
+          type: string
+          description: The timing and key actions/milestones making up the workstep
+          format: schedule
+        BusinessService:
+          type: string
+          description: The Compliance Check Workstep specific Business Service
+          format: businessservice
+        Postconditions:
+          type: string
+          description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
+          format: condition
+        PaymentInstructionProcedureReference:
+          type: string
+          description: Reference to Compliance Check Workstep
+          format: procedure
+        ComplianceCheckWorkstepReference:
+          type: string
+          description: Reference to Compliance Check Workstep
+          format: workstep
+        ComplianceCheckWorkstepType:
+          type: string
+          description: The type of Compliance Check Workstep
+          format: text
+      description: A course of action for doing Payment Instruction Workstep in the context of executing the Payment Instruction Workstep
     PaymentInstructionOutcome:
       type: object
       properties:
         PaymentInstructionWorkProduct:
-          $ref: '#/components/schemas/workproduct'
+          type: string
+          description: ''
+          format: workproduct
         PaymentInstructionProcedure:
-          $ref: '#/components/schemas/procedure'
+          type: string
+          description: ''
+          format: procedure
       description: A course of action for doing Payment Instruction Workstep in the context of executing the Payment Instruction Workstep
-    feature:
-      type: object
-      properties:
-        FeatureType:
-          type: string
-          description: ''
-          format: string
-      description: A selected optional business service as subject matter of Payment Instruction Procedure
-    financialfacility:
-      type: object
-      properties:
-        FinancialFacility:
-          type: string
-          description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
-          format: class
-      description: Reference to the Financial Facility related to Payment Instruction Procedure
-    servicetype:
-      type: object
-      properties:
-        Servicetype:
-          type: string
-          description: Data type specifies the classification of service
-          format: datatype
-      description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
-    bankingproducttype:
-      type: object
-      properties:
-        Bankingproducttype:
-          type: string
-          description: "Functional classification of the product \n\n-Refer to Specification for the description of banking products or services (BPoS)"
-          format: datatype
-      description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
-    productidentification:
-      type: object
-      properties:
-        Productidentification:
-          type: string
-          description: ''
-          format: datatype
-      description: The identifier of product e.g. ISIN Code.
-    producttypevalues:
-      enum:
-        - BankingProduct
-        - FinancialProduct
-        - LoanProduct
-      type: string
-      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
-    productlifecyclestatus:
-      type: object
-      properties:
-        Productlifecyclestatus:
-          type: string
-          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
-          format: datatype
-      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
-    bankingproduct:
-      type: object
-      properties:
-        ProductIdentification:
-          $ref: '#/components/schemas/productidentification'
-        ProductType:
-          $ref: '#/components/schemas/producttypevalues'
-        ProductLifecycleStatus:
-          $ref: '#/components/schemas/productlifecyclestatus'
-        ProductPriority:
-          $ref: '#/components/schemas/text'
-        ProductDescription:
-          $ref: '#/components/schemas/text'
-        ProductVersion:
-          $ref: '#/components/schemas/text'
-      description: Reference to the product or service that is related to Payment Instruction Procedure
-    transactiontype:
-      type: object
-      properties:
-        Transactiontype:
-          type: string
-          description: "Data type that specifies the classification of Transaction like payment transaction, accounting transaction, financial Transaction, banking transaction, etc. \n"
-          format: datatype
-      description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
-    transactiondate:
-      type: object
-      properties:
-        Transactiondate:
-          type: string
-          description: ''
-          format: datatype
-      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    transactiontypevalues:
-      enum:
-        - FinancialTransaction
-        - BusinessTransaction
-        - BankingTransaction
-        - AccountingTransaction
-        - BookingTransaction
-        - AllocationTransaction
-        - DeliveryTransaction
-      type: string
-      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n"
-    transactionlifecyclestatus:
-      type: object
-      properties:
-        Transactionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
-      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-    transaction:
-      type: object
-      properties:
-        TransactionIdentification:
-          $ref: '#/components/schemas/identifier'
-        TransactionDate:
-          $ref: '#/components/schemas/transactiondate'
-        TransactionType:
-          $ref: '#/components/schemas/transactiontypevalues'
-        TransactionDescription:
-          $ref: '#/components/schemas/text'
-        TransactionStatus:
-          $ref: '#/components/schemas/transactionlifecyclestatus'
-        TransactionName:
-          $ref: '#/components/schemas/name'
-      description: Reference to the transaction that is related to Payment Instruction Procedure
-    actiontypevalues:
-      enum:
-        - Initiate
-        - Execute
-        - Create
-        - Transfer
-        - Pay
-        - Deliver
-      type: string
-      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n"
-    action:
-      type: object
-      properties:
-        ActionType:
-          $ref: '#/components/schemas/actiontypevalues'
-      description: ''
-    arrangementlifecyclestatus:
-      type: object
-      properties:
-        Arrangementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.).'
-          format: datatype
-      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
-    subject:
-      type: object
-      properties:
-        Subject:
-          type: string
-          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
-          format: class
-      description: ''
-    arrangement:
-      type: object
-      properties:
-        ArrangementAction:
-          $ref: '#/components/schemas/action'
-        ArrangementStartDate:
-          $ref: '#/components/schemas/datetime'
-        ArrangementEndDate:
-          $ref: '#/components/schemas/datetime'
-        ArrangementStatus:
-          $ref: '#/components/schemas/arrangementlifecyclestatus'
-        ArrangementSubjectMatter:
-          $ref: '#/components/schemas/subject'
-      description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
-    agreementtypevalues:
-      enum:
-        - CustomerAgreement
-        - SupplierAgreement
-        - ProductBrokerAgreement
-        - ProductSaleAgreement
-        - FiduciaryAgreement
-        - CommissionSaleAgreement
-        - ServicingMandateAgreement
-        - ChannelAccessAgreement
-      type: string
-      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `ProductBrokerAgreement` - \n* `ProductSaleAgreement` - \n* `FiduciaryAgreement` - \n* `CommissionSaleAgreement` - \n* `ServicingMandateAgreement` - \n* `ChannelAccessAgreement` - \n"
-    datetimeperiod:
-      type: object
-      properties:
-        Datetimeperiod:
-          type: string
-          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
-          format: datatype
-      description: "Period during which the agreement is valid\n"
-    agreementlifecyclestatus:
-      type: object
-      properties:
-        Agreementlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
-          format: datatype
-      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
-    agreement:
-      type: object
-      properties:
-        AgreementSignedDate:
-          $ref: '#/components/schemas/date'
-        AgreementType:
-          $ref: '#/components/schemas/agreementtypevalues'
-        AgreementValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        AgreementVersion:
-          $ref: '#/components/schemas/text'
-        AgreementStatus:
-          $ref: '#/components/schemas/agreementlifecyclestatus'
-        AgreementSubjectMatter:
-          $ref: '#/components/schemas/text'
-        AgreementIdentification:
-          $ref: '#/components/schemas/identifier'
-        AgreementDate:
-          $ref: '#/components/schemas/datetime'
-      description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
     PaymentInstructionProcedure:
       type: object
       properties:
         PaymentInstructionProcedureParameterType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+          format: text
         PaymentInstructionProcedureSelectedOption:
-          $ref: '#/components/schemas/feature'
+          type: string
+          description: A selected optional business service as subject matter of Payment Instruction Procedure
+          format: feature
         PaymentInstructionProcedureRequest:
-          $ref: '#/components/schemas/instruction'
+          type: string
+          description: Request to process Payment Instruction Procedure
+          format: instruction
         PaymentInstructionProcedureSchedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: Timetable to process Payment Instruction Procedure
+          format: schedule
         PaymentInstructionProcedureStatus:
-          $ref: '#/components/schemas/status'
+          type: string
+          description: The status of Payment Instruction Procedure
+          format: status
         PaymentInstructionProcedureAssociatedPartyReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: Reference to the party who is involved in Payment Instruction Procedure
+          format: involvedparty
         PaymentInstructionProcedureBusinessUnitReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: Reference to the business unit which is involved in Payment Instruction Procedure
+          format: involvedparty
         PaymentInstructionProcedureServiceProviderReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: Reference to the party who is the service provider of Payment Instruction Procedure
+          format: involvedparty
         PaymentInstructionProcedureFinancialFacilityReference:
-          $ref: '#/components/schemas/financialfacility'
+          type: string
+          description: Reference to the Financial Facility related to Payment Instruction Procedure
+          format: financialfacility
         PaymentInstructionProcedureEmployeeReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: Reference to the employee who is involved in Payment Instruction Procedure
+          format: involvedparty
         PaymentInstructionProcedureCustomerReference:
-          $ref: '#/components/schemas/involvedparty'
+          type: string
+          description: Reference to the customer who is involved in Payment Instruction Procedure
+          format: involvedparty
         PaymentInstructionProcedureType:
-          $ref: '#/components/schemas/proceduretype'
+          type: string
+          description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+          format: proceduretype
         PaymentInstructionProcedureServiceProviderSchedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The schedule according to which the service provider will process the Payment Instruction Procedure
+          format: schedule
         PaymentInstructionProcedureServiceType:
-          $ref: '#/components/schemas/servicetype'
+          type: string
+          description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+          format: servicetype
         PaymentInstructionProcedureProductandServiceType:
-          $ref: '#/components/schemas/bankingproducttype'
+          type: string
+          description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+          format: bankingproducttype
         PaymentInstructionProcedureProductandServiceInstance:
-          $ref: '#/components/schemas/bankingproduct'
+          type: string
+          description: Reference to the product or service that is related to Payment Instruction Procedure
+          format: bankingproduct
         PaymentInstructionProcedureTransactionType:
-          $ref: '#/components/schemas/transactiontype'
+          type: string
+          description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+          format: transactiontype
         PaymentInstructionProcedureTransaction:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to the transaction that is related to Payment Instruction Procedure
+          format: transaction
         PaymentInstructionProcedureFinancialTransactionArrangement:
-          $ref: '#/components/schemas/arrangement'
+          type: string
+          description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+          format: arrangement
         PaymentInstructionProcedureCustomerAgreementReference:
-          $ref: '#/components/schemas/agreement'
+          type: string
+          description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+          format: agreement
         PaymentInstructionProcedureReference:
-          $ref: '#/components/schemas/procedure'
+          type: string
+          description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+          format: procedure
       description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Payment Instruction. '
     ControlPaymentInstructionProcedureRequest:
       type: object
@@ -1319,45 +996,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Control Payment Instruction Procedure'
     ControlPaymentInstructionProcedureResponse:
       type: object
@@ -1366,45 +1083,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Control Payment Instruction Procedure'
     ExchangePaymentInstructionProcedureRequest:
       type: object
@@ -1413,45 +1170,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Exchange Payment Instruction Procedure'
     ExchangePaymentInstructionProcedureResponse:
       type: object
@@ -1460,45 +1257,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Exchange Payment Instruction Procedure'
     ExecutePaymentInstructionProcedureRequest:
       type: object
@@ -1507,45 +1344,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Execute Payment Instruction Procedure'
     ExecutePaymentInstructionProcedureResponse:
       type: object
@@ -1554,45 +1431,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Execute Payment Instruction Procedure'
     InitiatePaymentInstructionProcedureRequest:
       type: object
@@ -1601,45 +1518,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Initiate Payment Instruction Procedure'
     InitiatePaymentInstructionProcedureResponse:
       type: object
@@ -1648,45 +1605,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Initiate Payment Instruction Procedure'
     NotifyPaymentInstructionProcedureRequest:
       type: object
@@ -1695,45 +1692,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Notify Payment Instruction Procedure'
     NotifyPaymentInstructionProcedureResponse:
       type: object
@@ -1742,45 +1779,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Notify Payment Instruction Procedure'
     RequestPaymentInstructionProcedureRequest:
       type: object
@@ -1789,45 +1866,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Request Payment Instruction Procedure'
     RequestPaymentInstructionProcedureResponse:
       type: object
@@ -1836,45 +1953,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Request Payment Instruction Procedure'
     RetrievePaymentInstructionProcedureRequest:
       type: object
@@ -1883,45 +2040,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Retrieve Payment Instruction Procedure'
     RetrievePaymentInstructionProcedureResponse:
       type: object
@@ -1930,45 +2127,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Retrieve Payment Instruction Procedure'
     UpdatePaymentInstructionProcedureRequest:
       type: object
@@ -1977,45 +2214,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Input: Update Payment Instruction Procedure'
     UpdatePaymentInstructionProcedureResponse:
       type: object
@@ -2024,45 +2301,85 @@ components:
           type: object
           properties:
             PaymentInstructionProcedureParameterType:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Payment Instruction Procedure
+              format: text
             PaymentInstructionProcedureSelectedOption:
-              $ref: '#/components/schemas/feature'
+              type: string
+              description: A selected optional business service as subject matter of Payment Instruction Procedure
+              format: feature
             PaymentInstructionProcedureRequest:
-              $ref: '#/components/schemas/instruction'
+              type: string
+              description: Request to process Payment Instruction Procedure
+              format: instruction
             PaymentInstructionProcedureSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: Timetable to process Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Payment Instruction Procedure
+              format: status
             PaymentInstructionProcedureAssociatedPartyReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureBusinessUnitReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the business unit which is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureServiceProviderReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the party who is the service provider of Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureFinancialFacilityReference:
-              $ref: '#/components/schemas/financialfacility'
+              type: string
+              description: Reference to the Financial Facility related to Payment Instruction Procedure
+              format: financialfacility
             PaymentInstructionProcedureEmployeeReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the employee who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureCustomerReference:
-              $ref: '#/components/schemas/involvedparty'
+              type: string
+              description: Reference to the customer who is involved in Payment Instruction Procedure
+              format: involvedparty
             PaymentInstructionProcedureType:
-              $ref: '#/components/schemas/proceduretype'
+              type: string
+              description: A Classification value that distinguishes between the type of process undertaken within Payment Instruction Procedure
+              format: proceduretype
             PaymentInstructionProcedureServiceProviderSchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The schedule according to which the service provider will process the Payment Instruction Procedure
+              format: schedule
             PaymentInstructionProcedureServiceType:
-              $ref: '#/components/schemas/servicetype'
+              type: string
+              description: A Classification value that distinguishes between the type of services in Payment Instruction Procedure
+              format: servicetype
             PaymentInstructionProcedureProductandServiceType:
-              $ref: '#/components/schemas/bankingproducttype'
+              type: string
+              description: A Classification value that distinguishes between the type of products/services related to Payment Instruction Procedure
+              format: bankingproducttype
             PaymentInstructionProcedureProductandServiceInstance:
-              $ref: '#/components/schemas/bankingproduct'
+              type: string
+              description: Reference to the product or service that is related to Payment Instruction Procedure
+              format: bankingproduct
             PaymentInstructionProcedureTransactionType:
-              $ref: '#/components/schemas/transactiontype'
+              type: string
+              description: A Classification value that distinguishes between the type of transactions in Payment Instruction Procedure
+              format: transactiontype
             PaymentInstructionProcedureFinancialTransactionArrangement:
-              $ref: '#/components/schemas/arrangement'
+              type: string
+              description: Reference to the Financial Transaction Arrangement that is related to Payment Instruction Procedure
+              format: arrangement
             PaymentInstructionProcedureCustomerAgreementReference:
-              $ref: '#/components/schemas/agreement'
+              type: string
+              description: Reference to the Customer Agreement that is related to Payment Instruction Procedure
+              format: agreement
             PaymentInstructionProcedureReference:
-              $ref: '#/components/schemas/procedure'
+              type: string
+              description: An unique reference to an item or an occurrence of Payment Instruction Procedure
+              format: procedure
       description: 'Output: Update Payment Instruction Procedure'
   responses:
     BadRequest:
