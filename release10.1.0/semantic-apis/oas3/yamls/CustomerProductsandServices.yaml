@@ -516,129 +516,246 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation before the property is valid/meaningful
+    schedule:
+      type: object
+      properties:
+        Schedule:
+          type: string
+          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
+          format: datatype
+      description: The schedule and timing for which the property value is valid
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The version reference for the property value
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The In-force Product property specific  Business Service
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
+    date:
+      type: object
+      properties:
+        Date:
+          type: string
+          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
+          format: datatype
+      description: ''
+    status:
+      type: object
+      properties:
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: ''
+    directoryentry:
+      type: object
+      properties:
+        DirectoryEntryDateType:
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
+        DirectoryEntryDate:
+          $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to In-force Product property
     In-forceProductproperty:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The In-force Product property specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CustomerProductsAndServicesDirectoryEntryReference:
-          type: string
-          description: Reference to In-force Product property
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         In-forceProductpropertyReference:
           type: string
           description: Reference to In-force Product property
           format: object
         In-forceProductpropertyType:
-          type: string
-          description: The type of In-force Product property
-          format: text
+          $ref: '#/components/schemas/text'
       description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
     In-forceServiceproperty:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The In-force Service property specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CustomerProductsAndServicesDirectoryEntryReference:
-          type: string
-          description: Reference to In-force Service property
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         In-forceServicepropertyReference:
           type: string
           description: Reference to In-force Service property
           format: object
         In-forceServicepropertyType:
-          type: string
-          description: The type of In-force Service property
-          format: text
+          $ref: '#/components/schemas/text'
       description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
     CustomerProductsandServicesOutcome:
       type: object
       properties:
         CustomerProductsandServicesEntry:
-          type: string
-          description: ''
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         CustomerProductsandServicesWorkProduct:
+          $ref: '#/components/schemas/workproduct'
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    log:
+      type: object
+      properties:
+        LogType:
           type: string
           description: ''
-          format: workproduct
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
+    involvedparty:
+      type: object
+      properties:
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    productidentification:
+      type: object
+      properties:
+        Productidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: The identifier of product e.g. ISIN Code.
+    producttypevalues:
+      enum:
+        - BankingProduct
+        - FinancialProduct
+        - LoanProduct
+      type: string
+      description: ">\n* `BankingProduct` - \n* `FinancialProduct` - \n* `LoanProduct` - \n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        Productlifecyclestatus:
+          type: string
+          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+          format: datatype
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+    bankingproduct:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/producttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
+      description: ''
+    productsalesagreement:
+      type: object
+      properties:
+        ProductSalesAgreement:
+          type: string
+          description: 'An agreement between a bank and its customer for a sold product. '
+          format: class
+      description: ''
     CustomerProductsAndServicesDirectoryEntry:
       type: object
       properties:
         CustomerProductsAndServicesDirectoryEntryDescription:
-          type: string
-          description: Documentation of Customer Products And Services Directory Entry
-          format: text
+          $ref: '#/components/schemas/text'
         CustomerProductsAndServicesDirectoryEntrySchedule:
-          type: string
-          description: The timetable to capture and maintain Customer Products And Services Directory Entry
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         CustomerProductsAndServicesDirectoryEntryVersion:
           type: string
           description: The version of Customer Products And Services Directory Entry
           format: number
         CustomerProductsAndServicesDirectoryEntryStatus:
-          type: string
-          description: The status of Customer Products And Services Directory Entry
-          format: status
+          $ref: '#/components/schemas/status'
         CustomerProductsAndServicesDirectoryEntryUsageLog:
-          type: string
-          description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-          format: log
+          $ref: '#/components/schemas/log'
         CustomerProductsAndServicesDirectoryEntryUpdateLog:
-          type: string
-          description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-          format: log
+          $ref: '#/components/schemas/log'
         CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-          type: string
-          description: The configuration of Customer Products And Services Directory Entry
-          format: text
+          $ref: '#/components/schemas/text'
         CustomerProductsAndServicesDirectoryEntryReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         CustomerReference:
-          type: string
-          description: ''
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         ProductReference:
-          type: string
-          description: ''
-          format: bankingproduct
+          $ref: '#/components/schemas/bankingproduct'
         ProductSalesAgreementReference:
-          type: string
-          description: ''
-          format: productsalesagreement
+          $ref: '#/components/schemas/productsalesagreement'
       description: Capture and maintain reference information about some type of entitity within Customer Products and Services.
     ControlCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -647,37 +764,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Control Customer Products And Services Directory Entry'
     ControlCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -686,37 +789,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Control Customer Products And Services Directory Entry'
     ExecuteCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -725,37 +814,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Execute Customer Products And Services Directory Entry'
     ExecuteCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -764,37 +839,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Execute Customer Products And Services Directory Entry'
     NotifyCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -803,37 +864,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Notify Customer Products And Services Directory Entry'
     NotifyCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -842,37 +889,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Notify Customer Products And Services Directory Entry'
     RegisterCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -881,37 +914,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Register Customer Products And Services Directory Entry'
     RegisterCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -920,37 +939,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Register Customer Products And Services Directory Entry'
     RequestCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -959,37 +964,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Request Customer Products And Services Directory Entry'
     RequestCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -998,37 +989,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Request Customer Products And Services Directory Entry'
     RetrieveCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -1037,37 +1014,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Retrieve Customer Products And Services Directory Entry'
     RetrieveCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -1076,37 +1039,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Retrieve Customer Products And Services Directory Entry'
     UpdateCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
@@ -1115,37 +1064,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Input: Update Customer Products And Services Directory Entry'
     UpdateCustomerProductsAndServicesDirectoryEntryResponse:
       type: object
@@ -1154,37 +1089,23 @@ components:
           type: object
           properties:
             CustomerProductsAndServicesDirectoryEntryDescription:
-              type: string
-              description: Documentation of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntrySchedule:
-              type: string
-              description: The timetable to capture and maintain Customer Products And Services Directory Entry
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             CustomerProductsAndServicesDirectoryEntryVersion:
               type: string
               description: The version of Customer Products And Services Directory Entry
               format: number
             CustomerProductsAndServicesDirectoryEntryStatus:
-              type: string
-              description: The status of Customer Products And Services Directory Entry
-              format: status
+              $ref: '#/components/schemas/status'
             CustomerProductsAndServicesDirectoryEntryUsageLog:
-              type: string
-              description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryUpdateLog:
-              type: string
-              description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
-              format: log
+              $ref: '#/components/schemas/log'
             CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-              type: string
-              description: The configuration of Customer Products And Services Directory Entry
-              format: text
+              $ref: '#/components/schemas/text'
             CustomerProductsAndServicesDirectoryEntryReference:
-              type: string
-              description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
-              format: directoryentry
+              $ref: '#/components/schemas/directoryentry'
       description: 'Output: Update Customer Products And Services Directory Entry'
   responses:
     BadRequest:
