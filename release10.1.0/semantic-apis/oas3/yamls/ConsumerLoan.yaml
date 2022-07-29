@@ -570,22 +570,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    rate:
-      type: object
-      properties:
-        Rate:
-          type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
-      description: The processing schedule for applying interest rates to the account
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: Record of accrued interest
     Interest:
       type: object
       properties:
@@ -594,11 +578,17 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The processing schedule for applying interest rates to the account
+          format: rate
         InterestRateConfiguration:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The collection of applicable rates
+          format: rate
         InterestRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The interest rate value to be applied (note could be variable)
+          format: rate
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -620,7 +610,9 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Record of accrued interest
+          format: amount
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -674,22 +666,6 @@ components:
           description: Calculated loss/costs of restructuring
           format: string
       description: The product features/services available with a financical facility
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency of the payment
-    date:
-      type: object
-      properties:
-        Date:
-          type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
-      description: The value date for the payment transaction
     Disbursement:
       type: object
       properties:
@@ -706,11 +682,17 @@ components:
           description: Reference to the bank where the payee account is held
           format: object
         DisbursementAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the payment
+          format: amount
         DisbursementCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency of the payment
+          format: currencycode
         DisbursementValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The value date for the payment transaction
+          format: date
       description: The product features/services available with a financical facility
     Repayment:
       type: object
@@ -732,11 +714,17 @@ components:
           description: Reference to the payer's bank
           format: object
         RepaymentTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the repayment
+          format: amount
         RepaymentTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency used for the repayment
+          format: currencycode
         RepaymentTransactionValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The value date for the repayment transaction
+          format: date
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -790,7 +778,9 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Tracking of accumulated fees and penalties
+          format: amount
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -824,7 +814,9 @@ components:
           description: Reference to the bank where the payee account is held
           format: object
         PaymentTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount (and currency if applicable) of the payment
+          format: amount
         PaymentTransactionFeeType:
           type: string
           description: The fee type applied to the payment transaction
@@ -834,7 +826,9 @@ components:
           description: The fee charge applied to the transaction
           format: string
         PaymentTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The various key dates and times associated with the payment transaction
+          format: date
         PaymentTransactionPaymentMechanism:
           type: string
           description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -900,15 +894,21 @@ components:
           description: 'The specific type of loan (e.g. term, revolving, evergreen)'
           format: string
         LoanAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the loan
+          format: amount
         LoanCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency for the loan account
+          format: currencycode
         LoanRateType:
           type: string
           description: The rate type to be applied to the loan
           format: string
         LoanApplicableRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The applicable rate for the loan
+          format: rate
         RepaymentType:
           type: string
           description: The type of repayment arrangement in place (e.g. structured)
@@ -922,9 +922,13 @@ components:
           description: The accrual method applied to interest calculations
           format: string
         LoanOriginationDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The origination date for the loan
+          format: date
         LoanMaturityDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The planned maturity date of the loan
+          format: date
         CollateralReference:
           type: string
           description: Reference to allocated collateral
@@ -1045,15 +1049,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1067,9 +1077,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1213,15 +1227,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1235,9 +1255,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1358,15 +1382,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1380,9 +1410,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1503,15 +1537,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -1525,9 +1565,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1616,15 +1660,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             InterestType:
               type: string
               description: The type of interest to be applied (e.g. prime plus)
@@ -1634,9 +1684,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             LoanOutstandingBalance:
               type: string
               description: The outstanding balance
@@ -1653,9 +1707,13 @@ components:
               description: Applicable rate type
               format: string
             InterestRateApplicationSchedule:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The processing schedule for applying interest rates to the account
+              format: rate
             InterestRateConfiguration:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The collection of applicable rates
+              format: rate
             InterestApplicationRecord:
               type: string
               description: The record of applied interest
@@ -1677,7 +1735,9 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Record of accrued interest
+              format: amount
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -1777,7 +1837,9 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Tracking of accumulated fees and penalties
+              format: amount
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1905,7 +1967,9 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Tracking of accumulated fees and penalties
+              format: amount
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1938,7 +2002,9 @@ components:
               description: 'The legal entity reference for the borrower, likely to be the same as customer'
               format: object
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanOutstandingBalance:
               type: string
               description: The outstanding balance
@@ -1963,11 +2029,17 @@ components:
               description: Reference to the bank where the payee account is held
               format: object
             DisbursementAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the payment
+              format: amount
             DisbursementCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency of the payment
+              format: currencycode
             DisbursementValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the payment transaction
+              format: date
       description: 'Output: ReBQ Retrieve details about a disbursement paid against a consumer loan'
     RequestMaintenanceRequest:
       type: object
@@ -2058,15 +2130,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2080,9 +2158,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -2253,7 +2335,9 @@ components:
               description: Reference to the bank where the payee account is held
               format: object
             PaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount (and currency if applicable) of the payment
+              format: amount
             PaymentTransactionFeeType:
               type: string
               description: The fee type applied to the payment transaction
@@ -2263,7 +2347,9 @@ components:
               description: The fee charge applied to the transaction
               format: string
             PaymentTransactionDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The various key dates and times associated with the payment transaction
+              format: date
             PaymentTransactionPaymentMechanism:
               type: string
               description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -2315,11 +2401,17 @@ components:
               description: Reference to the payer's bank
               format: object
             RepaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the repayment
+              format: amount
             RepaymentTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency used for the repayment
+              format: currencycode
             RepaymentTransactionValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the repayment transaction
+              format: date
       description: 'Input: UpBQ Update a repayment transaction made to the consumer loan'
     UpdateRepaymentResponse:
       type: object
@@ -2355,11 +2447,17 @@ components:
               description: Reference to the payer's bank
               format: object
             RepaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the repayment
+              format: amount
             RepaymentTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency used for the repayment
+              format: currencycode
             RepaymentTransactionValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the repayment transaction
+              format: date
       description: 'Output: UpBQ Update a repayment transaction made to the consumer loan'
     RetrieveRepaymentResponse:
       type: object
@@ -2435,11 +2533,17 @@ components:
               description: Reference to the payer's bank
               format: object
             RepaymentTransactionAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the repayment
+              format: amount
             RepaymentTransactionCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency used for the repayment
+              format: currencycode
             RepaymentTransactionValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The value date for the repayment transaction
+              format: date
       description: 'Output: ReBQ Retrieve details about a consumer loan repayment'
     InitiateRestructuringRequest:
       type: object
@@ -2492,15 +2596,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2514,9 +2624,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -2682,15 +2796,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2704,9 +2824,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -2842,15 +2966,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -2864,9 +2994,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -3032,15 +3166,21 @@ components:
               description: 'The specific type of loan (e.g. term, revolving, evergreen)'
               format: string
             LoanAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the loan
+              format: amount
             LoanCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the loan account
+              format: currencycode
             LoanRateType:
               type: string
               description: The rate type to be applied to the loan
               format: string
             LoanApplicableRate:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The applicable rate for the loan
+              format: rate
             RepaymentType:
               type: string
               description: The type of repayment arrangement in place (e.g. structured)
@@ -3054,9 +3194,13 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             LoanOriginationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The origination date for the loan
+              format: date
             LoanMaturityDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The planned maturity date of the loan
+              format: date
             CollateralReference:
               type: string
               description: Reference to allocated collateral
