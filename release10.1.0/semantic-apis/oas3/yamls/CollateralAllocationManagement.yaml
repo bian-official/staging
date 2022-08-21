@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Collateral Allocation Management
-  description: 'This service domain manages the holding, valuation and allocation of a customer''s collateral assets to products on behalf of a customer'
+  description: The Service Domain manages the allocation of party owned assets to bank issued lending and other asset products.
   contact:
     name: BIAN
     url: https://bian.org
@@ -204,22 +204,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: ''
-        AmountCurrency:
-          type: string
-          description: ''
-          format: ''
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: ''
-      description: Applies for initial earmarking of collateral during an offer process
     Allocation:
       type: object
       properties:
@@ -236,19 +220,25 @@ components:
           description: Reference to a offer process during which the collateral allocation is defined and agreed
           format: object
         CollateralEarmarkAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Applies for initial earmarking of collateral during an offer process
+          format: amount
         CollateralEarmarkDuration:
           type: string
           description: Time for which the earmarking is enforced
           format: string
         CollateralAllocationAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the overall asset value that is allocated in this instance
+          format: amount
         CollateralAllocationDuration:
           type: string
           description: The intended duration of the allocation (can be finite or open ended)
           format: string
         CollateralAllocationRecallAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Applies when part or all of the allocation is recalled (e.g. due to revaluation of the asset)
+          format: amount
         CollateralAllocationRecallTimetable:
           type: string
           description: The schedule for processing allocation recall
@@ -266,14 +256,6 @@ components:
           description: Record of the workstep and result of the allocation process
           format: string
       description: "Set of rules for the purpose of deciding if or if not something is applicable\n\nExamples: Staff assignment, Facility allocation."
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: ''
-      description: The date of the last valuation (and next planned valuation)
     CollateralAssetAllocation:
       type: object
       properties:
@@ -310,7 +292,9 @@ components:
           description: A record of past and current allocations of the collateral asset
           format: string
         CollateralAssetValuationDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date of the last valuation (and next planned valuation)
+          format: date
         CollateralAssetLoantoValueRatio:
           type: string
           description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
@@ -351,7 +335,9 @@ components:
               description: A record of past and current allocations of the collateral asset
               format: string
             CollateralAssetValuationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date of the last valuation (and next planned valuation)
+              format: date
             CollateralAssetLoantoValueRatio:
               type: string
               description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
@@ -407,7 +393,9 @@ components:
               description: A record of past and current allocations of the collateral asset
               format: string
             CollateralAssetValuationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date of the last valuation (and next planned valuation)
+              format: date
             CollateralAssetLoantoValueRatio:
               type: string
               description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
@@ -448,7 +436,9 @@ components:
               description: A record of past and current allocations of the collateral asset
               format: string
             CollateralAssetValuationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date of the last valuation (and next planned valuation)
+              format: date
             CollateralAssetLoantoValueRatio:
               type: string
               description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
@@ -469,19 +459,25 @@ components:
               description: Reference to a offer process during which the collateral allocation is defined and agreed
               format: object
             CollateralEarmarkAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Applies for initial earmarking of collateral during an offer process
+              format: amount
             CollateralEarmarkDuration:
               type: string
               description: Time for which the earmarking is enforced
               format: string
             CollateralAllocationAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the overall asset value that is allocated in this instance
+              format: amount
             CollateralAllocationDuration:
               type: string
               description: The intended duration of the allocation (can be finite or open ended)
               format: string
             CollateralAllocationRecallAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Applies when part or all of the allocation is recalled (e.g. due to revaluation of the asset)
+              format: amount
             CollateralAllocationRecallTimetable:
               type: string
               description: The schedule for processing allocation recall
@@ -524,13 +520,17 @@ components:
           type: object
           properties:
             CollateralAllocationAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the overall asset value that is allocated in this instance
+              format: amount
             CollateralAllocationDuration:
               type: string
               description: The intended duration of the allocation (can be finite or open ended)
               format: string
             CollateralAllocationRecallAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Applies when part or all of the allocation is recalled (e.g. due to revaluation of the asset)
+              format: amount
             CollateralAllocationRecallTimetable:
               type: string
               description: The schedule for processing allocation recall
@@ -551,13 +551,17 @@ components:
           type: object
           properties:
             CollateralAllocationAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the overall asset value that is allocated in this instance
+              format: amount
             CollateralAllocationDuration:
               type: string
               description: The intended duration of the allocation (can be finite or open ended)
               format: string
             CollateralAllocationRecallAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Applies when part or all of the allocation is recalled (e.g. due to revaluation of the asset)
+              format: amount
             CollateralAllocationRecallTimetable:
               type: string
               description: The schedule for processing allocation recall
@@ -610,7 +614,9 @@ components:
               description: A record of past and current allocations of the collateral asset
               format: string
             CollateralAssetValuationDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date of the last valuation (and next planned valuation)
+              format: date
             CollateralAssetLoantoValueRatio:
               type: string
               description: 'The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)'
@@ -631,19 +637,25 @@ components:
               description: Reference to a offer process during which the collateral allocation is defined and agreed
               format: object
             CollateralEarmarkAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Applies for initial earmarking of collateral during an offer process
+              format: amount
             CollateralEarmarkDuration:
               type: string
               description: Time for which the earmarking is enforced
               format: string
             CollateralAllocationAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The amount of the overall asset value that is allocated in this instance
+              format: amount
             CollateralAllocationDuration:
               type: string
               description: The intended duration of the allocation (can be finite or open ended)
               format: string
             CollateralAllocationRecallAmount:
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: Applies when part or all of the allocation is recalled (e.g. due to revaluation of the asset)
+              format: amount
             CollateralAllocationRecallTimetable:
               type: string
               description: The schedule for processing allocation recall
