@@ -335,13 +335,31 @@ components:
           description: Details of the transaction matching processing
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: ''
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: ''
+        RatePeriod:
+          type: string
+          description: ''
+          format: ''
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: ''
+      description: The FX rates and fees that are applied to the transactions
     FXConversion:
       type: object
       properties:
         FXConversionRatesandFees:
-          type: string
-          description: The FX rates and fees that are applied to the transactions
-          format: rate
+          $ref: '#/components/schemas/rate'
         FXConversionTaskResult:
           type: string
           description: Details of the transaction FX conversion
@@ -383,6 +401,38 @@ components:
           description: Details of the transaction fee processing
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency that the transaction is made in
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: ''
+        AmountCurrency:
+          type: string
+          description: ''
+          format: ''
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: ''
+      description: The amount corresponding to the type
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: ''
+      description: Significant dates and times associated with the transaction
     Capture:
       type: object
       properties:
@@ -411,17 +461,13 @@ components:
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          type: string
-          description: The currency that the transaction is made in
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          type: string
-          description: The amount corresponding to the type
-          format: amount
+          $ref: '#/components/schemas/amount'
         CardTransactionMerchantReference:
           type: string
           description: Refers to the merchant initiating settlement
@@ -435,9 +481,7 @@ components:
           description: 'Details of the transaction (e.g. purchased service/product, purpose)'
           format: object
         CardTransactionDateTime:
-          type: string
-          description: Significant dates and times associated with the transaction
-          format: date
+          $ref: '#/components/schemas/date'
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -479,9 +523,7 @@ components:
           description: 'Defines the type of clearing process - e.g. capture, batch, chargeback between combinations of N,I&A'
           format: string
         CardClearingProcessDateTime:
-          type: string
-          description: The scheduled time for the process - likely initiation time
-          format: date
+          $ref: '#/components/schemas/date'
         CardClearingServiceSchedule:
           type: string
           description: The schedule of activities for card clearing
@@ -510,9 +552,7 @@ components:
               description: 'Defines the type of clearing process - e.g. capture, batch, chargeback between combinations of N,I&A'
               format: string
             CardClearingProcessDateTime:
-              type: string
-              description: The scheduled time for the process - likely initiation time
-              format: date
+              $ref: '#/components/schemas/date'
             CardClearingServiceSchedule:
               type: string
               description: The schedule of activities for card clearing
@@ -537,9 +577,7 @@ components:
               description: Defines card clearing fees/terms in force - referenced by Network
               format: string
             CardClearingProcessDateTime:
-              type: string
-              description: The scheduled time for the process - likely initiation time
-              format: date
+              $ref: '#/components/schemas/date'
             CardClearingServiceSchedule:
               type: string
               description: The schedule of activities for card clearing
@@ -576,9 +614,7 @@ components:
               description: 'Defines the type of clearing process - e.g. capture, batch, chargeback between combinations of N,I&A'
               format: string
             CardClearingProcessDateTime:
-              type: string
-              description: The scheduled time for the process - likely initiation time
-              format: date
+              $ref: '#/components/schemas/date'
             CardClearingServiceSchedule:
               type: string
               description: The schedule of activities for card clearing
@@ -615,9 +651,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -635,9 +669,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -682,9 +714,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -702,9 +732,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -760,9 +788,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -780,9 +806,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -883,9 +907,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -903,9 +925,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -922,9 +942,7 @@ components:
           type: object
           properties:
             FXConversionRatesandFees:
-              type: string
-              description: The FX rates and fees that are applied to the transactions
-              format: rate
+              $ref: '#/components/schemas/rate'
             FXConversionTaskResult:
               type: string
               description: Details of the transaction FX conversion
@@ -972,9 +990,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -992,9 +1008,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1061,9 +1075,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -1081,9 +1093,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1146,9 +1156,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -1166,9 +1174,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -1231,9 +1237,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -1251,9 +1255,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge

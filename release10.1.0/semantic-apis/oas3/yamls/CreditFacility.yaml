@@ -281,6 +281,38 @@ components:
           type: string
           format: string
       description: Status Attributes
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: ''
+        AmountCurrency:
+          type: string
+          description: ''
+          format: ''
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: ''
+      description: The amount of the repayment
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The currency used for the repayment
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: ''
+      description: The value date for the repayment transaction
     Repayment:
       type: object
       properties:
@@ -301,17 +333,11 @@ components:
           description: Reference to the payer's bank
           format: object
         RepaymentTransactionAmount:
-          type: string
-          description: The amount of the repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         RepaymentTransactionCurrency:
-          type: string
-          description: The currency used for the repayment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         RepaymentTransactionValueDate:
-          type: string
-          description: The value date for the repayment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -365,9 +391,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -405,6 +429,26 @@ components:
           description: A report detailing the current applied collateral valuation (value confirmed as of date)
           format: string
       description: The product features/services available with a financical facility
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: ''
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: ''
+        RatePeriod:
+          type: string
+          description: ''
+          format: ''
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: ''
+      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
@@ -413,17 +457,11 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          type: string
-          description: The processing schedule for applying interest rates to the account
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: string
-          description: The collection of applicable rates
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRate:
-          type: string
-          description: The interest rate value to be applied (note could be variable)
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -445,9 +483,7 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          type: string
-          description: Record of accrued interest
-          format: amount
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -521,21 +557,15 @@ components:
           description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
           format: string
         CreditFacilityAmount:
-          type: string
-          description: The amount of the credit facility
-          format: amount
+          $ref: '#/components/schemas/amount'
         CreditFacilityCurrency:
-          type: string
-          description: The currency for the facility
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         CreditFacilityRateType:
           type: string
           description: The rate type to be applied to the credit facility
           format: string
         CreditFacilityApplicableRate:
-          type: string
-          description: The applicable rate for the credit facility
-          format: rate
+          $ref: '#/components/schemas/rate'
         RepaymentType:
           type: string
           description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -549,13 +579,9 @@ components:
           description: The accrual method applied to interest calculations
           format: string
         CreditFacilityOriginationDate:
-          type: string
-          description: The origination date for the credit facility
-          format: date
+          $ref: '#/components/schemas/date'
         CreditFacilityMaturityDate:
-          type: string
-          description: The planned maturity date of the credit facility
-          format: date
+          $ref: '#/components/schemas/date'
         CollateralReference:
           type: string
           description: Reference to allocated collateral
@@ -692,21 +718,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -720,13 +740,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -886,21 +902,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -914,13 +924,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1057,21 +1063,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1085,13 +1085,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1228,21 +1224,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1256,13 +1246,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1438,9 +1424,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1584,9 +1568,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1685,21 +1667,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1713,13 +1689,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -1883,21 +1855,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -1911,13 +1877,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -2069,21 +2031,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -2097,13 +2053,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
@@ -2285,21 +2237,15 @@ components:
               description: 'The specific type of credit facility (e.g. term, revolving, letter of credit, retail)'
               format: string
             CreditFacilityAmount:
-              type: string
-              description: The amount of the credit facility
-              format: amount
+              $ref: '#/components/schemas/amount'
             CreditFacilityCurrency:
-              type: string
-              description: The currency for the facility
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CreditFacilityRateType:
               type: string
               description: The rate type to be applied to the credit facility
               format: string
             CreditFacilityApplicableRate:
-              type: string
-              description: The applicable rate for the credit facility
-              format: rate
+              $ref: '#/components/schemas/rate'
             RepaymentType:
               type: string
               description: 'The type of repayment arrangement in place (e.g. structured, revolving)'
@@ -2313,13 +2259,9 @@ components:
               description: The accrual method applied to interest calculations
               format: string
             CreditFacilityOriginationDate:
-              type: string
-              description: The origination date for the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CreditFacilityMaturityDate:
-              type: string
-              description: The planned maturity date of the credit facility
-              format: date
+              $ref: '#/components/schemas/date'
             CollateralReference:
               type: string
               description: Reference to allocated collateral
