@@ -386,21 +386,145 @@ components:
           description: 'The general purpose and neighborhood of the property  (e.g. residential, industrial, commercial)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: 'A description of the property, particularly if it has landmark characteristics.'
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: ''
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: ''
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: ''
+      description: 'Key dates associated with the directory entry (e.g. open date, refresh date).'
+    status:
+      type: object
+      properties:
+        StatusReason:
+          type: string
+          description: Specifies the reasons for the status.
+          format: ''
+        StatusDateTime:
+          type: string
+          description: Date and time at which the status was assigned.
+          format: ''
+        StatusValidityPeriod:
+          type: string
+          description: Period of time during which the status is valid.
+          format: ''
+        StatusInvolvedParty:
+          type: string
+          description: Party who plays a  specific role in the context of assigning a status.
+          format: ''
+      description: 'The tracked status (e.g. under construction or repair, inhabited, vacant).'
+    locationtypevalues:
+      enum:
+        - GeographicalArea
+        - DigitalArea
+        - StatisticalArea
+        - TimeZone
+        - TreatyArea
+      type: string
+      description: ">\n* `GeographicalArea` - \n* `DigitalArea` - \n* `StatisticalArea` - \n* `TimeZone` - \n* `TreatyArea` - \n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: The estimated (book) value of the property at the location - rental and purchase as appropriate.
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          type: string
+          description: ''
+          format: ''
+        IdentifierIssuingAuthority:
+          type: string
+          description: ''
+          format: ''
+        IdentifierStartDate:
+          type: string
+          description: ''
+          format: ''
+        IdentifierEndDate:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    addresstypevalues:
+      enum:
+        - PostalAddress
+        - GeolocationAddress
+        - LatitudeAddress
+        - LongitudeAddress
+        - ElectronicAddress
+      type: string
+      description: ">\n* `PostalAddress` - \n* `GeolocationAddress` - \n* `LatitudeAddress` - \n* `LongitudeAddress` - \n* `ElectronicAddress` - \n"
+    address:
+      type: object
+      properties:
+        AddressType:
+          $ref: '#/components/schemas/addresstypevalues'
+      description: ''
+    location:
+      type: object
+      properties:
+        LocationDescription:
+          $ref: '#/components/schemas/text'
+        LocationDateTime:
+          $ref: '#/components/schemas/datetime'
+        LocationStatus:
+          $ref: '#/components/schemas/status'
+        LocationType:
+          $ref: '#/components/schemas/locationtypevalues'
+        LocationZoningType:
+          $ref: '#/components/schemas/text'
+        LocationNeighborhoodType:
+          $ref: '#/components/schemas/text'
+        LocationConstructionType:
+          $ref: '#/components/schemas/text'
+        LocationOccupancyType:
+          $ref: '#/components/schemas/text'
+        LocationValue:
+          $ref: '#/components/schemas/value'
+        LocationCapacity:
+          $ref: '#/components/schemas/text'
+        LocationIdentification:
+          $ref: '#/components/schemas/identifier'
+        LocationAddress:
+          $ref: '#/components/schemas/address'
+      description: Reference to associated location (can be a physical or electronic location)
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     LocationDirectoryEntry:
       type: object
       properties:
         LocationReference:
-          type: string
-          description: Reference to associated location (can be a physical or electronic location)
-          format: location
+          $ref: '#/components/schemas/location'
         DirectoryEntryDateType:
-          type: string
-          description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-          format: directoryentrydatetypevalues
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
-          type: string
-          description: Value of the date type
-          format: datetime
+          $ref: '#/components/schemas/datetime'
       description: Capture and maintain reference information about some type of entitity within Location Data Management.
     RegisterLocationDirectoryEntryRequest:
       type: object
@@ -409,13 +533,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Input: InCR Register a location in the catalog'
     UpdateLocationDirectoryEntryRequest:
       type: object
@@ -424,13 +544,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Input: UpCR Update details about the location''s directory entry'
     UpdateLocationDirectoryEntryResponse:
       type: object
@@ -439,13 +555,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Output: UpCR Update details about the location''s directory entry'
     RequestLocationDirectoryEntryRequest:
       type: object
@@ -454,9 +566,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Input: RqCR Request manual intervention with an entry (e.g. refresh content)'
     RetrieveLocationDirectoryEntryResponse:
       type: object
@@ -465,13 +575,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Output: ReCR Retrieve details about a location directory entry'
     ExecuteLocationDirectoryEntryRequest:
       type: object
@@ -561,9 +667,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: Value of the date type
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Location:
           type: object
           properties:
@@ -607,9 +711,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: Value of the date type
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Location:
           type: object
           properties:
@@ -653,13 +755,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         Location:
           type: object
           properties:
@@ -703,9 +801,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: Value of the date type
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Use:
           type: object
           properties:
@@ -725,9 +821,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: Value of the date type
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Use:
           type: object
           properties:
@@ -747,13 +841,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         Use:
           type: object
           properties:
@@ -773,9 +863,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: Value of the date type
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Occupancy:
           type: object
           properties:
@@ -815,9 +903,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: Value of the date type
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Occupancy:
           type: object
           properties:
@@ -857,13 +943,9 @@ components:
           type: object
           properties:
             LocationReference:
-              type: string
-              description: Reference to associated location (can be a physical or electronic location)
-              format: location
+              $ref: '#/components/schemas/location'
             DirectoryEntryDateType:
-              type: string
-              description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         Occupancy:
           type: object
           properties:
