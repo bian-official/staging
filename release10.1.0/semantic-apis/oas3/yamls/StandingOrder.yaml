@@ -308,37 +308,83 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation prior to the implementation of the feature
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: ''
+      description: The timing and key actions/milestones involved in completing the fulfillment feature instance
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Standing Order Fulfillment specific Business Service
+    financialfacility:
+      type: object
+      properties:
+        FinancialFacility:
+          type: string
+          description: ''
+          format: class
+      description: Reference to Standing Order Fulfillment
     StandingOrderFulfillment:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the implementation of the feature
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Standing Order Fulfillment specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-          format: condition
+          $ref: '#/components/schemas/condition'
         StandingOrderFacilityReference:
-          type: string
-          description: Reference to Standing Order Fulfillment
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         StandingOrderFulfillmentReference:
           type: string
           description: Reference to Standing Order Fulfillment
           format: object
         StandingOrderFulfillmentType:
-          type: string
-          description: The type of Standing Order Fulfillment
-          format: text
+          $ref: '#/components/schemas/text'
       description: The configuration and execution of Standing Order Fulfillment arrangement within the Standing Order Fulfillment
     StandingOrderOutcome:
       type: object
@@ -352,45 +398,43 @@ components:
           description: ''
           format: rwc:973a94b2-aa0e-5879-cd94-93b577cadb99/54130
       description: The configuration and execution of Standing Order Fulfillment arrangement within the Standing Order Fulfillment
+    workproduct:
+      type: object
+      properties:
+        WorkProductType:
+          type: string
+          description: ''
+          format: ''
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: ''
+      description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
     StandingOrderPayment:
       type: object
       properties:
         StandingOrderPaymentPreconditions:
-          type: string
-          description: The required status/situation prior to the implementation of the feature
-          format: condition
+          $ref: '#/components/schemas/condition'
         StandingOrderPaymentFeatureSchedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Standing Order Arrangement specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         StandingOrderPaymentPostconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-          format: condition
+          $ref: '#/components/schemas/condition'
         StandingOrderPaymentServiceType:
           type: string
           description: Reference to the specific business service type
           format: string
         StandingOrderPaymentServiceDescription:
-          type: string
-          description: Description of the performed business service
-          format: text
+          $ref: '#/components/schemas/text'
         StandingOrderPaymentServiceInputsandOuputs:
           type: string
           description: Mandatory and optional inputs and output information for the business service
           format: string
         StandingOrderPaymentServiceWorkProduct:
-          type: string
-          description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-          format: workproduct
+          $ref: '#/components/schemas/workproduct'
         StandingOrderPaymentServiceName:
-          type: string
-          description: ''
-          format: name
+          $ref: '#/components/schemas/name'
         StandingOrderExecutionDate:
           type: string
           description: Date on which a standing order is actually executed
@@ -412,6 +456,231 @@ components:
           description: Actual fee amount of the this execution of the standing order
           format: string
       description: The configuration and execution of Standing Order Fulfillment arrangement within the Standing Order Fulfillment
+    feature:
+      type: object
+      properties:
+        FeatureType:
+          type: string
+          description: ''
+          format: string
+      description: A selected optional product feature as subject matter of Standing Order Arrangement
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          type: string
+          description: ''
+          format: ''
+        PartyInvolvement:
+          type: string
+          description: ''
+          format: ''
+      description: Reference to the party who is involved in Standing Order Arrangement
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The curreny which is arranged in Standing Order Arrangement
+    rulesettype:
+      type: object
+      properties:
+        RuleSetTypeName:
+          type: string
+          description: ''
+          format: ''
+        RuleSetType:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    ruleset:
+      type: object
+      properties:
+        RuleSetDefinition:
+          type: string
+          description: ''
+          format: string
+        RuleSetInterpretation:
+          type: string
+          description: ''
+          format: string
+        RuleSetType:
+          $ref: '#/components/schemas/rulesettype'
+        RuleSetName:
+          type: string
+          description: ''
+          format: string
+        RuleSetIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the regulation which is defined in Standing Order Arrangement
+    jurisdiction:
+      type: object
+      properties:
+        Jurisdiction:
+          type: string
+          description: Jurisdiction that will be assigned in case of legal dispute.
+          format: class
+      description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
+    businessunit:
+      type: object
+      properties:
+        BusinessFunction:
+          type: string
+          description: ''
+          format: string
+        Goal:
+          type: string
+          description: ''
+          format: string
+      description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
+    accountstatus:
+      type: object
+      properties:
+        AccountStatus:
+          type: string
+          description: ''
+          format: ''
+        AccountStatusType:
+          type: string
+          description: ''
+          format: ''
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        AccountIdentificationType:
+          type: string
+          description: ''
+          format: ''
+        AccountIdentification:
+          type: string
+          description: ''
+          format: ''
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        AccountDateType:
+          type: string
+          description: ''
+          format: ''
+        AccountDate:
+          type: string
+          description: ''
+          format: ''
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttype:
+      type: object
+      properties:
+        AccountType:
+          type: string
+          description: ''
+          format: ''
+        AccountTypeName:
+          type: string
+          description: ''
+          format: ''
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalance:
+      type: object
+      properties:
+        AccountBalance:
+          type: string
+          description: ''
+          format: ''
+        AccountBalanceType:
+          type: string
+          description: ''
+          format: ''
+        AccounBalanceDate:
+          type: string
+          description: ''
+          format: ''
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrency:
+      type: object
+      properties:
+        AccountCurrencyType:
+          type: string
+          description: ''
+          format: ''
+        AccountCurrency:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
+          $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
+        AccountBalance:
+          $ref: '#/components/schemas/accountbalance'
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: Reference to the account which is linked to Standing Order Arrangement
+    productidentification:
+      type: object
+      properties:
+        ProductIdentification:
+          type: string
+          description: ''
+          format: ''
+        ProductIdentificationType:
+          type: string
+          description: ''
+          format: ''
+      description: The identifier of product e.g. ISIN Code.
+    bankingproducttypevalues:
+      enum:
+        - LoanProduct
+        - CurrentAccountProduct
+        - SavingAccountProduct
+      type: string
+      description: ">\n* `LoanProduct` - \n* `CurrentAccountProduct` - \n* `SavingAccountProduct` - \n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        ProductLifecycleStatus:
+          type: string
+          description: ''
+          format: ''
+        ProductLifecycleStatusType:
+          type: string
+          description: ''
+          format: ''
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+    bankingproduct:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/bankingproducttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
+      description: Reference to the product which is linked to Standing Order Arrangement
     StandingOrderFacility:
       type: object
       properties:
@@ -420,9 +689,7 @@ components:
           description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
           format: string
         StandingOrderFacilitySelectedOption:
-          type: string
-          description: A selected optional product feature as subject matter of Standing Order Arrangement
-          format: feature
+          $ref: '#/components/schemas/feature'
         StandingOrderFacilityType:
           type: string
           description: The type of Standing Order Arrangement
@@ -436,49 +703,33 @@ components:
           description: The status of Standing Order Arrangement
           format: string
         StandingOrderFacilityAssociatedParty:
-          type: string
-          description: Reference to the party who is involved in Standing Order Arrangement
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         StandingOrderFacilityCurrency:
-          type: string
-          description: The curreny which is arranged in Standing Order Arrangement
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         StandingOrderFacilityRegulationReference:
-          type: string
-          description: Reference to the regulation which is defined in Standing Order Arrangement
-          format: ruleset
+          $ref: '#/components/schemas/ruleset'
         StandingOrderFacilityRegulationType:
           type: string
           description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
           format: rulesettypevalues
         StandingOrderFacilityJurisdiction:
-          type: string
-          description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-          format: jurisdiction
+          $ref: '#/components/schemas/jurisdiction'
         StandingOrderFacilityBookingLocation:
-          type: string
-          description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-          format: businessunit
+          $ref: '#/components/schemas/businessunit'
         StandingOrderFacilityAccountType:
           type: string
           description: The type of account which is linked to Standing Order Arrangement
           format: accounttypevalues
         StandingOrderFacilityAccountReference:
-          type: string
-          description: Reference to the account which is linked to Standing Order Arrangement
-          format: account
+          $ref: '#/components/schemas/account'
         StandingOrderFacilityCustomerReference:
-          type: string
-          description: Reference to the customer who is involved in Standing Order Arrangement
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         StandingOrderFacilityPosition:
           type: string
           description: The current calculated position
           format: string
         StandingOrderFacilityProductReference:
-          type: string
-          description: Reference to the product which is linked to Standing Order Arrangement
-          format: bankingproduct
+          $ref: '#/components/schemas/bankingproduct'
         StandingOrderFacilityPositionLimit:
           type: string
           description: ''
@@ -539,9 +790,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -555,49 +804,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -614,9 +847,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityCalendar:
               type: string
               description: Timetable to fulfill Standing Order Arrangement
@@ -626,17 +857,13 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -653,9 +880,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -669,49 +894,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -728,9 +937,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityCalendar:
               type: string
               description: Timetable to fulfill Standing Order Arrangement
@@ -740,17 +947,13 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -767,9 +970,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -783,49 +984,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -842,9 +1027,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityCalendar:
               type: string
               description: Timetable to fulfill Standing Order Arrangement
@@ -854,17 +1037,13 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -881,9 +1060,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -897,49 +1074,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -956,9 +1117,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityCalendar:
               type: string
               description: Timetable to fulfill Standing Order Arrangement
@@ -968,17 +1127,13 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -995,9 +1150,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -1011,49 +1164,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -1070,9 +1207,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -1086,49 +1221,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -1145,9 +1264,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityCalendar:
               type: string
               description: Timetable to fulfill Standing Order Arrangement
@@ -1157,17 +1274,13 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -1184,9 +1297,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityType:
               type: string
               description: The type of Standing Order Arrangement
@@ -1200,49 +1311,33 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityAssociatedParty:
-              type: string
-              description: Reference to the party who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityCurrency:
-              type: string
-              description: The curreny which is arranged in Standing Order Arrangement
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             StandingOrderFacilityRegulationReference:
-              type: string
-              description: Reference to the regulation which is defined in Standing Order Arrangement
-              format: ruleset
+              $ref: '#/components/schemas/ruleset'
             StandingOrderFacilityRegulationType:
               type: string
               description: A Classification that distinguishes between the regularity domains of Standing Order Arrangement
               format: rulesettypevalues
             StandingOrderFacilityJurisdiction:
-              type: string
-              description: Reference to the jurisdiction that is assigned to Standing Order Arrangement in case of legal dispute.
-              format: jurisdiction
+              $ref: '#/components/schemas/jurisdiction'
             StandingOrderFacilityBookingLocation:
-              type: string
-              description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Standing Order Arrangement, are entered.'
-              format: businessunit
+              $ref: '#/components/schemas/businessunit'
             StandingOrderFacilityAccountType:
               type: string
               description: The type of account which is linked to Standing Order Arrangement
               format: accounttypevalues
             StandingOrderFacilityAccountReference:
-              type: string
-              description: Reference to the account which is linked to Standing Order Arrangement
-              format: account
+              $ref: '#/components/schemas/account'
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -1259,9 +1354,7 @@ components:
               description: A Classification value that distinguishes between arrangements according to the type of business services within Standing Order Arrangement
               format: string
             StandingOrderFacilitySelectedOption:
-              type: string
-              description: A selected optional product feature as subject matter of Standing Order Arrangement
-              format: feature
+              $ref: '#/components/schemas/feature'
             StandingOrderFacilityCalendar:
               type: string
               description: Timetable to fulfill Standing Order Arrangement
@@ -1271,17 +1364,13 @@ components:
               description: The status of Standing Order Arrangement
               format: string
             StandingOrderFacilityCustomerReference:
-              type: string
-              description: Reference to the customer who is involved in Standing Order Arrangement
-              format: involvedparty
+              $ref: '#/components/schemas/involvedparty'
             StandingOrderFacilityPosition:
               type: string
               description: The current calculated position
               format: string
             StandingOrderFacilityProductReference:
-              type: string
-              description: Reference to the product which is linked to Standing Order Arrangement
-              format: bankingproduct
+              $ref: '#/components/schemas/bankingproduct'
             StandingOrderFacilityPositionLimit:
               type: string
               description: "\n"
@@ -1294,41 +1383,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Input: EcBQ Accept, verify, etc. aspects of Standing Order Payment processing'
     ExchangeStandingOrderPaymentResponse:
       type: object
@@ -1337,41 +1412,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Output: EcBQ Accept, verify, etc. aspects of Standing Order Payment processing'
     InitiateStandingOrderPaymentRequest:
       type: object
@@ -1380,41 +1441,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Input: InBQ Instantiate a new Standing Order Payment'
     InitiateStandingOrderPaymentResponse:
       type: object
@@ -1423,41 +1470,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Output: InBQ Instantiate a new Standing Order Payment'
     RetrieveStandingOrderPaymentResponse:
       type: object
@@ -1466,41 +1499,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Output: ReBQ Retrieve details about any aspect of Standing Order Payment'
     UpdateStandingOrderPaymentRequest:
       type: object
@@ -1509,41 +1528,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Input: UpBQ Update details relating to Standing Order Payment'
     UpdateStandingOrderPaymentResponse:
       type: object
@@ -1552,41 +1557,27 @@ components:
           type: object
           properties:
             StandingOrderPaymentPreconditions:
-              type: string
-              description: The required status/situation prior to the implementation of the feature
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentFeatureSchedule:
-              type: string
-              description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-              format: schedule
+              $ref: '#/components/schemas/schedule'
             BusinessService:
-              type: string
-              description: The Standing Order Arrangement specific Business Service
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StandingOrderPaymentPostconditions:
-              type: string
-              description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-              format: condition
+              $ref: '#/components/schemas/condition'
             StandingOrderPaymentServiceType:
               type: string
               description: Reference to the specific business service type
               format: string
             StandingOrderPaymentServiceDescription:
-              type: string
-              description: Description of the performed business service
-              format: text
+              $ref: '#/components/schemas/text'
             StandingOrderPaymentServiceInputsandOuputs:
               type: string
               description: Mandatory and optional inputs and output information for the business service
               format: string
             StandingOrderPaymentServiceWorkProduct:
-              type: string
-              description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-              format: workproduct
+              $ref: '#/components/schemas/workproduct'
             StandingOrderPaymentServiceName:
-              type: string
-              description: "\n"
-              format: name
+              $ref: '#/components/schemas/name'
       description: 'Output: UpBQ Update details relating to Standing Order Payment'
   responses:
     BadRequest:
