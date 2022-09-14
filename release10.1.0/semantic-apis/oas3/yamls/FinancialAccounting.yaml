@@ -177,30 +177,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: ''
-        AmountCurrency:
-          type: string
-          description: ''
-          format: ''
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: ''
-      description: The posting amount as a credit-debit pair
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: ''
-      description: The date and time of the posting
     LedgerPosting:
       type: object
       properties:
@@ -209,22 +185,18 @@ components:
           description: 'Defines the posting location in the account ledger according to the chart of accounts (e.g. based on customer, transaction type)'
           format: string
         PostingAmount(creditdebitpair):
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The posting amount as a credit-debit pair
+          format: amount
         PostingValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time of the posting
+          format: date
         PostingResult:
           type: string
           description: Any confirmation notification
           format: string
       description: "A collection of the events/transactions recorded by the log\n\nExamples: Customer life event, Servicing event"
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: The currency for the postings
     FinancialBookingLog:
       type: object
       properties:
@@ -245,7 +217,9 @@ components:
           description: Reference to applicable account booking rules
           format: string
         BaseCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency for the postings
+          format: currencycode
         Status:
           type: string
           description: 'Status of the financial log (e.g. active, in-suspense)'
@@ -274,7 +248,9 @@ components:
               description: Reference to applicable account booking rules
               format: string
             BaseCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the postings
+              format: currencycode
       description: 'Input: InCR Initiate a financial accounting log (account)'
     InitiateFinancialBookingLogResponse:
       type: object
@@ -310,7 +286,9 @@ components:
               description: Reference to applicable account booking rules
               format: string
             BaseCurrency:
-              $ref: '#/components/schemas/currencycode'
+              type: string
+              description: The currency for the postings
+              format: currencycode
             Status:
               type: string
               description: 'Status of the financial log (e.g. active, in-suspense)'
@@ -327,9 +305,13 @@ components:
               description: 'Defines the posting location in the account ledger according to the chart of accounts (e.g. based on customer, transaction type)'
               format: string
             PostingAmount(creditdebitpair):
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The posting amount as a credit-debit pair
+              format: amount
             PostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the posting
+              format: date
       description: 'Input: CaBQ Post to the financial account'
     CaptureLedgerPostingResponse:
       type: object
@@ -353,9 +335,13 @@ components:
               description: 'Defines the posting location in the account ledger according to the chart of accounts (e.g. based on customer, transaction type)'
               format: string
             PostingAmount(creditdebitpair):
-              $ref: '#/components/schemas/amount'
+              type: string
+              description: The posting amount as a credit-debit pair
+              format: amount
             PostingValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The date and time of the posting
+              format: date
             PostingResult:
               type: string
               description: Any confirmation notification
