@@ -278,109 +278,365 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation before the event is captured
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: ''
+      description: The timing and key actions/milestones involved in capturing the event
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Card Transaction Event specific Business Service
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Card Transaction Event
+    event:
+      type: object
+      properties:
+        EventType:
+          type: string
+          description: ''
+          format: string
+        EventDateTime:
+          type: string
+          description: ''
+          format: string
+        EventDescription:
+          type: string
+          description: ''
+          format: string
+        EventSource:
+          type: string
+          description: ''
+          format: string
+        EventLocation:
+          type: string
+          description: ''
+          format: string
+        EventAction:
+          type: string
+          description: ''
+          format: string
+        EventStatus:
+          type: string
+          description: ''
+          format: string
+        EventValue:
+          type: string
+          description: ''
+          format: string
+        EventValidityPeriod:
+          type: string
+          description: ''
+          format: string
+        EventIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Card Transaction Event
     CardTransactionEvent:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the event is captured
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in capturing the event
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Card Transaction Event specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status once the event has been captured
-          format: condition
+          $ref: '#/components/schemas/condition'
         CreditCardPositionLogReference:
-          type: string
-          description: Reference to Card Transaction Event
-          format: log
+          $ref: '#/components/schemas/log'
         CardTransactionEventReference:
-          type: string
-          description: Reference to Card Transaction Event
-          format: event
+          $ref: '#/components/schemas/event'
         CardTransactionEventType:
-          type: string
-          description: The type of Card Transaction Event
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Card Transaction Event is one of the specific types of events that is recorded in the Card Transaction Event
     CreditCardPositionKeepingOutcome:
       type: object
       properties:
         CreditCardPositionKeepingIncident:
-          type: string
-          description: ''
-          format: event
+          $ref: '#/components/schemas/event'
         CreditCardPositionKeepingLog:
+          $ref: '#/components/schemas/log'
+      description: The Card Transaction Event is one of the specific types of events that is recorded in the Card Transaction Event
+    servicetype:
+      type: object
+      properties:
+        ServiceTypeName:
           type: string
           description: ''
-          format: log
-      description: The Card Transaction Event is one of the specific types of events that is recorded in the Card Transaction Event
+          format: ''
+        ServiceType:
+          type: string
+          description: ''
+          format: ''
+      description: ''
+    service:
+      type: object
+      properties:
+        ServiceName:
+          $ref: '#/components/schemas/name'
+        ServiceDescription:
+          $ref: '#/components/schemas/text'
+        ServiceType:
+          $ref: '#/components/schemas/servicetype'
+      description: A selected optional business service as subject matter of Credit Card Position Log
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          type: string
+          description: ''
+          format: ''
+        PartyInvolvement:
+          type: string
+          description: ''
+          format: ''
+      description: Reference to the party who is involved in Credit Card Position Log
+    businessunit:
+      type: object
+      properties:
+        BusinessFunction:
+          type: string
+          description: ''
+          format: string
+        Goal:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the business unit which is involved in Credit Card Position Log
+    position:
+      type: object
+      properties:
+        PositionValue:
+          type: string
+          description: ''
+          format: string
+        PositionQuantity:
+          type: string
+          description: ''
+          format: string
+        PositionDate:
+          type: string
+          description: The date on which the state of something is calculated
+          format: string
+        PositionAmount:
+          type: string
+          description: ''
+          format: string
+      description: The position of Credit Card Position Log
+    positiontype:
+      type: object
+      properties:
+        PositionType:
+          type: string
+          description: 'A classification of the position. '
+          format: class
+      description: A classification value expressing the kind of position withing the Credit Card Position Log
+    limittype:
+      type: object
+      properties:
+        LimitTypeName:
+          type: string
+          description: ''
+          format: ''
+        LimitType:
+          type: string
+          description: ''
+          format: ''
+      description: Nature of the limit.
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: Currency unit used to specify the limit amount. (ISO20022)
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          type: string
+          description: Date and time at which the range starts. (ISO20022)
+          format: ''
+        ToDateTime:
+          type: string
+          description: Date and time at which the range ends. (ISO20022)
+          format: ''
+      description: Period at which the limit is effective. (ISO20022)
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: ''
+        AmountCurrency:
+          type: string
+          description: ''
+          format: ''
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: ''
+      description: 'Amount of money of the limit, expressed in a currency. (ISO20022)'
+    limitstatus:
+      type: object
+      properties:
+        LimitStatus:
+          type: string
+          description: ''
+          format: ''
+        LimitStatusType:
+          type: string
+          description: ''
+          format: ''
+      description: Current status of the limit.
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: ''
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: ''
+        RatePeriod:
+          type: string
+          description: ''
+          format: ''
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: ''
+      description: Specifies that the limit is a percentage of a related amount. (ISO20022)
+    frequency:
+      type: object
+      properties:
+        FrequencyCode:
+          type: string
+          description: ''
+          format: ''
+        FrequencyName:
+          type: string
+          description: ''
+          format: ''
+        FrequencyDefinition:
+          type: string
+          description: ''
+          format: ''
+      description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
+    limitarrangement:
+      type: object
+      properties:
+        LimitType:
+          $ref: '#/components/schemas/limittype'
+        LimitCurrency:
+          $ref: '#/components/schemas/currencycode'
+        LimitValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        LimitAmount:
+          $ref: '#/components/schemas/amount'
+        LimitStatus:
+          $ref: '#/components/schemas/limitstatus'
+        LimitRate:
+          $ref: '#/components/schemas/rate'
+        LimitFrequency:
+          $ref: '#/components/schemas/frequency'
+      description: Reference to the time limitation related to the position of Credit Card Position Log
     CreditCardPositionLog:
       type: object
       properties:
         CreditCardPositionLogParameterType:
-          type: string
-          description: A Classification value that distinguishes between business service events logged within Credit Card Position Log
-          format: text
+          $ref: '#/components/schemas/text'
         CreditCardPositionLogSelectedOption:
-          type: string
-          description: A selected optional business service as subject matter of Credit Card Position Log
-          format: service
+          $ref: '#/components/schemas/service'
         CreditCardPositionLogType:
-          type: string
-          description: The type of Credit Card Position Log
-          format: text
+          $ref: '#/components/schemas/text'
         CreditCardPositionLogSchedule:
-          type: string
-          description: Timetable to track Credit Card Position Log
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         CreditCardPositionLogUsageLog:
-          type: string
-          description: Reference to the log of (usage) ativities/events  of Credit Card Position Log
-          format: log
+          $ref: '#/components/schemas/log'
         CreditCardPositionLogUpdateLog:
-          type: string
-          description: Reference to the log of (update) ativities/events of Credit Card Position Log
-          format: log
+          $ref: '#/components/schemas/log'
         CreditCardPositionLogAssociatedParty:
-          type: string
-          description: Reference to the party who is involved in Credit Card Position Log
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         CreditCardPositionLogBusinessUnitReference:
-          type: string
-          description: Reference to the business unit which is involved in Credit Card Position Log
-          format: businessunit
+          $ref: '#/components/schemas/businessunit'
         CreditCardPositionLogCustomerReference:
-          type: string
-          description: Reference to the customer who is involved in Credit Card Position Log
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         CreditCardPositionLogServiceConfiguration:
-          type: string
-          description: The configuration of Credit Card Position Log
-          format: text
+          $ref: '#/components/schemas/text'
         CreditCardPositionLogPosition:
-          type: string
-          description: The position of Credit Card Position Log
-          format: position
+          $ref: '#/components/schemas/position'
         CreditCardPositionLogPositionType:
-          type: string
-          description: A classification value expressing the kind of position withing the Credit Card Position Log
-          format: positiontype
+          $ref: '#/components/schemas/positiontype'
         CreditCardPositionLogPositionLimitTime:
-          type: string
-          description: Reference to the time limitation related to the position of Credit Card Position Log
-          format: limitarrangement
+          $ref: '#/components/schemas/limitarrangement'
         CreditCardPositionLogReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Credit Card Position Log
-          format: log
+          $ref: '#/components/schemas/log'
       description: 'Maintain a log of transactions or activity, typically a financial account/journal or a log of activity to support behavioral analysis within Credit Card Position Keeping. '
   responses:
     BadRequest:
