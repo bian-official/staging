@@ -319,18 +319,44 @@ components:
     schedule:
       type: object
       properties:
-        Schedule:
+        ScheduleType:
           type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          description: ''
+          format: string
       description: The timing and key actions/milestones involved in completing the fulfillment feature instance
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The Standing Order Fulfillment specific Business Service
     financialfacility:
       type: object
@@ -340,14 +366,6 @@ components:
           description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
           format: class
       description: Reference to Standing Order Fulfillment
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Standing Order Fulfillment
     StandingOrderFulfillment:
       type: object
       properties:
@@ -383,19 +401,15 @@ components:
     workproduct:
       type: object
       properties:
-        Workproduct:
+        WorkProductType:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: workproducttypevalues
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
       description: 'Documentation, meeting schedules, notes, reasearch. calculations and any other work products produced by the business service'
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
     StandingOrderPayment:
       type: object
       properties:
@@ -721,13 +735,48 @@ components:
         AccountDescription:
           $ref: '#/components/schemas/text'
       description: Reference to the account which is linked to Standing Order Arrangement
+    productidentification:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/identifier'
+        ProductIdentificationType:
+          type: string
+          description: ''
+          format: productidentificationtypevalues
+      description: The identifier of product e.g. ISIN Code.
+    bankingproducttypevalues:
+      enum:
+        - LoanProduct
+        - CurrentAccountProduct
+        - SavingAccountProduct
+      type: string
+      description: ">\n* `LoanProduct` - \n* `CurrentAccountProduct` - \n* `SavingAccountProduct` - \n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        ProductLifecycleStatusType:
+          type: string
+          description: ''
+          format: productlifecyclestatustypevalues
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
       properties:
-        BankingProduct:
-          type: string
-          description: 'A package of services and/or goods, accompanied by term and condition which is offered as a whole to (internal or external) customers.'
-          format: class
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/bankingproducttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
       description: Reference to the product which is linked to Standing Order Arrangement
     StandingOrderFacility:
       type: object

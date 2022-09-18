@@ -977,35 +977,27 @@ components:
     schedule:
       type: object
       properties:
-        Schedule:
+        ScheduleType:
           type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          description: ''
+          format: string
       description: The schedule and timing of the function
-    businessservice:
+    name:
       type: object
       properties:
-        BusinessService:
+        Name:
           type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
-      description: The Inbound Transaction Function specific Business Service
-    session:
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
       type: object
       properties:
-        Session:
+        Businessservicetypevalues:
           type: string
-          description: "The operation of a system -- typically an automated system -- for a bounded period of time.\n\nSemi-permanent container of state for an information exchange with a system.\n\nTime-bounded, temporal unit of context and continuity, identifying a unit of work.\n"
-          format: class
-      description: Reference to Inbound Transaction Function
-    function:
-      type: object
-      properties:
-        Function:
-          type: string
-          description: "A kind of action.\n\nFunctions as Behaviour Qualifier: The collection of operational services/functions offered by the operational facility."
-          format: class
-      description: Reference to Inbound Transaction Function
+          description: ''
+          format: enumeration
+      description: ''
     text:
       type: object
       properties:
@@ -1013,87 +1005,25 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The type of Inbound Transaction Function
-    InboundTransactionFunction:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        PaymentRailOperatingSessionReference:
-          $ref: '#/components/schemas/session'
-        InboundTransactionFunctionReference:
-          $ref: '#/components/schemas/function'
-        InboundTransactionFunctionType:
-          $ref: '#/components/schemas/text'
-      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
-    PaymentClearingandSettlementFunction:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        PaymentRailOperatingSessionReference:
-          $ref: '#/components/schemas/session'
-        PaymentClearingandSettlementFunctionReference:
-          $ref: '#/components/schemas/function'
-        PaymentClearingandSettlementFunctionType:
-          $ref: '#/components/schemas/text'
-      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
-    PaymentAccountReconciliationFunction:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        PaymentRailOperatingSessionReference:
-          $ref: '#/components/schemas/session'
-        PaymentAccountReconciliationFunctionReference:
-          $ref: '#/components/schemas/function'
-        PaymentAccountReconciliationFunctionType:
-          $ref: '#/components/schemas/text'
-      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
-    OutboundTransactionFunction:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        PaymentRailOperatingSessionReference:
-          $ref: '#/components/schemas/session'
-        OutboundTransactionFunctionReference:
-          $ref: '#/components/schemas/function'
-        OutboundTransactionFunctionType:
-          $ref: '#/components/schemas/text'
-      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
-    event:
-      type: object
-      properties:
-        Event:
-          type: string
-          description: 'Something that happens, has happened, can happen or is planned to happen.'
-          format: class
       description: ''
-    PaymentRailOperationsOutcome:
+    businessservice:
       type: object
       properties:
-        PaymentRailOperationsIncident:
-          $ref: '#/components/schemas/event'
-        PaymentRailOperationsProvision:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
           $ref: '#/components/schemas/text'
-      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
+      description: The Inbound Transaction Function specific Business Service
+    duration:
+      type: object
+      properties:
+        Duration:
+          type: string
+          description: 'A duration is the specification of a length of time without a fixed start or end time, expressed in Gregorian calendar time units (Year, Month, Week, Day) and Hours, Minutes or Seconds. (UN/CEFACT)'
+          format: datatype
+      description: The time the session was active
     datetime:
       type: object
       properties:
@@ -1109,7 +1039,7 @@ components:
           type: string
           description: ''
           format: string
-      description: Date and time at which the status was assigned.
+      description: Key dates and times for the session
     datetimeperiod:
       type: object
       properties:
@@ -1118,14 +1048,6 @@ components:
         ToDateTime:
           $ref: '#/components/schemas/datetime'
       description: Period of time during which the status is valid.
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
     partytypevalues:
       enum:
         - Person
@@ -1216,7 +1138,155 @@ components:
           $ref: '#/components/schemas/datetimeperiod'
         StatusInvolvedParty:
           $ref: '#/components/schemas/involvedparty'
-      description: The status of Payment Rail Operating Session
+      description: ''
+    sessiontype:
+      type: object
+      properties:
+        SessionTypeName:
+          $ref: '#/components/schemas/name'
+        SessionType:
+          type: string
+          description: ''
+          format: sessiontypevalues
+      description: 'Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.'
+    session:
+      type: object
+      properties:
+        SessionDuration:
+          $ref: '#/components/schemas/duration'
+        SessionDateTime:
+          $ref: '#/components/schemas/datetime'
+        SessionStatus:
+          $ref: '#/components/schemas/status'
+        SessionType:
+          $ref: '#/components/schemas/sessiontype'
+        SessionScheduel:
+          $ref: '#/components/schemas/schedule'
+      description: Reference to Inbound Transaction Function
+    function:
+      type: object
+      properties:
+        Function:
+          type: string
+          description: "A kind of action.\n\nFunctions as Behaviour Qualifier: The collection of operational services/functions offered by the operational facility."
+          format: class
+      description: Reference to Inbound Transaction Function
+    InboundTransactionFunction:
+      type: object
+      properties:
+        Preconditions:
+          $ref: '#/components/schemas/condition'
+        Schedule:
+          $ref: '#/components/schemas/schedule'
+        BusinessService:
+          $ref: '#/components/schemas/businessservice'
+        PaymentRailOperatingSessionReference:
+          $ref: '#/components/schemas/session'
+        InboundTransactionFunctionReference:
+          $ref: '#/components/schemas/function'
+        InboundTransactionFunctionType:
+          $ref: '#/components/schemas/text'
+      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
+    PaymentClearingandSettlementFunction:
+      type: object
+      properties:
+        Preconditions:
+          $ref: '#/components/schemas/condition'
+        Schedule:
+          $ref: '#/components/schemas/schedule'
+        BusinessService:
+          $ref: '#/components/schemas/businessservice'
+        PaymentRailOperatingSessionReference:
+          $ref: '#/components/schemas/session'
+        PaymentClearingandSettlementFunctionReference:
+          $ref: '#/components/schemas/function'
+        PaymentClearingandSettlementFunctionType:
+          $ref: '#/components/schemas/text'
+      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
+    PaymentAccountReconciliationFunction:
+      type: object
+      properties:
+        Preconditions:
+          $ref: '#/components/schemas/condition'
+        Schedule:
+          $ref: '#/components/schemas/schedule'
+        BusinessService:
+          $ref: '#/components/schemas/businessservice'
+        PaymentRailOperatingSessionReference:
+          $ref: '#/components/schemas/session'
+        PaymentAccountReconciliationFunctionReference:
+          $ref: '#/components/schemas/function'
+        PaymentAccountReconciliationFunctionType:
+          $ref: '#/components/schemas/text'
+      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
+    OutboundTransactionFunction:
+      type: object
+      properties:
+        Preconditions:
+          $ref: '#/components/schemas/condition'
+        Schedule:
+          $ref: '#/components/schemas/schedule'
+        BusinessService:
+          $ref: '#/components/schemas/businessservice'
+        PaymentRailOperatingSessionReference:
+          $ref: '#/components/schemas/session'
+        OutboundTransactionFunctionReference:
+          $ref: '#/components/schemas/function'
+        OutboundTransactionFunctionType:
+          $ref: '#/components/schemas/text'
+      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
+    event:
+      type: object
+      properties:
+        EventType:
+          type: string
+          description: ''
+          format: string
+        EventDateTime:
+          type: string
+          description: ''
+          format: string
+        EventDescription:
+          type: string
+          description: ''
+          format: string
+        EventSource:
+          type: string
+          description: ''
+          format: string
+        EventLocation:
+          type: string
+          description: ''
+          format: string
+        EventAction:
+          type: string
+          description: ''
+          format: string
+        EventStatus:
+          type: string
+          description: ''
+          format: string
+        EventValue:
+          type: string
+          description: ''
+          format: string
+        EventValidityPeriod:
+          type: string
+          description: ''
+          format: string
+        EventIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    PaymentRailOperationsOutcome:
+      type: object
+      properties:
+        PaymentRailOperationsIncident:
+          $ref: '#/components/schemas/event'
+        PaymentRailOperationsProvision:
+          $ref: '#/components/schemas/text'
+      description: An operational service or function supported within the Inbound Transaction Function for doing Inbound Transaction Function
     log:
       type: object
       properties:
@@ -1237,16 +1307,6 @@ components:
           description: ''
           format: string
       description: Reference to the log of (usage) ativities/events  of Payment Rail Operating Session
-    sessiontype:
-      type: object
-      properties:
-        SessionTypeName:
-          $ref: '#/components/schemas/name'
-        SessionType:
-          type: string
-          description: ''
-          format: sessiontypevalues
-      description: A Classification value that distinguishes between the type of operations within Payment Rail Operating Session
     servicetype:
       type: object
       properties:

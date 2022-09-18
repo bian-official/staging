@@ -527,10 +527,10 @@ components:
     schedule:
       type: object
       properties:
-        Schedule:
+        ScheduleType:
           type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          description: ''
+          format: string
       description: The schedule and timing for which the property value is valid
     text:
       type: object
@@ -540,78 +540,46 @@ components:
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
       description: The version reference for the property value
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
     businessservice:
       type: object
       properties:
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The In-force Product property specific  Business Service
-    directoryentry:
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
+    date:
       type: object
       properties:
-        DirectoryEntry:
+        DateContent:
           type: string
-          description: "An entry in a directory. \n\nA registry of items recording key reference information and properties relating to each. (BIAN SL)"
-          format: class
-      description: Reference to In-force Product property
-    In-forceProductproperty:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        VersionNumber:
-          $ref: '#/components/schemas/text'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        CustomerProductsAndServicesDirectoryEntryReference:
-          $ref: '#/components/schemas/directoryentry'
-        In-forceProductpropertyReference:
-          type: string
-          description: Reference to In-force Product property
-          format: object
-        In-forceProductpropertyType:
-          $ref: '#/components/schemas/text'
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
-    In-forceServiceproperty:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        VersionNumber:
-          $ref: '#/components/schemas/text'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        CustomerProductsAndServicesDirectoryEntryReference:
-          $ref: '#/components/schemas/directoryentry'
-        In-forceServicepropertyReference:
-          type: string
-          description: Reference to In-force Service property
-          format: object
-        In-forceServicepropertyType:
-          $ref: '#/components/schemas/text'
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
-    workproduct:
-      type: object
-      properties:
-        Workproduct:
-          type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: string
       description: ''
-    CustomerProductsandServicesOutcome:
-      type: object
-      properties:
-        CustomerProductsandServicesEntry:
-          $ref: '#/components/schemas/directoryentry'
-        CustomerProductsandServicesWorkProduct:
-          $ref: '#/components/schemas/workproduct'
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
     datetime:
       type: object
       properties:
@@ -636,14 +604,6 @@ components:
         ToDateTime:
           $ref: '#/components/schemas/datetime'
       description: Period of time during which the status is valid.
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
     partytypevalues:
       enum:
         - Person
@@ -734,7 +694,77 @@ components:
           $ref: '#/components/schemas/datetimeperiod'
         StatusInvolvedParty:
           $ref: '#/components/schemas/involvedparty'
-      description: The status of Customer Products And Services Directory Entry
+      description: ''
+    directoryentry:
+      type: object
+      properties:
+        DirectoryEntryDateType:
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
+        DirectoryEntryDate:
+          $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to In-force Product property
+    In-forceProductproperty:
+      type: object
+      properties:
+        Preconditions:
+          $ref: '#/components/schemas/condition'
+        Schedule:
+          $ref: '#/components/schemas/schedule'
+        VersionNumber:
+          $ref: '#/components/schemas/text'
+        BusinessService:
+          $ref: '#/components/schemas/businessservice'
+        CustomerProductsAndServicesDirectoryEntryReference:
+          $ref: '#/components/schemas/directoryentry'
+        In-forceProductpropertyReference:
+          type: string
+          description: Reference to In-force Product property
+          format: object
+        In-forceProductpropertyType:
+          $ref: '#/components/schemas/text'
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    In-forceServiceproperty:
+      type: object
+      properties:
+        Preconditions:
+          $ref: '#/components/schemas/condition'
+        Schedule:
+          $ref: '#/components/schemas/schedule'
+        VersionNumber:
+          $ref: '#/components/schemas/text'
+        BusinessService:
+          $ref: '#/components/schemas/businessservice'
+        CustomerProductsAndServicesDirectoryEntryReference:
+          $ref: '#/components/schemas/directoryentry'
+        In-forceServicepropertyReference:
+          type: string
+          description: Reference to In-force Service property
+          format: object
+        In-forceServicepropertyType:
+          $ref: '#/components/schemas/text'
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    workproduct:
+      type: object
+      properties:
+        WorkProductType:
+          type: string
+          description: ''
+          format: workproducttypevalues
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    CustomerProductsandServicesOutcome:
+      type: object
+      properties:
+        CustomerProductsandServicesEntry:
+          $ref: '#/components/schemas/directoryentry'
+        CustomerProductsandServicesWorkProduct:
+          $ref: '#/components/schemas/workproduct'
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
     log:
       type: object
       properties:
@@ -775,10 +805,12 @@ components:
     productlifecyclestatus:
       type: object
       properties:
-        Productlifecyclestatus:
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        ProductLifecycleStatusType:
           type: string
-          description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
-          format: datatype
+          description: ''
+          format: productlifecyclestatustypevalues
       description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object

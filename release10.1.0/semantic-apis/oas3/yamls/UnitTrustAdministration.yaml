@@ -1182,46 +1182,78 @@ components:
           description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
           format: class
       description: The required status/situation before the routine can be undertaken
-    involvedparty:
+    name:
       type: object
       properties:
-        Involvedparty:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
           type: string
           description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
           format: datatype
-      description: The operating unit/employee responsible for performing the routine
-    schedule:
+      description: ''
+    identifier:
       type: object
       properties:
-        Schedule:
-          type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
-      description: The timing and key actions/milestones involved in completing the routine
-    businessservice:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
       type: object
       properties:
-        BusinessService:
+        PartyIdentificationType:
           type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
-      description: The Fund Enrolment Routine specific Business Service
-    plan:
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
       type: object
       properties:
-        Plan:
-          type: string
-          description: "A method for doing or achieving something, usually involving a series of actions or stages, or something you have arranged to do. (Cambridge Dictionary)\n\nA plan is a set of intended actions, through which one intends to achieve a goal.\n\n\"Course of action\" is a synonym for Plan. "
-          format: class
-      description: Reference to Fund Enrolment Routine
-    plannedaction:
-      type: object
-      properties:
-        PlannedAction:
-          type: string
-          description: 'An action that is arranged in a plan for doing or achieving something '
-          format: class
-      description: Reference to Fund Enrolment Routine
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
     text:
       type: object
       properties:
@@ -1229,7 +1261,170 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The type of Fund Enrolment Routine
+      description: ''
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: The operating unit/employee responsible for performing the routine
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: string
+      description: The timing and key actions/milestones involved in completing the routine
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Fund Enrolment Routine specific Business Service
+    goal:
+      type: object
+      properties:
+        GoalType:
+          type: string
+          description: The type of goal
+          format: string
+        GoalDefinition:
+          type: string
+          description: 'A definition of the goal, including the intended actions required to achieve the goal'
+          format: string
+        GoalOrganisation:
+          type: string
+          description: Identifies the interested parties and their roles and responsibilities for the specific actions supporting the achievement of the goal
+          format: ''
+        GoalResult:
+          type: string
+          description: 'Assessment of how the work is progressing towards achieving the goal, including projections of likely outcomes'
+          format: string
+      description: ''
+    budgettype:
+      type: object
+      properties:
+        BudgetTypeName:
+          $ref: '#/components/schemas/name'
+        BudgetType:
+          type: string
+          description: ''
+          format: budgettypevalues
+      description: A Classification value that specifies the type of Budget
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: ''
+    budgetarrangement:
+      type: object
+      properties:
+        BudgetType:
+          $ref: '#/components/schemas/budgettype'
+        BudgetAmount:
+          $ref: '#/components/schemas/amount'
+      description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
+    plannedaction:
+      type: object
+      properties:
+        PlannedAction:
+          type: string
+          description: 'An action that is arranged in a plan for doing or achieving something '
+          format: class
+      description: 'An action that is arranged in a plan for doing or achieving something '
+    plantype:
+      type: object
+      properties:
+        PlanTypeName:
+          $ref: '#/components/schemas/name'
+        PlanType:
+          type: string
+          description: ''
+          format: plantypevalues
+      description: A Classification value that specifies the type of Plan
+    plan:
+      type: object
+      properties:
+        PlanGoal:
+          $ref: '#/components/schemas/goal'
+        PlanBudget:
+          $ref: '#/components/schemas/budgetarrangement'
+        PlannedAction:
+          $ref: '#/components/schemas/plannedaction'
+        PlanType:
+          $ref: '#/components/schemas/plantype'
+        PlanOrganisation:
+          type: string
+          description: ''
+          format: string
+        PlanValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PlanDescription:
+          $ref: '#/components/schemas/text'
+      description: Reference to Fund Enrolment Routine
     FundEnrolmentRoutine:
       type: object
       properties:
@@ -1378,62 +1573,6 @@ components:
         UnitTrustAdministrationAdministrationTask:
           $ref: '#/components/schemas/arrangement'
       description: The Fund Enrolment Routine is an activity that is performed as one aspect of carrying out the Fund Enrolment Routine
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    budgettype:
-      type: object
-      properties:
-        BudgetTypeName:
-          $ref: '#/components/schemas/name'
-        BudgetType:
-          type: string
-          description: ''
-          format: budgettypevalues
-      description: A Classification value that distinguishes between Budgets within Unit Trust Administrative Plan according to the type of resource and/or activity that is budgetted
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: ''
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: string
-        AmountCurrency:
-          $ref: '#/components/schemas/currencycode'
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: string
-      description: Amount of budget which is arranged whitin Unit Trust Administrative Plan
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
     accountbalance:
       type: object
       properties:
@@ -1446,16 +1585,6 @@ components:
         AccounBalanceDate:
           $ref: '#/components/schemas/datetime'
       description: Balance of budget which is arranged whitin Unit Trust Administrative Plan
-    plantype:
-      type: object
-      properties:
-        PlanTypeName:
-          $ref: '#/components/schemas/name'
-        PlanType:
-          type: string
-          description: ''
-          format: plantypevalues
-      description: The type of Unit Trust Administrative Plan
     UnitTrustAdministrativePlan:
       type: object
       properties:

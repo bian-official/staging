@@ -848,18 +848,28 @@ components:
     datetime:
       type: object
       properties:
-        Datetime:
+        DateTimeContent:
           type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
-          format: datatype
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
       description: ''
     partyidentification:
       type: object
       properties:
-        Partyidentification:
+        PartyIdentificationType:
           type: string
           description: ''
-          format: datatype
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
       description: ''
     party:
       type: object
@@ -873,13 +883,36 @@ components:
         PartyIdentification:
           $ref: '#/components/schemas/partyidentification'
       description: ''
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
     partyrole:
       type: object
       properties:
-        PartyRole:
-          type: string
-          description: 'A specific role of a specific Party in the specific relationship.  '
-          format: class
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
       description: ''
     involvedparty:
       type: object
@@ -923,13 +956,27 @@ components:
         - ProductionTransaction
       type: string
       description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n* `ProductionTransaction` - \n"
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
     transactionlifecyclestatus:
       type: object
       properties:
-        Transactionlifecyclestatus:
+        TransactionLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        TransactionLifecycleStatusType:
           type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
+          description: ''
+          format: transactionlifecyclestatustypevalues
       description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
@@ -1010,34 +1057,77 @@ components:
     feetransaction:
       type: object
       properties:
-        FeeTransaction:
+        FeeType:
           type: string
-          description: "A financial transaction that is the result of fulfillment of a fee arrangement\n\nExample:\n- the calculation of fee\n- the charge of fee as a debt\n- the payment of fee\n\n"
-          format: class
-      description: ''
-    interesttransaction:
-      type: object
-      properties:
-        InterestTransaction:
+          description: Type of the applied Fee
+          format: string
+        AccruedFeeAmount:
           type: string
-          description: A transaction which is the result of fulfilment of an interest arrangement
-          format: class
+          description: 'Total fee charged '
+          format: string
+        FeeAmount:
+          type: string
+          description: "Amount of money paid for the charge\nAmount of money asked or paid for the charge (ISO20022)\n"
+          format: string
       description: ''
+    interesttransactiontypevalues:
+      enum:
+        - InterestAllocationTransaction
+        - InterestPaymentTransaction
+        - InterestAdjustmentTransaction
+      type: string
+      description: ">\n* `InterestAllocationTransaction` - \n* `InterestPaymentTransaction` - \n* `InterestAdjustmentTransaction` - \n"
     rate:
       type: object
       properties:
-        Rate:
+        RateValue:
           type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
+    interesttransaction:
+      type: object
+      properties:
+        InterestTransactionAmount:
+          type: string
+          description: Amount of applied interest
+          format: string
+        InterestTransactionDescription:
+          type: string
+          description: Description of InterestTransaction
+          format: string
+        InterestTransactionType:
+          $ref: '#/components/schemas/interesttransactiontypevalues'
+        InterestRate:
+          $ref: '#/components/schemas/rate'
+        InteretType:
+          type: string
+          description: "Type of an applied Interest\n\nSpecifies the type of interest associated with a trade. (ISO20022)"
+          format: string
       description: ''
     workproduct:
       type: object
       properties:
-        Workproduct:
+        WorkProductType:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: workproducttypevalues
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
       description: ''
     StockLendingandReposOutcome:
       type: object

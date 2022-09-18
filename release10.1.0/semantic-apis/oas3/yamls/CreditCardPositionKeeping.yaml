@@ -289,35 +289,27 @@ components:
     schedule:
       type: object
       properties:
-        Schedule:
+        ScheduleType:
           type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          description: ''
+          format: string
       description: The timing and key actions/milestones involved in capturing the event
-    businessservice:
+    name:
       type: object
       properties:
-        BusinessService:
+        Name:
           type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
-      description: The Card Transaction Event specific Business Service
-    log:
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
       type: object
       properties:
-        Log:
+        Businessservicetypevalues:
           type: string
-          description: "A record of events/entries.\n"
-          format: class
-      description: Reference to Card Transaction Event
-    event:
-      type: object
-      properties:
-        Event:
-          type: string
-          description: 'Something that happens, has happened, can happen or is planned to happen.'
-          format: class
-      description: Reference to Card Transaction Event
+          description: ''
+          format: enumeration
+      description: ''
     text:
       type: object
       properties:
@@ -325,7 +317,81 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The type of Card Transaction Event
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Card Transaction Event specific Business Service
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Card Transaction Event
+    event:
+      type: object
+      properties:
+        EventType:
+          type: string
+          description: ''
+          format: string
+        EventDateTime:
+          type: string
+          description: ''
+          format: string
+        EventDescription:
+          type: string
+          description: ''
+          format: string
+        EventSource:
+          type: string
+          description: ''
+          format: string
+        EventLocation:
+          type: string
+          description: ''
+          format: string
+        EventAction:
+          type: string
+          description: ''
+          format: string
+        EventStatus:
+          type: string
+          description: ''
+          format: string
+        EventValue:
+          type: string
+          description: ''
+          format: string
+        EventValidityPeriod:
+          type: string
+          description: ''
+          format: string
+        EventIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to Card Transaction Event
     CardTransactionEvent:
       type: object
       properties:
@@ -352,14 +418,6 @@ components:
         CreditCardPositionKeepingLog:
           $ref: '#/components/schemas/log'
       description: The Card Transaction Event is one of the specific types of events that is recorded in the Card Transaction Event
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
     servicetype:
       type: object
       properties:
@@ -523,13 +581,109 @@ components:
           description: 'A classification of the position. '
           format: class
       description: A classification value expressing the kind of position withing the Credit Card Position Log
+    limittype:
+      type: object
+      properties:
+        LimitTypeName:
+          $ref: '#/components/schemas/name'
+        LimitType:
+          type: string
+          description: ''
+          format: limittypevalues
+      description: Nature of the limit.
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: Currency unit used to specify the limit amount. (ISO20022)
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: 'Amount of money of the limit, expressed in a currency. (ISO20022)'
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
+    limitstatus:
+      type: object
+      properties:
+        LimitStatus:
+          $ref: '#/components/schemas/status'
+        LimitStatusType:
+          type: string
+          description: ''
+          format: limitstatustypevalues
+      description: Current status of the limit.
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: Specifies that the limit is a percentage of a related amount. (ISO20022)
+    frequency:
+      type: object
+      properties:
+        FrequencyCode:
+          type: string
+          description: ''
+          format: frequencycodevalues
+        FrequencyName:
+          $ref: '#/components/schemas/name'
+        FrequencyDefinition:
+          $ref: '#/components/schemas/text'
+      description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
     limitarrangement:
       type: object
       properties:
-        LimitArrangement:
-          type: string
-          description: "An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. "
-          format: class
+        LimitType:
+          $ref: '#/components/schemas/limittype'
+        LimitCurrency:
+          $ref: '#/components/schemas/currencycode'
+        LimitValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        LimitAmount:
+          $ref: '#/components/schemas/amount'
+        LimitStatus:
+          $ref: '#/components/schemas/limitstatus'
+        LimitRate:
+          $ref: '#/components/schemas/rate'
+        LimitFrequency:
+          $ref: '#/components/schemas/frequency'
       description: Reference to the time limitation related to the position of Credit Card Position Log
     CreditCardPositionLog:
       type: object

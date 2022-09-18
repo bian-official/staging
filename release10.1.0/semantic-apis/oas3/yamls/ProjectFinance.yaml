@@ -977,18 +977,44 @@ components:
     schedule:
       type: object
       properties:
-        Schedule:
+        ScheduleType:
           type: string
-          description: "Defined sequence of planned tasks/actions or a timetable of available services\n\nA schedule is a time based series of something"
-          format: datatype
+          description: ''
+          format: string
       description: The timing and key actions/milestones involved in completing the fulfillment feature instance
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The Project Finance Repayment Fulfillment specific Business Service
     financialfacility:
       type: object
@@ -998,22 +1024,6 @@ components:
           description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
           format: class
       description: Reference to Project Finance Repayment Fulfillment
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Project Finance Repayment Fulfillment
-    amount:
-      type: object
-      properties:
-        Amount:
-          type: string
-          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
-          format: datatype
-      description: The amount of the repayment
     currencycode:
       type: object
       properties:
@@ -1021,14 +1031,28 @@ components:
           type: string
           description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
           format: datatype
-      description: The currency used for the repayment
+      description: ''
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: The amount of the repayment
     date:
       type: object
       properties:
-        Date:
+        DateContent:
           type: string
-          description: "A date is a Gregorian calendar representation in various common resolutions: year, month, week, day. (UN/CEFACT)\n\nA particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. This representation is defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)"
-          format: datatype
+          description: ''
+          format: string
       description: The value date for the repayment transaction
     ProjectFinanceRepaymentFulfillment:
       type: object
@@ -1139,10 +1163,14 @@ components:
     workproduct:
       type: object
       properties:
-        Workproduct:
+        WorkProductType:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: workproducttypevalues
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
       description: ''
     ProjectFinanceOutcome:
       type: object
@@ -1184,14 +1212,6 @@ components:
         ToDateTime:
           $ref: '#/components/schemas/datetime'
       description: Period of time during which the status is valid.
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
     partytypevalues:
       enum:
         - Person
@@ -1368,26 +1388,34 @@ components:
     accounttype:
       type: object
       properties:
-        Accounttype:
+        AccountType:
           type: string
-          description: 'A classification of accounts based on their purpose '
-          format: datatype
+          description: ''
+          format: accounttypevalues
+        AccountTypeName:
+          $ref: '#/components/schemas/name'
       description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
     accountbalance:
       type: object
       properties:
-        Accountbalance:
+        AccountBalance:
+          $ref: '#/components/schemas/amount'
+        AccountBalanceType:
           type: string
-          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
-          format: datatype
+          description: ''
+          format: accountbalancetypevalues
+        AccounBalanceDate:
+          $ref: '#/components/schemas/datetime'
       description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
     accountcurrency:
       type: object
       properties:
-        Accountcurrency:
+        AccountCurrencyType:
           type: string
           description: ''
-          format: datatype
+          format: accountcurrencytypevalues
+        AccountCurrency:
+          $ref: '#/components/schemas/currencycode'
       description: ''
     account:
       type: object
@@ -1412,26 +1440,135 @@ components:
     position:
       type: object
       properties:
-        Position:
+        PositionValue:
           type: string
-          description: "The counted state (e.g., the amount of money, the value, the number) of something \n- It is the sum of entries\n- It is the derived attribute\n- It is an information object"
-          format: class
+          description: ''
+          format: string
+        PositionQuantity:
+          type: string
+          description: ''
+          format: string
+        PositionDate:
+          type: string
+          description: The date on which the state of something is calculated
+          format: string
+        PositionAmount:
+          type: string
+          description: ''
+          format: string
       description: The position of Project Finance Facility
+    productidentification:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/identifier'
+        ProductIdentificationType:
+          type: string
+          description: ''
+          format: productidentificationtypevalues
+      description: The identifier of product e.g. ISIN Code.
+    bankingproducttypevalues:
+      enum:
+        - LoanProduct
+        - CurrentAccountProduct
+        - SavingAccountProduct
+      type: string
+      description: ">\n* `LoanProduct` - \n* `CurrentAccountProduct` - \n* `SavingAccountProduct` - \n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        ProductLifecycleStatusType:
+          type: string
+          description: ''
+          format: productlifecyclestatustypevalues
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
     bankingproduct:
       type: object
       properties:
-        BankingProduct:
-          type: string
-          description: 'A package of services and/or goods, accompanied by term and condition which is offered as a whole to (internal or external) customers.'
-          format: class
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/bankingproducttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
       description: Reference to the product which is linked to Project Finance Facility
+    limittype:
+      type: object
+      properties:
+        LimitTypeName:
+          $ref: '#/components/schemas/name'
+        LimitType:
+          type: string
+          description: ''
+          format: limittypevalues
+      description: Nature of the limit.
+    limitstatus:
+      type: object
+      properties:
+        LimitStatus:
+          $ref: '#/components/schemas/status'
+        LimitStatusType:
+          type: string
+          description: ''
+          format: limitstatustypevalues
+      description: Current status of the limit.
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: Specifies that the limit is a percentage of a related amount. (ISO20022)
+    frequency:
+      type: object
+      properties:
+        FrequencyCode:
+          type: string
+          description: ''
+          format: frequencycodevalues
+        FrequencyName:
+          $ref: '#/components/schemas/name'
+        FrequencyDefinition:
+          $ref: '#/components/schemas/text'
+      description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
     limitarrangement:
       type: object
       properties:
-        LimitArrangement:
-          type: string
-          description: "An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. "
-          format: class
+        LimitType:
+          $ref: '#/components/schemas/limittype'
+        LimitCurrency:
+          $ref: '#/components/schemas/currencycode'
+        LimitValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        LimitAmount:
+          $ref: '#/components/schemas/amount'
+        LimitStatus:
+          $ref: '#/components/schemas/limitstatus'
+        LimitRate:
+          $ref: '#/components/schemas/rate'
+        LimitFrequency:
+          $ref: '#/components/schemas/frequency'
       description: Reference to the limitation related to the position of Project Finance Facility
     ProjectFinanceFacility:
       type: object

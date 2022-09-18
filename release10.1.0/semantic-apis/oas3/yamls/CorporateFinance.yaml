@@ -1009,18 +1009,48 @@ components:
     datetime:
       type: object
       properties:
-        Datetime:
+        DateTimeContent:
           type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
           format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
       description: ''
     partyidentification:
       type: object
       properties:
-        Partyidentification:
+        PartyIdentificationType:
           type: string
           description: ''
-          format: datatype
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
       description: ''
     party:
       type: object
@@ -1037,10 +1067,10 @@ components:
     datetimeperiod:
       type: object
       properties:
-        Datetimeperiod:
-          type: string
-          description: 'Time span defined by a start date and time, and an end date and time. (ISO20022)'
-          format: datatype
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
       description: ''
     partyinvolvementtypevalues:
       enum:
@@ -1188,26 +1218,139 @@ components:
     project:
       type: object
       properties:
-        Project:
+        ProjectName:
           type: string
-          description: 'details of a project with defined deliverables, finite duration, budget and allocated resources'
-          format: class
+          description: The name of project
+          format: string
+        ProjectType:
+          type: string
+          description: A classification of the project
+          format: string
+        ProjectDescription:
+          type: string
+          description: 'A description of the scope, goal and make-up of the project'
+          format: string
+        ProjectOrganisation:
+          type: string
+          description: ''
+          format: string
+        ProjectSchedule:
+          type: string
+          description: ''
+          format: string
+        ProjectDateTime:
+          type: string
+          description: ''
+          format: string
       description: ''
     workproduct:
       type: object
       properties:
-        Workproduct:
+        WorkProductType:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: workproducttypevalues
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    analysistypevalues:
+      enum:
+        - PerformanceAnalysis
+        - ActivityAnalysis
+      type: string
+      description: ">\n* `PerformanceAnalysis` - \n* `ActivityAnalysis` - \n"
+    documenttypevalues:
+      enum:
+        - Meteredserviceinvoice
+        - Creditnoterelatedtofinancialadjustment
+        - Debitnoterelatedtofinancialadjustment
+        - Commercialinvoice
+        - Creditnote
+        - Debitnote
+        - Hireinvoice
+        - Selfbilledinvoice
+        - Remittanceadvicemessage
+        - Relatedpaymentinstruction
+        - Commercialcontract
+        - Foreignexchangedealreference
+        - Statementofaccount
+        - Dispatchadvice
+        - Purchaseorder
+        - Structuredcommunicationreference
+        - Billoflading
+        - Voucher
+        - Accountreceivableopenitem
+        - Tradeservicesutilitytransaction
+        - Cashierreceipt
+        - Customerreceipt
+        - Journal
+        - Salereceipt
+      type: string
+      description: ">\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\n* `Commercialinvoice` - Document is an invoice.\n* `Creditnote` - Document is a credit note.\n* `Debitnote` - Document is a debit note.\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\n* `Dispatchadvice` - Document is a dispatch advice.\n* `Purchaseorder` - Document is a purchase order.\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\n* `Billoflading` - Document is a shipping notice.\n* `Voucher` - Document is an electronic payment document.\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\n"
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
+    documentdatetimetypevalues:
+      enum:
+        - Creationdate
+        - Capturingdate
+        - Versiondate
+        - Valuedate
+        - Issuedate
+      type: string
+      description: ">\n* `Creationdate` - \n* `Capturingdate` - \n* `Versiondate` - \n* `Valuedate` - \n* `Issuedate` - \n"
+    document:
+      type: object
+      properties:
+        DocumentIdentifer:
+          $ref: '#/components/schemas/identifier'
+        DocumentVersion:
+          $ref: '#/components/schemas/text'
+        DocumentType:
+          $ref: '#/components/schemas/documenttypevalues'
+        DocumentStatus:
+          $ref: '#/components/schemas/status'
+        DocumentDateTime:
+          $ref: '#/components/schemas/datetime'
+        DocumentName:
+          $ref: '#/components/schemas/name'
+        DocumentDateTimeType:
+          $ref: '#/components/schemas/documentdatetimetypevalues'
+        DocumentPurpose:
+          $ref: '#/components/schemas/text'
+        DocumentFormat:
+          $ref: '#/components/schemas/text'
+        DocumentSubject:
+          $ref: '#/components/schemas/text'
+        DocumentDescription:
+          $ref: '#/components/schemas/text'
       description: ''
     analysis:
       type: object
       properties:
-        Analysis:
-          type: string
-          description: "Def.1 The insights derived from an analysis applied to an entity using specific models/evaluation methods\n\nDef.2 A detailed examination of anything complex"
-          format: class
+        AnalysisType:
+          $ref: '#/components/schemas/analysistypevalues'
+        AnalysisResult:
+          $ref: '#/components/schemas/text'
+        AnalysisPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AnalysisDocument:
+          $ref: '#/components/schemas/document'
+        AnalysisDateTime:
+          $ref: '#/components/schemas/datetime'
+        AnalysisSpecification:
+          $ref: '#/components/schemas/text'
       description: ''
     CorporateFinanceOutcome:
       type: object
@@ -1253,18 +1396,6 @@ components:
           description: ''
           format: instructiondatetypevalues
       description: ''
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: ''
     instructionlifecyclestatus:
       type: object
       properties:
@@ -1275,26 +1406,6 @@ components:
         InstructionLifecycleStatus:
           $ref: '#/components/schemas/status'
       description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
     instructionidentification:
       type: object
       properties:
