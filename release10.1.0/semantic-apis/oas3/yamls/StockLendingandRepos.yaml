@@ -781,102 +781,264 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation prior to the execution of the task
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: string
+      description: The timing and key actions/milestones involved in completing the transaction task
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Repo Transaction Cash Transfer Task specific Business Service
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    datetime:
+      type: object
+      properties:
+        Datetime:
+          type: string
+          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          format: datatype
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        Partyidentification:
+          type: string
+          description: ''
+          format: datatype
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyrole:
+      type: object
+      properties:
+        PartyRole:
+          type: string
+          description: 'A specific role of a specific Party in the specific relationship.  '
+          format: class
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: An identifier that allows to uniquely refer to an instance of a transaction.
+    transactiondate:
+      type: object
+      properties:
+        TransactionDate:
+          $ref: '#/components/schemas/datetime'
+        TransactionDateType:
+          type: string
+          description: ''
+          format: transactiondatetypevalues
+      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
+    transactiontypevalues:
+      enum:
+        - FinancialTransaction
+        - BusinessTransaction
+        - BankingTransaction
+        - AccountingTransaction
+        - BookingTransaction
+        - AllocationTransaction
+        - DeliveryTransaction
+        - ProductionTransaction
+      type: string
+      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n* `ProductionTransaction` - \n"
+    transactionlifecyclestatus:
+      type: object
+      properties:
+        Transactionlifecyclestatus:
+          type: string
+          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+          format: datatype
+      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
+    transaction:
+      type: object
+      properties:
+        TransactionIdentification:
+          $ref: '#/components/schemas/identifier'
+        TransactionDate:
+          $ref: '#/components/schemas/transactiondate'
+        TransactionType:
+          $ref: '#/components/schemas/transactiontypevalues'
+        TransactionDescription:
+          $ref: '#/components/schemas/text'
+        TransactionStatus:
+          $ref: '#/components/schemas/transactionlifecyclestatus'
+        TransactionName:
+          $ref: '#/components/schemas/name'
+      description: Reference to Repo Transaction Cash Transfer Task
     RepoTransactionCashTransferTask:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the execution of the task
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the transaction task
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Repo Transaction Cash Transfer Task specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the task has been completed
-          format: condition
+          $ref: '#/components/schemas/condition'
         RepoTransactionReference:
-          type: string
-          description: Reference to Repo Transaction Cash Transfer Task
-          format: transaction
+          $ref: '#/components/schemas/transaction'
         RepoTransactionCashTransferTaskReference:
           type: string
           description: Reference to Repo Transaction Cash Transfer Task
           format: task
         RepoTransactionCashTransferTaskType:
-          type: string
-          description: The type of Repo Transaction Cash Transfer Task
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
     RepoTransactionInitiationTask:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the execution of the task
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the transaction task
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Repo Transaction Initiation Task specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the task has been completed
-          format: condition
+          $ref: '#/components/schemas/condition'
         RepoTransactionReference:
-          type: string
-          description: Reference to Repo Transaction Initiation Task
-          format: transaction
+          $ref: '#/components/schemas/transaction'
         RepoTransactionInitiationTaskReference:
           type: string
           description: Reference to Repo Transaction Initiation Task
           format: task
         RepoTransactionInitiationTaskType:
-          type: string
-          description: The type of Repo Transaction Initiation Task
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
     RepoTransactionSecurityTransferTask:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the execution of the task
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the transaction task
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Repo Transaction Security Transfer Task specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the task has been completed
-          format: condition
+          $ref: '#/components/schemas/condition'
         RepoTransactionReference:
-          type: string
-          description: Reference to Repo Transaction Security Transfer Task
-          format: transaction
+          $ref: '#/components/schemas/transaction'
         RepoTransactionSecurityTransferTaskReference:
           type: string
           description: Reference to Repo Transaction Security Transfer Task
           format: task
         RepoTransactionSecurityTransferTaskType:
-          type: string
-          description: The type of Repo Transaction Security Transfer Task
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
+    feetransaction:
+      type: object
+      properties:
+        FeeTransaction:
+          type: string
+          description: "A financial transaction that is the result of fulfillment of a fee arrangement\n\nExample:\n- the calculation of fee\n- the charge of fee as a debt\n- the payment of fee\n\n"
+          format: class
+      description: ''
+    interesttransaction:
+      type: object
+      properties:
+        InterestTransaction:
+          type: string
+          description: A transaction which is the result of fulfilment of an interest arrangement
+          format: class
+      description: ''
+    rate:
+      type: object
+      properties:
+        Rate:
+          type: string
+          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
+          format: datatype
+      description: ''
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
     StockLendingandReposOutcome:
       type: object
       properties:
@@ -885,69 +1047,61 @@ components:
           description: ''
           format: calendar
         StockLendingandReposCounterparty:
-          type: string
-          description: ''
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         StockLendingandReposDividend:
-          type: string
-          description: ''
-          format: text
+          $ref: '#/components/schemas/text'
         StockLendingandReposFees:
-          type: string
-          description: ''
-          format: feetransaction
+          $ref: '#/components/schemas/feetransaction'
         StockLendingandReposInterest:
-          type: string
-          description: ''
-          format: interesttransaction
+          $ref: '#/components/schemas/interesttransaction'
         StockLendingandReposMargining:
-          type: string
-          description: ''
-          format: text
+          $ref: '#/components/schemas/text'
         StockLendingandReposNotionalPrincipal:
-          type: string
-          description: ''
-          format: text
+          $ref: '#/components/schemas/text'
         StockLendingandReposOptions:
-          type: string
-          description: ''
-          format: text
+          $ref: '#/components/schemas/text'
         StockLendingandReposRates:
-          type: string
-          description: ''
-          format: rate
+          $ref: '#/components/schemas/rate'
         StockLendingandReposSettlement:
-          type: string
-          description: ''
-          format: text
+          $ref: '#/components/schemas/text'
         StockLendingandReposWorkProduct:
+          $ref: '#/components/schemas/workproduct'
+      description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
+    servicetype:
+      type: object
+      properties:
+        ServiceTypeName:
+          $ref: '#/components/schemas/name'
+        ServiceType:
           type: string
           description: ''
-          format: workproduct
-      description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
+          format: servicetypevalues
+      description: ''
+    service:
+      type: object
+      properties:
+        ServiceName:
+          $ref: '#/components/schemas/name'
+        ServiceDescription:
+          $ref: '#/components/schemas/text'
+        ServiceType:
+          $ref: '#/components/schemas/servicetype'
+      description: A selected optional business service as subject matter of Repo Transaction
     RepoTransaction:
       type: object
       properties:
         RepoTransactionParameterType:
-          type: string
-          description: A Classification value that distinguishes between business service transaction within Repo Transaction
-          format: text
+          $ref: '#/components/schemas/text'
         RepoTransactionSelectedOption:
-          type: string
-          description: A selected optional business service as subject matter of Repo Transaction
-          format: service
+          $ref: '#/components/schemas/service'
         RepoTransactionStatus:
-          type: string
-          description: The status of Repo Transaction
-          format: transactionlifecyclestatus
+          $ref: '#/components/schemas/transactionlifecyclestatus'
         RepoTransactionType:
           type: string
           description: A Classification value that specifies type of transaction for this  Repo Transaction
           format: actiontype
         RepoTransactionReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Repo Transaction
-          format: transaction
+          $ref: '#/components/schemas/transaction'
       description: 'Execute a well-bounded financial transaction/task, typically involving largely automated/structured fulfillment processing within Stock Lending and Repos. '
   responses:
     BadRequest:

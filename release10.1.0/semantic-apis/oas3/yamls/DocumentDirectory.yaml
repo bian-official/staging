@@ -1148,209 +1148,318 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation before the property is valid/meaningful
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: string
+      description: The schedule and timing for which the property value is valid
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The version reference for the property value
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Document Reference Properties specific  Business Service
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: Date and time at which the status was assigned.
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: Period of time during which the status is valid.
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    identifier:
+      type: object
+      properties:
+        Identifier:
+          type: string
+          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
+          format: datatype
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: Party who plays a  specific role in the context of assigning a status.
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
+    directoryentry:
+      type: object
+      properties:
+        DirectoryEntryDateType:
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
+        DirectoryEntryDate:
+          $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
+      description: Reference to Document Reference Properties
     DocumentReferenceProperties:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Document Reference Properties specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentDirectoryEntryReference:
-          type: string
-          description: Reference to Document Reference Properties
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentReferencePropertiesReference:
           type: string
           description: Reference to Document Reference Properties
           format: object
         DocumentReferencePropertiesType:
-          type: string
-          description: The type of Document Reference Properties
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
     DocumentVerificationProperties:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Document Verification Properties specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentDirectoryEntryReference:
-          type: string
-          description: Reference to Document Verification Properties
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentVerificationPropertiesReference:
           type: string
           description: Reference to Document Verification Properties
           format: object
         DocumentVerificationPropertiesType:
-          type: string
-          description: The type of Document Verification Properties
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
     DocumentVersionProperties:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Document Version Properties specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentDirectoryEntryReference:
-          type: string
-          description: Reference to Document Version Properties
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentVersionPropertiesReference:
           type: string
           description: Reference to Document Version Properties
           format: object
         DocumentVersionPropertiesType:
-          type: string
-          description: The type of Document Version Properties
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
     DocumentUpdateHistoryProperties:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Document Update History Properties specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentDirectoryEntryReference:
-          type: string
-          description: Reference to Document Update History Properties
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentUpdateHistoryPropertiesReference:
           type: string
           description: Reference to Document Update History Properties
           format: object
         DocumentUpdateHistoryPropertiesType:
-          type: string
-          description: The type of Document Update History Properties
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
     DocumentArchivingProperties:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Document Archiving Properties specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentDirectoryEntryReference:
-          type: string
-          description: Reference to Document Archiving Properties
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentArchivingPropertiesReference:
           type: string
           description: Reference to Document Archiving Properties
           format: object
         DocumentArchivingPropertiesType:
-          type: string
-          description: The type of Document Archiving Properties
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
     DocumentAmendmentProperties:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation before the property is valid/meaningful
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The schedule and timing for which the property value is valid
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         VersionNumber:
-          type: string
-          description: The version reference for the property value
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Document Amendment Properties specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentDirectoryEntryReference:
-          type: string
-          description: Reference to Document Amendment Properties
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentAmendmentPropertiesReference:
           type: string
           description: Reference to Document Amendment Properties
           format: object
         DocumentAmendmentPropertiesType:
-          type: string
-          description: The type of Document Amendment Properties
-          format: text
+          $ref: '#/components/schemas/text'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
+    workproduct:
+      type: object
+      properties:
+        Workproduct:
+          type: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
+      description: ''
     DocumentDirectoryOutcome:
       type: object
       properties:
         DocumentDirectoryEntry:
-          type: string
-          description: ''
-          format: directoryentry
+          $ref: '#/components/schemas/directoryentry'
         DocumentDirectoryWorkProduct:
-          type: string
-          description: ''
-          format: workproduct
+          $ref: '#/components/schemas/workproduct'
       description: The Document Reference Properties properties that represent a discrete aspect of the Document Reference Properties
     DocumentDirectoryEntry:
       type: object
@@ -1376,13 +1485,9 @@ components:
           description: Reference to the associated product or service activity (clarifies why the document was captured)
           format: object
         DocumentCreationDate:
-          type: string
-          description: The creation date of the original document
-          format: date
+          $ref: '#/components/schemas/date'
         DocumentCaptureDateTime:
-          type: string
-          description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-          format: date
+          $ref: '#/components/schemas/date'
         DocumentTypeDescription:
           type: string
           description: General description of the type and outline content of the document
@@ -1416,9 +1521,7 @@ components:
           description: The version with overview as needed
           format: string
         DocumentVersionDate:
-          type: string
-          description: The valid from-to dates for the version
-          format: date
+          $ref: '#/components/schemas/date'
         DocumentVerificationHistory:
           type: string
           description: Tracks any verification tasks performed against the document
@@ -1511,9 +1614,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -1571,13 +1672,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -1626,9 +1723,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -1702,13 +1797,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -1761,13 +1852,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -1797,9 +1884,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -1896,13 +1981,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -1932,9 +2013,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2031,13 +2110,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2067,9 +2142,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2166,13 +2239,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2202,9 +2271,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2301,13 +2368,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2337,9 +2400,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2436,13 +2497,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2472,9 +2529,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2571,13 +2626,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2607,9 +2658,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2706,13 +2755,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2742,9 +2787,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2841,13 +2884,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -2877,9 +2916,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -2976,13 +3013,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -3012,9 +3045,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -3111,13 +3142,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -3147,9 +3174,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
@@ -3246,13 +3271,9 @@ components:
               description: Reference to the associated product or service activity (clarifies why the document was captured)
               format: object
             DocumentCreationDate:
-              type: string
-              description: The creation date of the original document
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentCaptureDateTime:
-              type: string
-              description: Date the document was first created/captured at the bank (can be the same as creation date for bank generated documents)
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentTypeDescription:
               type: string
               description: General description of the type and outline content of the document
@@ -3282,9 +3303,7 @@ components:
               description: Maintains links to earlier versions for a document with a replacement cycle
               format: string
             DocumentVersionDate:
-              type: string
-              description: The valid from-to dates for the version
-              format: date
+              $ref: '#/components/schemas/date'
             DocumentVerificationHistory:
               type: string
               description: Tracks any verification tasks performed against the document
