@@ -548,15 +548,23 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The Counterparty Permitted Transaction property specific  Business Service
     directoryentrydatetypevalues:
       enum:
@@ -564,15 +572,138 @@ components:
         - RefreshDate
       type: string
       description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: Date and time at which the status was assigned.
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: Period of time during which the status is valid.
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: Party who plays a  specific role in the context of assigning a status.
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
           $ref: '#/components/schemas/directoryentrydatetypevalues'
-        DirectoryEntry:
-          type: string
-          description: "An entry in a directory. \n\nA registry of items recording key reference information and properties relating to each. (BIAN SL)"
-          format: class
+        DirectoryEntryDate:
+          $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
+          $ref: '#/components/schemas/status'
       description: Reference to Counterparty Permitted Transaction property
     CounterpartyPermittedTransactionproperty:
       type: object
@@ -621,10 +752,10 @@ components:
           type: string
           description: ''
           format: workproducttypevalues
-        Workproduct:
+        WorkProductIdentifoication:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: string
       description: ''
     CounterpartyAdministrationOutcome:
       type: object
@@ -634,16 +765,6 @@ components:
         CounterpartyAdministrationWorkProduct:
           $ref: '#/components/schemas/workproduct'
       description: The Counterparty Permitted Transaction property properties that represent a discrete aspect of the Counterparty Permitted Transaction property
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Counterparty Directory Entry
     log:
       type: object
       properties:
@@ -651,48 +772,61 @@ components:
           type: string
           description: ''
           format: string
-        Log:
-          type: string
-          description: "A record of events/entries.\n"
-          format: class
-      description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        Party:
-          type: string
-          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
-          format: class
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        Involvedparty:
-          type: string
-          description: ''
-          format: datatype
-      description: ''
-    date:
-      type: object
-      properties:
-        DateContent:
+        LogPeriod:
           type: string
           description: ''
           format: string
-      description: Date on which the agreement was signed by all parties. (ISO20022)
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the log of (usage) ativities/events  of Counterparty Directory Entry
+    agreementtypevalues:
+      enum:
+        - CustomerAgreement
+        - SupplierAgreement
+        - BrokerAgreement
+        - SalesAgreement
+        - PurchaseAgreement
+        - MaintenanceAgreement
+        - ProductAgreement
+        - ProductSalesAgreement
+        - ResourceAgreement
+      type: string
+      description: ">\n* `CustomerAgreement` - \n* `SupplierAgreement` - \n* `BrokerAgreement` - \n* `SalesAgreement` - \n* `PurchaseAgreement` - \n* `MaintenanceAgreement` - \n* `ProductAgreement` - \n* `ProductSalesAgreement` - \n* `ResourceAgreement` - \n"
+    agreementlifecyclestatus:
+      type: object
+      properties:
+        AgreementLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        AgreementLifecycleStatusType:
+          type: string
+          description: ''
+          format: agreementlifecyclestatustypevalues
+      description: 'A characteristic of agreement which refers to the LifecycleStatus of agreement (e.g., potential, offered, confirmed, completed, signed, terminated).'
     agreement:
       type: object
       properties:
         AgreementSignedDate:
           $ref: '#/components/schemas/date'
-        Agreement:
-          type: string
-          description: 'A formal or informal common understanding between two or more (legal competent) parties concerning one or more subject matters expressed in a set of arrangements, terms and conditions. (adapted from Legal System and FIBO) '
-          format: class
+        AgreementType:
+          $ref: '#/components/schemas/agreementtypevalues'
+        AgreementValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AgreementVersion:
+          $ref: '#/components/schemas/text'
+        AgreementStatus:
+          $ref: '#/components/schemas/agreementlifecyclestatus'
+        AgreementSubjectMatter:
+          $ref: '#/components/schemas/text'
+        AgreementIdentification:
+          $ref: '#/components/schemas/identifier'
+        AgreementDate:
+          $ref: '#/components/schemas/datetime'
       description: ''
     financialtransactiontypevalues:
       enum:
@@ -709,15 +843,125 @@ components:
         - RepaymentTransaction
       type: string
       description: ">\n* `PricingTransaction` - \n* `FeeTransaction` - \n* `WithdrawalTransaction` - \n* `DepositTransaction` - \n* `PaymentTransaction` - \n* `ClearingTransaction` - \n* `SettlementTransaction` - \n* `Reconciliationtransaction` - \n* `Updatetransaction` - \n* `Securitiestransaction` - \n* `RepaymentTransaction` - \n"
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: ''
+    accountstatus:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/status'
+        AccountStatusType:
+          type: string
+          description: ''
+          format: accountstatustypevalues
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        AccountIdentificationType:
+          type: string
+          description: ''
+          format: accountidentificationtypevalues
+        AccountIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        AccountDateType:
+          type: string
+          description: ''
+          format: accountdatetypevalues
+        AccountDate:
+          $ref: '#/components/schemas/datetime'
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttype:
+      type: object
+      properties:
+        AccountType:
+          type: string
+          description: ''
+          format: accounttypevalues
+        AccountTypeName:
+          $ref: '#/components/schemas/name'
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalance:
+      type: object
+      properties:
+        AccountBalance:
+          $ref: '#/components/schemas/amount'
+        AccountBalanceType:
+          type: string
+          description: ''
+          format: accountbalancetypevalues
+        AccounBalanceDate:
+          $ref: '#/components/schemas/datetime'
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrency:
+      type: object
+      properties:
+        AccountCurrencyType:
+          type: string
+          description: ''
+          format: accountcurrencytypevalues
+        AccountCurrency:
+          $ref: '#/components/schemas/currencycode'
+      description: ''
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
+          $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
+        AccountBalance:
+          $ref: '#/components/schemas/accountbalance'
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: ''
     financialtransaction:
       type: object
       properties:
         FinancialTransactionType:
           $ref: '#/components/schemas/financialtransactiontypevalues'
-        FinancialTransaction:
-          type: string
-          description: "A transaction that changes the financial position (the status of the finances) of involved party.\n\n\n- Process which includes the order, the execution, the settlement of trades in the financial domain. (ISO20022)\n"
-          format: class
+        FinancialTransactionCurrency:
+          $ref: '#/components/schemas/currencycode'
+        FinancialTransactionAmount:
+          $ref: '#/components/schemas/amount'
+        FinancialTransactionFromAccount:
+          $ref: '#/components/schemas/account'
+        FinancialTransactionTargetAccount:
+          $ref: '#/components/schemas/account'
+        FinancialTransactionDateTime:
+          $ref: '#/components/schemas/datetime'
       description: ''
     CounterpartyDirectoryEntry:
       type: object

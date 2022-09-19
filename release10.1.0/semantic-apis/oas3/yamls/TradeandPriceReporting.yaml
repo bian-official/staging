@@ -435,15 +435,31 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The Transaction Reporting Function specific Business Service
     duration:
       type: object
@@ -453,15 +469,144 @@ components:
           description: 'A duration is the specification of a length of time without a fixed start or end time, expressed in Gregorian calendar time units (Year, Month, Week, Day) and Hours, Minutes or Seconds. (UN/CEFACT)'
           format: datatype
       description: The time the session was active
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: Key dates and times for the session
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: Period of time during which the status is valid.
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: Party who plays a  specific role in the context of assigning a status.
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
+    sessiontype:
+      type: object
+      properties:
+        SessionTypeName:
+          $ref: '#/components/schemas/name'
+        SessionType:
+          type: string
+          description: ''
+          format: sessiontypevalues
+      description: 'Specifies the classification of session like Customer Contact Session, Channel Operating Session, Device Operating Session, etc.'
     session:
       type: object
       properties:
         SessionDuration:
           $ref: '#/components/schemas/duration'
-        Session:
-          type: string
-          description: "The operation of a system -- typically an automated system -- for a bounded period of time.\n\nSemi-permanent container of state for an information exchange with a system.\n\nTime-bounded, temporal unit of context and continuity, identifying a unit of work.\n"
-          format: class
+        SessionDateTime:
+          $ref: '#/components/schemas/datetime'
+        SessionStatus:
+          $ref: '#/components/schemas/status'
+        SessionType:
+          $ref: '#/components/schemas/sessiontype'
+        SessionScheduel:
+          $ref: '#/components/schemas/schedule'
       description: Reference to Transaction Reporting Function
     function:
       type: object
@@ -471,14 +616,6 @@ components:
           description: "A kind of action.\n\nFunctions as Behaviour Qualifier: The collection of operational services/functions offered by the operational facility."
           format: class
       description: Reference to Transaction Reporting Function
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Transaction Reporting Function
     TransactionReportingFunction:
       type: object
       properties:
@@ -502,10 +639,42 @@ components:
           type: string
           description: ''
           format: string
-        Event:
+        EventDateTime:
           type: string
-          description: 'Something that happens, has happened, can happen or is planned to happen.'
-          format: class
+          description: ''
+          format: string
+        EventDescription:
+          type: string
+          description: ''
+          format: string
+        EventSource:
+          type: string
+          description: ''
+          format: string
+        EventLocation:
+          type: string
+          description: ''
+          format: string
+        EventAction:
+          type: string
+          description: ''
+          format: string
+        EventStatus:
+          type: string
+          description: ''
+          format: string
+        EventValue:
+          type: string
+          description: ''
+          format: string
+        EventValidityPeriod:
+          type: string
+          description: ''
+          format: string
+        EventIdentification:
+          type: string
+          description: ''
+          format: string
       description: ''
     TradeandPriceReportingOutcome:
       type: object
@@ -515,16 +684,6 @@ components:
         TradeandPriceReportingProvision:
           $ref: '#/components/schemas/text'
       description: An operational service or function supported within the Transaction Reporting Function for doing Transaction Reporting Function
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Market Trade Reporting Operating Session
     log:
       type: object
       properties:
@@ -532,50 +691,28 @@ components:
           type: string
           description: ''
           format: string
-        Log:
-          type: string
-          description: "A record of events/entries.\n"
-          format: class
-      description: Reference to the log of (usage) ativities/events  of Market Trade Reporting Operating Session
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        Party:
-          type: string
-          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
-          format: class
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        Involvedparty:
+        LogPeriod:
           type: string
           description: ''
-          format: datatype
-      description: Reference to the party who is involved in Market Trade Reporting Operating Session
-    sessiontype:
-      type: object
-      properties:
-        SessionTypeName:
-          $ref: '#/components/schemas/name'
-        Sessiontype:
+          format: string
+        LogDate:
           type: string
-          description: "A Classification value that distinguishes between the type of operations within the session like\n- Customer Contact Session\n- Customer Dialogue Session\n- Channel Operating Session\n- Gateway Operating Session\n- Switch Operating Session"
-          format: datatype
-      description: A Classification value that distinguishes between the type of operations within Market Trade Reporting Operating Session
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: Reference to the log of (usage) ativities/events  of Market Trade Reporting Operating Session
     servicetype:
       type: object
       properties:
         ServiceTypeName:
           $ref: '#/components/schemas/name'
-        Servicetype:
+        ServiceType:
           type: string
-          description: Data type specifies the classification of service
-          format: datatype
+          description: ''
+          format: servicetypevalues
       description: A Classification value that distinguishes between the type of services within Market Trade Reporting Operating Session
     systemconfigurationoption:
       type: object

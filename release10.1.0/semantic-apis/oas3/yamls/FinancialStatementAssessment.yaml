@@ -722,15 +722,31 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The Risk Test specific Business Service
     assessmenttypevalues:
       enum:
@@ -749,15 +765,243 @@ components:
         - Rating
       type: string
       description: ">\n* `AssetValuation` - \n* `ProductMatching` - \n* `Authorization` - \n* `Authentication` - \n* `QualityAssurance` - \n* `Audit` - \n* `ComplianceCheck` - \n* `FundingCheck` - \n* `SuitabilityCheck` - \n* `PerformanceCheck` - \n* `ImpactAssessment` - \n* `RiskAssessment` - \n* `Rating` - \n"
+    model:
+      type: object
+      properties:
+        ModelType:
+          type: string
+          description: 'The type or category of model  '
+          format: string
+        ModelPurpose:
+          type: string
+          description: A description of the model that clarifies the intended analysis/insights provided
+          format: string
+        ModelVersion:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: An identifier that allows to uniquely refer to an instance of a Document.
+    documenttypevalues:
+      enum:
+        - Meteredserviceinvoice
+        - Creditnoterelatedtofinancialadjustment
+        - Debitnoterelatedtofinancialadjustment
+        - Commercialinvoice
+        - Creditnote
+        - Debitnote
+        - Hireinvoice
+        - Selfbilledinvoice
+        - Remittanceadvicemessage
+        - Relatedpaymentinstruction
+        - Commercialcontract
+        - Foreignexchangedealreference
+        - Statementofaccount
+        - Dispatchadvice
+        - Purchaseorder
+        - Structuredcommunicationreference
+        - Billoflading
+        - Voucher
+        - Accountreceivableopenitem
+        - Tradeservicesutilitytransaction
+        - Cashierreceipt
+        - Customerreceipt
+        - Journal
+        - Salereceipt
+      type: string
+      description: ">\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\n* `Commercialinvoice` - Document is an invoice.\n* `Creditnote` - Document is a credit note.\n* `Debitnote` - Document is a debit note.\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\n* `Dispatchadvice` - Document is a dispatch advice.\n* `Purchaseorder` - Document is a purchase order.\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\n* `Billoflading` - Document is a shipping notice.\n* `Voucher` - Document is an electronic payment document.\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\n"
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
+    documentdatetimetypevalues:
+      enum:
+        - Creationdate
+        - Capturingdate
+        - Versiondate
+        - Valuedate
+        - Issuedate
+      type: string
+      description: ">\n* `Creationdate` - \n* `Capturingdate` - \n* `Versiondate` - \n* `Valuedate` - \n* `Issuedate` - \n"
+    document:
+      type: object
+      properties:
+        DocumentIdentifer:
+          $ref: '#/components/schemas/identifier'
+        DocumentVersion:
+          $ref: '#/components/schemas/text'
+        DocumentType:
+          $ref: '#/components/schemas/documenttypevalues'
+        DocumentStatus:
+          $ref: '#/components/schemas/status'
+        DocumentDateTime:
+          $ref: '#/components/schemas/datetime'
+        DocumentName:
+          $ref: '#/components/schemas/name'
+        DocumentDateTimeType:
+          $ref: '#/components/schemas/documentdatetimetypevalues'
+        DocumentPurpose:
+          $ref: '#/components/schemas/text'
+        DocumentFormat:
+          $ref: '#/components/schemas/text'
+        DocumentSubject:
+          $ref: '#/components/schemas/text'
+        DocumentDescription:
+          $ref: '#/components/schemas/text'
+      description: Document that provides background or corroborating information regarding an assessment(s).
+    requirement:
+      type: object
+      properties:
+        RequirementType:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: Date when the assessment expires. (ISO20022)
     assessment:
       type: object
       properties:
         AssessmentType:
           $ref: '#/components/schemas/assessmenttypevalues'
-        Assessment:
-          type: string
-          description: the rating/certification derived as result of an applied test assessment of an entity using specific testing criteria
-          format: class
+        AssessmentMethod:
+          $ref: '#/components/schemas/text'
+        AssessmentSchedule:
+          $ref: '#/components/schemas/schedule'
+        AssessmentDescription:
+          $ref: '#/components/schemas/text'
+        AssessmentModel:
+          $ref: '#/components/schemas/model'
+        AssessmentDateTime:
+          $ref: '#/components/schemas/datetime'
+        AssessmentResult:
+          $ref: '#/components/schemas/text'
+        AssessmentSupportingDocument:
+          $ref: '#/components/schemas/document'
+        AssessmentRepresentingDocument:
+          $ref: '#/components/schemas/document'
+        AssessmentRequiredAdjustment:
+          $ref: '#/components/schemas/text'
+        AssessmentRequirement:
+          $ref: '#/components/schemas/requirement'
+        AssessmentExpiryDate:
+          $ref: '#/components/schemas/date'
       description: Reference to Risk Test
     test:
       type: object
@@ -766,19 +1010,19 @@ components:
           type: string
           description: ''
           format: string
-        Test:
+        TestGuidance:
           type: string
-          description: 'A measure taken to check the quality, performance, or reliability of (something), especially before putting it into widespread use or practice.'
-          format: class
+          description: ''
+          format: string
+        TestType:
+          type: string
+          description: ''
+          format: string
+        TestDescription:
+          type: string
+          description: ''
+          format: string
       description: Reference to Risk Test
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Risk Test
     RiskTest:
       type: object
       properties:
@@ -866,10 +1110,10 @@ components:
           type: string
           description: ''
           format: workproducttypevalues
-        Workproduct:
+        WorkProductIdentifoication:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: string
       description: ''
     FinancialStatementAssessmentOutcome:
       type: object
@@ -879,54 +1123,66 @@ components:
         FinancialStatementAssessmentAssessmentType:
           $ref: '#/components/schemas/text'
       description: The Risk Test test is one aspect that can be intergrated into the overall Risk Test
+    servicetype:
+      type: object
+      properties:
+        ServiceTypeName:
+          $ref: '#/components/schemas/name'
+        ServiceType:
+          type: string
+          description: ''
+          format: servicetypevalues
+      description: ''
     service:
       type: object
       properties:
         ServiceName:
           $ref: '#/components/schemas/name'
-        Service:
-          type: string
-          description: "An exposed function (an externalized functionality) that is able to deliver a certain value/benefit (a proposed definition adapted from Archimate).\n\nA unit of functionality that a system exposes to its environment, while hiding internal operations, which provides a certain value (monetary or otherwise). \n\n\nComment:\n\nA Service is something that is done by an actor for the benefit of an actor in the environment.\n\nA system is the broad sense of the word. Means Business Service, Application Service, Technology Service, \"huppeldepup\" Service\n \n\n\nCharacteristics of a service:\n\nA system (The Service Domain)\nFunctionality is exposed (Action Term)\nIt provides a certain value (monetary or otherwise) \n\n\nExposing functionality means that the internals of realizing the service is hidden for the beneficiary of the Service.\n \n\n\nIn BIAN a \"Service Operation\" is visualized as a \"Business Service\" , the \"System\" refers to the  \"Service Domain\"  \n\nThe name of a Service Operation is composed of an \"Action Term\" + \"Subject Matter\" which is the \"Control Record\" or the \"Behaviour Qualifier\".\n\n\nService is the intangible equivalent of a good. (ISO20022). \n\nA type of economic activity that is intangible, is not stored and does not result in ownership; a service is consumed at the point of sale (FIBO & Business Dictionary)"
-          format: class
+        ServiceDescription:
+          $ref: '#/components/schemas/text'
+        ServiceType:
+          $ref: '#/components/schemas/servicetype'
       description: A selected optional business service as subject matter of Financial Statement Assessment
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: ''
     instructiondate:
       type: object
       properties:
         InstructionDate:
           $ref: '#/components/schemas/date'
-        Instructiondate:
+        InstructionDateType:
           type: string
           description: ''
-          format: datatype
+          format: instructiondatetypevalues
       description: ''
-    instruction:
+    instructionlifecyclestatus:
       type: object
       properties:
-        InstructionDate:
-          $ref: '#/components/schemas/instructiondate'
-        Instruction:
+        InstructionLifecycleStatusType:
           type: string
-          description: 'A request to do something. '
-          format: class
-      description: Request to assess
-    status:
+          description: ''
+          format: instructionlifecylestatustypevalues
+        InstructionLifecycleStatus:
+          $ref: '#/components/schemas/status'
+      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    instructionidentification:
       type: object
       properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        Status:
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionIdentifierType:
           type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: The status of Financial Statement Assessment
+          description: ''
+          format: instructionidentificationtypevalues
+      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+        - MaintenanceInstruction
+      type: string
+      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n* `MaintenanceInstruction` - \n"
     log:
       type: object
       properties:
@@ -934,31 +1190,39 @@ components:
           type: string
           description: ''
           format: string
-        Log:
-          type: string
-          description: "A record of events/entries.\n"
-          format: class
-      description: Reference to the log of (usage) ativities/events of Financial Statement Assessment
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        Party:
-          type: string
-          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
-          format: class
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        Involvedparty:
+        LogPeriod:
           type: string
           description: ''
-          format: datatype
-      description: Reference to the party who has requested Financial Statement Assessment
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    instruction:
+      type: object
+      properties:
+        InstructionDate:
+          $ref: '#/components/schemas/instructiondate'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/instructionidentification'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: Request to assess
     FinancialStatementAssessment:
       type: object
       properties:

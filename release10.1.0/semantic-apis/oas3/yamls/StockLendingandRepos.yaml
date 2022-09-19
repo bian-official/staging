@@ -805,15 +805,31 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessService:
-          type: string
-          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
-          format: class
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
       description: The Repo Transaction Cash Transfer Task specific Business Service
     value:
       type: object
@@ -823,34 +839,161 @@ components:
           description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
           format: datatype
       description: ''
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: ''
     identifier:
       type: object
       properties:
         IdentifierValue:
           $ref: '#/components/schemas/value'
-        Identifier:
-          type: string
-          description: An identifier is a character string used to uniquely identify one instance of an object within an identification scheme that is managed by an agency. (UN/CEFAT)
-          format: datatype
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
       description: An identifier that allows to uniquely refer to an instance of a transaction.
+    transactiondate:
+      type: object
+      properties:
+        TransactionDate:
+          $ref: '#/components/schemas/datetime'
+        TransactionDateType:
+          type: string
+          description: ''
+          format: transactiondatetypevalues
+      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
+    transactiontypevalues:
+      enum:
+        - FinancialTransaction
+        - BusinessTransaction
+        - BankingTransaction
+        - AccountingTransaction
+        - BookingTransaction
+        - AllocationTransaction
+        - DeliveryTransaction
+        - ProductionTransaction
+      type: string
+      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n* `ProductionTransaction` - \n"
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
+    transactionlifecyclestatus:
+      type: object
+      properties:
+        TransactionLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        TransactionLifecycleStatusType:
+          type: string
+          description: ''
+          format: transactionlifecyclestatustypevalues
+      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
     transaction:
       type: object
       properties:
         TransactionIdentification:
           $ref: '#/components/schemas/identifier'
-        Transaction:
-          type: string
-          description: "A planned or performed action in the context of concluding or fulfilling an agreement. \n\nAct to do something."
-          format: class
+        TransactionDate:
+          $ref: '#/components/schemas/transactiondate'
+        TransactionType:
+          $ref: '#/components/schemas/transactiontypevalues'
+        TransactionDescription:
+          $ref: '#/components/schemas/text'
+        TransactionStatus:
+          $ref: '#/components/schemas/transactionlifecyclestatus'
+        TransactionName:
+          $ref: '#/components/schemas/name'
       description: Reference to Repo Transaction Cash Transfer Task
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: The type of Repo Transaction Cash Transfer Task
     RepoTransactionCashTransferTask:
       type: object
       properties:
@@ -911,26 +1054,6 @@ components:
         RepoTransactionSecurityTransferTaskType:
           $ref: '#/components/schemas/text'
       description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        Party:
-          type: string
-          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
-          format: class
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        Involvedparty:
-          type: string
-          description: ''
-          format: datatype
-      description: ''
     feetransaction:
       type: object
       properties:
@@ -938,23 +1061,22 @@ components:
           type: string
           description: Type of the applied Fee
           format: string
-        FeeTransaction:
+        AccruedFeeAmount:
           type: string
-          description: "A financial transaction that is the result of fulfillment of a fee arrangement\n\nExample:\n- the calculation of fee\n- the charge of fee as a debt\n- the payment of fee\n\n"
-          format: class
-      description: ''
-    interesttransaction:
-      type: object
-      properties:
-        InterestTransactionAmount:
-          type: string
-          description: Amount of applied interest
+          description: 'Total fee charged '
           format: string
-        InterestTransaction:
+        FeeAmount:
           type: string
-          description: A transaction which is the result of fulfilment of an interest arrangement
-          format: class
+          description: "Amount of money paid for the charge\nAmount of money asked or paid for the charge (ISO20022)\n"
+          format: string
       description: ''
+    interesttransactiontypevalues:
+      enum:
+        - InterestAllocationTransaction
+        - InterestPaymentTransaction
+        - InterestAdjustmentTransaction
+      type: string
+      description: ">\n* `InterestAllocationTransaction` - \n* `InterestPaymentTransaction` - \n* `InterestAdjustmentTransaction` - \n"
     rate:
       type: object
       properties:
@@ -962,10 +1084,38 @@ components:
           type: string
           description: ''
           format: string
-        Rate:
+        RateUnit:
           type: string
-          description: "A price generally expressed as a percentage for the use of capital unit for a certain period. (BIAN)\n\nA rate is a quantity, amount, frequency, or dimensionless factor, measured against an independent base unit, expressed as a quotient. (UN/CEFACT)\n\n"
-          format: datatype
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
+    interesttransaction:
+      type: object
+      properties:
+        InterestTransactionAmount:
+          type: string
+          description: Amount of applied interest
+          format: string
+        InterestTransactionDescription:
+          type: string
+          description: Description of InterestTransaction
+          format: string
+        InterestTransactionType:
+          $ref: '#/components/schemas/interesttransactiontypevalues'
+        InterestRate:
+          $ref: '#/components/schemas/rate'
+        InteretType:
+          type: string
+          description: "Type of an applied Interest\n\nSpecifies the type of interest associated with a trade. (ISO20022)"
+          format: string
       description: ''
     workproduct:
       type: object
@@ -974,10 +1124,10 @@ components:
           type: string
           description: ''
           format: workproducttypevalues
-        Workproduct:
+        WorkProductIdentifoication:
           type: string
-          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
-          format: datatype
+          description: ''
+          format: string
       description: ''
     StockLendingandReposOutcome:
       type: object
@@ -1007,36 +1157,26 @@ components:
         StockLendingandReposWorkProduct:
           $ref: '#/components/schemas/workproduct'
       description: The Repo Transaction Cash Transfer Task is a discrete action or task that is required in the execution of the Repo Transaction Cash Transfer Task
+    servicetype:
+      type: object
+      properties:
+        ServiceTypeName:
+          $ref: '#/components/schemas/name'
+        ServiceType:
+          type: string
+          description: ''
+          format: servicetypevalues
+      description: ''
     service:
       type: object
       properties:
         ServiceName:
           $ref: '#/components/schemas/name'
-        Service:
-          type: string
-          description: "An exposed function (an externalized functionality) that is able to deliver a certain value/benefit (a proposed definition adapted from Archimate).\n\nA unit of functionality that a system exposes to its environment, while hiding internal operations, which provides a certain value (monetary or otherwise). \n\n\nComment:\n\nA Service is something that is done by an actor for the benefit of an actor in the environment.\n\nA system is the broad sense of the word. Means Business Service, Application Service, Technology Service, \"huppeldepup\" Service\n \n\n\nCharacteristics of a service:\n\nA system (The Service Domain)\nFunctionality is exposed (Action Term)\nIt provides a certain value (monetary or otherwise) \n\n\nExposing functionality means that the internals of realizing the service is hidden for the beneficiary of the Service.\n \n\n\nIn BIAN a \"Service Operation\" is visualized as a \"Business Service\" , the \"System\" refers to the  \"Service Domain\"  \n\nThe name of a Service Operation is composed of an \"Action Term\" + \"Subject Matter\" which is the \"Control Record\" or the \"Behaviour Qualifier\".\n\n\nService is the intangible equivalent of a good. (ISO20022). \n\nA type of economic activity that is intangible, is not stored and does not result in ownership; a service is consumed at the point of sale (FIBO & Business Dictionary)"
-          format: class
-      description: A selected optional business service as subject matter of Repo Transaction
-    status:
-      type: object
-      properties:
-        StatusReason:
+        ServiceDescription:
           $ref: '#/components/schemas/text'
-        Status:
-          type: string
-          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
-          format: datatype
-      description: ''
-    transactionlifecyclestatus:
-      type: object
-      properties:
-        TransactionLifecycleStatus:
-          $ref: '#/components/schemas/status'
-        Transactionlifecyclestatus:
-          type: string
-          description: 'Data type that specifies the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-          format: datatype
-      description: The status of Repo Transaction
+        ServiceType:
+          $ref: '#/components/schemas/servicetype'
+      description: A selected optional business service as subject matter of Repo Transaction
     RepoTransaction:
       type: object
       properties:

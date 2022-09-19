@@ -394,22 +394,6 @@ components:
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
       description: 'A description of the property, particularly if it has landmark characteristics.'
-    location:
-      type: object
-      properties:
-        LocationDescription:
-          $ref: '#/components/schemas/text'
-        Location:
-          type: string
-          description: The definition of an addressable space/position both in real and virtual environments with associated uses and entitlements
-          format: class
-      description: Reference to associated location (can be a physical or electronic location)
-    directoryentrydatetypevalues:
-      enum:
-        - OpenDate
-        - RefreshDate
-      type: string
-      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     datetime:
       type: object
       properties:
@@ -417,11 +401,180 @@ components:
           type: string
           description: ''
           format: string
-        Datetime:
+        TimeZoneCode:
           type: string
-          description: "A date time identifies a date and time of day to various common resolutions: year, month, week, day, hour, minute, second, and fraction of second. (UN/CEFACT)\n\nA particular point in the progression of time defined by a mandatory date and a mandatory time component, expressed in either UTC time format (YYYY-MM-DDThh:mm:ss.sssZ), local time with UTC offset format (YYYY-MM-DDThh:mm:ss.sss+/-hh:mm), or local time format (YYYY-MM-DDThh:mm:ss.sss). These representations are defined in \"XML Schema Part 2: Datatypes Second Edition - W3C Recommendation 28 October 2004\" which is aligned with ISO 8601. (ISO20022)\nNote on the time format:\n1) beginning / end of calendar day\n00:00:00 = the beginning of a calendar day\n24:00:00 = the end of a calendar day\n2) fractions of second in time format\nDecimal fractions of seconds may be included. In this case, the involved parties shall agree on the maximum number of digits that are allowed."
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: 'Key dates associated with the directory entry (e.g. open date, refresh date).'
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: Period of time during which the status is valid.
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
-      description: Value of the date type
+      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: Party who plays a  specific role in the context of assigning a status.
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: 'The tracked status (e.g. under construction or repair, inhabited, vacant).'
+    locationtypevalues:
+      enum:
+        - GeographicalArea
+        - DigitalArea
+        - StatisticalArea
+        - TimeZone
+        - TreatyArea
+      type: string
+      description: ">\n* `GeographicalArea` - \n* `DigitalArea` - \n* `StatisticalArea` - \n* `TimeZone` - \n* `TreatyArea` - \n"
+    addresstypevalues:
+      enum:
+        - PostalAddress
+        - GeolocationAddress
+        - LatitudeAddress
+        - LongitudeAddress
+        - ElectronicAddress
+      type: string
+      description: ">\n* `PostalAddress` - \n* `GeolocationAddress` - \n* `LatitudeAddress` - \n* `LongitudeAddress` - \n* `ElectronicAddress` - \n"
+    address:
+      type: object
+      properties:
+        AddressType:
+          $ref: '#/components/schemas/addresstypevalues'
+      description: ''
+    location:
+      type: object
+      properties:
+        LocationDescription:
+          $ref: '#/components/schemas/text'
+        LocationDateTime:
+          $ref: '#/components/schemas/datetime'
+        LocationStatus:
+          $ref: '#/components/schemas/status'
+        LocationType:
+          $ref: '#/components/schemas/locationtypevalues'
+        LocationZoningType:
+          $ref: '#/components/schemas/text'
+        LocationNeighborhoodType:
+          $ref: '#/components/schemas/text'
+        LocationConstructionType:
+          $ref: '#/components/schemas/text'
+        LocationOccupancyType:
+          $ref: '#/components/schemas/text'
+        LocationValue:
+          $ref: '#/components/schemas/value'
+        LocationCapacity:
+          $ref: '#/components/schemas/text'
+        LocationIdentification:
+          $ref: '#/components/schemas/identifier'
+        LocationAddress:
+          $ref: '#/components/schemas/address'
+      description: Reference to associated location (can be a physical or electronic location)
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     LocationDirectoryEntry:
       type: object
       properties:
