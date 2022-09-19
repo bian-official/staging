@@ -1664,116 +1664,25 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
     party:
       type: object
       properties:
         PartyName:
           $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
+        Party:
           type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
+          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
+          format: class
       description: ''
     involvedparty:
       type: object
       properties:
         PartyReference:
           $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
       description: The operating unit/employee responsible for performing the routine
     schedule:
       type: object
@@ -1783,23 +1692,15 @@ components:
           description: ''
           format: string
       description: The timing and key actions/milestones involved in completing the routine
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
+        BusinessService:
+          type: string
+          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
+          format: class
       description: The Fund Management Routine specific Business Service
     goal:
       type: object
@@ -1808,59 +1709,21 @@ components:
           type: string
           description: The type of goal
           format: string
-        GoalDefinition:
+        Goal:
           type: string
-          description: 'A definition of the goal, including the intended actions required to achieve the goal'
-          format: string
-        GoalOrganisation:
-          type: string
-          description: Identifies the interested parties and their roles and responsibilities for the specific actions supporting the achievement of the goal
-          format: ''
-        GoalResult:
-          type: string
-          description: 'Assessment of how the work is progressing towards achieving the goal, including projections of likely outcomes'
-          format: string
+          description: "A goal represents a high-level statement of intent, direction, or desired end state for an organization and its stakeholders. (ArchiMate 3.1)\n\nAn observable and measurable end result having one or more objectives to be achieved within a more or less fixed timeframe.\n\nRead more: http://www.businessdictionary.com/definition/goal.html"
+          format: class
       description: ''
-    budgettype:
+    plan:
       type: object
       properties:
-        BudgetTypeName:
-          $ref: '#/components/schemas/name'
-        BudgetType:
+        PlanGoal:
+          $ref: '#/components/schemas/goal'
+        Plan:
           type: string
-          description: ''
-          format: budgettypevalues
-      description: A Classification value that specifies the type of Budget
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: ''
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: string
-        AmountCurrency:
-          $ref: '#/components/schemas/currencycode'
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: string
-      description: ''
-    budgetarrangement:
-      type: object
-      properties:
-        BudgetType:
-          $ref: '#/components/schemas/budgettype'
-        BudgetAmount:
-          $ref: '#/components/schemas/amount'
-      description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
+          description: "A method for doing or achieving something, usually involving a series of actions or stages, or something you have arranged to do. (Cambridge Dictionary)\n\nA plan is a set of intended actions, through which one intends to achieve a goal.\n\n\"Course of action\" is a synonym for Plan. "
+          format: class
+      description: Reference to Fund Management Routine
     plannedaction:
       type: object
       properties:
@@ -1868,37 +1731,15 @@ components:
           type: string
           description: 'An action that is arranged in a plan for doing or achieving something '
           format: class
-      description: 'An action that is arranged in a plan for doing or achieving something '
-    plantype:
-      type: object
-      properties:
-        PlanTypeName:
-          $ref: '#/components/schemas/name'
-        PlanType:
-          type: string
-          description: ''
-          format: plantypevalues
-      description: A Classification value that specifies the type of Plan
-    plan:
-      type: object
-      properties:
-        PlanGoal:
-          $ref: '#/components/schemas/goal'
-        PlanBudget:
-          $ref: '#/components/schemas/budgetarrangement'
-        PlannedAction:
-          $ref: '#/components/schemas/plannedaction'
-        PlanType:
-          $ref: '#/components/schemas/plantype'
-        PlanOrganisation:
-          type: string
-          description: ''
-          format: string
-        PlanValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PlanDescription:
-          $ref: '#/components/schemas/text'
       description: Reference to Fund Management Routine
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The type of Fund Management Routine
     FundManagementRoutine:
       type: object
       properties:
@@ -2079,17 +1920,45 @@ components:
         FundPerformanceFeeRoutineType:
           $ref: '#/components/schemas/text'
       description: The Fund Management Routine is an activity that is performed as one aspect of carrying out the Fund Management Routine
+    analysistypevalues:
+      enum:
+        - PerformanceAnalysis
+        - ActivityAnalysis
+      type: string
+      description: ">\n* `PerformanceAnalysis` - \n* `ActivityAnalysis` - \n"
     analysis:
       type: object
       properties:
+        AnalysisType:
+          $ref: '#/components/schemas/analysistypevalues'
         Analysis:
           type: string
           description: "Def.1 The insights derived from an analysis applied to an entity using specific models/evaluation methods\n\nDef.2 A detailed examination of anything complex"
           format: class
       description: ''
+    actiontypevalues:
+      enum:
+        - Initiate
+        - Execute
+        - Create
+        - Transfer
+        - Pay
+        - Deliver
+        - Apply
+        - Calculate
+      type: string
+      description: ">\n* `Initiate` - \n* `Execute` - \n* `Create` - \n* `Transfer` - \n* `Pay` - \n* `Deliver` - \n* `Apply` - \n* `Calculate` - \n"
+    action:
+      type: object
+      properties:
+        ActionType:
+          $ref: '#/components/schemas/actiontypevalues'
+      description: ''
     arrangement:
       type: object
       properties:
+        ArrangementAction:
+          $ref: '#/components/schemas/action'
         Arrangement:
           type: string
           description: An agreed commitment to perform actions that meet obligations under an agreement
@@ -2107,18 +1976,48 @@ components:
         HedgeFundAdministrationAdministrationTask:
           $ref: '#/components/schemas/arrangement'
       description: The Fund Management Routine is an activity that is performed as one aspect of carrying out the Fund Management Routine
+    budgettype:
+      type: object
+      properties:
+        BudgetTypeName:
+          $ref: '#/components/schemas/name'
+        Budgettype:
+          type: string
+          description: ''
+          format: datatype
+      description: A Classification value that distinguishes between Budgets within Hedge Fund Administrative Plan according to the type of resource and/or activity that is budgetted
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        Amount:
+          type: string
+          description: "Number of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. (UN/CEFACT)\n\nThe decimal seperator is a dot.\n\n\nNumber of monetary units specified in a currency, where the unit of currency is explicit and compliant with ISO 4217. The decimal separator is a dot. (ISO20022)\nNote: A zero amount is considered a positive amount.\n- total number of digits: 18\n- number of digits in fractional part: 5\n- minInclusive: 0"
+          format: datatype
+      description: Amount of budget which is arranged whitin Hedge Fund Administrative Plan
     accountbalance:
       type: object
       properties:
         AccountBalance:
           $ref: '#/components/schemas/amount'
-        AccountBalanceType:
+        Accountbalance:
           type: string
-          description: ''
-          format: accountbalancetypevalues
-        AccounBalanceDate:
-          $ref: '#/components/schemas/datetime'
+          description: "Numerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\nhttps://www.iso20022.org/standardsrepository/type/Balance"
+          format: datatype
       description: Balance of budget which is arranged whitin Hedge Fund Administrative Plan
+    plantype:
+      type: object
+      properties:
+        PlanTypeName:
+          $ref: '#/components/schemas/name'
+        Plantype:
+          type: string
+          description: 'Data type specifies the classification of a Plan '
+          format: datatype
+      description: The type of Hedge Fund Administrative Plan
     HedgeFundAdministrativePlan:
       type: object
       properties:

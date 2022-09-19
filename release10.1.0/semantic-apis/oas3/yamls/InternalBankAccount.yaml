@@ -1030,31 +1030,15 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
+        BusinessService:
+          type: string
+          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
+          format: class
       description: The Fee Fulfillment specific Business Service
     log:
       type: object
@@ -1063,18 +1047,10 @@ components:
           type: string
           description: ''
           format: string
-        LogPeriod:
+        Log:
           type: string
-          description: ''
-          format: string
-        LogDate:
-          type: string
-          description: Key dates associated with the log (e.g. start time).
-          format: string
-        LogIdentification:
-          type: string
-          description: ''
-          format: string
+          description: "A record of events/entries.\n"
+          format: class
       description: Reference to Fee Fulfillment
     event:
       type: object
@@ -1083,43 +1059,19 @@ components:
           type: string
           description: ''
           format: string
-        EventDateTime:
+        Event:
           type: string
-          description: ''
-          format: string
-        EventDescription:
-          type: string
-          description: ''
-          format: string
-        EventSource:
-          type: string
-          description: ''
-          format: string
-        EventLocation:
-          type: string
-          description: ''
-          format: string
-        EventAction:
-          type: string
-          description: ''
-          format: string
-        EventStatus:
-          type: string
-          description: ''
-          format: string
-        EventValue:
-          type: string
-          description: ''
-          format: string
-        EventValidityPeriod:
-          type: string
-          description: ''
-          format: string
-        EventIdentification:
-          type: string
-          description: ''
-          format: string
+          description: 'Something that happens, has happened, can happen or is planned to happen.'
+          format: class
       description: Reference to Fee Fulfillment
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: The type of Fee Fulfillment
     FeeFulfillment:
       type: object
       properties:
@@ -1272,128 +1224,35 @@ components:
         InternalBankAccountLog:
           $ref: '#/components/schemas/log'
       description: The Fee Fulfillment is one of the specific types of events that is recorded in the Fee Fulfillment
-    servicetype:
-      type: object
-      properties:
-        ServiceTypeName:
-          $ref: '#/components/schemas/name'
-        ServiceType:
-          type: string
-          description: ''
-          format: servicetypevalues
-      description: ''
     service:
       type: object
       properties:
         ServiceName:
           $ref: '#/components/schemas/name'
-        ServiceDescription:
-          $ref: '#/components/schemas/text'
-        ServiceType:
-          $ref: '#/components/schemas/servicetype'
+        Service:
+          type: string
+          description: "An exposed function (an externalized functionality) that is able to deliver a certain value/benefit (a proposed definition adapted from Archimate).\n\nA unit of functionality that a system exposes to its environment, while hiding internal operations, which provides a certain value (monetary or otherwise). \n\n\nComment:\n\nA Service is something that is done by an actor for the benefit of an actor in the environment.\n\nA system is the broad sense of the word. Means Business Service, Application Service, Technology Service, \"huppeldepup\" Service\n \n\n\nCharacteristics of a service:\n\nA system (The Service Domain)\nFunctionality is exposed (Action Term)\nIt provides a certain value (monetary or otherwise) \n\n\nExposing functionality means that the internals of realizing the service is hidden for the beneficiary of the Service.\n \n\n\nIn BIAN a \"Service Operation\" is visualized as a \"Business Service\" , the \"System\" refers to the  \"Service Domain\"  \n\nThe name of a Service Operation is composed of an \"Action Term\" + \"Subject Matter\" which is the \"Control Record\" or the \"Behaviour Qualifier\".\n\n\nService is the intangible equivalent of a good. (ISO20022). \n\nA type of economic activity that is intangible, is not stored and does not result in ownership; a service is consumed at the point of sale (FIBO & Business Dictionary)"
+          format: class
       description: A selected optional business service as subject matter of Internal Bank Account Log
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
     party:
       type: object
       properties:
         PartyName:
           $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
+        Party:
+          type: string
+          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
+          format: class
       description: ''
     involvedparty:
       type: object
       properties:
         PartyReference:
           $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
       description: Reference to the party who is involved in Internal Bank Account Log
     businessunit:
       type: object
@@ -1402,10 +1261,10 @@ components:
           type: string
           description: ''
           format: string
-        Goal:
+        BusinessUnit:
           type: string
-          description: ''
-          format: string
+          description: "A unit of an organisation that does not have legal standing outside the organisation.\n\nA logical element or segment of a company (such as accounting, production, marketing) representing a specific business function, and a definite place on the organizational chart, under the domain of a manager. Also called department, division, or a functional area. (Business Dictionary)\n\nRead more: http://www.businessdictionary.com/definition/business-unit.html"
+          format: class
       description: Reference to the business unit which is involved in Internal Bank Account Log
     position:
       type: object
@@ -1414,18 +1273,10 @@ components:
           type: string
           description: ''
           format: string
-        PositionQuantity:
+        Position:
           type: string
-          description: ''
-          format: string
-        PositionDate:
-          type: string
-          description: The date on which the state of something is calculated
-          format: string
-        PositionAmount:
-          type: string
-          description: ''
-          format: string
+          description: "The counted state (e.g., the amount of money, the value, the number) of something \n- It is the sum of entries\n- It is the derived attribute\n- It is an information object"
+          format: class
       description: The position of Internal Bank Account Log
     positiontype:
       type: object
@@ -1440,104 +1291,20 @@ components:
       properties:
         LimitTypeName:
           $ref: '#/components/schemas/name'
-        LimitType:
+        Limittype:
           type: string
           description: ''
-          format: limittypevalues
-      description: Nature of the limit.
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
           format: datatype
-      description: Currency unit used to specify the limit amount. (ISO20022)
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: string
-        AmountCurrency:
-          $ref: '#/components/schemas/currencycode'
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: string
-      description: 'Amount of money of the limit, expressed in a currency. (ISO20022)'
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: ''
-    limitstatus:
-      type: object
-      properties:
-        LimitStatus:
-          $ref: '#/components/schemas/status'
-        LimitStatusType:
-          type: string
-          description: ''
-          format: limitstatustypevalues
-      description: Current status of the limit.
-    rate:
-      type: object
-      properties:
-        RateValue:
-          type: string
-          description: ''
-          format: string
-        RateUnit:
-          type: string
-          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
-          format: string
-        RatePeriod:
-          type: string
-          description: ''
-          format: string
-        RateCapitalUnit:
-          type: string
-          description: ''
-          format: string
-      description: Specifies that the limit is a percentage of a related amount. (ISO20022)
-    frequency:
-      type: object
-      properties:
-        FrequencyCode:
-          type: string
-          description: ''
-          format: frequencycodevalues
-        FrequencyName:
-          $ref: '#/components/schemas/name'
-        FrequencyDefinition:
-          $ref: '#/components/schemas/text'
-      description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
+      description: Nature of the limit.
     limitarrangement:
       type: object
       properties:
         LimitType:
           $ref: '#/components/schemas/limittype'
-        LimitCurrency:
-          $ref: '#/components/schemas/currencycode'
-        LimitValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        LimitAmount:
-          $ref: '#/components/schemas/amount'
-        LimitStatus:
-          $ref: '#/components/schemas/limitstatus'
-        LimitRate:
-          $ref: '#/components/schemas/rate'
-        LimitFrequency:
-          $ref: '#/components/schemas/frequency'
+        LimitArrangement:
+          type: string
+          description: "An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. "
+          format: class
       description: Reference to the time limitation related to the position of Internal Bank Account Log
     InternalBankAccountLog:
       type: object

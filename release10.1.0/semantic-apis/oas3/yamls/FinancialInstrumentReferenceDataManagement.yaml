@@ -1022,23 +1022,15 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
+        BusinessService:
+          type: string
+          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
+          format: class
       description: The Equity Instrument property specific  Business Service
     directoryentrydatetypevalues:
       enum:
@@ -1046,138 +1038,15 @@ components:
         - RefreshDate
       type: string
       description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: Date and time at which the status was assigned.
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: Period of time during which the status is valid.
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
-      description: Party who plays a  specific role in the context of assigning a status.
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
           $ref: '#/components/schemas/directoryentrydatetypevalues'
-        DirectoryEntryDate:
-          $ref: '#/components/schemas/date'
-        DirectoryEntryStatus:
-          $ref: '#/components/schemas/status'
+        DirectoryEntry:
+          type: string
+          description: "An entry in a directory. \n\nA registry of items recording key reference information and properties relating to each. (BIAN SL)"
+          format: class
       description: Reference to Equity Instrument property
     EquityInstrumentproperty:
       type: object
@@ -1286,10 +1155,10 @@ components:
           type: string
           description: ''
           format: workproducttypevalues
-        WorkProductIdentifoication:
+        Workproduct:
           type: string
-          description: ''
-          format: string
+          description: 'Contact records, working papers, documents and activity logs produced during the execution of a work task'
+          format: datatype
       description: ''
     FinancialInstrumentReferenceDataManagementOutcome:
       type: object
@@ -1299,6 +1168,16 @@ components:
         FinancialInstrumentReferenceDataManagementWorkProduct:
           $ref: '#/components/schemas/workproduct'
       description: The Equity Instrument property properties that represent a discrete aspect of the Equity Instrument property
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        Status:
+          type: string
+          description: A characteristic that describe the object by referring to a state transition in its lifecycle.
+          format: datatype
+      description: The status of Financial Instrument Directory Entry
     log:
       type: object
       properties:
@@ -1306,18 +1185,10 @@ components:
           type: string
           description: ''
           format: string
-        LogPeriod:
+        Log:
           type: string
-          description: ''
-          format: string
-        LogDate:
-          type: string
-          description: Key dates associated with the log (e.g. start time).
-          format: string
-        LogIdentification:
-          type: string
-          description: ''
-          format: string
+          description: "A record of events/entries.\n"
+          format: class
       description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
     financialinstrumenttypevalues:
       enum:
@@ -1333,25 +1204,15 @@ components:
         - Derivative
       type: string
       description: ">\n* `Loan` - \n* `Bond` - \n* `Deposit` - \n* `Stock` - \n* `Option` - \n* `Share` - \n* `Debt` - Financial instruments evidencing moneys owed by the issuer to the holder on terms as specified. (ISO20022)\n\nAny type of instrument primarily classified as debt can be considered a debt instrument. Debt instruments are tools an individual, government entity, or business entity can utilize for the purpose of obtaining capital. Debt instruments provide capital to an entity that promises to repay the capital over time. Credit cards, credit lines, loans, and bonds can all be types of debt instruments. (Investopedia)\n* `Letterofcredit` - Instrument issued by a bank substituting its name and credit standing for that of its customer. A letter of credit is a written undertaking of the bank, issued for the account of a customer (the applicant), to honour a demand for payment, upon the beneficiary's compliance with the terms and conditions set forth in the undertaking. (ISO20022)\n* `Security` - Financial instruments representing a sum of rights of the investor vis-a-vis the issuer. (ISO20022)\n* `Derivative` - \n"
-    financialinstrumentidentification:
-      type: object
-      properties:
-        FinancialInstrumentIdentification:
-          $ref: '#/components/schemas/identifier'
-        FinancialInstrumentIdentificationType:
-          type: string
-          description: ''
-          format: financialinstrumentidentificationtypevalues
-      description: ''
     financialinstrument:
       type: object
       properties:
         FinancialInstrumentType:
           $ref: '#/components/schemas/financialinstrumenttypevalues'
-        FinancialInstrumentIdentification:
-          $ref: '#/components/schemas/financialinstrumentidentification'
-        FinancialInstrumentName:
-          $ref: '#/components/schemas/name'
+        FinancialInstrument:
+          type: string
+          description: "A contract that gives rise to a financial asset of one entity and a financial liability or equity instrument of another entity. (IFRS)\nhttps://www.iasplus.com/en/standards/ias/ias32#:~:text=Key%20definitions%20%5BIAS%2032.11%5D,equity%20instrument%20of%20another%20entity\n\nFinancial instruments are financial contracts of different nature made between institutional units. These comprise the full range of financial claims and liabilities between institutional units, including contingent liabilities like guarantees, commitments, etc. (ISO 10962)\n"
+          format: class
       description: ''
     financialmarket:
       type: object

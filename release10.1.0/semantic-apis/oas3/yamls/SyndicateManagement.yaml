@@ -370,126 +370,35 @@ components:
           description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
           format: datatype
       description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
     businessservice:
       type: object
       properties:
         BusinessServiceName:
           $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
+        BusinessService:
+          type: string
+          description: "A business service supports business capabilities through an explicitly defined interface and is explicitly governed by an organization. TOGAF 9.2\n\nA business service represents explicitly defined behavior that a business role, business actor, or business collaboration exposes to its environment. ArchiMate 3.1\n"
+          format: class
       description: The Syndicate Compliance Clauses specific Business Service
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
     party:
       type: object
       properties:
         PartyName:
           $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
+        Party:
+          type: string
+          description: "A party represents an autonomous entity in which a bank has a business interest. It has a legal definition and identity. A party is a Person, Organization, (a proposed definition for BIAN BOM adapted from BIAN Party Working Group) \n\n- Entity involved in an activity. (ISO20022)"
+          format: class
       description: ''
     involvedparty:
       type: object
       properties:
         PartyReference:
           $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
+        Involvedparty:
+          type: string
+          description: ''
+          format: datatype
       description: The operating unit/employee responsible for governing Syndicate Compliance Clauses by applying the Syndicate Compliance Clauses clause
     condition:
       type: object
@@ -561,35 +470,15 @@ components:
         - RefreshDate
       type: string
       description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: ''
     directoryentry:
       type: object
       properties:
         DirectoryEntryDateType:
           $ref: '#/components/schemas/directoryentrydatetypevalues'
-        DirectoryEntryDate:
-          $ref: '#/components/schemas/date'
-        DirectoryEntryStatus:
-          $ref: '#/components/schemas/status'
+        DirectoryEntry:
+          type: string
+          description: "An entry in a directory. \n\nA registry of items recording key reference information and properties relating to each. (BIAN SL)"
+          format: class
       description: ''
     SyndicateManagementOutcome:
       type: object
@@ -601,105 +490,43 @@ components:
         SyndicateManagementEntry:
           $ref: '#/components/schemas/directoryentry'
       description: The Syndicate Compliance Clauses defines a particular clause or consideration that is applied to determine eligibility for Syndicate Compliance Clauses
-    servicetype:
-      type: object
-      properties:
-        ServiceTypeName:
-          $ref: '#/components/schemas/name'
-        ServiceType:
-          type: string
-          description: ''
-          format: servicetypevalues
-      description: ''
     service:
       type: object
       properties:
         ServiceName:
           $ref: '#/components/schemas/name'
-        ServiceDescription:
-          $ref: '#/components/schemas/text'
-        ServiceType:
-          $ref: '#/components/schemas/servicetype'
+        Service:
+          type: string
+          description: "An exposed function (an externalized functionality) that is able to deliver a certain value/benefit (a proposed definition adapted from Archimate).\n\nA unit of functionality that a system exposes to its environment, while hiding internal operations, which provides a certain value (monetary or otherwise). \n\n\nComment:\n\nA Service is something that is done by an actor for the benefit of an actor in the environment.\n\nA system is the broad sense of the word. Means Business Service, Application Service, Technology Service, \"huppeldepup\" Service\n \n\n\nCharacteristics of a service:\n\nA system (The Service Domain)\nFunctionality is exposed (Action Term)\nIt provides a certain value (monetary or otherwise) \n\n\nExposing functionality means that the internals of realizing the service is hidden for the beneficiary of the Service.\n \n\n\nIn BIAN a \"Service Operation\" is visualized as a \"Business Service\" , the \"System\" refers to the  \"Service Domain\"  \n\nThe name of a Service Operation is composed of an \"Action Term\" + \"Subject Matter\" which is the \"Control Record\" or the \"Behaviour Qualifier\".\n\n\nService is the intangible equivalent of a good. (ISO20022). \n\nA type of economic activity that is intangible, is not stored and does not result in ownership; a service is consumed at the point of sale (FIBO & Business Dictionary)"
+          format: class
       description: A selected optional business service as subject matter of Syndicate Membership
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: ''
     instructiondate:
       type: object
       properties:
         InstructionDate:
           $ref: '#/components/schemas/date'
-        InstructionDateType:
+        Instructiondate:
           type: string
           description: ''
-          format: instructiondatetypevalues
-      description: ''
-    instructionlifecyclestatus:
-      type: object
-      properties:
-        InstructionLifecycleStatusType:
-          type: string
-          description: ''
-          format: instructionlifecylestatustypevalues
-        InstructionLifecycleStatus:
-          $ref: '#/components/schemas/status'
-      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
-    instructionidentification:
-      type: object
-      properties:
-        InstructionIdentifier:
-          $ref: '#/components/schemas/identifier'
-        InstructionIdentifierType:
-          type: string
-          description: ''
-          format: instructionidentificationtypevalues
-      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
-    instructiontypevalues:
-      enum:
-        - PaymentInstruction
-        - DeliveryOrder
-        - InformationRequest
-        - ExchangeInstruction
-        - AllocationInstruction
-        - MaintenanceInstruction
-      type: string
-      description: ">\n* `PaymentInstruction` - \n* `DeliveryOrder` - \n* `InformationRequest` - \n* `ExchangeInstruction` - \n* `AllocationInstruction` - \n* `MaintenanceInstruction` - \n"
-    log:
-      type: object
-      properties:
-        LogType:
-          type: string
-          description: ''
-          format: string
-        LogPeriod:
-          type: string
-          description: ''
-          format: string
-        LogDate:
-          type: string
-          description: Key dates associated with the log (e.g. start time).
-          format: string
-        LogIdentification:
-          type: string
-          description: ''
-          format: string
+          format: datatype
       description: ''
     instruction:
       type: object
       properties:
         InstructionDate:
           $ref: '#/components/schemas/instructiondate'
-        InstructionStatus:
-          $ref: '#/components/schemas/instructionlifecyclestatus'
-        InstructionIdentifier:
-          $ref: '#/components/schemas/instructionidentification'
-        InstructionType:
-          $ref: '#/components/schemas/instructiontypevalues'
-        InstructionResult:
-          $ref: '#/components/schemas/text'
-        InstructionDescription:
-          $ref: '#/components/schemas/text'
-        InstructionLog:
-          $ref: '#/components/schemas/log'
-        InstructionPurpose:
-          $ref: '#/components/schemas/text'
+        Instruction:
+          type: string
+          description: 'A request to do something. '
+          format: class
       description: Request to enroll Syndicate Membership
     goal:
       type: object
@@ -708,96 +535,20 @@ components:
           type: string
           description: The type of goal
           format: string
-        GoalDefinition:
+        Goal:
           type: string
-          description: 'A definition of the goal, including the intended actions required to achieve the goal'
-          format: string
-        GoalOrganisation:
-          type: string
-          description: Identifies the interested parties and their roles and responsibilities for the specific actions supporting the achievement of the goal
-          format: ''
-        GoalResult:
-          type: string
-          description: 'Assessment of how the work is progressing towards achieving the goal, including projections of likely outcomes'
-          format: string
-      description: ''
-    budgettype:
-      type: object
-      properties:
-        BudgetTypeName:
-          $ref: '#/components/schemas/name'
-        BudgetType:
-          type: string
-          description: ''
-          format: budgettypevalues
-      description: A Classification value that specifies the type of Budget
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: ''
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: string
-        AmountCurrency:
-          $ref: '#/components/schemas/currencycode'
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: string
-      description: ''
-    budgetarrangement:
-      type: object
-      properties:
-        BudgetType:
-          $ref: '#/components/schemas/budgettype'
-        BudgetAmount:
-          $ref: '#/components/schemas/amount'
-      description: 'An arrangement which is specifying an estimate of costs, revenues, and resources over a specified period, reflecting a reading of future financial conditions and goals. (adapted from Business Dictionary)'
-    plannedaction:
-      type: object
-      properties:
-        PlannedAction:
-          type: string
-          description: 'An action that is arranged in a plan for doing or achieving something '
+          description: "A goal represents a high-level statement of intent, direction, or desired end state for an organization and its stakeholders. (ArchiMate 3.1)\n\nAn observable and measurable end result having one or more objectives to be achieved within a more or less fixed timeframe.\n\nRead more: http://www.businessdictionary.com/definition/goal.html"
           format: class
-      description: 'An action that is arranged in a plan for doing or achieving something '
-    plantype:
-      type: object
-      properties:
-        PlanTypeName:
-          $ref: '#/components/schemas/name'
-        PlanType:
-          type: string
-          description: ''
-          format: plantypevalues
-      description: A Classification value that specifies the type of Plan
+      description: ''
     plan:
       type: object
       properties:
         PlanGoal:
           $ref: '#/components/schemas/goal'
-        PlanBudget:
-          $ref: '#/components/schemas/budgetarrangement'
-        PlannedAction:
-          $ref: '#/components/schemas/plannedaction'
-        PlanType:
-          $ref: '#/components/schemas/plantype'
-        PlanOrganisation:
+        Plan:
           type: string
-          description: ''
-          format: string
-        PlanValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PlanDescription:
-          $ref: '#/components/schemas/text'
+          description: "A method for doing or achieving something, usually involving a series of actions or stages, or something you have arranged to do. (Cambridge Dictionary)\n\nA plan is a set of intended actions, through which one intends to achieve a goal.\n\n\"Course of action\" is a synonym for Plan. "
+          format: class
       description: Reference to  Syndicate Membership Plan
     actiontypevalues:
       enum:
@@ -817,64 +568,15 @@ components:
         ActionType:
           $ref: '#/components/schemas/actiontypevalues'
       description: ''
-    arrangementlifecyclestatus:
-      type: object
-      properties:
-        ArrangementLifecycleStatus:
-          $ref: '#/components/schemas/status'
-        ArrangementLifecycleStatusType:
-          type: string
-          description: ''
-          format: arrangementlifecyclestatustypevalues
-      description: 'A characteristic of arrangement which refers to the LifecycleStatus of arrangement (e.g., requested, proposed, offered, accepted, cancelled, terminated, fulfilled, etc.)'
-    subject:
-      type: object
-      properties:
-        Subject:
-          type: string
-          description: A thing that is discussed or dealt whit in agreement/arrangement about doing or not doing (as action) something.
-          format: class
-      description: ''
-    arrangementtypevalues:
-      enum:
-        - SweepArrangement
-        - WithdrawalArrangement
-        - DepositArrangement
-        - InterestArrangement
-        - FeeArrangement
-        - LienArrangement
-        - InformationArrangement
-        - PaymentServiceArrangement
-        - EntitlementArrangement
-        - PeriodArrangement
-        - CollateralArrangement
-        - LimitArrangement
-        - AccessArrangement
-        - CardPaymentArrangement
-        - StandingOrderArrangement
-        - OverdraftArrangement
-        - RepaymentArrangement
-        - StatementArrangement
-        - CreditTransferArrangement
-        - ProductAndServiceArrangement
-        - FactoringArrangement
-      type: string
-      description: ">\n* `SweepArrangement` - An arrangement into which is promised for the set-up and execution of structured sweeps to and from the facility to a linked account.\n* `WithdrawalArrangement` - An arrangement into which is promised to deliver Withdraw Service  to take fund out of an account. \n* `DepositArrangement` - An arrangement into which is promised to deliver Deposit Service  to place funds into an account for safekeeping. \n* `InterestArrangement` - An arrangement into which is promised to apply a pricing element expressed in a percentage  to a principal amount.\n* `FeeArrangement` - An arrangement into which is promised to apply a charge for services rendered. \n* `LienArrangement` - An arrangement into which is promised for placing a lien or block on the account for a specified purpose, amount, and period. \n* `InformationArrangement` - An arrangement concerning the information the bank will provide about the agreement/account\n* `PaymentServiceArrangement` - An arrangement into which is promised to deliver a specific payment service including regular payments, standing orders, direct debits and bill pay instructions. \n* `EntitlementArrangement` - Right or obligation linked to the involvement of a party in an agreement\n* `PeriodArrangement` - \n* `CollateralArrangement` - An arrangement into which is promised for handling the oversight of the allocation, valuation and administration of collateral associated with the facility. \n* `LimitArrangement` - An arrangement to limit something\ne.g., the number of transaction per week, the amount of money allowed to withdraw per week/day and etc. \n* `AccessArrangement` - An arrangement that allows or restricts the access to a service or product, channel or device through a specific access point\n* `CardPaymentArrangement` - An arrangement into which is promised to deliver Card payment Service to execute payment transactions through a payment card, including online payments. \n* `StandingOrderArrangement` - An arrangement into which is promised to deliver Standing Order Service to make regular transfers on given dates to a named beneﬁciary. \n* `OverdraftArrangement` - An arrangement into which is promised to deliver Overdraft Service  that allows fund transfer even if there is no provision on the account. \n* `RepaymentArrangement` - An arrangement into which is promised for paying back money previously borrowed from a lender. \n* `StatementArrangement` - An arrangement into which is promised to deliver a reporting service on payment transactions registered on an account. \n* `CreditTransferArrangement` - An arrangement into which is promised to allow a payer to transfer fund to a beneficiary. \n* `ProductAndServiceArrangement` - \n* `FactoringArrangement` - \n"
     arrangement:
       type: object
       properties:
         ArrangementAction:
           $ref: '#/components/schemas/action'
-        ArrangementStartDate:
-          $ref: '#/components/schemas/datetime'
-        ArrangementEndDate:
-          $ref: '#/components/schemas/datetime'
-        ArrangementStatus:
-          $ref: '#/components/schemas/arrangementlifecyclestatus'
-        ArrangementSubjectMatter:
-          $ref: '#/components/schemas/subject'
-        Arrangementtype:
-          $ref: '#/components/schemas/arrangementtypevalues'
+        Arrangement:
+          type: string
+          description: An agreed commitment to perform actions that meet obligations under an agreement
+          format: class
       description: Liability or duty to do something under the terms of Syndicate Membership
     SyndicateMembership:
       type: object
