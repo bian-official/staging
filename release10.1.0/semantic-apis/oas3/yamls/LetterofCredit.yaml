@@ -1336,414 +1336,198 @@ components:
           type: string
           format: string
       description: Status Attributes
-    condition:
-      type: object
-      properties:
-        Condition:
-          type: string
-          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
-          format: class
-      description: The required status/situation prior to the execution of the task
-    schedule:
-      type: object
-      properties:
-        ScheduleType:
-          type: string
-          description: ''
-          format: string
-      description: The timing and key actions/milestones involved in completing the transaction task
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The Seller Obligation Confirmation Task specific Business Service
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: An identifier that allows to uniquely refer to an instance of a transaction.
-    transactiondate:
-      type: object
-      properties:
-        TransactionDate:
-          $ref: '#/components/schemas/datetime'
-        TransactionDateType:
-          type: string
-          description: ''
-          format: transactiondatetypevalues
-      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    transactiontypevalues:
-      enum:
-        - FinancialTransaction
-        - BusinessTransaction
-        - BankingTransaction
-        - AccountingTransaction
-        - BookingTransaction
-        - AllocationTransaction
-        - DeliveryTransaction
-        - ProductionTransaction
-      type: string
-      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n* `ProductionTransaction` - \n"
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: ''
-    transactionlifecyclestatus:
-      type: object
-      properties:
-        TransactionLifecycleStatus:
-          $ref: '#/components/schemas/status'
-        TransactionLifecycleStatusType:
-          type: string
-          description: ''
-          format: transactionlifecyclestatustypevalues
-      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-    transaction:
-      type: object
-      properties:
-        TransactionIdentification:
-          $ref: '#/components/schemas/identifier'
-        TransactionDate:
-          $ref: '#/components/schemas/transactiondate'
-        TransactionType:
-          $ref: '#/components/schemas/transactiontypevalues'
-        TransactionDescription:
-          $ref: '#/components/schemas/text'
-        TransactionStatus:
-          $ref: '#/components/schemas/transactionlifecyclestatus'
-        TransactionName:
-          $ref: '#/components/schemas/name'
-      description: Reference to Seller Obligation Confirmation Task
     SellerObligationConfirmationTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones involved in completing the transaction task
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Seller Obligation Confirmation Task specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to Seller Obligation Confirmation Task
+          format: transaction
         SellerObligationConfirmationTaskReference:
           type: string
           description: Reference to Seller Obligation Confirmation Task
           format: task
         SellerObligationConfirmationTaskType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Seller Obligation Confirmation Task
+          format: text
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
     LetterofCreditIssuanceandBookingTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones involved in completing the transaction task
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Letter of Credit Issuance and Booking Task specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to Letter of Credit Issuance and Booking Task
+          format: transaction
         LetterofCreditIssuanceandBookingTaskReference:
           type: string
           description: Reference to Letter of Credit Issuance and Booking Task
           format: task
         LetterofCreditIssuanceandBookingTaskType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Letter of Credit Issuance and Booking Task
+          format: text
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
     LetterofCreditPayoutTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones involved in completing the transaction task
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Letter of Credit Payout Task specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to Letter of Credit Payout Task
+          format: transaction
         LetterofCreditPayoutTaskReference:
           type: string
           description: Reference to Letter of Credit Payout Task
           format: task
         LetterofCreditPayoutTaskType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Letter of Credit Payout Task
+          format: text
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
     CustomerCollateralAllocationTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones involved in completing the transaction task
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Customer Collateral Allocation Task specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to Customer Collateral Allocation Task
+          format: transaction
         CustomerCollateralAllocationTaskReference:
           type: string
           description: Reference to Customer Collateral Allocation Task
           format: task
         CustomerCollateralAllocationTaskType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Customer Collateral Allocation Task
+          format: text
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
     LetterofCreditDefinitionandPricingTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones involved in completing the transaction task
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Letter of Credit Definition and Pricing Task specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to Letter of Credit Definition and Pricing Task
+          format: transaction
         LetterofCreditDefinitionandPricingTaskReference:
           type: string
           description: Reference to Letter of Credit Definition and Pricing Task
           format: task
         LetterofCreditDefinitionandPricingTaskType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Letter of Credit Definition and Pricing Task
+          format: text
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
     CustomerPaymentTask:
       type: object
       properties:
         Preconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The required status/situation prior to the execution of the task
+          format: condition
         Schedule:
-          $ref: '#/components/schemas/schedule'
+          type: string
+          description: The timing and key actions/milestones involved in completing the transaction task
+          format: schedule
         BusinessService:
-          $ref: '#/components/schemas/businessservice'
+          type: string
+          description: The Customer Payment Task specific Business Service
+          format: businessservice
         Postconditions:
-          $ref: '#/components/schemas/condition'
+          type: string
+          description: The completion status and any triggered/dependent actions once the task has been completed
+          format: condition
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: Reference to Customer Payment Task
+          format: transaction
         CustomerPaymentTaskReference:
           type: string
           description: Reference to Customer Payment Task
           format: task
         CustomerPaymentTaskType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type of Customer Payment Task
+          format: text
       description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
-    feetransaction:
-      type: object
-      properties:
-        FeeType:
-          type: string
-          description: Type of the applied Fee
-          format: string
-        AccruedFeeAmount:
-          type: string
-          description: 'Total fee charged '
-          format: string
-        FeeAmount:
-          type: string
-          description: "Amount of money paid for the charge\nAmount of money asked or paid for the charge (ISO20022)\n"
-          format: string
-      description: ''
-    interesttransactiontypevalues:
-      enum:
-        - InterestAllocationTransaction
-        - InterestPaymentTransaction
-        - InterestAdjustmentTransaction
-      type: string
-      description: ">\n* `InterestAllocationTransaction` - \n* `InterestPaymentTransaction` - \n* `InterestAdjustmentTransaction` - \n"
-    rate:
-      type: object
-      properties:
-        RateValue:
-          type: string
-          description: ''
-          format: string
-        RateUnit:
-          type: string
-          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
-          format: string
-        RatePeriod:
-          type: string
-          description: ''
-          format: string
-        RateCapitalUnit:
-          type: string
-          description: ''
-          format: string
-      description: The actual interest rate used for the payment of the interest for the specified interest period. (ISO20022)
-    interesttransaction:
-      type: object
-      properties:
-        InterestTransactionAmount:
-          type: string
-          description: Amount of applied interest
-          format: string
-        InterestTransactionDescription:
-          type: string
-          description: Description of InterestTransaction
-          format: string
-        InterestTransactionType:
-          $ref: '#/components/schemas/interesttransactiontypevalues'
-        InterestRate:
-          $ref: '#/components/schemas/rate'
-        InteretType:
-          type: string
-          description: "Type of an applied Interest\n\nSpecifies the type of interest associated with a trade. (ISO20022)"
-          format: string
-      description: ''
-    workproduct:
-      type: object
-      properties:
-        WorkProductType:
-          type: string
-          description: ''
-          format: workproducttypevalues
-        WorkProductIdentifoication:
-          type: string
-          description: ''
-          format: string
-      description: ''
     LetterofCreditOutcome:
       type: object
       properties:
@@ -1752,61 +1536,69 @@ components:
           description: ''
           format: calendar
         LetterofCreditCounterparty:
-          $ref: '#/components/schemas/involvedparty'
-        LetterofCreditDividend:
-          $ref: '#/components/schemas/text'
-        LetterofCreditFees:
-          $ref: '#/components/schemas/feetransaction'
-        LetterofCreditInterest:
-          $ref: '#/components/schemas/interesttransaction'
-        LetterofCreditMargining:
-          $ref: '#/components/schemas/text'
-        LetterofCreditNotionalPrincipal:
-          $ref: '#/components/schemas/text'
-        LetterofCreditOptions:
-          $ref: '#/components/schemas/text'
-        LetterofCreditRates:
-          $ref: '#/components/schemas/rate'
-        LetterofCreditSettlement:
-          $ref: '#/components/schemas/text'
-        LetterofCreditWorkProduct:
-          $ref: '#/components/schemas/workproduct'
-      description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
-    servicetype:
-      type: object
-      properties:
-        ServiceTypeName:
-          $ref: '#/components/schemas/name'
-        ServiceType:
           type: string
           description: ''
-          format: servicetypevalues
-      description: ''
-    service:
-      type: object
-      properties:
-        ServiceName:
-          $ref: '#/components/schemas/name'
-        ServiceDescription:
-          $ref: '#/components/schemas/text'
-        ServiceType:
-          $ref: '#/components/schemas/servicetype'
-      description: A selected optional business service as subject matter of Letter Of Credit Transaction
+          format: involvedparty
+        LetterofCreditDividend:
+          type: string
+          description: ''
+          format: text
+        LetterofCreditFees:
+          type: string
+          description: ''
+          format: feetransaction
+        LetterofCreditInterest:
+          type: string
+          description: ''
+          format: interesttransaction
+        LetterofCreditMargining:
+          type: string
+          description: ''
+          format: text
+        LetterofCreditNotionalPrincipal:
+          type: string
+          description: ''
+          format: text
+        LetterofCreditOptions:
+          type: string
+          description: ''
+          format: text
+        LetterofCreditRates:
+          type: string
+          description: ''
+          format: rate
+        LetterofCreditSettlement:
+          type: string
+          description: ''
+          format: text
+        LetterofCreditWorkProduct:
+          type: string
+          description: ''
+          format: workproduct
+      description: The Seller Obligation Confirmation Task is a discrete action or task that is required in the execution of the Seller Obligation Confirmation Task
     LetterOfCreditTransaction:
       type: object
       properties:
         LetterOfCreditTransactionParameterType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: A Classification value that distinguishes between business service transaction within Letter Of Credit Transaction
+          format: text
         LetterOfCreditTransactionSelectedOption:
-          $ref: '#/components/schemas/service'
+          type: string
+          description: A selected optional business service as subject matter of Letter Of Credit Transaction
+          format: service
         LetterOfCreditTransactionStatus:
-          $ref: '#/components/schemas/transactionlifecyclestatus'
+          type: string
+          description: The status of Letter Of Credit Transaction
+          format: transactionlifecyclestatus
         LetterOfCreditTransactionType:
           type: string
           description: A Classification value that specifies type of transaction for this  Letter Of Credit Transaction
           format: actiontype
         LetterOfCreditTransactionReference:
-          $ref: '#/components/schemas/transaction'
+          type: string
+          description: An unique reference to an item or an occurrence of Letter Of Credit Transaction
+          format: transaction
       description: 'Execute a well-bounded financial transaction/task, typically involving largely automated/structured fulfillment processing within Letter of Credit. '
   responses:
     BadRequest:
