@@ -651,6 +651,36 @@ components:
           type: string
           format: string
       description: Status Attributes
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: The amount of the required repayment
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The due date for the payment
     Billing:
       type: object
       properties:
@@ -679,18 +709,34 @@ components:
           description: Reference to an associated statement (that is included in the generated invoice)
           format: object
         BillingTransactionAmount:
-          type: string
-          description: The amount of the required repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         BillingTransactionMinimumRequiredPayment:
           type: string
           description: The minimum required payment (for partial payment)
           format: string
         BillingTransactionPaymentDueDate:
-          type: string
-          description: The due date for the payment
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
@@ -699,17 +745,11 @@ components:
           description: Applicable interest rate type
           format: string
         InterestRateApplicationSchedule:
-          type: string
-          description: The processing schedule for applying interest rates to the account
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: string
-          description: The collection of applicable interest rate 'buckets'
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRate:
-          type: string
-          description: The rate value to be applied
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -731,9 +771,7 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          type: string
-          description: Record of accrued interest
-          format: amount
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -787,17 +825,13 @@ components:
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          type: string
-          description: The currency that the transaction is made in
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          type: string
-          description: The amount corresponding to the type
-          format: amount
+          $ref: '#/components/schemas/amount'
         CardTransactionMerchantReference:
           type: string
           description: Refers to the merchant initiating settlement
@@ -811,9 +845,7 @@ components:
           description: 'Details of the transaction (e.g. purchased service/product, purpose)'
           format: object
         CardTransactionDateTime:
-          type: string
-          description: Significant dates and times associated with the transaction
-          format: date
+          $ref: '#/components/schemas/date'
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -855,17 +887,11 @@ components:
           description: Reference to the payer's bank
           format: object
         RepaymentTransactionAmount:
-          type: string
-          description: The amount of the repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         RepaymentTransactionCurrency:
-          type: string
-          description: The currency used for the repayment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         RepaymentTransactionValueDate:
-          type: string
-          description: The value date for the repayment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     IssuedDevice:
       type: object
@@ -955,9 +981,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -987,13 +1011,9 @@ components:
           description: Bank branch associated with the card account for booking purposes
           format: object
         AccountCurrency:
-          type: string
-          description: The primary account currency
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         SecondaryBillingCurrency:
-          type: string
-          description: Required for dual currency accounts
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         TaxReference:
           type: string
           description: Reference identifier linking the account to appropriate tax handling
@@ -1122,13 +1142,9 @@ components:
               description: Bank branch associated with the card account for booking purposes
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -1304,13 +1320,9 @@ components:
               description: Bank branch associated with the card account for booking purposes
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -1439,13 +1451,9 @@ components:
               description: Bank branch associated with the card account for booking purposes
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -1574,13 +1582,9 @@ components:
               description: Bank branch associated with the card account for booking purposes
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -1705,13 +1709,9 @@ components:
               description: Reference to the legal entity (typically the customer)
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -1772,13 +1772,9 @@ components:
               description: Applicable interest rate type
               format: string
             InterestRateApplicationSchedule:
-              type: string
-              description: The processing schedule for applying interest rates to the account
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestRateConfiguration:
-              type: string
-              description: The collection of applicable interest rate 'buckets'
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestApplicationRecord:
               type: string
               description: The record of applied interest
@@ -1800,9 +1796,7 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              type: string
-              description: Record of accrued interest
-              format: amount
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -1902,9 +1896,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -1937,13 +1929,9 @@ components:
               description: Bank branch associated with the card account for booking purposes
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -2100,9 +2088,7 @@ components:
               description: The anticipated fee or penalty amount
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -2170,17 +2156,13 @@ components:
               description: The period (from-to) covered by the invoice
               format: string
             BillingTransactionAmount:
-              type: string
-              description: The amount of the required repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             BillingTransactionMinimumRequiredPayment:
               type: string
               description: The minimum required payment (for partial payment)
               format: string
             BillingTransactionPaymentDueDate:
-              type: string
-              description: The due date for the payment
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ExBQ Execute the billing process for a card account'
     RetrieveBillingResponse:
       type: object
@@ -2205,13 +2187,9 @@ components:
               description: Bank branch associated with the card account for booking purposes
               format: object
             AccountCurrency:
-              type: string
-              description: The primary account currency
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             SecondaryBillingCurrency:
-              type: string
-              description: Required for dual currency accounts
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: Reference identifier linking the account to appropriate tax handling
@@ -2288,9 +2266,7 @@ components:
               description: The derived interest amount to be applied
               format: string
             InterestAccrualAmount:
-              type: string
-              description: Record of accrued interest
-              format: amount
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: The interest type being tracked
@@ -2319,9 +2295,7 @@ components:
               description: The derived fee or penalty amount applied
               format: string
             FeeAccrualAmount:
-              type: string
-              description: Tracking of accumulated fees and penalties
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: The fee or penalty type being tracked
@@ -2358,17 +2332,13 @@ components:
               description: Reference to an associated statement (that is included in the generated invoice)
               format: object
             BillingTransactionAmount:
-              type: string
-              description: The amount of the required repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             BillingTransactionMinimumRequiredPayment:
               type: string
               description: The minimum required payment (for partial payment)
               format: string
             BillingTransactionPaymentDueDate:
-              type: string
-              description: The due date for the payment
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a billing process for a card account'
     RetrieveRepaymentResponse:
       type: object
@@ -2416,17 +2386,11 @@ components:
               description: Reference to the payer's bank
               format: object
             RepaymentTransactionAmount:
-              type: string
-              description: The amount of the repayment
-              format: amount
+              $ref: '#/components/schemas/amount'
             RepaymentTransactionCurrency:
-              type: string
-              description: The currency used for the repayment
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             RepaymentTransactionValueDate:
-              type: string
-              description: The value date for the repayment transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve detail about a repayment transaction'
     UpdateCardTransactionRequest:
       type: object
@@ -2455,9 +2419,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -2475,9 +2437,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2518,9 +2478,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -2538,9 +2496,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2581,9 +2537,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -2601,9 +2555,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -2624,9 +2576,7 @@ components:
           type: object
           properties:
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ExBQ Execute a card account transaction'
     RetrieveCardTransactionResponse:
       type: object
@@ -2670,9 +2620,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -2690,9 +2638,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -3127,9 +3073,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -3147,9 +3091,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -3205,9 +3147,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -3225,9 +3165,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
@@ -3314,9 +3252,7 @@ components:
               description: 'The type of transaction (purchase, cash advance, etc.)'
               format: string
             CardTransactionCurrency:
-              type: string
-              description: The currency that the transaction is made in
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             CardTransactionAmountType:
               type: string
               description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
@@ -3334,9 +3270,7 @@ components:
               description: 'Details of the transaction (e.g. purchased service/product, purpose)'
               format: object
             CardTransactionDateTime:
-              type: string
-              description: Significant dates and times associated with the transaction
-              format: date
+              $ref: '#/components/schemas/date'
             CardTransactionFXConversionCharge:
               type: string
               description: The applied currency conversion charge
