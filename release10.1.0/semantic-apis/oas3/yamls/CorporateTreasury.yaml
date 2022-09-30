@@ -470,26 +470,6 @@ components:
               description: Target financial performance goals set out in the bank's corporate treasury plan
               format: string
       description: 'Output: UpCR Update the corporate treasury plan'
-    rate:
-      type: object
-      properties:
-        RateValue:
-          type: string
-          description: ''
-          format: string
-        RateUnit:
-          type: string
-          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
-          format: string
-        RatePeriod:
-          type: string
-          description: ''
-          format: string
-        RateCapitalUnit:
-          type: string
-          description: ''
-          format: string
-      description: Analytical views detailing exposure and sensitivity to currency and interest rate fluctuations
     RetrieveCorporateTreasuryManagementPlanResponse:
       type: object
       properties:
@@ -525,7 +505,9 @@ components:
               description: Includes large transactions and net positions for smaller trade activity as appropriate
               format: string
             CurrencyandRateRiskAnalysis:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: Analytical views detailing exposure and sensitivity to currency and interest rate fluctuations
+              format: rate
       description: 'Output: ReCR Retrieve details about the corporate treasury plan'
     CaptureLiquidityRequest:
       type: object
@@ -549,7 +531,9 @@ components:
               description: 'Account records that cover booking, pooling and netting activities across all relevant bank activity'
               format: string
             CurrencyandRateRiskAnalysis:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: Analytical views detailing exposure and sensitivity to currency and interest rate fluctuations
+              format: rate
         Liquidity:
           type: object
           properties:
@@ -688,14 +672,6 @@ components:
               description: Description of a response initiated by corporate treasury
               format: string
       description: 'Output: ReBQ Retrieve securitization tranche and task related details'
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: The key date and time values associated with the rate
     RetrieveBankRatesResponse:
       type: object
       properties:
@@ -707,17 +683,25 @@ components:
               description: The type of bank interest or currency rate that is to be applied in production (e.g. bank's consumer mortgage rate)
               format: string
             BankRateValue:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: The current value (value range if appropriate) to apply
+              format: rate
             BankRateValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: The key date and time values associated with the rate
+              format: date
             BankRateValueHistory:
-              $ref: '#/components/schemas/rate'
+              type: string
+              description: 'Historical values (maintained for back testing, corrections etc.)'
+              format: rate
             BankRateRecordReference:
               type: string
               description: Reference to the distributed record containing the prevailing bank rates
               format: object
             BankRateRecordDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: Date and time stamp for rate value record
+              format: date
       description: 'Output: ReBQ Retrieve bank rate table and details'
   responses:
     BadRequest:

@@ -1206,189 +1206,6 @@ components:
           description: ''
           format: financialmarket
       description: Capture and maintain reference information about some type of entitity within Financial Instrument Reference Data Management.
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: Documentation of Financial Instrument Directory Entry
-    schedule:
-      type: object
-      properties:
-        ScheduleType:
-          type: string
-          description: ''
-          format: string
-      description: The timetable to capture and maintain Financial Instrument Directory Entry
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: Date and time at which the status was assigned.
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: Period of time during which the status is valid.
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
-      description: Party who plays a  specific role in the context of assigning a status.
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: The status of Financial Instrument Directory Entry
-    log:
-      type: object
-      properties:
-        LogType:
-          type: string
-          description: ''
-          format: string
-        LogPeriod:
-          type: string
-          description: ''
-          format: string
-        LogDate:
-          type: string
-          description: Key dates associated with the log (e.g. start time).
-          format: string
-        LogIdentification:
-          type: string
-          description: ''
-          format: string
-      description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
-    directoryentrydatetypevalues:
-      enum:
-        - OpenDate
-        - RefreshDate
-      type: string
-      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    directoryentry:
-      type: object
-      properties:
-        DirectoryEntryDateType:
-          $ref: '#/components/schemas/directoryentrydatetypevalues'
-        DirectoryEntryDate:
-          $ref: '#/components/schemas/date'
-        DirectoryEntryStatus:
-          $ref: '#/components/schemas/status'
-      description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
     ControlFinancialInstrumentDirectoryEntryRequest:
       type: object
       properties:
@@ -1396,23 +1213,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Control Financial Instrument Directory Entry'
     ControlFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1421,23 +1252,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Control Financial Instrument Directory Entry'
     ExecuteFinancialInstrumentDirectoryEntryRequest:
       type: object
@@ -1446,23 +1291,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Execute Financial Instrument Directory Entry'
     ExecuteFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1471,23 +1330,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Execute Financial Instrument Directory Entry'
     NotifyFinancialInstrumentDirectoryEntryRequest:
       type: object
@@ -1496,23 +1369,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Notify Financial Instrument Directory Entry'
     NotifyFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1521,23 +1408,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Notify Financial Instrument Directory Entry'
     RegisterFinancialInstrumentDirectoryEntryRequest:
       type: object
@@ -1546,23 +1447,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Register Financial Instrument Directory Entry'
     RegisterFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1571,23 +1486,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Register Financial Instrument Directory Entry'
     RequestFinancialInstrumentDirectoryEntryRequest:
       type: object
@@ -1596,23 +1525,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Request Financial Instrument Directory Entry'
     RequestFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1621,23 +1564,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Request Financial Instrument Directory Entry'
     RetrieveFinancialInstrumentDirectoryEntryRequest:
       type: object
@@ -1646,23 +1603,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Retrieve Financial Instrument Directory Entry'
     RetrieveFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1671,23 +1642,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Retrieve Financial Instrument Directory Entry'
     UpdateFinancialInstrumentDirectoryEntryRequest:
       type: object
@@ -1696,23 +1681,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Input: Update Financial Instrument Directory Entry'
     UpdateFinancialInstrumentDirectoryEntryResponse:
       type: object
@@ -1721,23 +1720,37 @@ components:
           type: object
           properties:
             FinancialInstrumentDirectoryEntryDescription:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: Documentation of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntrySchedule:
-              $ref: '#/components/schemas/schedule'
+              type: string
+              description: The timetable to capture and maintain Financial Instrument Directory Entry
+              format: schedule
             FinancialInstrumentDirectoryEntryVersion:
               type: string
               description: The version of Financial Instrument Directory Entry
               format: number
             FinancialInstrumentDirectoryEntryStatus:
-              $ref: '#/components/schemas/status'
+              type: string
+              description: The status of Financial Instrument Directory Entry
+              format: status
             FinancialInstrumentDirectoryEntryUsageLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (usage) ativities/events  of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryUpdateLog:
-              $ref: '#/components/schemas/log'
+              type: string
+              description: Reference to the log of (update) ativities/events of Financial Instrument Directory Entry
+              format: log
             FinancialInstrumentDirectoryEntryServiceConfiguration:
-              $ref: '#/components/schemas/text'
+              type: string
+              description: The configuration of Financial Instrument Directory Entry
+              format: text
             FinancialInstrumentDirectoryEntryReference:
-              $ref: '#/components/schemas/directoryentry'
+              type: string
+              description: An unique reference to an item or an occurrence of Financial Instrument Directory Entry
+              format: directoryentry
       description: 'Output: Update Financial Instrument Directory Entry'
   responses:
     BadRequest:
