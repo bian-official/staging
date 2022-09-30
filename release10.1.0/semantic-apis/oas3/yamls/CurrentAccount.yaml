@@ -705,48 +705,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    rate:
-      type: object
-      properties:
-        RateValue:
-          type: string
-          description: ''
-          format: string
-        RateUnit:
-          type: string
-          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
-          format: string
-        RatePeriod:
-          type: string
-          description: ''
-          format: string
-        RateCapitalUnit:
-          type: string
-          description: ''
-          format: string
-      description: The processing schedule for applying interest rates to the account
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: ''
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: string
-        AmountCurrency:
-          $ref: '#/components/schemas/currencycode'
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: string
-      description: Record of accrued interest
     Interest:
       type: object
       properties:
@@ -755,11 +713,17 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The processing schedule for applying interest rates to the account
+          format: rate
         InterestRateConfiguration:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The collection of applicable rates
+          format: rate
         InterestRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The rate value to be applied
+          format: rate
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -781,7 +745,9 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Record of accrued interest
+          format: amount
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -791,14 +757,6 @@ components:
           description: The accrued amount of applied interest
           format: string
       description: The product features/services available with a financical facility
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: The various key dates and times associated with the payment transaction
     Payments:
       type: object
       properties:
@@ -863,7 +821,9 @@ components:
           description: Reference to the bank where the payee account is held
           format: object
         PaymentTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount (and currency if applicable) of the payment
+          format: amount
         PaymentTransactionFeeType:
           type: string
           description: The fee type applied to the payment transaction
@@ -873,7 +833,9 @@ components:
           description: The fee charge applied to the transaction
           format: string
         PaymentTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The various key dates and times associated with the payment transaction
+          format: date
         PaymentTransactionPaymentMechanism:
           type: string
           description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -919,11 +881,17 @@ components:
           description: The purpose or associated facility linked to the lien
           format: string
         LienAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount being blocked
+          format: amount
         LienStartDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date the lien is enforced
+          format: date
         LienExpiryDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date the lien is removed
+          format: date
         LienStatus:
           type: string
           description: The status on the lien
@@ -1001,9 +969,13 @@ components:
           description: The facility that the sweep is made to/from
           format: string
         AccountSweepAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount transferred to or from the account
+          format: amount
         AccountSweepExecutionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the sweep is initiated
+          format: date
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -1057,7 +1029,9 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Tracking of accumulated fees and penalties
+          format: amount
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -1099,9 +1073,13 @@ components:
           description: Any necessary details describing the purpose or reference properties of the deposit
           format: string
         DepositTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The deposited amount
+          format: amount
         DepositTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the deposit was initiated
+          format: date
         WithdrawalTransaction:
           type: string
           description: Details of the withdrawal transaction
@@ -1119,223 +1097,14 @@ components:
           description: Any necessary details describing the purpose or reference properties of the withdrawal
           format: string
         WihdrawalTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The withdrawn amount
+          format: amount
         WithdrawalTransactionDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date and time the withdrawal was initiated
+          format: date
       description: The product features/services available with a financical facility
-    value:
-      type: object
-      properties:
-        Value:
-          type: string
-          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
-          format: datatype
-      description: ''
-    name:
-      type: object
-      properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
-    partytypevalues:
-      enum:
-        - Person
-        - Organisation
-      type: string
-      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
-          type: string
-          description: ''
-          format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    partyidentification:
-      type: object
-      properties:
-        PartyIdentificationType:
-          type: string
-          description: ''
-          format: partyidentificationtypevalues
-        PartyIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: ''
-    party:
-      type: object
-      properties:
-        PartyName:
-          $ref: '#/components/schemas/name'
-        PartyType:
-          $ref: '#/components/schemas/partytypevalues'
-        PartyDateTime:
-          $ref: '#/components/schemas/datetime'
-        PartyIdentification:
-          $ref: '#/components/schemas/partyidentification'
-      description: ''
-    text:
-      type: object
-      properties:
-        Text:
-          type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: ''
-    datetimeperiod:
-      type: object
-      properties:
-        FromDateTime:
-          $ref: '#/components/schemas/datetime'
-        ToDateTime:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    partyinvolvementtypevalues:
-      enum:
-        - Agreementinvolvement
-        - Partyinvolvement
-        - Arrangementinvolvement
-        - Designspecificationinvolvement
-        - Relationshipinvolvement
-        - Locationinvolvement
-        - Bankguaranteeinvolvement
-      type: string
-      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
-    partyrole:
-      type: object
-      properties:
-        PartyRoleType:
-          $ref: '#/components/schemas/text'
-        PartyRoleName:
-          $ref: '#/components/schemas/name'
-        PartyRoleValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        PartyInvolvementType:
-          $ref: '#/components/schemas/partyinvolvementtypevalues'
-      description: ''
-    involvedparty:
-      type: object
-      properties:
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        PartyInvolvement:
-          $ref: '#/components/schemas/partyrole'
-      description: ''
-    identifier:
-      type: object
-      properties:
-        IdentifierValue:
-          $ref: '#/components/schemas/value'
-        IdentifierIssuingAuthority:
-          $ref: '#/components/schemas/involvedparty'
-        IdentifierStartDate:
-          $ref: '#/components/schemas/datetime'
-        IdentifierEndDate:
-          $ref: '#/components/schemas/datetime'
-      description: ''
-    accountidentification:
-      type: object
-      properties:
-        AccountIdentificationType:
-          type: string
-          description: ''
-          format: accountidentificationtypevalues
-        AccountIdentification:
-          $ref: '#/components/schemas/identifier'
-      description: The associated account number in any suitable format (e.g. IBAN)
-    accounttype:
-      type: object
-      properties:
-        AccountType:
-          type: string
-          description: ''
-          format: accounttypevalues
-        AccountTypeName:
-          $ref: '#/components/schemas/name'
-      description: 'The type of current account (e.g. checking, student, small business)'
-    accountcurrency:
-      type: object
-      properties:
-        AccountCurrencyType:
-          type: string
-          description: ''
-          format: accountcurrencytypevalues
-        AccountCurrency:
-          $ref: '#/components/schemas/currencycode'
-      description: The primary account currency
-    status:
-      type: object
-      properties:
-        StatusReason:
-          $ref: '#/components/schemas/text'
-        StatusDateTime:
-          $ref: '#/components/schemas/datetime'
-        StatusValidityPeriod:
-          $ref: '#/components/schemas/datetimeperiod'
-        StatusInvolvedParty:
-          $ref: '#/components/schemas/involvedparty'
-      description: ''
-    accountstatus:
-      type: object
-      properties:
-        AccountStatus:
-          $ref: '#/components/schemas/status'
-        AccountStatusType:
-          type: string
-          description: ''
-          format: accountstatustypevalues
-      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
-    accountdate:
-      type: object
-      properties:
-        AccountDateType:
-          type: string
-          description: ''
-          format: accountdatetypevalues
-        AccountDate:
-          $ref: '#/components/schemas/datetime'
-      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
-    accountbalance:
-      type: object
-      properties:
-        AccountBalance:
-          $ref: '#/components/schemas/amount'
-        AccountBalanceType:
-          type: string
-          description: ''
-          format: accountbalancetypevalues
-        AccounBalanceDate:
-          $ref: '#/components/schemas/datetime'
-      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
-    account:
-      type: object
-      properties:
-        AccountStatus:
-          $ref: '#/components/schemas/accountstatus'
-        AccountIdentification:
-          $ref: '#/components/schemas/accountidentification'
-        AccountDate:
-          $ref: '#/components/schemas/accountdate'
-        AccountType:
-          $ref: '#/components/schemas/accounttype'
-        AccountPurpose:
-          $ref: '#/components/schemas/text'
-        AccountBalance:
-          $ref: '#/components/schemas/accountbalance'
-        AccountCurrency:
-          $ref: '#/components/schemas/accountcurrency'
-        AccountDescription:
-          $ref: '#/components/schemas/text'
-      description: Definition of the associations to the account
     CurrentAccountFacility:
       type: object
       properties:
@@ -1344,7 +1113,9 @@ components:
           description: Reference to the current account product instance
           format: object
         CurrentAccountNumber:
-          $ref: '#/components/schemas/accountidentification'
+          type: string
+          description: The associated account number in any suitable format (e.g. IBAN)
+          format: accountidentification
         CustomerReference:
           type: string
           description: Reference to the account primary party/owner
@@ -1354,9 +1125,13 @@ components:
           description: Bank branch associated with the account for booking purposes
           format: object
         AccountType:
-          $ref: '#/components/schemas/accounttype'
+          type: string
+          description: 'The type of current account (e.g. checking, student, small business)'
+          format: accounttype
         AccountCurrency:
-          $ref: '#/components/schemas/accountcurrency'
+          type: string
+          description: The primary account currency
+          format: accountcurrency
         TaxReference:
           type: string
           description: Reference identifier linking the account to appropriate tax handling
@@ -1394,9 +1169,13 @@ components:
           description: Reference to the associated party
           format: object
         LinkedAccounts:
-          $ref: '#/components/schemas/account'
+          type: string
+          description: Definition of the associations to the account
+          format: account
         LinkType:
-          $ref: '#/components/schemas/text'
+          type: string
+          description: The type and purpose for the link
+          format: text
         AccountDetails:
           type: string
           description: Details of the linked account
@@ -1422,10 +1201,249 @@ components:
           description: 'Key dates associated with the account (e.g. opening date, closing date)'
           format: string
         Date:
+          type: string
+          description: Value of the date type
+          format: accountdate
+        AccountBalance:
+          type: string
+          description: ''
+          format: accountbalance
+      description: 'Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Current Account. '
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    accounttype:
+      type: object
+      properties:
+        AccountType:
+          type: string
+          description: ''
+          format: accounttypevalues
+        AccountTypeName:
+          $ref: '#/components/schemas/name'
+      description: 'The type of current account (e.g. checking, student, small business)'
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    accountcurrency:
+      type: object
+      properties:
+        AccountCurrencyType:
+          type: string
+          description: ''
+          format: accountcurrencytypevalues
+        AccountCurrency:
+          $ref: '#/components/schemas/currencycode'
+      description: The primary account currency
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: Specifies the reasons for the status.
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: Date and time at which the status was assigned.
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: Period of time during which the status is valid.
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: Party who plays a  specific role in the context of assigning a status.
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: ''
+    accountstatus:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/status'
+        AccountStatusType:
+          type: string
+          description: ''
+          format: accountstatustypevalues
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentification:
+      type: object
+      properties:
+        AccountIdentificationType:
+          type: string
+          description: ''
+          format: accountidentificationtypevalues
+        AccountIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: The identifier of account like Account Number.
+    accountdate:
+      type: object
+      properties:
+        AccountDateType:
+          type: string
+          description: ''
+          format: accountdatetypevalues
+        AccountDate:
+          $ref: '#/components/schemas/datetime'
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: ''
+    accountbalance:
+      type: object
+      properties:
+        AccountBalance:
+          $ref: '#/components/schemas/amount'
+        AccountBalanceType:
+          type: string
+          description: ''
+          format: accountbalancetypevalues
+        AccounBalanceDate:
+          $ref: '#/components/schemas/datetime'
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
           $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
         AccountBalance:
           $ref: '#/components/schemas/accountbalance'
-      description: 'Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Current Account. '
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: Definition of the associations to the account
     InitiateCurrentAccountFacilityRequest:
       type: object
       properties:
@@ -1811,6 +1829,26 @@ components:
               description: 'Key dates associated with the account (e.g. opening date, closing date)'
               format: string
       description: 'Output: ReCR Retrieve information about a current account - either standard canned reports or selected instance attribute values'
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: The processing schedule for applying interest rates to the account
     RetrieveInterestResponse:
       type: object
       properties:
@@ -2099,6 +2137,14 @@ components:
               description: The accrued amount of fees and penalties
               format: string
       description: 'Output: ReBQ Retrieve information about a service fee applied to the account'
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The date the lien is enforced
     InitiateAccountLienRequest:
       type: object
       properties:

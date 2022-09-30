@@ -386,26 +386,6 @@ components:
           description: List of major shareholders and shareholdings of significance
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
-    rate:
-      type: object
-      properties:
-        RateValue:
-          type: string
-          description: ''
-          format: string
-        RateUnit:
-          type: string
-          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
-          format: string
-        RatePeriod:
-          type: string
-          description: ''
-          format: string
-        RateCapitalUnit:
-          type: string
-          description: ''
-          format: string
-      description: Past and projected growth rates
     Profile:
       type: object
       properties:
@@ -422,7 +402,9 @@ components:
           description: The projected economic performance for the entity
           format: string
         OrganizationGrowthRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: Past and projected growth rates
+          format: rate
         OrganizationProfitabilityStocks:
           type: string
           description: Analysis of past performance  (a summary description)
@@ -432,6 +414,26 @@ components:
           description: 'Description of revenues, production volumes and staff turnover  a summary description)'
           format: string
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
+    LegalEntityDirectoryEntry:
+      type: object
+      properties:
+        LegalEntityReference:
+          type: string
+          description: Reference to the legal entity that is the subject of the entry
+          format: object
+        PartyReference:
+          type: string
+          description: Reference to the associated party (one or more linked by role to the legal entity)
+          format: party
+        DirectoryEntryDateType:
+          type: string
+          description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
+          format: directoryentrydatetypevalues
+        DirectoryEntryDate:
+          type: string
+          description: Value of the date type
+          format: datetime
+      description: Capture and maintain reference information about some type of entitity within Legal Entity Directory.
     name:
       type: object
       properties:
@@ -557,20 +559,6 @@ components:
         - RefreshDate
       type: string
       description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
-    LegalEntityDirectoryEntry:
-      type: object
-      properties:
-        LegalEntityReference:
-          type: string
-          description: Reference to the legal entity that is the subject of the entry
-          format: object
-        PartyReference:
-          $ref: '#/components/schemas/party'
-        DirectoryEntryDateType:
-          $ref: '#/components/schemas/directoryentrydatetypevalues'
-        DirectoryEntryDate:
-          $ref: '#/components/schemas/datetime'
-      description: Capture and maintain reference information about some type of entitity within Legal Entity Directory.
     RegisterLegalEntityDirectoryEntryRequest:
       type: object
       properties:
@@ -640,6 +628,26 @@ components:
             DirectoryEntryDateType:
               $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Output: ReCR Retrieve details about a legal entity directory entry'
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: Past and projected growth rates
     ExecuteLegalEntityDirectoryEntryRequest:
       type: object
       properties:

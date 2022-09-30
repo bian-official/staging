@@ -651,36 +651,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    currencycode:
-      type: object
-      properties:
-        Currencycode:
-          type: string
-          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
-          format: datatype
-      description: ''
-    amount:
-      type: object
-      properties:
-        AmountValue:
-          type: string
-          description: ''
-          format: string
-        AmountCurrency:
-          $ref: '#/components/schemas/currencycode'
-        DecimalPointPosition:
-          type: string
-          description: "Decimal point position starts calulating from the right\n"
-          format: string
-      description: The amount of the required repayment
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: The due date for the payment
     Billing:
       type: object
       properties:
@@ -709,34 +679,18 @@ components:
           description: Reference to an associated statement (that is included in the generated invoice)
           format: object
         BillingTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the required repayment
+          format: amount
         BillingTransactionMinimumRequiredPayment:
           type: string
           description: The minimum required payment (for partial payment)
           format: string
         BillingTransactionPaymentDueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The due date for the payment
+          format: date
       description: The product features/services available with a financical facility
-    rate:
-      type: object
-      properties:
-        RateValue:
-          type: string
-          description: ''
-          format: string
-        RateUnit:
-          type: string
-          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
-          format: string
-        RatePeriod:
-          type: string
-          description: ''
-          format: string
-        RateCapitalUnit:
-          type: string
-          description: ''
-          format: string
-      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
@@ -745,11 +699,17 @@ components:
           description: Applicable interest rate type
           format: string
         InterestRateApplicationSchedule:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The processing schedule for applying interest rates to the account
+          format: rate
         InterestRateConfiguration:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The collection of applicable interest rate 'buckets'
+          format: rate
         InterestRate:
-          $ref: '#/components/schemas/rate'
+          type: string
+          description: The rate value to be applied
+          format: rate
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -771,7 +731,9 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Record of accrued interest
+          format: amount
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -825,13 +787,17 @@ components:
           description: 'The type of transaction (purchase, cash advance, etc.)'
           format: string
         CardTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency that the transaction is made in
+          format: currencycode
         CardTransactionAmountType:
           type: string
           description: 'Type of amount (e.g. original amount, billing currency amount, conversion rate, FX Mark-up)'
           format: string
         CardTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount corresponding to the type
+          format: amount
         CardTransactionMerchantReference:
           type: string
           description: Refers to the merchant initiating settlement
@@ -845,7 +811,9 @@ components:
           description: 'Details of the transaction (e.g. purchased service/product, purpose)'
           format: object
         CardTransactionDateTime:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: Significant dates and times associated with the transaction
+          format: date
         CardTransactionFXConversionCharge:
           type: string
           description: The applied currency conversion charge
@@ -887,11 +855,17 @@ components:
           description: Reference to the payer's bank
           format: object
         RepaymentTransactionAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: The amount of the repayment
+          format: amount
         RepaymentTransactionCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The currency used for the repayment
+          format: currencycode
         RepaymentTransactionValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The value date for the repayment transaction
+          format: date
       description: The product features/services available with a financical facility
     IssuedDevice:
       type: object
@@ -981,7 +955,9 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          $ref: '#/components/schemas/amount'
+          type: string
+          description: Tracking of accumulated fees and penalties
+          format: amount
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -1011,9 +987,13 @@ components:
           description: Bank branch associated with the card account for booking purposes
           format: object
         AccountCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: The primary account currency
+          format: currencycode
         SecondaryBillingCurrency:
-          $ref: '#/components/schemas/currencycode'
+          type: string
+          description: Required for dual currency accounts
+          format: currencycode
         TaxReference:
           type: string
           description: Reference identifier linking the account to appropriate tax handling
@@ -1123,6 +1103,14 @@ components:
           description: The statement content
           format: string
       description: 'Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Credit Card. '
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: The primary account currency
     InitiateCreditCardFacilityRequest:
       type: object
       properties:
@@ -1690,6 +1678,40 @@ components:
               description: The statement content
               format: string
       description: 'Output: ReCR Retrieve details about a card account'
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: The processing schedule for applying interest rates to the account
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: Record of accrued interest
     RetrieveInterestResponse:
       type: object
       properties:
@@ -2129,6 +2151,14 @@ components:
               description: Reference to an associated statement (that is included in the generated invoice)
               format: object
       description: 'Input: ExBQ Execute the billing process for a card account'
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The due date for the payment
     ExecuteBillingResponse:
       type: object
       properties:

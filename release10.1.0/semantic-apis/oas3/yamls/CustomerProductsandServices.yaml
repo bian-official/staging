@@ -516,22 +516,130 @@ components:
           type: string
           format: string
       description: Status Attributes
-    condition:
+    In-forceProductproperty:
       type: object
       properties:
-        Condition:
+        Preconditions:
           type: string
-          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
-          format: class
-      description: The required status/situation before the property is valid/meaningful
-    schedule:
+          description: The required status/situation before the property is valid/meaningful
+          format: condition
+        Schedule:
+          type: string
+          description: The schedule and timing for which the property value is valid
+          format: schedule
+        VersionNumber:
+          type: string
+          description: The version reference for the property value
+          format: text
+        BusinessService:
+          type: string
+          description: The In-force Product property specific  Business Service
+          format: businessservice
+        CustomerProductsAndServicesDirectoryEntryReference:
+          type: string
+          description: Reference to In-force Product property
+          format: directoryentry
+        In-forceProductpropertyReference:
+          type: string
+          description: Reference to In-force Product property
+          format: object
+        In-forceProductpropertyType:
+          type: string
+          description: The type of In-force Product property
+          format: text
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    In-forceServiceproperty:
       type: object
       properties:
-        ScheduleType:
+        Preconditions:
+          type: string
+          description: The required status/situation before the property is valid/meaningful
+          format: condition
+        Schedule:
+          type: string
+          description: The schedule and timing for which the property value is valid
+          format: schedule
+        VersionNumber:
+          type: string
+          description: The version reference for the property value
+          format: text
+        BusinessService:
+          type: string
+          description: The In-force Service property specific  Business Service
+          format: businessservice
+        CustomerProductsAndServicesDirectoryEntryReference:
+          type: string
+          description: Reference to In-force Service property
+          format: directoryentry
+        In-forceServicepropertyReference:
+          type: string
+          description: Reference to In-force Service property
+          format: object
+        In-forceServicepropertyType:
+          type: string
+          description: The type of In-force Service property
+          format: text
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    CustomerProductsandServicesOutcome:
+      type: object
+      properties:
+        CustomerProductsandServicesEntry:
           type: string
           description: ''
-          format: string
-      description: The schedule and timing for which the property value is valid
+          format: directoryentry
+        CustomerProductsandServicesWorkProduct:
+          type: string
+          description: ''
+          format: workproduct
+      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+    CustomerProductsAndServicesDirectoryEntry:
+      type: object
+      properties:
+        CustomerProductsAndServicesDirectoryEntryDescription:
+          type: string
+          description: Documentation of Customer Products And Services Directory Entry
+          format: text
+        CustomerProductsAndServicesDirectoryEntrySchedule:
+          type: string
+          description: The timetable to capture and maintain Customer Products And Services Directory Entry
+          format: schedule
+        CustomerProductsAndServicesDirectoryEntryVersion:
+          type: string
+          description: The version of Customer Products And Services Directory Entry
+          format: number
+        CustomerProductsAndServicesDirectoryEntryStatus:
+          type: string
+          description: The status of Customer Products And Services Directory Entry
+          format: status
+        CustomerProductsAndServicesDirectoryEntryUsageLog:
+          type: string
+          description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
+          format: log
+        CustomerProductsAndServicesDirectoryEntryUpdateLog:
+          type: string
+          description: Reference to the log of (update) ativities/events of Customer Products And Services Directory Entry
+          format: log
+        CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
+          type: string
+          description: The configuration of Customer Products And Services Directory Entry
+          format: text
+        CustomerProductsAndServicesDirectoryEntryReference:
+          type: string
+          description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
+          format: directoryentry
+        CustomerReference:
+          type: string
+          description: ''
+          format: involvedparty
+        ProductReference:
+          type: string
+          description: ''
+          format: bankingproduct
+        ProductSalesAgreementReference:
+          type: string
+          description: ''
+          format: productsalesagreement
+      description: Capture and maintain reference information about some type of entitity within Customer Products and Services.
     text:
       type: object
       properties:
@@ -539,47 +647,15 @@ components:
           type: string
           description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: The version reference for the property value
-    name:
+      description: Documentation of Customer Products And Services Directory Entry
+    schedule:
       type: object
       properties:
-        Name:
-          type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
-          format: datatype
-      description: ''
-    businessservicetypevalues:
-      type: object
-      properties:
-        Businessservicetypevalues:
-          type: string
-          description: ''
-          format: enumeration
-      description: ''
-    businessservice:
-      type: object
-      properties:
-        BusinessServiceName:
-          $ref: '#/components/schemas/name'
-        BusinessServiceType:
-          $ref: '#/components/schemas/businessservicetypevalues'
-        BusinessServiceDescription:
-          $ref: '#/components/schemas/text'
-      description: The In-force Product property specific  Business Service
-    directoryentrydatetypevalues:
-      enum:
-        - OpenDate
-        - RefreshDate
-      type: string
-      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
-    date:
-      type: object
-      properties:
-        DateContent:
+        ScheduleType:
           type: string
           description: ''
           format: string
-      description: ''
+      description: The timetable to capture and maintain Customer Products And Services Directory Entry
     datetime:
       type: object
       properties:
@@ -604,6 +680,14 @@ components:
         ToDateTime:
           $ref: '#/components/schemas/datetime'
       description: Period of time during which the status is valid.
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
     partytypevalues:
       enum:
         - Person
@@ -694,77 +778,7 @@ components:
           $ref: '#/components/schemas/datetimeperiod'
         StatusInvolvedParty:
           $ref: '#/components/schemas/involvedparty'
-      description: ''
-    directoryentry:
-      type: object
-      properties:
-        DirectoryEntryDateType:
-          $ref: '#/components/schemas/directoryentrydatetypevalues'
-        DirectoryEntryDate:
-          $ref: '#/components/schemas/date'
-        DirectoryEntryStatus:
-          $ref: '#/components/schemas/status'
-      description: Reference to In-force Product property
-    In-forceProductproperty:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        VersionNumber:
-          $ref: '#/components/schemas/text'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        CustomerProductsAndServicesDirectoryEntryReference:
-          $ref: '#/components/schemas/directoryentry'
-        In-forceProductpropertyReference:
-          type: string
-          description: Reference to In-force Product property
-          format: object
-        In-forceProductpropertyType:
-          $ref: '#/components/schemas/text'
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
-    In-forceServiceproperty:
-      type: object
-      properties:
-        Preconditions:
-          $ref: '#/components/schemas/condition'
-        Schedule:
-          $ref: '#/components/schemas/schedule'
-        VersionNumber:
-          $ref: '#/components/schemas/text'
-        BusinessService:
-          $ref: '#/components/schemas/businessservice'
-        CustomerProductsAndServicesDirectoryEntryReference:
-          $ref: '#/components/schemas/directoryentry'
-        In-forceServicepropertyReference:
-          type: string
-          description: Reference to In-force Service property
-          format: object
-        In-forceServicepropertyType:
-          $ref: '#/components/schemas/text'
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
-    workproduct:
-      type: object
-      properties:
-        WorkProductType:
-          type: string
-          description: ''
-          format: workproducttypevalues
-        WorkProductIdentifoication:
-          type: string
-          description: ''
-          format: string
-      description: ''
-    CustomerProductsandServicesOutcome:
-      type: object
-      properties:
-        CustomerProductsandServicesEntry:
-          $ref: '#/components/schemas/directoryentry'
-        CustomerProductsandServicesWorkProduct:
-          $ref: '#/components/schemas/workproduct'
-      description: The In-force Product property properties that represent a discrete aspect of the In-force Product property
+      description: The status of Customer Products And Services Directory Entry
     log:
       type: object
       properties:
@@ -785,85 +799,30 @@ components:
           description: ''
           format: string
       description: Reference to the log of (usage) ativities/events  of Customer Products And Services Directory Entry
-    productidentification:
-      type: object
-      properties:
-        ProductIdentification:
-          $ref: '#/components/schemas/identifier'
-        ProductIdentificationType:
-          type: string
-          description: ''
-          format: productidentificationtypevalues
-      description: The identifier of product e.g. ISIN Code.
-    bankingproducttypevalues:
+    directoryentrydatetypevalues:
       enum:
-        - LoanProduct
-        - CurrentAccountProduct
-        - SavingAccountProduct
+        - OpenDate
+        - RefreshDate
       type: string
-      description: ">\n* `LoanProduct` - \n* `CurrentAccountProduct` - \n* `SavingAccountProduct` - \n"
-    productlifecyclestatus:
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
+    date:
       type: object
       properties:
-        ProductLifecycleStatus:
-          $ref: '#/components/schemas/status'
-        ProductLifecycleStatusType:
+        DateContent:
           type: string
           description: ''
-          format: productlifecyclestatustypevalues
-      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
-    bankingproduct:
-      type: object
-      properties:
-        ProductIdentification:
-          $ref: '#/components/schemas/productidentification'
-        ProductType:
-          $ref: '#/components/schemas/bankingproducttypevalues'
-        ProductLifecycleStatus:
-          $ref: '#/components/schemas/productlifecyclestatus'
-        ProductPriority:
-          $ref: '#/components/schemas/text'
-        ProductDescription:
-          $ref: '#/components/schemas/text'
-        ProductVersion:
-          $ref: '#/components/schemas/text'
+          format: string
       description: ''
-    productsalesagreement:
+    directoryentry:
       type: object
       properties:
-        ProductSalesAgreement:
-          type: string
-          description: 'An agreement between a bank and its customer for a sold product. '
-          format: class
-      description: ''
-    CustomerProductsAndServicesDirectoryEntry:
-      type: object
-      properties:
-        CustomerProductsAndServicesDirectoryEntryDescription:
-          $ref: '#/components/schemas/text'
-        CustomerProductsAndServicesDirectoryEntrySchedule:
-          $ref: '#/components/schemas/schedule'
-        CustomerProductsAndServicesDirectoryEntryVersion:
-          type: string
-          description: The version of Customer Products And Services Directory Entry
-          format: number
-        CustomerProductsAndServicesDirectoryEntryStatus:
+        DirectoryEntryDateType:
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
+        DirectoryEntryDate:
+          $ref: '#/components/schemas/date'
+        DirectoryEntryStatus:
           $ref: '#/components/schemas/status'
-        CustomerProductsAndServicesDirectoryEntryUsageLog:
-          $ref: '#/components/schemas/log'
-        CustomerProductsAndServicesDirectoryEntryUpdateLog:
-          $ref: '#/components/schemas/log'
-        CustomerProductsAndServicesDirectoryEntryServiceConfiguration:
-          $ref: '#/components/schemas/text'
-        CustomerProductsAndServicesDirectoryEntryReference:
-          $ref: '#/components/schemas/directoryentry'
-        CustomerReference:
-          $ref: '#/components/schemas/involvedparty'
-        ProductReference:
-          $ref: '#/components/schemas/bankingproduct'
-        ProductSalesAgreementReference:
-          $ref: '#/components/schemas/productsalesagreement'
-      description: Capture and maintain reference information about some type of entitity within Customer Products and Services.
+      description: An unique reference to an item or an occurrence of Customer Products And Services Directory Entry
     ControlCustomerProductsAndServicesDirectoryEntryRequest:
       type: object
       properties:

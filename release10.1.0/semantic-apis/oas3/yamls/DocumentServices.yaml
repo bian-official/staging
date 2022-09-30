@@ -226,52 +226,122 @@ components:
           type: string
           format: string
       description: Status Attributes
-    workproduct:
+    DocumentServicesOutcome:
       type: object
       properties:
-        WorkProductType:
+        DocumentServicesWorkProduct:
           type: string
           description: ''
-          format: workproducttypevalues
-        WorkProductIdentifoication:
+          format: workproduct
+        DocumentServicesProcedure:
           type: string
           description: ''
-          format: string
-      description: ''
-    name:
+          format: procedure
+      description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    DocumentServiceProcedure:
       type: object
       properties:
-        Name:
+        DocumentServiceProcedureParameterType:
           type: string
-          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Document Service Procedure
+          format: text
+        DocumentServiceProcedureSelectedOption:
+          type: string
+          description: A selected optional business service as subject matter of Document Service Procedure
+          format: feature
+        DocumentServiceProcedureRequest:
+          type: string
+          description: Request to process Document Service Procedure
+          format: instruction
+        DocumentServiceProcedureSchedule:
+          type: string
+          description: Timetable to process Document Service Procedure
+          format: schedule
+        DocumentServiceProcedureStatus:
+          type: string
+          description: The status of Document Service Procedure
+          format: status
+        DocumentServiceProcedureAssociatedPartyReference:
+          type: string
+          description: Reference to the party who is involved in Document Service Procedure
+          format: involvedparty
+        DocumentServiceProcedureBusinessUnitReference:
+          type: string
+          description: Reference to the business unit which is involved in Document Service Procedure
+          format: involvedparty
+        DocumentServiceProcedureServiceProviderReference:
+          type: string
+          description: Reference to the party who is the service provider of Document Service Procedure
+          format: involvedparty
+        DocumentServiceProcedureFinancialFacilityReference:
+          type: string
+          description: Reference to the Financial Facility related to Document Service Procedure
+          format: financialfacility
+        DocumentServiceProcedureEmployeeReference:
+          type: string
+          description: Reference to the employee who is involved in Document Service Procedure
+          format: involvedparty
+        DocumentServiceProcedureCustomerReference:
+          type: string
+          description: Reference to the customer who is involved in Document Service Procedure
+          format: involvedparty
+        DocumentServiceProcedureType:
+          type: string
+          description: A Classification value that distinguishes between the type of process undertaken within Document Service Procedure
+          format: proceduretype
+        DocumentServiceProcedureServiceProviderSchedule:
+          type: string
+          description: The schedule according to which the service provider will process the Document Service Procedure
+          format: schedule
+        DocumentServiceProcedureServiceType:
+          type: string
+          description: A Classification value that distinguishes between the type of services in Document Service Procedure
+          format: servicetype
+        DocumentServiceProcedureProductandServiceType:
+          type: string
+          description: A Classification value that distinguishes between the type of products/services related to Document Service Procedure
+          format: bankingproducttype
+        DocumentServiceProcedureProductandServiceInstance:
+          type: string
+          description: Reference to the product or service that is related to Document Service Procedure
+          format: bankingproduct
+        DocumentServiceProcedureTransactionType:
+          type: string
+          description: A Classification value that distinguishes between the type of transactions in Document Service Procedure
+          format: transactiontype
+        DocumentServiceProcedureTransaction:
+          type: string
+          description: Reference to the transaction that is related to Document Service Procedure
+          format: transaction
+        DocumentServiceProcedureFinancialTransactionArrangement:
+          type: string
+          description: Reference to the Financial Transaction Arrangement that is related to Document Service Procedure
+          format: arrangement
+        DocumentServiceProcedureCustomerAgreementReference:
+          type: string
+          description: Reference to the Customer Agreement that is related to Document Service Procedure
+          format: agreement
+        DocumentServiceProcedureReference:
+          type: string
+          description: An unique reference to an item or an occurrence of Document Service Procedure
+          format: procedure
+      description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Document Services. '
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
           format: datatype
-      description: ''
-    proceduretype:
+      description: A Classification value that distinguishes between Procedures according to the type of business services and/or type of concern defined within Document Service Procedure
+    feature:
       type: object
       properties:
-        ProcedureTypeName:
-          $ref: '#/components/schemas/name'
-        ProcedureType:
-          type: string
-          description: ''
-          format: proceduretypevalues
-      description: A Classification value that distinguishes between the type of process undertaken within Procedure
-    datetime:
-      type: object
-      properties:
-        DateTimeContent:
+        FeatureType:
           type: string
           description: ''
           format: string
-        TimeZoneCode:
-          type: string
-          description: ''
-          format: string
-        DaylightSavingIndicator:
-          type: string
-          description: ''
-          format: string
-      description: ''
+      description: A selected optional business service as subject matter of Document Service Procedure
     date:
       type: object
       properties:
@@ -290,14 +360,22 @@ components:
           description: ''
           format: instructiondatetypevalues
       description: ''
-    text:
+    datetime:
       type: object
       properties:
-        Text:
+        DateTimeContent:
           type: string
-          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
-          format: datatype
-      description: Specifies the reasons for the status.
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: Date and time at which the status was assigned.
     datetimeperiod:
       type: object
       properties:
@@ -306,6 +384,14 @@ components:
         ToDateTime:
           $ref: '#/components/schemas/datetime'
       description: Period of time during which the status is valid.
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
     partytypevalues:
       enum:
         - Person
@@ -466,7 +552,7 @@ components:
           $ref: '#/components/schemas/log'
         InstructionPurpose:
           $ref: '#/components/schemas/text'
-      description: Request to process something (most refers to Asset Type)
+      description: Request to process Document Service Procedure
     schedule:
       type: object
       properties:
@@ -474,37 +560,7 @@ components:
           type: string
           description: ''
           format: string
-      description: Timetable to process something (most refers to the Asset Type)
-    procedure:
-      type: object
-      properties:
-        ProcedureType:
-          $ref: '#/components/schemas/proceduretype'
-        ProcedureDateTime:
-          $ref: '#/components/schemas/datetime'
-        ProcedureRequest:
-          $ref: '#/components/schemas/instruction'
-        ProcedureSchedule:
-          $ref: '#/components/schemas/schedule'
-        ProcedureStatus:
-          $ref: '#/components/schemas/status'
-      description: ''
-    DocumentServicesOutcome:
-      type: object
-      properties:
-        DocumentServicesWorkProduct:
-          $ref: '#/components/schemas/workproduct'
-        DocumentServicesProcedure:
-          $ref: '#/components/schemas/procedure'
-      description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
-    feature:
-      type: object
-      properties:
-        FeatureType:
-          type: string
-          description: ''
-          format: string
-      description: A selected optional business service as subject matter of Document Service Procedure
+      description: Timetable to process Document Service Procedure
     financialfacility:
       type: object
       properties:
@@ -513,6 +569,16 @@ components:
           description: "A production or operational capacity to perform a business function for delivering a banking product or service\n\nA functional classification of banking product that provides ongoing capacity to deliver financial services (e.g. loan service, payment service)\n\n\n"
           format: class
       description: Reference to the Financial Facility related to Document Service Procedure
+    proceduretype:
+      type: object
+      properties:
+        ProcedureTypeName:
+          $ref: '#/components/schemas/name'
+        ProcedureType:
+          type: string
+          description: ''
+          format: proceduretypevalues
+      description: A Classification value that distinguishes between the type of process undertaken within Document Service Procedure
     servicetype:
       type: object
       properties:
@@ -566,54 +632,6 @@ components:
         ProductVersion:
           $ref: '#/components/schemas/text'
       description: Reference to the product or service that is related to Document Service Procedure
-    transactiondate:
-      type: object
-      properties:
-        TransactionDate:
-          $ref: '#/components/schemas/datetime'
-        TransactionDateType:
-          type: string
-          description: ''
-          format: transactiondatetypevalues
-      description: "The Date that the transaction has occurred or is planned to occur.\nA characteristic of transaction which refers to the LifecycleDate of transaction (e.g., initiated date, executed date, fulfillment date). "
-    transactiontypevalues:
-      enum:
-        - FinancialTransaction
-        - BusinessTransaction
-        - BankingTransaction
-        - AccountingTransaction
-        - BookingTransaction
-        - AllocationTransaction
-        - DeliveryTransaction
-        - ProductionTransaction
-      type: string
-      description: ">\n* `FinancialTransaction` - \n* `BusinessTransaction` - \n* `BankingTransaction` - \n* `AccountingTransaction` - \n* `BookingTransaction` - \n* `AllocationTransaction` - \n* `DeliveryTransaction` - \n* `ProductionTransaction` - \n"
-    transactionlifecyclestatus:
-      type: object
-      properties:
-        TransactionLifecycleStatus:
-          $ref: '#/components/schemas/status'
-        TransactionLifecycleStatusType:
-          type: string
-          description: ''
-          format: transactionlifecyclestatustypevalues
-      description: 'A characteristic of transaction which refers to the LifecycleStatus of transaction (e.g., initiated, executed, confirmed, cancelled, etc.) '
-    transaction:
-      type: object
-      properties:
-        TransactionIdentification:
-          $ref: '#/components/schemas/identifier'
-        TransactionDate:
-          $ref: '#/components/schemas/transactiondate'
-        TransactionType:
-          $ref: '#/components/schemas/transactiontypevalues'
-        TransactionDescription:
-          $ref: '#/components/schemas/text'
-        TransactionStatus:
-          $ref: '#/components/schemas/transactionlifecyclestatus'
-        TransactionName:
-          $ref: '#/components/schemas/name'
-      description: Reference to the transaction that is related to Document Service Procedure
     actiontypevalues:
       enum:
         - Initiate
@@ -734,56 +752,20 @@ components:
         AgreementDate:
           $ref: '#/components/schemas/datetime'
       description: Reference to the Customer Agreement that is related to Document Service Procedure
-    DocumentServiceProcedure:
+    procedure:
       type: object
       properties:
-        DocumentServiceProcedureParameterType:
-          $ref: '#/components/schemas/text'
-        DocumentServiceProcedureSelectedOption:
-          $ref: '#/components/schemas/feature'
-        DocumentServiceProcedureRequest:
-          $ref: '#/components/schemas/instruction'
-        DocumentServiceProcedureSchedule:
-          $ref: '#/components/schemas/schedule'
-        DocumentServiceProcedureStatus:
-          $ref: '#/components/schemas/status'
-        DocumentServiceProcedureAssociatedPartyReference:
-          $ref: '#/components/schemas/involvedparty'
-        DocumentServiceProcedureBusinessUnitReference:
-          $ref: '#/components/schemas/involvedparty'
-        DocumentServiceProcedureServiceProviderReference:
-          $ref: '#/components/schemas/involvedparty'
-        DocumentServiceProcedureFinancialFacilityReference:
-          $ref: '#/components/schemas/financialfacility'
-        DocumentServiceProcedureEmployeeReference:
-          $ref: '#/components/schemas/involvedparty'
-        DocumentServiceProcedureCustomerReference:
-          $ref: '#/components/schemas/involvedparty'
-        DocumentServiceProcedureType:
+        ProcedureType:
           $ref: '#/components/schemas/proceduretype'
-        DocumentServiceProcedureServiceProviderSchedule:
+        ProcedureDateTime:
+          $ref: '#/components/schemas/datetime'
+        ProcedureRequest:
+          $ref: '#/components/schemas/instruction'
+        ProcedureSchedule:
           $ref: '#/components/schemas/schedule'
-        DocumentServiceProcedureServiceType:
-          $ref: '#/components/schemas/servicetype'
-        DocumentServiceProcedureProductandServiceType:
-          type: string
-          description: A Classification value that distinguishes between the type of products/services related to Document Service Procedure
-          format: bankingproducttype
-        DocumentServiceProcedureProductandServiceInstance:
-          $ref: '#/components/schemas/bankingproduct'
-        DocumentServiceProcedureTransactionType:
-          type: string
-          description: A Classification value that distinguishes between the type of transactions in Document Service Procedure
-          format: transactiontype
-        DocumentServiceProcedureTransaction:
-          $ref: '#/components/schemas/transaction'
-        DocumentServiceProcedureFinancialTransactionArrangement:
-          $ref: '#/components/schemas/arrangement'
-        DocumentServiceProcedureCustomerAgreementReference:
-          $ref: '#/components/schemas/agreement'
-        DocumentServiceProcedureReference:
-          $ref: '#/components/schemas/procedure'
-      description: 'Complete work tasks following a defined procedure in support of general office activities and product and service delivery within Document Services. '
+        ProcedureStatus:
+          $ref: '#/components/schemas/status'
+      description: An unique reference to an item or an occurrence of Document Service Procedure
     ControlDocumentServiceProcedureRequest:
       type: object
       properties:
