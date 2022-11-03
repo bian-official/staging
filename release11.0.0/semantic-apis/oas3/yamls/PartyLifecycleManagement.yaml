@@ -1,7 +1,6 @@
 openapi: 3.0.1
 info:
   title: Party Lifecycle Management
-  description: This service domain tracks the state of a party relationship with the bank from the initial checks made during the establishment of a new party connection and subsequently maintained as necessary over the duration of the relationship. The checks and the maintenance requirements will vary by party type and jurisdiction. The checks cover bank specific and legal and regulatory considerations and may be updated based on a standard schedule or by request in specific circumstances.
   contact:
     name: BIAN
     url: https://bian.org
@@ -331,14 +330,6 @@ components:
           type: string
           format: string
       description: Status Attributes
-    date:
-      type: object
-      properties:
-        DateContent:
-          type: string
-          description: ''
-          format: string
-      description: The date when the value was last checked/confirmed
     Precedents:
       type: object
       properties:
@@ -355,7 +346,9 @@ components:
           description: Current (and historical) value of the precedent
           format: string
         CustomerPrecedentValueDate:
-          $ref: '#/components/schemas/date'
+          type: string
+          description: The date when the value was last checked/confirmed
+          format: date
       description: ''
     Documentation:
       type: object
@@ -1186,7 +1179,9 @@ components:
               description: "\n"
               format: string
             CustomerPrecedentValueDate:
-              $ref: '#/components/schemas/date'
+              type: string
+              description: "\n"
+              format: date
       description: 'Output: ReBQ Retrieve details about customer precedent maintenance'
   responses:
     BadRequest:
