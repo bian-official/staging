@@ -357,6 +357,14 @@ components:
           type: string
           format: string
       description: Status Attributes
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The start date for the relationship
     Reference:
       type: object
       properties:
@@ -437,9 +445,7 @@ components:
           description: The specific role played by the identified officer/employee
           format: string
         CustomerSinceDate:
-          type: string
-          description: The start date for the relationship
-          format: date
+          $ref: '#/components/schemas/date'
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
     Associations:
       type: object
@@ -461,9 +467,7 @@ components:
           description: Description of the rights or obligations granted to the associate
           format: string
         AssociationValidFromToDate:
-          type: string
-          description: The start and end dates for the association if appropriate
-          format: date
+          $ref: '#/components/schemas/date'
         ProductInstanceReference:
           type: string
           description: Reference to a product or service where the association is linked in some manner (e.g. guarantor)
@@ -517,21 +521,140 @@ components:
           description: Reference to the associated employee or unit
           format: object
       description: "\"An assertion or statement with regard to a concept, a characteristic.\n\nExamples: Product pricing rules, Customer reference details\n\nA descriptor can be atomic or composed.\"\nProspect Management"
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: Name by which a party is known and which is usually used to identify that party. (ISO20022)
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\n"
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\n* `Agreementinvolvement` - \n* `Partyinvolvement` - \n* `Arrangementinvolvement` - \n* `Designspecificationinvolvement` - \n* `Relationshipinvolvement` - \n* `Locationinvolvement` - \n* `Bankguaranteeinvolvement` - \n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          type: string
+          description: ''
+          format: partyidentificationtypevalues
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: Reference to the associated customer (can currently be a person or a company)
+    directoryentrydatetypevalues:
+      enum:
+        - OpenDate
+        - RefreshDate
+      type: string
+      description: ">\n* `OpenDate` - \n* `RefreshDate` - \n"
     PartyReferenceDataDirectoryEntry:
       type: object
       properties:
         PartyReference:
-          type: string
-          description: Reference to the associated customer (can currently be a person or a company)
-          format: party
+          $ref: '#/components/schemas/party'
         DirectoryEntryDateType:
-          type: string
-          description: 'Key dates associated with the directory entry (e.g. open date, refresh date)'
-          format: directoryentrydatetypevalues
+          $ref: '#/components/schemas/directoryentrydatetypevalues'
         DirectoryEntryDate:
-          type: string
-          description: Value of the date type
-          format: datetime
+          $ref: '#/components/schemas/datetime'
       description: Capture and maintain reference information about some type of entitity within Party Reference Data Directory.
     RegisterPartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -540,9 +663,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Input: InCR Register a customer entity in the catalog'
     UpdatePartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -551,9 +672,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Input: UpCR Update details about the customer''s directory entry'
     UpdatePartyReferenceDataDirectoryEntryResponse:
       type: object
@@ -562,9 +681,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Output: UpCR Update details about the customer''s directory entry'
     RequestPartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -573,9 +690,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Input: RqCR Request manual intervention with an entry (e.g. refresh content)'
     RetrievePartyReferenceDataDirectoryEntryResponse:
       type: object
@@ -584,9 +699,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
       description: 'Output: ReCR Retrieve details about a customer directory entry'
     ExecutePartyReferenceDataDirectoryEntryRequest:
       type: object
@@ -671,9 +784,7 @@ components:
               description: "\n"
               format: string
             CustomerSinceDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Associations:
           type: object
           properties:
@@ -694,9 +805,7 @@ components:
               description: "\n"
               format: string
             AssociationValidFromToDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
             ProductInstanceReference:
               type: string
               description: "\n"
@@ -755,9 +864,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Reference:
           type: object
           properties:
@@ -838,9 +945,7 @@ components:
               description: "\n"
               format: string
             CustomerSinceDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: UpBQ Update details about a reference entry for the customer'
     UpdateReferenceResponse:
       type: object
@@ -849,9 +954,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Reference:
           type: object
           properties:
@@ -932,9 +1035,7 @@ components:
               description: "\n"
               format: string
             CustomerSinceDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: UpBQ Update details about a reference entry for the customer'
     RetrieveReferenceResponse:
       type: object
@@ -943,9 +1044,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         Reference:
           type: object
           properties:
@@ -1026,9 +1125,7 @@ components:
               description: "\n"
               format: string
             CustomerSinceDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about reference entries in the directory'
     UpdateAssociationsRequest:
       type: object
@@ -1037,9 +1134,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Associations:
           type: object
           properties:
@@ -1060,9 +1155,7 @@ components:
               description: "\n"
               format: string
             AssociationValidFromToDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
             ProductInstanceReference:
               type: string
               description: "\n"
@@ -1083,9 +1176,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Associations:
           type: object
           properties:
@@ -1106,9 +1197,7 @@ components:
               description: "\n"
               format: string
             AssociationValidFromToDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
             ProductInstanceReference:
               type: string
               description: "\n"
@@ -1129,9 +1218,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         Associations:
           type: object
           properties:
@@ -1152,9 +1239,7 @@ components:
               description: "\n"
               format: string
             AssociationValidFromToDate:
-              type: string
-              description: "\n"
-              format: date
+              $ref: '#/components/schemas/date'
             ProductInstanceReference:
               type: string
               description: "\n"
@@ -1175,9 +1260,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Demographics:
           type: object
           properties:
@@ -1213,9 +1296,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         Demographics:
           type: object
           properties:
@@ -1251,9 +1332,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         Demographics:
           type: object
           properties:
@@ -1289,9 +1368,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         BankRelations:
           type: object
           properties:
@@ -1311,9 +1388,7 @@ components:
           type: object
           properties:
             DirectoryEntryDate:
-              type: string
-              description: "\n"
-              format: datetime
+              $ref: '#/components/schemas/datetime'
         BankRelations:
           type: object
           properties:
@@ -1333,9 +1408,7 @@ components:
           type: object
           properties:
             DirectoryEntryDateType:
-              type: string
-              description: "\n"
-              format: directoryentrydatetypevalues
+              $ref: '#/components/schemas/directoryentrydatetypevalues'
         BankRelations:
           type: object
           properties:
