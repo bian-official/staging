@@ -108,7 +108,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/ServiceFees/{servicefeesid}/Initiate':
+  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/ServiceFees/Initiate':
     post:
       tags:
         - BQ - ServiceFees
@@ -117,7 +117,6 @@ paths:
       operationId: InitiateServiceFees
       parameters:
         - $ref: '#/components/parameters/cashmanagementandaccountservicesid'
-        - $ref: '#/components/parameters/servicefeesid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateServiceFeesRequest'
       responses:
@@ -187,7 +186,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/AccountLien/{accountlienid}/Initiate':
+  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/AccountLien/Initiate':
     post:
       tags:
         - BQ - AccountLien
@@ -196,7 +195,6 @@ paths:
       operationId: InitiateAccountLien
       parameters:
         - $ref: '#/components/parameters/cashmanagementandaccountservicesid'
-        - $ref: '#/components/parameters/accountlienid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateAccountLienRequest'
       responses:
@@ -266,7 +264,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/AccountSweep/{accountsweepid}/Initiate':
+  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/AccountSweep/Initiate':
     post:
       tags:
         - BQ - AccountSweep
@@ -275,7 +273,6 @@ paths:
       operationId: InitiateAccountSweep
       parameters:
         - $ref: '#/components/parameters/cashmanagementandaccountservicesid'
-        - $ref: '#/components/parameters/accountsweepid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateAccountSweepRequest'
       responses:
@@ -372,7 +369,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/DepositsandWithdrawals/{depositsandwithdrawalsid}/Initiate':
+  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/DepositsandWithdrawals/Initiate':
     post:
       tags:
         - BQ - DepositsandWithdrawals
@@ -381,7 +378,6 @@ paths:
       operationId: InitiateDepositsandWithdrawals
       parameters:
         - $ref: '#/components/parameters/cashmanagementandaccountservicesid'
-        - $ref: '#/components/parameters/depositsandwithdrawalsid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateDepositsandWithdrawalsRequest'
       responses:
@@ -478,7 +474,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/Payments/{paymentsid}/Initiate':
+  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/Payments/Initiate':
     post:
       tags:
         - BQ - Payments
@@ -487,7 +483,6 @@ paths:
       operationId: InitiatePayments
       parameters:
         - $ref: '#/components/parameters/cashmanagementandaccountservicesid'
-        - $ref: '#/components/parameters/paymentsid'
       requestBody:
         $ref: '#/components/requestBodies/InitiatePaymentsRequest'
       responses:
@@ -584,7 +579,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/IssuedDevice/{issueddeviceid}/Initiate':
+  '/CashManagementAndAccountServices/{cashmanagementandaccountservicesid}/IssuedDevice/Initiate':
     post:
       tags:
         - BQ - IssuedDevice
@@ -593,7 +588,6 @@ paths:
       operationId: InitiateIssuedDevice
       parameters:
         - $ref: '#/components/parameters/cashmanagementandaccountservicesid'
-        - $ref: '#/components/parameters/issueddeviceid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateIssuedDeviceRequest'
       responses:
@@ -757,6 +751,36 @@ components:
           type: string
           format: string
       description: Status Attributes
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: " ||\r\n|"
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: The amount being blocked
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The date the lien is enforced
     AccountLien:
       type: object
       properties:
@@ -785,17 +809,11 @@ components:
           description: The purpose or associated facility linked to the lien
           format: string
         LienAmount:
-          type: string
-          description: The amount being blocked
-          format: amount
+          $ref: '#/components/schemas/amount'
         LienStartDate:
-          type: string
-          description: The date the lien is enforced
-          format: date
+          $ref: '#/components/schemas/date'
         LienExpiryDate:
-          type: string
-          description: The date the lien is removed
-          format: date
+          $ref: '#/components/schemas/date'
         LienStatus:
           type: string
           description: The status on the lien
@@ -869,13 +887,9 @@ components:
           description: Any necessary details describing the purpose or reference properties of the deposit
           format: string
         DepositTransactionAmount:
-          type: string
-          description: The deposited amount
-          format: amount
+          $ref: '#/components/schemas/amount'
         DepositTransactionDate:
-          type: string
-          description: The date and time the deposit was initiated
-          format: date
+          $ref: '#/components/schemas/date'
         WithdrawalTransaction:
           type: string
           description: Details of the withdrawal transaction
@@ -893,13 +907,9 @@ components:
           description: Any necessary details describing the purpose or reference properties of the withdrawal
           format: string
         WithdrawalTransactionAmount:
-          type: string
-          description: The withdrawn amount
-          format: amount
+          $ref: '#/components/schemas/amount'
         WithdrawalTransactionDate:
-          type: string
-          description: The date and time the withdrawal was initiated
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     ServiceFees:
       type: object
@@ -953,9 +963,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -1005,14 +1013,30 @@ components:
           description: The facility that the sweep is made to/from
           format: string
         AccountSweepAmount:
-          type: string
-          description: The amount transferred to or from the account
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccountSweepExecutionDate:
-          type: string
-          description: The date and time the sweep is initiated
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: The processing schedule for applying interest rates to the account
     Interest:
       type: object
       properties:
@@ -1021,17 +1045,11 @@ components:
           description: Applicable rate type
           format: string
         InterestRateApplicationSchedule:
-          type: string
-          description: The processing schedule for applying interest rates to the account
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRateConfiguration:
-          type: string
-          description: The collection of applicable rates
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestRate:
-          type: string
-          description: The rate value to be applied
-          format: rate
+          $ref: '#/components/schemas/rate'
         InterestApplicationRecord:
           type: string
           description: The record of applied interest
@@ -1053,9 +1071,7 @@ components:
           description: The derived interest amount to be applied
           format: string
         InterestAccrualAmount:
-          type: string
-          description: Record of accrued interest
-          format: amount
+          $ref: '#/components/schemas/amount'
         InterestAccrualType:
           type: string
           description: The interest type being tracked
@@ -1149,9 +1165,7 @@ components:
           description: Reference to the bank where the payee account is held
           format: object
         PaymentTransactionAmount:
-          type: string
-          description: The amount (and currency if applicable) of the payment
-          format: amount
+          $ref: '#/components/schemas/amount'
         PaymentTransactionFeeType:
           type: string
           description: The fee type applied to the payment transaction
@@ -1161,9 +1175,7 @@ components:
           description: The fee charge applied to the transaction
           format: string
         PaymentTransactionDate:
-          type: string
-          description: The various key dates and times associated with the payment transaction
-          format: date
+          $ref: '#/components/schemas/date'
         PaymentTransactionPaymentMechanism:
           type: string
           description: 'Requested payment mechanism (e.g. Wire, ACH)'
@@ -1205,9 +1217,7 @@ components:
           description: 'The type of cash management and account services account (e.g. corporate, small business)'
           format: string
         AccountCurrency:
-          type: string
-          description: The primary account currency
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         TaxReference:
           type: string
           description: Reference identifier linking the account to appropriate tax handling
@@ -1300,9 +1310,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1371,9 +1379,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionDefinition:
               type: string
               description: "\r\n"
@@ -1438,9 +1444,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1537,9 +1541,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1636,9 +1638,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1719,13 +1719,9 @@ components:
               description: "\r\n"
               format: string
             InterestRateApplicationSchedule:
-              type: string
-              description: "\r\n"
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestRateConfiguration:
-              type: string
-              description: "\r\n"
-              format: rate
+              $ref: '#/components/schemas/rate'
             InterestApplicationRecord:
               type: string
               description: "\r\n"
@@ -1747,9 +1743,7 @@ components:
               description: "\r\n"
               format: string
             InterestAccrualAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             InterestAccrualType:
               type: string
               description: "\r\n"
@@ -1778,9 +1772,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1937,9 +1929,7 @@ components:
               description: "\r\n"
               format: string
             FeeAccrualAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: "\r\n"
@@ -2004,9 +1994,7 @@ components:
               description: "\r\n"
               format: string
             FeeAccrualAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: "\r\n"
@@ -2102,17 +2090,11 @@ components:
               description: "\r\n"
               format: string
             LienAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: "\r\n"
@@ -2187,17 +2169,11 @@ components:
               description: "\r\n"
               format: string
             LienAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: "\r\n"
@@ -2230,17 +2206,11 @@ components:
               description: "\r\n"
               format: string
             LienAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: "\r\n"
@@ -2277,17 +2247,11 @@ components:
               description: "\r\n"
               format: string
             LienAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             LienStartDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienExpiryDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             LienStatus:
               type: string
               description: "\r\n"
@@ -2320,9 +2284,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             TaxReference:
               type: string
               description: "\r\n"
@@ -2416,13 +2378,9 @@ components:
               description: "\r\n"
               format: string
             AccountSweepAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccountSweepExecutionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: ExBQ Trigger an account sweep transaction'
     RetrieveAccountSweepResponse:
       type: object
@@ -2467,13 +2425,9 @@ components:
               description: "\r\n"
               format: string
             AccountSweepAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccountSweepExecutionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about an active sweep facility or specific sweep transaction'
     InitiateDepositsandWithdrawalsRequest:
       type: object
@@ -2502,9 +2456,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionSetting:
               type: string
               description: "\r\n"
@@ -2575,13 +2527,9 @@ components:
               description: "\r\n"
               format: string
             DepositTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             DepositTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             WithdrawalTransaction:
               type: string
               description: "\r\n"
@@ -2599,13 +2547,9 @@ components:
               description: "\r\n"
               format: string
             WithdrawalTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             WithdrawalTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: ExBQ Execute a deposit or withdrawal transaction'
     ExecuteDepositsandWithdrawalsResponse:
       type: object
@@ -2614,13 +2558,9 @@ components:
           type: object
           properties:
             DepositTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             WithdrawalTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ExBQ Execute a deposit or withdrawal transaction'
     RetrieveDepositsandWithdrawalsResponse:
       type: object
@@ -2657,13 +2597,9 @@ components:
               description: "\r\n"
               format: string
             DepositTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             DepositTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             WithdrawalTransaction:
               type: string
               description: "\r\n"
@@ -2681,13 +2617,9 @@ components:
               description: "\r\n"
               format: string
             WithdrawalTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             WithdrawalTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a deposit or withdrawal transaction'
     InitiatePaymentsRequest:
       type: object
@@ -2716,9 +2648,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionSetting:
               type: string
               description: "\r\n"
@@ -2880,9 +2810,7 @@ components:
               description: "\r\n"
               format: object
             PaymentTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: "\r\n"
@@ -2892,9 +2820,7 @@ components:
               description: "\r\n"
               format: string
             PaymentTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
               description: "\r\n"
@@ -2971,9 +2897,7 @@ components:
               description: "\r\n"
               format: object
             PaymentTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: "\r\n"
@@ -2983,9 +2907,7 @@ components:
               description: "\r\n"
               format: string
             PaymentTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
               description: "\r\n"
@@ -3030,9 +2952,7 @@ components:
               description: "\r\n"
               format: object
             PaymentTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: "\r\n"
@@ -3042,9 +2962,7 @@ components:
               description: "\r\n"
               format: string
             PaymentTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
               description: "\r\n"
@@ -3069,9 +2987,7 @@ components:
           type: object
           properties:
             PaymentTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             PaymentTransactionStatus:
               type: string
               description: "\r\n"
@@ -3144,9 +3060,7 @@ components:
               description: "\r\n"
               format: object
             PaymentTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             PaymentTransactionFeeType:
               type: string
               description: "\r\n"
@@ -3156,9 +3070,7 @@ components:
               description: "\r\n"
               format: string
             PaymentTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             PaymentTransactionPaymentMechanism:
               type: string
               description: "\r\n"
@@ -3203,9 +3115,7 @@ components:
               description: "\r\n"
               format: string
             AccountCurrency:
-              type: string
-              description: "\r\n"
-              format: currencycode
+              $ref: '#/components/schemas/currencycode'
             EntitlementOptionSetting:
               type: string
               description: "\r\n"

@@ -1,0 +1,587 @@
+openapi: 3.0.1
+info:
+  title: Suitability Checking
+  description: Confirm that all involved counterparties are suitable for a proposed market trade.
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/SuitabilityChecking/10.0.0
+paths:
+  /SuitabilityChecking/Evaluate:
+    post:
+      tags:
+      - CR - SuitabilityAssessment
+      summary: EvCR Evaluate the suitability of a proposed transaction
+      description: EvCR Evaluate the suitability of a proposed transaction
+      operationId: Evaluate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/EvaluateSuitabilityAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluateSuitabilityAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SuitabilityChecking/{suitabilitycheckingId}/Update:
+    put:
+      tags:
+      - CR - SuitabilityAssessment
+      summary: UpCR Update details of a suitability evaluation
+      description: UpCR Update details of a suitability evaluation
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/SuitabilityCheckingID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateSuitabilityAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSuitabilityAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SuitabilityChecking/{suitabilitycheckingId}/Request:
+    put:
+      tags:
+      - CR - SuitabilityAssessment
+      summary: RqCR Request manual intervention into an active evaluation
+      description: RqCR Request manual intervention into an active evaluation
+      operationId: Request
+      parameters:
+      - $ref: '#/components/parameters/SuitabilityCheckingID'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestSuitabilityAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestSuitabilityAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SuitabilityChecking/{suitabilitycheckingId}/Retrieve:
+    get:
+      tags:
+      - CR - SuitabilityAssessment
+      summary: ReCR Retrieve details about a suitability evaluation
+      description: ReCR Retrieve details about a suitability evaluation
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/SuitabilityCheckingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSuitabilityAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    SuitabilityAssessment:
+      type: object
+      properties:
+        EmployeeOrBusinessUnitReference:
+          type: object
+          description: Business unit submitting the proposed transaction for review
+        CustomerReference:
+          type: object
+          description: Reference to the customer related to the proposed transaction
+        MarketOrderType:
+          type: string
+          description: The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)
+        InvestmentPortfolioInstanceReference:
+          type: object
+          description: Reference to the associated investment portfolio record of all holdings (referenced to check securities availability if necessary)
+        CustomerMarketOrderProcessingInstruction:
+          type: string
+          description: Any customer specific processing preferences or requirements
+        ProposedMarketOrderTransaction:
+          type: string
+          description: The details of the market order transaction that is to undergo suitability checks
+        InvestmentAccountArrangementInstanceReference:
+          type: object
+          description: Reference to the underlying cash account supporting the transaction
+        SecurityType:
+          type: string
+          description: The security to be traded
+        Amount:
+          type: string
+          description: The volume of shares to be bought or sold
+        DateType:
+          type: string
+          description: Key dates associated with the proposed transaction (e.g. opportunity identification, proposal/pitch, suitability evaluation initiated)
+        Date:
+          type: string
+          description: Value of the specific date type
+        SuitabilityAssessmentType:
+          type: string
+          description: The type and make-up of suitability compliance tests referenced in the assessment
+        DocumentDirectoryEntryInstanceReference:
+          type: object
+          description: The document reference for any documents accessed and generated (e.g. disclosures)
+        CorrespondenceInstanceReference:
+          type: object
+          description: Reference to any correspondence generated by the suitability check
+        SuitabilityComplianceAssessmentWorkProducts:
+          type: string
+          description: Work documentation, forms and schedules produced and referenced during the assessment
+        SuitabilityComplianceAssessmentResult:
+          type: string
+          description: Outcome/result of the suitability assessment, can include reported details if appropriate
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    EvaluateSuitabilityAssessmentRequest:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            InvestmentPortfolioInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+    EvaluateSuitabilityAssessmentResponse:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorrespondenceInstanceReference:
+              type: object
+              description: NA
+            SuitabilityComplianceAssessmentWorkProducts:
+              type: string
+              description: NA
+            SuitabilityComplianceAssessmentResult:
+              type: string
+              description: NA
+    UpdateSuitabilityAssessmentRequest:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            InvestmentPortfolioInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorrespondenceInstanceReference:
+              type: object
+              description: NA
+            SuitabilityComplianceAssessmentWorkProducts:
+              type: string
+              description: NA
+            SuitabilityComplianceAssessmentResult:
+              type: string
+              description: NA
+    UpdateSuitabilityAssessmentResponse:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            InvestmentPortfolioInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorrespondenceInstanceReference:
+              type: object
+              description: NA
+            SuitabilityComplianceAssessmentWorkProducts:
+              type: string
+              description: NA
+            SuitabilityComplianceAssessmentResult:
+              type: string
+              description: NA
+    RequestSuitabilityAssessmentRequest:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            InvestmentPortfolioInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorrespondenceInstanceReference:
+              type: object
+              description: NA
+            SuitabilityComplianceAssessmentWorkProducts:
+              type: string
+              description: NA
+            SuitabilityComplianceAssessmentResult:
+              type: string
+              description: NA
+    RequestSuitabilityAssessmentResponse:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorrespondenceInstanceReference:
+              type: object
+              description: NA
+            SuitabilityComplianceAssessmentWorkProducts:
+              type: string
+              description: NA
+            SuitabilityComplianceAssessmentResult:
+              type: string
+              description: NA
+    RetrieveSuitabilityAssessmentResponse:
+      type: object
+      properties:
+        SuitabilityAssessment:
+          type: object
+          properties:
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            InvestmentPortfolioInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            ProposedMarketOrderTransaction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            SuitabilityAssessmentType:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorrespondenceInstanceReference:
+              type: object
+              description: NA
+            SuitabilityComplianceAssessmentWorkProducts:
+              type: string
+              description: NA
+            SuitabilityComplianceAssessmentResult:
+              type: string
+              description: NA
+  parameters:
+    SuitabilityCheckingID:
+      name: suitabilitycheckingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    EvaluateSuitabilityAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateSuitabilityAssessmentRequest'
+    UpdateSuitabilityAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateSuitabilityAssessmentRequest'
+    RequestSuitabilityAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestSuitabilityAssessmentRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

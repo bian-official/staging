@@ -241,7 +241,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/AccountsReceivable/{accountsreceivableid}/CustomerNegotiation/{customernegotiationid}/Initiate':
+  '/AccountsReceivable/{accountsreceivableid}/CustomerNegotiation/Initiate':
     post:
       tags:
         - BQ - CustomerNegotiation
@@ -250,7 +250,6 @@ paths:
       operationId: InitiateCustomerNegotiation
       parameters:
         - $ref: '#/components/parameters/accountsreceivableid'
-        - $ref: '#/components/parameters/customernegotiationid'
       requestBody:
         $ref: '#/components/requestBodies/CustomerNegotiation'
       responses:
@@ -268,7 +267,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/AccountsReceivable/{accountsreceivableid}/Payment/{paymentid}/Initiate':
+  '/AccountsReceivable/{accountsreceivableid}/Payment/Initiate':
     post:
       tags:
         - BQ - Payment
@@ -277,7 +276,6 @@ paths:
       operationId: InitiatePayment
       parameters:
         - $ref: '#/components/parameters/accountsreceivableid'
-        - $ref: '#/components/parameters/paymentid'
       requestBody:
         $ref: '#/components/requestBodies/Payment'
       responses:
@@ -295,7 +293,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/AccountsReceivable/{accountsreceivableid}/ReceivablesEvaluation/{receivablesevaluationid}/Initiate':
+  '/AccountsReceivable/{accountsreceivableid}/ReceivablesEvaluation/Initiate':
     post:
       tags:
         - BQ - ReceivablesEvaluation
@@ -304,7 +302,6 @@ paths:
       operationId: InitiateReceivablesEvaluation
       parameters:
         - $ref: '#/components/parameters/accountsreceivableid'
-        - $ref: '#/components/parameters/receivablesevaluationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateReceivablesEvaluationRequest'
       responses:
@@ -322,7 +319,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/AccountsReceivable/{accountsreceivableid}/Resolution/{resolutionid}/Initiate':
+  '/AccountsReceivable/{accountsreceivableid}/Resolution/Initiate':
     post:
       tags:
         - BQ - Resolution
@@ -331,7 +328,6 @@ paths:
       operationId: InitiateResolution
       parameters:
         - $ref: '#/components/parameters/accountsreceivableid'
-        - $ref: '#/components/parameters/resolutionid'
       requestBody:
         $ref: '#/components/requestBodies/Resolution'
       responses:
@@ -599,6 +595,40 @@ components:
           type: string
           format: string
       description: Status Attributes
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Accounts Receivable Procedure specific Business Service
     Payment:
       type: object
       properties:
@@ -615,9 +645,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         BusinessService:
-          type: string
-          description: The Accounts Receivable Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         PaymentPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -671,9 +699,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         ReceivablesEvaluation:
-          type: string
-          description: The Accounts Receivable Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ReceivablesEvaluationPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -715,9 +741,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         PaymentNegotation:
-          type: string
-          description: The Accounts Receivable Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CustomerNegotiationPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -759,9 +783,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         BusinessService:
-          type: string
-          description: The Accounts Receivable Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ResolutionPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -1805,9 +1827,7 @@ components:
               description: "\r\n"
               format: string
             PaymentNegotation:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             CustomerNegotiationPostconditions:
               type: string
               description: "\r\n"
@@ -1852,9 +1872,7 @@ components:
               description: "\r\n"
               format: string
             BusinessService:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             PaymentPostconditions:
               type: string
               description: "\r\n"
@@ -1942,9 +1960,7 @@ components:
               description: "\r\n"
               format: string
             BusinessService:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             ResolutionPostconditions:
               type: string
               description: "\r\n"

@@ -83,7 +83,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/InvestmentAccount/{investmentaccountid}/DepositsandWithdrawals/{depositsandwithdrawalsid}/Initiate':
+  '/InvestmentAccount/{investmentaccountid}/DepositsandWithdrawals/Initiate':
     post:
       tags:
         - BQ - DepositsandWithdrawals
@@ -92,7 +92,6 @@ paths:
       operationId: InitiateDepositsandWithdrawals
       parameters:
         - $ref: '#/components/parameters/investmentaccountid'
-        - $ref: '#/components/parameters/depositsandwithdrawalsid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateDepositsandWithdrawalsRequest'
       responses:
@@ -189,7 +188,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/InvestmentAccount/{investmentaccountid}/CorporateAction/{corporateactionid}/Initiate':
+  '/InvestmentAccount/{investmentaccountid}/CorporateAction/Initiate':
     post:
       tags:
         - BQ - CorporateAction
@@ -198,7 +197,6 @@ paths:
       operationId: InitiateCorporateAction
       parameters:
         - $ref: '#/components/parameters/investmentaccountid'
-        - $ref: '#/components/parameters/corporateactionid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateCorporateActionRequest'
       responses:
@@ -268,7 +266,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/InvestmentAccount/{investmentaccountid}/ServiceFees/{servicefeesid}/Initiate':
+  '/InvestmentAccount/{investmentaccountid}/ServiceFees/Initiate':
     post:
       tags:
         - BQ - ServiceFees
@@ -277,7 +275,6 @@ paths:
       operationId: InitiateServiceFees
       parameters:
         - $ref: '#/components/parameters/investmentaccountid'
-        - $ref: '#/components/parameters/servicefeesid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateServiceFeesRequest'
       responses:
@@ -362,6 +359,14 @@ components:
           type: string
           format: string
       description: Status Attributes
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: "The date and time the corporate action was processed to the account ||\r\n|"
     CorporateAction:
       type: object
       properties:
@@ -402,10 +407,30 @@ components:
           description: The outcome of applying the action to the account (can be simple confirmation)
           format: string
         CorporateActionTransactionDate:
-          type: string
-          description: The date and time the corporate action was processed to the account
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: ''
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: Tracking of accumulated fees and penalties
     ServiceFees:
       type: object
       properties:
@@ -462,9 +487,7 @@ components:
           description: The anticipated fee or penalty amount
           format: string
         FeeAccrualAmount:
-          type: string
-          description: Tracking of accumulated fees and penalties
-          format: amount
+          $ref: '#/components/schemas/amount'
         AccrualFeeType:
           type: string
           description: The fee or penalty type being tracked
@@ -502,13 +525,9 @@ components:
           description: Any necessary details describing the purpose or reference properties of the deposit
           format: string
         SecuritiesDepositTransactionAmount:
-          type: string
-          description: The volume or value of securities deposited
-          format: amount
+          $ref: '#/components/schemas/amount'
         SecuritiesDepositTransactionDate:
-          type: string
-          description: The date and time the deposit was initiated
-          format: date
+          $ref: '#/components/schemas/date'
         SecuritiesWithdrawalTransaction:
           type: string
           description: Details of the securities withdrawal transaction
@@ -526,13 +545,9 @@ components:
           description: Any necessary details describing the purpose or reference properties of the withdrawal
           format: string
         SecuritiesWithdrawalTransactionAmount:
-          type: string
-          description: The volume or value of the withdrawn securities
-          format: amount
+          $ref: '#/components/schemas/amount'
         SecuritiesWithdrawalTransactionDate:
-          type: string
-          description: The date and time the withdrawal was initiated
-          format: date
+          $ref: '#/components/schemas/date'
       description: The product features/services available with a financical facility
     InvestmentAccountFacility:
       type: object
@@ -618,9 +633,7 @@ components:
           description: Details of the event associated actions or impact
           format: string
         InstrumentEventDate:
-          type: string
-          description: The date/time the event is anticipated/occurs
-          format: date
+          $ref: '#/components/schemas/date'
         TaxReference:
           type: string
           description: Reference identifier linking the investment account to appropriate tax handling
@@ -733,9 +746,7 @@ components:
               description: "\r\n"
               format: string
             InstrumentEventDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             TaxReference:
               type: string
               description: "\r\n"
@@ -832,9 +843,7 @@ components:
               description: "\r\n"
               format: string
             InstrumentEventDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             EntitlementOptionDefinition:
               type: string
               description: "\r\n"
@@ -943,9 +952,7 @@ components:
               description: "\r\n"
               format: string
             InstrumentEventDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1062,9 +1069,7 @@ components:
               description: "\r\n"
               format: string
             InstrumentEventDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1181,9 +1186,7 @@ components:
               description: "\r\n"
               format: string
             InstrumentEventDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             TaxReference:
               type: string
               description: "\r\n"
@@ -1274,13 +1277,9 @@ components:
               description: "\r\n"
               format: string
             SecuritiesDepositTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             SecuritiesDepositTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             SecuritiesWithdrawalTransaction:
               type: string
               description: "\r\n"
@@ -1298,13 +1297,9 @@ components:
               description: "\r\n"
               format: string
             SecuritiesWithdrawalTransactionAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             SecuritiesWithdrawalTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a securities deposit or withdrawal action'
     InitiateCorporateActionRequest:
       type: object
@@ -1375,9 +1370,7 @@ components:
               description: "\r\n"
               format: object
             CorporateActionTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: ExBQ Execute the processing of a corporate action'
     ExecuteCorporateActionResponse:
       type: object
@@ -1406,9 +1399,7 @@ components:
               description: "\r\n"
               format: string
             CorporateActionTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ExBQ Execute the processing of a corporate action'
     RetrieveCorporateActionResponse:
       type: object
@@ -1453,9 +1444,7 @@ components:
               description: "\r\n"
               format: string
             CorporateActionTransactionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about corporate action processing'
     InitiateServiceFeesRequest:
       type: object
@@ -1577,9 +1566,7 @@ components:
               description: "\r\n"
               format: string
             FeeAccrualAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: "\r\n"
@@ -1648,9 +1635,7 @@ components:
               description: "\r\n"
               format: string
             FeeAccrualAmount:
-              type: string
-              description: "\r\n"
-              format: amount
+              $ref: '#/components/schemas/amount'
             AccrualFeeType:
               type: string
               description: "\r\n"

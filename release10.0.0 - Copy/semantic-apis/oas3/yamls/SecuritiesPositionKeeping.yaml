@@ -1,0 +1,653 @@
+openapi: 3.0.1
+info:
+  title: Securities Position Keeping
+  description: This service domain maintains a securities transaction log to support securities investment activity
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/SecuritiesPositionKeeping/10.0.0
+paths:
+  /SecuritiesPositionKeeping/Initiate:
+    post:
+      tags:
+      - CR - SecuritiesPositionLog
+      summary: InCR Initiate a position keeping transaction log
+      description: InCR Initiate a position keeping transaction log
+      operationId: Initiate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateSecuritiesPositionLogRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateSecuritiesPositionLogResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SecuritiesPositionKeeping/{securitiespositionkeepingId}/Update:
+    put:
+      tags:
+      - CR - SecuritiesPositionLog
+      summary: UpCR Update details for an active financial transaction log, including reflecting an account block
+      description: UpCR Update details for an active financial transaction log, including reflecting an account block
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/SecuritiesPositionKeepingID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateSecuritiesPositionLogRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSecuritiesPositionLogResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SecuritiesPositionKeeping/{securitiespositionkeepingId}/Retrieve:
+    get:
+      tags:
+      - CR - SecuritiesPositionLog
+      summary: ReCR Retrieve information about the log
+      description: ReCR Retrieve information about the log
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/SecuritiesPositionKeepingID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSecuritiesPositionLogResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SecuritiesPositionKeeping/{securitiespositionkeepingId}/SecuritiesTransactionCapture/{securitiestransactioncaptureId}/Update:
+    put:
+      tags:
+      - BQ - SecuritiesTransactionCapture
+      summary: UpBQ Update details of a captured financial transaction
+      description: UpBQ Update details of a captured financial transaction
+      operationId: UpdateSecuritiesTransactionCapture
+      parameters:
+      - $ref: '#/components/parameters/SecuritiesPositionKeepingID'
+      - $ref: '#/components/parameters/SecuritiesTransactionCaptureID'
+      requestBody:
+        $ref: '#/components/requestBodies/SecuritiesTransactionCapture'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritiesTransactionCapture'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SecuritiesPositionKeeping/{securitiespositionkeepingId}/SecuritiesTransactionCapture/{securitiestransactioncaptureId}/Capture:
+    put:
+      tags:
+      - BQ - SecuritiesTransactionCapture
+      summary: CaBQ Capture details of a financial transaction in the log
+      description: CaBQ Capture details of a financial transaction in the log
+      operationId: CaptureSecuritiesTransactionCapture
+      parameters:
+      - $ref: '#/components/parameters/SecuritiesPositionKeepingID'
+      - $ref: '#/components/parameters/SecuritiesTransactionCaptureID'
+      requestBody:
+        $ref: '#/components/requestBodies/SecuritiesTransactionCapture'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureSecuritiesTransactionCaptureResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /SecuritiesPositionKeeping/{securitiespositionkeepingId}/SecuritiesTransactionCapture/{securitiestransactioncaptureId}/Retrieve:
+    get:
+      tags:
+      - BQ - SecuritiesTransactionCapture
+      summary: ReBQ Retrieve details of financial transactions captured in the log
+      description: ReBQ Retrieve details of financial transactions captured in the log
+      operationId: RetrieveSecuritiesTransactionCapture
+      parameters:
+      - $ref: '#/components/parameters/SecuritiesPositionKeepingID'
+      - $ref: '#/components/parameters/SecuritiesTransactionCaptureID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuritiesTransactionCapture'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    SecuritiesPositionLog:
+      type: object
+      properties:
+        SecuritiesTransactionLogType:
+          type: string
+          description: The type of securities transaction log (e.g. equities, derivatives, all)
+        ProductInstanceReference:
+          type: object
+          description: The product/service investment account for which this is the securities transaction log
+        CustomerReference:
+          type: object
+          description: Reference to the product or service account holder/customer for the log if appropriate
+        CounterpartyReference:
+          type: object
+          description: Reference to a counterparty for the log if appropriate (e.g. merchant reference, corporate reference)
+        SecuritiesPositionLogInstrumentProfile:
+          type: string
+          description: Details the range of instruments that are tracked by the log (each instrument has its own transaction record/holding position
+        SecuritiesPositionLogInstrumentRecord:
+          type: string
+          description: Details for an individual tracked instrument type - (the log track transactions for multiple securities/instruments)
+        SecuritiesInstrumentType:
+          type: string
+          description: Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)
+        SecuritiesInstrumentReference:
+          type: object
+          description: The specific instrument trading identifier (e.g. NASDAQ Id)
+        SecuritiesPositionLimits:
+          type: string
+          description: Basic position limits that are maintained as an aspect of the log (these can include securities holdings and related instrument properties such as associated dividends entitlements)
+        SecuritiesPositionLimitType:
+          type: string
+          description: The type of position maintained for the log (e.g. cumulative balance)
+        SecuritiesPositionLimitSettings:
+          type: string
+          description: The position definition, associated limit settings and rules
+        SecuritiesPositionLimitValue:
+          type: string
+          description: The current calculated position
+        SecuritiesAmountBlock:
+          type: number
+          description: Support for recording blocks on the log position (handling is by the associated investment account fulfillment service domain)
+        SecuritiesAmountBlockType:
+          type: string
+          description: The type of block applied to the tracked securities position (e.g. pending, final)
+        Priority:
+          type: string
+          description: Priority classification for the block
+        Amount:
+          type: string
+          description: The amount of the block
+        DateType:
+          type: string
+          description: The type of key dates associated with the block  (e.g. start, expiry)
+        Date:
+          type: string
+          description: Value of the specific date type
+        InitiationDate:
+          type: string
+          description: The date and time the log was initiated. Note the log will have a complex internal calendar structure for extract and reporting
+        Status:
+          type: string
+          description: The status of the log entry (e.g. active, in-suspense etc.)
+    SecuritiesTransactionCapture:
+      type: object
+      properties:
+        SecuritiesPostingType:
+          type: string
+          description: The type of securities transaction (e.g. bought amount, sold amount, dividend payment)
+        SecuritiesPostingTransaction:
+          type: string
+          description: The logged securities transaction. Note the log can handle a range of transactions covering bought and sold amounts and securities instrument related transactions such as dividend payments
+        SecuritiesPostingValueDate:
+          type: string
+          description: The date of the securities transaction
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    InitiateSecuritiesPositionLogRequest:
+      type: object
+      properties:
+        SecuritiesPositionLog:
+          type: object
+          properties:
+            SecuritiesTransactionLogType:
+              type: string
+              description: NA
+            ProductInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            CounterpartyReference:
+              type: object
+              description: NA
+            SecuritiesPositionLogInstrumentProfile:
+              type: string
+              description: NA
+            SecuritiesPositionLogInstrumentRecord:
+              type: string
+              description: NA
+            SecuritiesInstrumentType:
+              type: string
+              description: NA
+            SecuritiesInstrumentReference:
+              type: object
+              description: NA
+            SecuritiesPositionLimits:
+              type: string
+              description: NA
+            SecuritiesPositionLimitType:
+              type: string
+              description: NA
+            SecuritiesPositionLimitSettings:
+              type: string
+              description: NA
+            SecuritiesAmountBlock:
+              type: number
+              description: NA
+            SecuritiesAmountBlockType:
+              type: string
+              description: NA
+            Priority:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            InitiationDate:
+              type: string
+              description: NA
+            Status:
+              type: string
+              description: NA
+    InitiateSecuritiesPositionLogResponse:
+      type: object
+      properties:
+        SecuritiesPositionLog:
+          type: object
+          properties:
+            SecuritiesTransactionLogType:
+              type: string
+              description: NA
+            SecuritiesPositionLogInstrumentProfile:
+              type: string
+              description: NA
+            SecuritiesPositionLogInstrumentRecord:
+              type: string
+              description: NA
+            SecuritiesInstrumentType:
+              type: string
+              description: NA
+            SecuritiesInstrumentReference:
+              type: object
+              description: NA
+            SecuritiesPositionLimits:
+              type: string
+              description: NA
+            SecuritiesPositionLimitType:
+              type: string
+              description: NA
+            SecuritiesPositionLimitSettings:
+              type: string
+              description: NA
+            SecuritiesPositionLimitValue:
+              type: string
+              description: NA
+            SecuritiesAmountBlock:
+              type: number
+              description: NA
+            SecuritiesAmountBlockType:
+              type: string
+              description: NA
+            Priority:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            InitiationDate:
+              type: string
+              description: NA
+            Status:
+              type: string
+              description: NA
+    UpdateSecuritiesPositionLogRequest:
+      type: object
+      properties:
+        SecuritiesPositionLog:
+          type: object
+          properties:
+            SecuritiesTransactionLogType:
+              type: string
+              description: NA
+            ProductInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            CounterpartyReference:
+              type: object
+              description: NA
+            SecuritiesPositionLogInstrumentProfile:
+              type: string
+              description: NA
+            SecuritiesPositionLogInstrumentRecord:
+              type: string
+              description: NA
+            SecuritiesInstrumentType:
+              type: string
+              description: NA
+            SecuritiesInstrumentReference:
+              type: object
+              description: NA
+            SecuritiesPositionLimits:
+              type: string
+              description: NA
+            SecuritiesPositionLimitType:
+              type: string
+              description: NA
+            SecuritiesPositionLimitSettings:
+              type: string
+              description: NA
+            SecuritiesPositionLimitValue:
+              type: string
+              description: NA
+            SecuritiesAmountBlock:
+              type: number
+              description: NA
+            SecuritiesAmountBlockType:
+              type: string
+              description: NA
+            Priority:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            InitiationDate:
+              type: string
+              description: NA
+            Status:
+              type: string
+              description: NA
+    UpdateSecuritiesPositionLogResponse:
+      type: object
+      properties:
+        SecuritiesPositionLog:
+          type: object
+          properties:
+            SecuritiesTransactionLogType:
+              type: string
+              description: NA
+            ProductInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            CounterpartyReference:
+              type: object
+              description: NA
+            SecuritiesPositionLogInstrumentProfile:
+              type: string
+              description: NA
+            SecuritiesPositionLogInstrumentRecord:
+              type: string
+              description: NA
+            SecuritiesInstrumentType:
+              type: string
+              description: NA
+            SecuritiesInstrumentReference:
+              type: object
+              description: NA
+            SecuritiesPositionLimits:
+              type: string
+              description: NA
+            SecuritiesPositionLimitType:
+              type: string
+              description: NA
+            SecuritiesPositionLimitSettings:
+              type: string
+              description: NA
+            SecuritiesPositionLimitValue:
+              type: string
+              description: NA
+            SecuritiesAmountBlock:
+              type: number
+              description: NA
+            SecuritiesAmountBlockType:
+              type: string
+              description: NA
+            Priority:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            InitiationDate:
+              type: string
+              description: NA
+            Status:
+              type: string
+              description: NA
+    RetrieveSecuritiesPositionLogResponse:
+      type: object
+      properties:
+        SecuritiesPositionLog:
+          type: object
+          properties:
+            SecuritiesTransactionLogType:
+              type: string
+              description: NA
+            ProductInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            CounterpartyReference:
+              type: object
+              description: NA
+            SecuritiesPositionLogInstrumentProfile:
+              type: string
+              description: NA
+            SecuritiesPositionLogInstrumentRecord:
+              type: string
+              description: NA
+            SecuritiesInstrumentType:
+              type: string
+              description: NA
+            SecuritiesInstrumentReference:
+              type: object
+              description: NA
+            SecuritiesPositionLimits:
+              type: string
+              description: NA
+            SecuritiesPositionLimitType:
+              type: string
+              description: NA
+            SecuritiesPositionLimitSettings:
+              type: string
+              description: NA
+            SecuritiesPositionLimitValue:
+              type: string
+              description: NA
+            SecuritiesAmountBlock:
+              type: number
+              description: NA
+            SecuritiesAmountBlockType:
+              type: string
+              description: NA
+            Priority:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            InitiationDate:
+              type: string
+              description: NA
+            Status:
+              type: string
+              description: NA
+    CaptureSecuritiesTransactionCaptureResponse:
+      type: object
+      properties:
+        SecuritiesTransactionCapture:
+          type: object
+          properties:
+            SecuritiesPostingValueDate:
+              type: string
+              description: NA
+  parameters:
+    SecuritiesPositionKeepingID:
+      name: securitiespositionkeepingId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    SecuritiesTransactionCaptureID:
+      name: securitiestransactioncaptureId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    InitiateSecuritiesPositionLogRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateSecuritiesPositionLogRequest'
+    UpdateSecuritiesPositionLogRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateSecuritiesPositionLogRequest'
+    SecuritiesTransactionCapture:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SecuritiesTransactionCapture'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

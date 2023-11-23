@@ -187,7 +187,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductMatching/{productmatchingid}/BankandCampaignAlignment/{bankandcampaignalignmentid}/Initiate':
+  '/ProductMatching/{productmatchingid}/BankandCampaignAlignment/Initiate':
     post:
       tags:
         - BQ - BankandCampaignAlignment
@@ -196,7 +196,6 @@ paths:
       operationId: InitiateBankandCampaignAlignment
       parameters:
         - $ref: '#/components/parameters/productmatchingid'
-        - $ref: '#/components/parameters/bankandcampaignalignmentid'
       requestBody:
         $ref: '#/components/requestBodies/BankandCampaignAlignment'
       responses:
@@ -214,7 +213,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductMatching/{productmatchingid}/ContextCriteria/{contextcriteriaid}/Initiate':
+  '/ProductMatching/{productmatchingid}/ContextCriteria/Initiate':
     post:
       tags:
         - BQ - ContextCriteria
@@ -223,7 +222,6 @@ paths:
       operationId: InitiateContextCriteria
       parameters:
         - $ref: '#/components/parameters/productmatchingid'
-        - $ref: '#/components/parameters/contextcriteriaid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateContextCriteriaRequest'
       responses:
@@ -241,7 +239,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductMatching/{productmatchingid}/ProductEligibility/{producteligibilityid}/Initiate':
+  '/ProductMatching/{productmatchingid}/ProductEligibility/Initiate':
     post:
       tags:
         - BQ - ProductEligibility
@@ -250,7 +248,6 @@ paths:
       operationId: InitiateProductEligibility
       parameters:
         - $ref: '#/components/parameters/productmatchingid'
-        - $ref: '#/components/parameters/producteligibilityid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateProductEligibilityRequest'
       responses:
@@ -268,7 +265,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductMatching/{productmatchingid}/ProductTypeSelection/{producttypeselectionid}/Initiate':
+  '/ProductMatching/{productmatchingid}/ProductTypeSelection/Initiate':
     post:
       tags:
         - BQ - ProductTypeSelection
@@ -277,7 +274,6 @@ paths:
       operationId: InitiateProductTypeSelection
       parameters:
         - $ref: '#/components/parameters/productmatchingid'
-        - $ref: '#/components/parameters/producttypeselectionid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateProductTypeSelectionRequest'
       responses:
@@ -518,6 +514,40 @@ components:
           type: string
           format: string
       description: Status Attributes
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Product/Customer Combination Assessment specific  Business Service
     ContextCriteria:
       type: object
       properties:
@@ -534,9 +564,7 @@ components:
           description: The test version employed
           format: string
         ContextCriteria:
-          type: string
-          description: The Product/Customer Combination Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ContextCriteriaServiceType:
           type: string
           description: Reference to the specific business service type
@@ -574,9 +602,7 @@ components:
           description: The test version employed
           format: string
         BankandCampaignAlignment:
-          type: string
-          description: The Product/Customer Combination Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         BankandCampaignAlignmentServiceType:
           type: string
           description: Reference to the specific business service type
@@ -614,9 +640,7 @@ components:
           description: The test version employed
           format: string
         ProductEligibility:
-          type: string
-          description: The Product/Customer Combination Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ProductEligibilityServiceType:
           type: string
           description: Reference to the specific business service type
@@ -654,9 +678,7 @@ components:
           description: The test version employed
           format: string
         ProductTypeSelection:
-          type: string
-          description: The Product/Customer Combination Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ProductTypeSelectionServiceType:
           type: string
           description: Reference to the specific business service type
@@ -1434,9 +1456,7 @@ components:
               description: "\r\n"
               format: string
             BankandCampaignAlignment:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             BankandCampaignAlignmentServiceType:
               type: string
               description: "\r\n"

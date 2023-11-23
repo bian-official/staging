@@ -83,7 +83,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerWorkbench/{customerworkbenchid}/SWUpdate/{swupdateid}/Initiate':
+  '/CustomerWorkbench/{customerworkbenchid}/SWUpdate/Initiate':
     post:
       tags:
         - BQ - SWUpdate
@@ -92,7 +92,6 @@ paths:
       operationId: InitiateSWUpdate
       parameters:
         - $ref: '#/components/parameters/customerworkbenchid'
-        - $ref: '#/components/parameters/swupdateid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateSWUpdateRequest'
       responses:
@@ -135,7 +134,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerWorkbench/{customerworkbenchid}/Broadcast/{broadcastid}/Initiate':
+  '/CustomerWorkbench/{customerworkbenchid}/Broadcast/Initiate':
     post:
       tags:
         - BQ - Broadcast
@@ -144,7 +143,6 @@ paths:
       operationId: InitiateBroadcast
       parameters:
         - $ref: '#/components/parameters/customerworkbenchid'
-        - $ref: '#/components/parameters/broadcastid'
       requestBody:
         $ref: '#/components/requestBodies/Broadcast'
       responses:
@@ -189,7 +187,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerWorkbench/{customerworkbenchid}/Browsing/{browsingid}/Initiate':
+  '/CustomerWorkbench/{customerworkbenchid}/Browsing/Initiate':
     post:
       tags:
         - BQ - Browsing
@@ -198,7 +196,6 @@ paths:
       operationId: InitiateBrowsing
       parameters:
         - $ref: '#/components/parameters/customerworkbenchid'
-        - $ref: '#/components/parameters/browsingid'
       requestBody:
         $ref: '#/components/requestBodies/Browsing'
       responses:
@@ -268,7 +265,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerWorkbench/{customerworkbenchid}/Contact/{contactid}/Initiate':
+  '/CustomerWorkbench/{customerworkbenchid}/Contact/Initiate':
     post:
       tags:
         - BQ - Contact
@@ -277,7 +274,6 @@ paths:
       operationId: InitiateContact
       parameters:
         - $ref: '#/components/parameters/customerworkbenchid'
-        - $ref: '#/components/parameters/contactid'
       requestBody:
         $ref: '#/components/requestBodies/Contact'
       responses:
@@ -374,7 +370,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/{productandserviceaccessid}/Initiate':
+  '/CustomerWorkbench/{customerworkbenchid}/ProductandServiceAccess/Initiate':
     post:
       tags:
         - BQ - ProductandServiceAccess
@@ -383,7 +379,6 @@ paths:
       operationId: InitiateProductandServiceAccess
       parameters:
         - $ref: '#/components/parameters/customerworkbenchid'
-        - $ref: '#/components/parameters/productandserviceaccessid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateProductandServiceAccessRequest'
       responses:
@@ -527,6 +522,14 @@ components:
           description: The date and time of the download
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: "The timestamp for the broadcast ||\r\n|"
     Broadcast:
       type: object
       properties:
@@ -535,9 +538,7 @@ components:
           description: Text of the broadcast message
           format: string
         CustomerWorkbenchBroadcastRecordDateTime:
-          type: string
-          description: The timestamp for the broadcast
-          format: date
+          $ref: '#/components/schemas/date'
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     ProductandServiceAccess:
       type: object
@@ -611,9 +612,7 @@ components:
           description: The version number(s) of device resident bank software
           format: string
         LastUpdateDateTime:
-          type: string
-          description: The last update date time stamp for local bank software
-          format: date
+          $ref: '#/components/schemas/date'
       description: 'Operate equipment and/or a largely automated facility within Customer Workbench. '
     RetrieveCustomerWorkbenchOperatingSessionResponse:
       type: object
@@ -654,9 +653,7 @@ components:
               description: "\r\n"
               format: string
             LastUpdateDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReCR Retrieve details about the workbench session'
     InitiateSWUpdateRequest:
       type: object
@@ -697,9 +694,7 @@ components:
               description: "\r\n"
               format: string
             LastUpdateDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         SWUpdate:
           type: object
           properties:
@@ -731,9 +726,7 @@ components:
               description: "\r\n"
               format: string
             LastUpdateDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: InBQ Initiate a SW update'
     RetrieveSWUpdateResponse:
       type: object
@@ -774,9 +767,7 @@ components:
               description: "\r\n"
               format: string
             LastUpdateDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         SWUpdate:
           type: object
           properties:
@@ -804,9 +795,7 @@ components:
               description: "\r\n"
               format: string
             CustomerWorkbenchBroadcastRecordDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a workstation broadcast'
     RetrieveBrowsingResponse:
       type: object

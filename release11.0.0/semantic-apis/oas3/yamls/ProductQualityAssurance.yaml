@@ -187,7 +187,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductQualityAssurance/{productqualityassuranceid}/FunctionalConsistencyChecks/{functionalconsistencychecksid}/Initiate':
+  '/ProductQualityAssurance/{productqualityassuranceid}/FunctionalConsistencyChecks/Initiate':
     post:
       tags:
         - BQ - FunctionalConsistencyChecks
@@ -196,7 +196,6 @@ paths:
       operationId: InitiateFunctionalConsistencyChecks
       parameters:
         - $ref: '#/components/parameters/productqualityassuranceid'
-        - $ref: '#/components/parameters/functionalconsistencychecksid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateFunctionalConsistencyChecksRequest'
       responses:
@@ -214,7 +213,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductQualityAssurance/{productqualityassuranceid}/ProcessingErrorandIntegrityChecks/{processingerrorandintegritychecksid}/Initiate':
+  '/ProductQualityAssurance/{productqualityassuranceid}/ProcessingErrorandIntegrityChecks/Initiate':
     post:
       tags:
         - BQ - ProcessingErrorandIntegrityChecks
@@ -223,7 +222,6 @@ paths:
       operationId: InitiateProcessingErrorandIntegrityChecks
       parameters:
         - $ref: '#/components/parameters/productqualityassuranceid'
-        - $ref: '#/components/parameters/processingerrorandintegritychecksid'
       requestBody:
         $ref: '#/components/requestBodies/ProcessingErrorandIntegrityChecks'
       responses:
@@ -241,7 +239,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductQualityAssurance/{productqualityassuranceid}/ResiliencyandPerformanceChecks/{resiliencyandperformancechecksid}/Initiate':
+  '/ProductQualityAssurance/{productqualityassuranceid}/ResiliencyandPerformanceChecks/Initiate':
     post:
       tags:
         - BQ - ResiliencyandPerformanceChecks
@@ -250,7 +248,6 @@ paths:
       operationId: InitiateResiliencyandPerformanceChecks
       parameters:
         - $ref: '#/components/parameters/productqualityassuranceid'
-        - $ref: '#/components/parameters/resiliencyandperformancechecksid'
       requestBody:
         $ref: '#/components/requestBodies/ResiliencyandPerformanceChecks'
       responses:
@@ -268,7 +265,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProductQualityAssurance/{productqualityassuranceid}/UsabilityChecks/{usabilitychecksid}/Initiate':
+  '/ProductQualityAssurance/{productqualityassuranceid}/UsabilityChecks/Initiate':
     post:
       tags:
         - BQ - UsabilityChecks
@@ -277,7 +274,6 @@ paths:
       operationId: InitiateUsabilityChecks
       parameters:
         - $ref: '#/components/parameters/productqualityassuranceid'
-        - $ref: '#/components/parameters/usabilitychecksid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateUsabilityChecksRequest'
       responses:
@@ -518,6 +514,40 @@ components:
           type: string
           format: string
       description: Status Attributes
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Product and  Service Assessment specific  Business Service
     ResiliencyandPerformanceChecks:
       type: object
       properties:
@@ -534,9 +564,7 @@ components:
           description: The test version employed
           format: string
         ResiliencyandPerformanceChecks:
-          type: string
-          description: The Product and  Service Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ResiliencyandPerformanceChecksServiceType:
           type: string
           description: Reference to the specific business service type
@@ -574,9 +602,7 @@ components:
           description: The test version employed
           format: string
         UsabilityChecks:
-          type: string
-          description: The Product and  Service Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         UsabilityChecksServiceType:
           type: string
           description: Reference to the specific business service type
@@ -626,9 +652,7 @@ components:
           description: The test version employed
           format: string
         FunctionalConsistencyChecks:
-          type: string
-          description: The Product and  Service Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         FunctionalConsistencyChecksServiceType:
           type: string
           description: Reference to the specific business service type
@@ -666,9 +690,7 @@ components:
           description: The test version employed
           format: string
         ProcessingErrorandIntegrityChecks:
-          type: string
-          description: The Product and  Service Assessment specific  Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ProcessingErrorandIntegrityChecksServiceType:
           type: string
           description: Reference to the specific business service type
@@ -1395,9 +1417,7 @@ components:
               description: "\r\n"
               format: string
             ProcessingErrorandIntegrityChecks:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             ProcessingErrorandIntegrityChecksServiceType:
               type: string
               description: "\r\n"
@@ -1438,9 +1458,7 @@ components:
               description: "\r\n"
               format: string
             ResiliencyandPerformanceChecks:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             ResiliencyandPerformanceChecksServiceType:
               type: string
               description: "\r\n"

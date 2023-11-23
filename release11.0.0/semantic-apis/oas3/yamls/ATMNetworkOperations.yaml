@@ -403,7 +403,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/{financialdocumenthandlingid}/Initiate':
+  '/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialDocumentHandling/Initiate':
     post:
       tags:
         - BQ - FinancialDocumentHandling
@@ -412,7 +412,6 @@ paths:
       operationId: InitiateFinancialDocumentHandling
       parameters:
         - $ref: '#/components/parameters/atmnetworkoperationsid'
-        - $ref: '#/components/parameters/financialdocumenthandlingid'
       requestBody:
         $ref: '#/components/requestBodies/FinancialDocumentHandling'
       responses:
@@ -430,7 +429,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/{financialtransactioncaptureid}/Initiate':
+  '/ATMNetworkOperations/{atmnetworkoperationsid}/FinancialTransactionCapture/Initiate':
     post:
       tags:
         - BQ - FinancialTransactionCapture
@@ -439,7 +438,6 @@ paths:
       operationId: InitiateFinancialTransactionCapture
       parameters:
         - $ref: '#/components/parameters/atmnetworkoperationsid'
-        - $ref: '#/components/parameters/financialtransactioncaptureid'
       requestBody:
         $ref: '#/components/requestBodies/FinancialTransactionCapture'
       responses:
@@ -457,7 +455,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ATMNetworkOperations/{atmnetworkoperationsid}/NetworkOperation/{networkoperationid}/Initiate':
+  '/ATMNetworkOperations/{atmnetworkoperationsid}/NetworkOperation/Initiate':
     post:
       tags:
         - BQ - NetworkOperation
@@ -466,7 +464,6 @@ paths:
       operationId: InitiateNetworkOperation
       parameters:
         - $ref: '#/components/parameters/atmnetworkoperationsid'
-        - $ref: '#/components/parameters/networkoperationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateNetworkOperationRequest'
       responses:
@@ -759,6 +756,40 @@ components:
           type: string
           format: string
       description: Status Attributes
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The ATMNetwork Operating Session specific Business Service
     FinancialTransactionCapture:
       type: object
       properties:
@@ -771,9 +802,7 @@ components:
           description: The schedule and timing of the function
           format: string
         BusinessService:
-          type: string
-          description: The ATMNetwork Operating Session specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ServiceType:
           type: string
           description: Reference to the specific business service type
@@ -819,9 +848,7 @@ components:
           description: The schedule and timing of the function
           format: string
         NetworkOperation:
-          type: string
-          description: The ATMNetwork Operating Session specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         NetworkOperationServiceType:
           type: string
           description: Reference to the specific business service type
@@ -855,9 +882,7 @@ components:
           description: The schedule and timing of the function
           format: string
         DeviceTracking:
-          type: string
-          description: The ATMNetwork Operating Session specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DeviceTrackingServiceType:
           type: string
           description: Reference to the specific business service type
@@ -891,9 +916,7 @@ components:
           description: The schedule and timing of the function
           format: string
         DocumentGenerationandHandling:
-          type: string
-          description: The ATMNetwork Operating Session specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DocumentGenerationandHandlingServiceType:
           type: string
           description: Reference to the specific business service type
@@ -927,9 +950,7 @@ components:
           description: The schedule and timing of the function
           format: string
         CashDistribution:
-          type: string
-          description: The ATMNetwork Operating Session specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CashDistributionServiceType:
           type: string
           description: Reference to the specific business service type
@@ -1469,9 +1490,7 @@ components:
               description: "\r\n"
               format: string
             DocumentGenerationandHandling:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             DocumentGenerationandHandlingServiceType:
               type: string
               description: "\r\n"
@@ -1508,9 +1527,7 @@ components:
               description: "\r\n"
               format: string
             BusinessService:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             ServiceType:
               type: string
               description: "\r\n"

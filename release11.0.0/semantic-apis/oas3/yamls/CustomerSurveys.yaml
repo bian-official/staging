@@ -240,7 +240,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerSurveys/{customersurveysid}/Execution/{executionid}/Initiate':
+  '/CustomerSurveys/{customersurveysid}/Execution/Initiate':
     post:
       tags:
         - BQ - Execution
@@ -249,7 +249,6 @@ paths:
       operationId: InitiateExecution
       parameters:
         - $ref: '#/components/parameters/customersurveysid'
-        - $ref: '#/components/parameters/executionid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateExecutionRequest'
       responses:
@@ -400,7 +399,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerSurveys/{customersurveysid}/SurveyAnalysis/{surveyanalysisid}/Initiate':
+  '/CustomerSurveys/{customersurveysid}/SurveyAnalysis/Initiate':
     post:
       tags:
         - BQ - SurveyAnalysis
@@ -409,7 +408,6 @@ paths:
       operationId: InitiateSurveyAnalysis
       parameters:
         - $ref: '#/components/parameters/customersurveysid'
-        - $ref: '#/components/parameters/surveyanalysisid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateSurveyAnalysisRequest'
       responses:
@@ -561,6 +559,14 @@ components:
           description: 'The result customer survey which combines response details/statistics and associated analysis, commentary and derived insights'
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The date-time the customer survey execution
     Execution:
       type: object
       properties:
@@ -585,9 +591,7 @@ components:
           description: Details of the outcome or result of the work task - typically the captured survey response and any related feedback
           format: string
         CustomerSurveyExecutionWorkTaskDate-Time:
-          type: string
-          description: The date-time the customer survey execution
-          format: date
+          $ref: '#/components/schemas/date'
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
     CustomerSurveyProcedure:
       type: object
@@ -1244,9 +1248,7 @@ components:
               description: "\r\n"
               format: string
             CustomerSurveyExecutionWorkTaskDate-Time:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: InBQ Initiate customer survey execution task'
     InitiateExecutionResponse:
       type: object
@@ -1322,9 +1324,7 @@ components:
               description: "\r\n"
               format: string
             CustomerSurveyExecutionWorkTaskDate-Time:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: InBQ Initiate customer survey execution task'
     UpdateExecutionRequest:
       type: object
@@ -1360,9 +1360,7 @@ components:
               description: "\r\n"
               format: string
             CustomerSurveyExecutionWorkTaskDate-Time:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: UpBQ Update details of a survey execution task'
     UpdateExecutionResponse:
       type: object
@@ -1398,9 +1396,7 @@ components:
               description: "\r\n"
               format: string
             CustomerSurveyExecutionWorkTaskDate-Time:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: UpBQ Update details of a survey execution task'
     RetrieveExecutionResponse:
       type: object
@@ -1436,9 +1432,7 @@ components:
               description: "\r\n"
               format: string
             CustomerSurveyExecutionWorkTaskDate-Time:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about customer survey execution activity'
     InitiateSurveyAnalysisRequest:
       type: object

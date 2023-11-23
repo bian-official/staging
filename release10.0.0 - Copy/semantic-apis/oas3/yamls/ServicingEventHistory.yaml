@@ -1,0 +1,883 @@
+openapi: 3.0.1
+info:
+  title: Servicing Event History
+  description: This service domain captures, classifies and stores servicing activity and events to support root cause analysis
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/ServicingEventHistory/10.0.0
+paths:
+  /ServicingEventHistory/Initiate:
+    post:
+      tags:
+      - CR - ServicingEventLog
+      summary: InCR Initiate servicing event history tracking for a servicing resource
+      description: InCR Initiate servicing event history tracking for a servicing resource
+      operationId: Initiate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/ServicingEventLog'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Update:
+    put:
+      tags:
+      - CR - ServicingEventLog
+      summary: UpCR Update details about the log
+      description: UpCR Update details about the log
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      requestBody:
+        $ref: '#/components/requestBodies/ServicingEventLog'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicingEventLog'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Retrieve:
+    get:
+      tags:
+      - CR - ServicingEventLog
+      summary: ReCR Retrieve details about the servicing event log
+      description: ReCR Retrieve details about the servicing event log
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicingEventLog'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Assignment/{assignmentId}/Update:
+    put:
+      tags:
+      - BQ - Assignment
+      summary: UpBQ Update captured assignment event details
+      description: UpBQ Update captured assignment event details
+      operationId: UpdateAssignment
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/AssignmentID'
+      requestBody:
+        $ref: '#/components/requestBodies/Assignment'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Assignment/{assignmentId}/Capture:
+    put:
+      tags:
+      - BQ - Assignment
+      summary: CaBQ Capture servicing position assignment event details
+      description: CaBQ Capture servicing position assignment event details
+      operationId: CaptureAssignment
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/AssignmentID'
+      requestBody:
+        $ref: '#/components/requestBodies/Assignment'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Assignment/{assignmentId}/Retrieve:
+    get:
+      tags:
+      - BQ - Assignment
+      summary: ReBQ Retrieve servicing position assignment event details
+      description: ReBQ Retrieve servicing position assignment event details
+      operationId: RetrieveAssignment
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/AssignmentID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Session/{sessionId}/Update:
+    put:
+      tags:
+      - BQ - Session
+      summary: UpBQ Update captured customer servicing session event details
+      description: UpBQ Update captured customer servicing session event details
+      operationId: UpdateSession
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/SessionID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateSessionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSessionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Session/{sessionId}/Capture:
+    put:
+      tags:
+      - BQ - Session
+      summary: CaBQ Capture customer servicing session event details
+      description: CaBQ Capture customer servicing session event details
+      operationId: CaptureSession
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/SessionID'
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureSessionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Session/{sessionId}/Retrieve:
+    get:
+      tags:
+      - BQ - Session
+      summary: ReBQ Retrieve customer servicing event details
+      description: ReBQ Retrieve customer servicing event details
+      operationId: RetrieveSession
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/SessionID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSessionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Issue/{issueId}/Update:
+    put:
+      tags:
+      - BQ - Issue
+      summary: UpBQ Update captured servicing issue event details
+      description: UpBQ Update captured servicing issue event details
+      operationId: UpdateIssue
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/IssueID'
+      requestBody:
+        $ref: '#/components/requestBodies/Issue'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Issue/{issueId}/Capture:
+    put:
+      tags:
+      - BQ - Issue
+      summary: CaBQ Capture servicing issue event details
+      description: CaBQ Capture servicing issue event details
+      operationId: CaptureIssue
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/IssueID'
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureIssueRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/Issue/{issueId}/Retrieve:
+    get:
+      tags:
+      - BQ - Issue
+      summary: ReBQ Retrieve servicing issue event details
+      description: ReBQ Retrieve servicing issue event details
+      operationId: RetrieveIssue
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/IssueID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/ServicingFacility/{servicingfacilityId}/Update:
+    put:
+      tags:
+      - BQ - ServicingFacility
+      summary: UpBQ Update captured facility utilization event details
+      description: UpBQ Update captured facility utilization event details
+      operationId: UpdateServicingFacility
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/ServicingFacilityID'
+      requestBody:
+        $ref: '#/components/requestBodies/ServicingFacility'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicingFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/ServicingFacility/{servicingfacilityId}/Capture:
+    put:
+      tags:
+      - BQ - ServicingFacility
+      summary: CaBQ Capture  facility utilization event details
+      description: CaBQ Capture  facility utilization event details
+      operationId: CaptureServicingFacility
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/ServicingFacilityID'
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureServicingFacilityRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ServicingEventHistory/{servicingeventhistoryId}/ServicingFacility/{servicingfacilityId}/Retrieve:
+    get:
+      tags:
+      - BQ - ServicingFacility
+      summary: ReBQ Retrieve  facility utilization event details
+      description: ReBQ Retrieve  facility utilization event details
+      operationId: RetrieveServicingFacility
+      parameters:
+      - $ref: '#/components/parameters/ServicingEventHistoryID'
+      - $ref: '#/components/parameters/ServicingFacilityID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServicingFacility'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ServicingEventLog:
+      type: object
+      properties:
+        ServicingPositionReference:
+          type: object
+          description: The servicing position for the log (if the log is organized to track specific positions)
+        EmployeeOrBusinessUnitReference:
+          type: object
+          description: Employee/unit assigned to the servicing position (if the log is organized to track specific servicing reps that might work at different positions)
+    Session:
+      type: object
+      properties:
+        SessionStart/EndTime:
+          type: string
+          description: The start and duration of the dialogue
+        CustomerContactReference:
+          type: object
+          description: Reference to the complete contact record for the customer contact
+        SessionMechanism:
+          type: string
+          description: The type of channel device involved in the session exchange (e.g. web, phone, chat, video, VOIP, face to face at a branch - note there can be concurrent sessions within a single customer contact)
+        ServicingFacilityType:
+          type: string
+          description: Lists if a specific servicing facility is used during the session)
+        SessionDialogueRecord:
+          type: string
+          description: The session dialogue log of actions is returned to SD-Contact Handler and added to the contact record
+        SessionDialogueType:
+          type: string
+          description: The general type of customer exchange (e.g. verified customer, anonymous contact, topic - used to structure/script dialogue)
+        SessionDialogueScript:
+          type: string
+          description: In cases a prompt or script can provided to structure the interaction for self-service and assisted interactions
+        SessionDialogueLogReference:
+          type: object
+          description: Reference to a dialogue log that is built up
+        SessionDialogueLog:
+          type: string
+          description: The dialogue log, used for training and root cause analysis etc.  (e.g. click-stream, video/audio recording)
+        SessionDialogueResult:
+          type: string
+          description: The outcome of the dialogue (e.g. customer satisfied, on-ward routing, hang-up)
+    Assignment:
+      type: object
+      properties:
+        Date/Time/Location:
+          type: string
+          description: Key dates and times associated with the assignment (e.g. start, end, break duration, available/idle time)
+        ServicingPositionActivityReport:
+          type: string
+          description: Log of servicing activity at that position during the session (e.g. contacts, sales, issues, breaks)
+        ServicingPositionActivityStatistics:
+          type: string
+          description: Accumulated statistics during the session (e.g. average contact time, wait time, service utilization, facility usage)
+    ServicingFacility:
+      type: object
+      properties:
+        ServicingFacilityType:
+          type: string
+          description: The type of service support facility engaged (e.g. commission tracking, on-line help, action logging)
+        ServicingFacilityInstanceReference:
+          type: object
+          description: Reference to any record generated from he use of the facility
+    Issue:
+      type: object
+      properties:
+        ServicingPositionReference:
+          type: object
+          description: Reference to the service position where issue arises
+        ServicingPositionSessionReference:
+          type: object
+          description: Reference to the servicing session
+        Employee/BusinessUnitReference:
+          type: object
+          description: Reference to the employee or unit raising the issue
+        ProductionIssueType:
+          type: string
+          description: Defines the type of event/error being recorded (e.g. support facility failure)
+        ProductionIssueDescription:
+          type: string
+          description: Description of the issue and involved functions, parties
+        ProductionIssueDiagnosis:
+          type: string
+          description: An evaluation of the event cause and impact
+        ProductionIssueResolutionTask:
+          type: string
+          description: Description of corrective actions and assigned parties
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    UpdateSessionRequest:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+              description: NA
+            CustomerContactReference:
+              type: object
+              description: NA
+            SessionMechanism:
+              type: string
+              description: NA
+            ServicingFacilityType:
+              type: string
+              description: NA
+            SessionDialogueRecord:
+              type: string
+              description: NA
+            SessionDialogueType:
+              type: string
+              description: NA
+            SessionDialogueScript:
+              type: string
+              description: NA
+            SessionDialogueLogReference:
+              type: object
+              description: NA
+            SessionDialogueResult:
+              type: string
+              description: NA
+    UpdateSessionResponse:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+              description: NA
+            CustomerContactReference:
+              type: object
+              description: NA
+            SessionMechanism:
+              type: string
+              description: NA
+            ServicingFacilityType:
+              type: string
+              description: NA
+            SessionDialogueRecord:
+              type: string
+              description: NA
+            SessionDialogueType:
+              type: string
+              description: NA
+            SessionDialogueScript:
+              type: string
+              description: NA
+            SessionDialogueLogReference:
+              type: object
+              description: NA
+            SessionDialogueResult:
+              type: string
+              description: NA
+    CaptureSessionRequest:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+              description: NA
+            CustomerContactReference:
+              type: object
+              description: NA
+            SessionMechanism:
+              type: string
+              description: NA
+            ServicingFacilityType:
+              type: string
+              description: NA
+            SessionDialogueRecord:
+              type: string
+              description: NA
+            SessionDialogueType:
+              type: string
+              description: NA
+            SessionDialogueScript:
+              type: string
+              description: NA
+            SessionDialogueLogReference:
+              type: object
+              description: NA
+            SessionDialogueResult:
+              type: string
+              description: NA
+    RetrieveSessionResponse:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            SessionStartOrEndTime:
+              type: string
+              description: NA
+            CustomerContactReference:
+              type: object
+              description: NA
+            SessionMechanism:
+              type: string
+              description: NA
+            ServicingFacilityType:
+              type: string
+              description: NA
+            SessionDialogueRecord:
+              type: string
+              description: NA
+            SessionDialogueType:
+              type: string
+              description: NA
+            SessionDialogueScript:
+              type: string
+              description: NA
+            SessionDialogueLogReference:
+              type: object
+              description: NA
+            SessionDialogueResult:
+              type: string
+              description: NA
+    CaptureIssueRequest:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            CustomerContactReference:
+              type: object
+              description: NA
+        Issue:
+          type: object
+          properties:
+            ServicingPositionReference:
+              type: object
+              description: NA
+            ServicingPositionSessionReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionIssueType:
+              type: string
+              description: NA
+            ProductionIssueDescription:
+              type: string
+              description: NA
+            ProductionIssueDiagnosis:
+              type: string
+              description: NA
+            ProductionIssueResolutionTask:
+              type: string
+              description: NA
+    CaptureServicingFacilityRequest:
+      type: object
+      properties:
+        Session:
+          type: object
+          properties:
+            CustomerContactReference:
+              type: object
+              description: NA
+        ServicingFacility:
+          type: object
+          properties:
+            ServicingFacilityType:
+              type: string
+              description: NA
+            ServicingFacilityInstanceReference:
+              type: object
+              description: NA
+  parameters:
+    ServicingEventHistoryID:
+      name: servicingeventhistoryId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    SessionID:
+      name: sessionId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    AssignmentID:
+      name: assignmentId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ServicingFacilityID:
+      name: servicingfacilityId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    IssueID:
+      name: issueId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    ServicingEventLog:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServicingEventLog'
+    Assignment:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Assignment'
+    UpdateSessionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateSessionRequest'
+    CaptureSessionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureSessionRequest'
+    Issue:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Issue'
+    CaptureIssueRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureIssueRequest'
+    ServicingFacility:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServicingFacility'
+    CaptureServicingFacilityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureServicingFacilityRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

@@ -427,7 +427,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProjectFinance/{projectfinanceid}/ProjectFinanceArrangementFulfillment/{projectfinancearrangementfulfillmentid}/Initiate':
+  '/ProjectFinance/{projectfinanceid}/ProjectFinanceArrangementFulfillment/Initiate':
     post:
       tags:
         - BQ - ProjectFinanceArrangementFulfillment
@@ -436,7 +436,6 @@ paths:
       operationId: InitiateProjectFinanceArrangementFulfillment
       parameters:
         - $ref: '#/components/parameters/projectfinanceid'
-        - $ref: '#/components/parameters/projectfinancearrangementfulfillmentid'
       requestBody:
         $ref: '#/components/requestBodies/ProjectFinanceArrangementFulfillment'
       responses:
@@ -454,7 +453,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProjectFinance/{projectfinanceid}/ProjectFinancePlacementFulfillment/{projectfinanceplacementfulfillmentid}/Initiate':
+  '/ProjectFinance/{projectfinanceid}/ProjectFinancePlacementFulfillment/Initiate':
     post:
       tags:
         - BQ - ProjectFinancePlacementFulfillment
@@ -463,7 +462,6 @@ paths:
       operationId: InitiateProjectFinancePlacementFulfillment
       parameters:
         - $ref: '#/components/parameters/projectfinanceid'
-        - $ref: '#/components/parameters/projectfinanceplacementfulfillmentid'
       requestBody:
         $ref: '#/components/requestBodies/ProjectFinancePlacementFulfillment'
       responses:
@@ -481,7 +479,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProjectFinance/{projectfinanceid}/ProjectFinanceRepaymentFulfillment/{projectfinancerepaymentfulfillmentid}/Initiate':
+  '/ProjectFinance/{projectfinanceid}/ProjectFinanceRepaymentFulfillment/Initiate':
     post:
       tags:
         - BQ - ProjectFinanceRepaymentFulfillment
@@ -490,7 +488,6 @@ paths:
       operationId: InitiateProjectFinanceRepaymentFulfillment
       parameters:
         - $ref: '#/components/parameters/projectfinanceid'
-        - $ref: '#/components/parameters/projectfinancerepaymentfulfillmentid'
       requestBody:
         $ref: '#/components/requestBodies/ProjectFinanceRepaymentFulfillment'
       responses:
@@ -508,7 +505,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ProjectFinance/{projectfinanceid}/ProjectFinanceSPVFulfillment/{projectfinancespvfulfillmentid}/Initiate':
+  '/ProjectFinance/{projectfinanceid}/ProjectFinanceSPVFulfillment/Initiate':
     post:
       tags:
         - BQ - ProjectFinanceSPVFulfillment
@@ -517,7 +514,6 @@ paths:
       operationId: InitiateProjectFinanceSPVFulfillment
       parameters:
         - $ref: '#/components/parameters/projectfinanceid'
-        - $ref: '#/components/parameters/projectfinancespvfulfillmentid'
       requestBody:
         $ref: '#/components/requestBodies/ProjectFinanceSPVFulfillment'
       responses:
@@ -966,133 +962,173 @@ components:
           type: string
           format: string
       description: Status Attributes
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The required status/situation prior to the implementation of the feature
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: string
+      description: The timing and key actions/milestones involved in completing the fulfillment feature instance
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Project Finance SPV Fulfillment specific Business Service
+    financialfacility:
+      type: object
+      properties:
+        FinancialFacility:
+          type: string
+          description: ''
+          format: class
+      description: "Reference to Project Finance SPV Fulfillment ||\r\n|"
     ProjectFinanceSPVFulfillment:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the implementation of the feature
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Project Finance SPV Fulfillment specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-          format: condition
+          $ref: '#/components/schemas/condition'
         ProjectFinanceFacilityReference:
-          type: string
-          description: Reference to Project Finance SPV Fulfillment
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         ProjectFinanceSPVFulfillmentReference:
           type: string
           description: Reference to Project Finance SPV Fulfillment
           format: object
         ProjectFinanceSPVFulfillmentType:
-          type: string
-          description: The type of Project Finance SPV Fulfillment
-          format: text
+          $ref: '#/components/schemas/text'
       description: The configuration and execution of Project Finance SPV Fulfillment arrangement within the Project Finance SPV Fulfillment
     ProjectFinancePlacementFulfillment:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the implementation of the feature
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Project Finance Placement Fulfillment specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-          format: condition
+          $ref: '#/components/schemas/condition'
         ProjectFinanceFacilityReference:
-          type: string
-          description: Reference to Project Finance Placement Fulfillment
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         ProjectFinancePlacementFulfillmentReference:
           type: string
           description: Reference to Project Finance Placement Fulfillment
           format: object
         ProjectFinancePlacementFulfillmentType:
-          type: string
-          description: The type of Project Finance Placement Fulfillment
-          format: text
+          $ref: '#/components/schemas/text'
       description: The configuration and execution of Project Finance SPV Fulfillment arrangement within the Project Finance SPV Fulfillment
     ProjectFinanceArrangementFulfillment:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the implementation of the feature
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Project Finance Arrangement Fulfillment specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-          format: condition
+          $ref: '#/components/schemas/condition'
         ProjectFinanceFacilityReference:
-          type: string
-          description: Reference to Project Finance Arrangement Fulfillment
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         ProjectFinanceArrangementFulfillmentReference:
           type: string
           description: Reference to Project Finance Arrangement Fulfillment
           format: object
         ProjectFinanceArrangementFulfillmentType:
-          type: string
-          description: The type of Project Finance Arrangement Fulfillment
-          format: text
+          $ref: '#/components/schemas/text'
       description: The configuration and execution of Project Finance SPV Fulfillment arrangement within the Project Finance SPV Fulfillment
+    currencycode:
+      type: object
+      properties:
+        Currencycode:
+          type: string
+          description: "A code identifying a currency according to ISO-4217.\nA currency is a system of money in general use in a particular country.\n\nCode allocated to a currency, by a maintenance agency, under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\". Valid currency codes are registered with the ISO 4217 Maintenance Agency, and consist of three contiguous letters. (ISO20022)\n\n"
+          format: datatype
+      description: " ||\r\n|"
+    amount:
+      type: object
+      properties:
+        AmountValue:
+          type: string
+          description: ''
+          format: string
+        AmountCurrency:
+          $ref: '#/components/schemas/currencycode'
+        DecimalPointPosition:
+          type: string
+          description: "Decimal point position starts calulating from the right\n"
+          format: string
+      description: The amount of the repayment
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The value date for the repayment transaction
     ProjectFinanceRepaymentFulfillment:
       type: object
       properties:
         Preconditions:
-          type: string
-          description: The required status/situation prior to the implementation of the feature
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in completing the fulfillment feature instance
-          format: schedule
+          $ref: '#/components/schemas/schedule'
         BusinessService:
-          type: string
-          description: The Project Finance Repayment Fulfillment specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         Postconditions:
-          type: string
-          description: The completion status and any triggered/dependent actions once the feature instance has been fulfilled
-          format: condition
+          $ref: '#/components/schemas/condition'
         ProjectFinanceFacilityReference:
-          type: string
-          description: Reference to Project Finance Repayment Fulfillment
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         ProjectFinanceRepaymentFulfillmentReference:
           type: string
           description: Reference to Project Finance Repayment Fulfillment
           format: object
         ProjectFinanceRepaymentFulfillmentType:
-          type: string
-          description: The type of Project Finance Repayment Fulfillment
-          format: text
+          $ref: '#/components/schemas/text'
         ReaymentFulfillmentInstanceReference:
           type: string
           description: An unique reference to an item or an occurance (data type is Object)
@@ -1114,30 +1150,561 @@ components:
           description: Reference to the payer's bank
           format: object
         RepaymentTransactionAmount:
-          type: string
-          description: The amount of the repayment
-          format: amount
+          $ref: '#/components/schemas/amount'
         RepaymentTransactionCurrency:
-          type: string
-          description: The currency used for the repayment
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         RepaymentTransactionValueDate:
-          type: string
-          description: The value date for the repayment transaction
-          format: date
+          $ref: '#/components/schemas/date'
       description: The configuration and execution of Project Finance SPV Fulfillment arrangement within the Project Finance SPV Fulfillment
+    workproducttypevalues:
+      enum:
+        - File
+        - ActivityLog
+        - WorkingPaper
+        - MeetingSchedule
+        - Form
+        - MeetingMinute
+        - Document
+      type: string
+      description: ">\r\n* `File` - \r\n* `ActivityLog` - \r\n* `WorkingPaper` - \r\n* `MeetingSchedule` - \r\n* `Form` - \r\n* `MeetingMinute` - \r\n* `Document` - \r\n"
+    workproduct:
+      type: object
+      properties:
+        WorkProductType:
+          $ref: '#/components/schemas/workproducttypevalues'
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
+      description: ''
     ProjectFinanceOutcome:
       type: object
       properties:
         ProjectFinanceFinancialFacility:
-          type: string
-          description: ''
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
         ProjectFinanceWorkProduct:
+          $ref: '#/components/schemas/workproduct'
+      description: The configuration and execution of Project Finance SPV Fulfillment arrangement within the Project Finance SPV Fulfillment
+    feature:
+      type: object
+      properties:
+        FeatureType:
           type: string
           description: ''
-          format: workproduct
-      description: The configuration and execution of Project Finance SPV Fulfillment arrangement within the Project Finance SPV Fulfillment
+          format: string
+      description: "A selected optional product feature as subject matter of Project Finance Facility ||\r\n|"
+    bankingproducttype:
+      type: object
+      properties:
+        ProductTypeDefinition:
+          type: string
+        ProductType:
+          type: string
+        ProductClassificationIssuingAuthority:
+          type: string
+      description: "The type of Project Finance Facility ||\r\n|"
+    calendar:
+      type: object
+      properties:
+        CalendarReference:
+          type: string
+        CalendarType:
+          type: string
+      description: "Reference to the calendar used to fulfill Project Finance Facility ||\r\n|"
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: Date and time at which the status was assigned.
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: Period of time during which the status is valid.
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n"
+    partyidentificationtypevalues:
+      enum:
+        - LEI(LegalEntityIdentifier)
+        - TaxIdentificationNumber
+        - NationalRegistrationNumber
+        - RegistrationAuthorityIdentification
+        - PassportNumber
+        - AlienRegistrationNumber
+        - TaxExemptIdentificationNumber
+        - ForeignInvestmentIdentityNumber
+        - DriverLicenseNumber
+        - CorporateIdentification
+        - SocialSecurityNumber
+        - IdentityCardNumber
+        - NationalRegistrationIdentificationNumber
+        - Concat
+      type: string
+      description: ">\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `TaxIdentificationNumber` - \r\n* `NationalRegistrationNumber` - \r\n* `RegistrationAuthorityIdentification` - \r\n* `PassportNumber` - \r\n* `AlienRegistrationNumber` - \r\n* `TaxExemptIdentificationNumber` - \r\n* `ForeignInvestmentIdentityNumber` - \r\n* `DriverLicenseNumber` - \r\n* `CorporateIdentification` - \r\n* `SocialSecurityNumber` - \r\n* `IdentityCardNumber` - \r\n* `NationalRegistrationIdentificationNumber` - \r\n* `Concat` - \r\n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          $ref: '#/components/schemas/partyidentificationtypevalues'
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\r\n* `Agreementinvolvement` - \r\n* `Partyinvolvement` - \r\n* `Arrangementinvolvement` - \r\n* `Designspecificationinvolvement` - \r\n* `Relationshipinvolvement` - \r\n* `Locationinvolvement` - \r\n* `Bankguaranteeinvolvement` - \r\n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: "Party who plays a  specific role in the context of assigning a status. ||\r\n| ||\r\n|"
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: "The status of Project Finance Facility ||\r\n|"
+    rulesettypevalues:
+      enum:
+        - Guideline
+        - Policy
+        - Law
+        - Criterion
+        - Regulation
+        - Standard
+      type: string
+      description: ">\r\n* `Guideline` - \r\n* `Policy` - \r\n* `Law` - \r\n* `Criterion` - \r\n* `Regulation` - \r\n* `Standard` - \r\n"
+    rulesettype:
+      type: object
+      properties:
+        RuleSetTypeName:
+          $ref: '#/components/schemas/name'
+        RuleSetType:
+          $ref: '#/components/schemas/rulesettypevalues'
+      description: " ||\r\n|"
+    ruleset:
+      type: object
+      properties:
+        RuleSetDefinition:
+          $ref: '#/components/schemas/text'
+        RuleSetInterpretation:
+          $ref: '#/components/schemas/text'
+        RuleSetType:
+          $ref: '#/components/schemas/rulesettype'
+        RuleSetName:
+          $ref: '#/components/schemas/name'
+        RuleSetIdentification:
+          $ref: '#/components/schemas/identifier'
+        RuleSetLifecycleStatus:
+          $ref: '#/components/schemas/status'
+      description: "Reference to the regulation which is defined in Project Finance Facility ||\r\n|"
+    jurisdiction:
+      type: object
+      properties:
+        Jurisdiction:
+          type: string
+          description: Jurisdiction that will be assigned in case of legal dispute.
+          format: class
+      description: "Reference to the jurisdiction that is assigned to Project Finance Facility in case of legal dispute. ||\r\n|"
+    businessunit:
+      type: object
+      properties:
+        BusinessFunction:
+          type: string
+          description: ''
+          format: string
+        Goal:
+          type: string
+          description: ''
+          format: string
+      description: "The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Project Finance Facility, are entered. ||\r\n|"
+    actiontype:
+      type: object
+      properties:
+        ActionType:
+          type: string
+        ActionTypeName:
+          type: string
+      description: "The type of account which is linked to Project Finance Facility ||\r\n|"
+    accountstatustypevalues:
+      enum:
+        - Enabled
+        - Pending
+        - Disabled
+        - Deleted
+        - ProForma
+      type: string
+      description: ">\r\n* `Enabled` - \r\n* `Pending` - \r\n* `Disabled` - \r\n* `Deleted` - \r\n* `ProForma` - \r\n"
+    accountstatus:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/status'
+        AccountStatusType:
+          $ref: '#/components/schemas/accountstatustypevalues'
+      description: "A characteristic of account which refers to the LifecycleStatus of account like opened, closed, blocked, etc.\n\nSpecifies the current state of an account. (ISO20022)"
+    accountidentificationtypevalues:
+      enum:
+        - IBAN
+        - AccountNumber
+        - BBAN
+        - UPIC
+      type: string
+      description: ">\r\n* `IBAN` - \r\n* `AccountNumber` - \r\n* `BBAN` - \r\n* `UPIC` - \r\n"
+    accountidentification:
+      type: object
+      properties:
+        AccountIdentificationType:
+          $ref: '#/components/schemas/accountidentificationtypevalues'
+        AccountIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: The identifier of account like Account Number.
+    accountdatetypevalues:
+      enum:
+        - BlockingDate
+        - OpeningDate
+        - ClosingDate
+      type: string
+      description: ">\r\n* `BlockingDate` - \r\n* `OpeningDate` - \r\n* `ClosingDate` - \r\n"
+    accountdate:
+      type: object
+      properties:
+        AccountDateType:
+          $ref: '#/components/schemas/accountdatetypevalues'
+        AccountDate:
+          $ref: '#/components/schemas/datetime'
+      description: 'A characteristic of account which refers to LifecycleDate of account (e.g., ClosingDate, OpeningDate, LiveDate, etc.) '
+    accounttypevalues:
+      enum:
+        - VostroAcount
+        - PaymentAccount
+        - DebitAccount
+        - NostroAccount
+        - SettlementAccount
+        - CreditAccount
+        - SavingAccount
+        - CashAccount
+        - CurrentAccount
+      type: string
+      description: ">\r\n* `VostroAcount` - \r\n* `PaymentAccount` - \r\n* `DebitAccount` - \r\n* `NostroAccount` - \r\n* `SettlementAccount` - \r\n* `CreditAccount` - \r\n* `SavingAccount` - \r\n* `CashAccount` - \r\n* `CurrentAccount` - \r\n"
+    accounttype:
+      type: object
+      properties:
+        AccountType:
+          $ref: '#/components/schemas/accounttypevalues'
+        AccountTypeName:
+          $ref: '#/components/schemas/name'
+      description: 'Specifies the category of account like payment account, loan account, cash account, securities account, etc. '
+    accountbalancetypevalues:
+      enum:
+        - OpeningBalance
+        - ClosingBalance
+        - AvailableBalance
+        - ReserveBalance
+        - CurrentBalance
+        - LedgerBalance
+        - FreeBalance
+        - PrincipalBalance
+      type: string
+      description: ">\r\n* `OpeningBalance` - \r\n* `ClosingBalance` - \r\n* `AvailableBalance` - \r\n* `ReserveBalance` - \r\n* `CurrentBalance` - \r\n* `LedgerBalance` - \r\n* `FreeBalance` - \r\n* `PrincipalBalance` - \r\n"
+    accountbalance:
+      type: object
+      properties:
+        AccountBalance:
+          $ref: '#/components/schemas/amount'
+        AccountBalanceType:
+          $ref: '#/components/schemas/accountbalancetypevalues'
+        AccounBalanceDate:
+          $ref: '#/components/schemas/datetime'
+      description: "The state of the obligations managed on the account, the result of all entries on the account.\n\nNumerical representation of the net increases and decreases in an account at a specific point in time. (ISO20022)\n\nBanking: Amount available in an account for withdrawal or use.\nRead more: http://www.businessdictionary.com/definition/balance.html\n\nBookkeeping: Difference between the debit and credit sides of an account.\nRead more: http://www.businessdictionary.com/definition/balance.html"
+    accountcurrencytypevalues:
+      enum:
+        - AccountBaseCurrency
+        - AccountReportingCurrency
+        - AccountSecondaryCurrency
+      type: string
+      description: ">\r\n* `AccountBaseCurrency` - \r\n* `AccountReportingCurrency` - \r\n* `AccountSecondaryCurrency` - \r\n"
+    accountcurrency:
+      type: object
+      properties:
+        AccountCurrencyType:
+          $ref: '#/components/schemas/accountcurrencytypevalues'
+        AccountCurrency:
+          $ref: '#/components/schemas/currencycode'
+      description: ''
+    account:
+      type: object
+      properties:
+        AccountStatus:
+          $ref: '#/components/schemas/accountstatus'
+        AccountIdentification:
+          $ref: '#/components/schemas/accountidentification'
+        AccountDate:
+          $ref: '#/components/schemas/accountdate'
+        AccountType:
+          $ref: '#/components/schemas/accounttype'
+        AccountPurpose:
+          $ref: '#/components/schemas/text'
+        AccountBalance:
+          $ref: '#/components/schemas/accountbalance'
+        AccountCurrency:
+          $ref: '#/components/schemas/accountcurrency'
+        AccountDescription:
+          $ref: '#/components/schemas/text'
+      description: "Reference to the account which is linked to Project Finance Facility ||\r\n|"
+    position:
+      type: object
+      properties:
+        PositionValue:
+          type: string
+          description: ''
+          format: string
+        PositionQuantity:
+          type: string
+          description: ''
+          format: string
+        PositionDate:
+          type: string
+          description: The date on which the state of something is calculated
+          format: string
+        PositionAmount:
+          type: string
+          description: ''
+          format: string
+      description: "The position of Project Finance Facility ||\r\n|"
+    productidentificationtypevalues:
+      enum:
+        - ISINCode
+        - PackageCode
+      type: string
+      description: ">\r\n* `ISINCode` - \r\n* `PackageCode` - \r\n"
+    productidentification:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/identifier'
+        ProductIdentificationType:
+          $ref: '#/components/schemas/productidentificationtypevalues'
+      description: The identifier of product e.g. ISIN Code.
+    bankingproducttypevalues:
+      enum:
+        - LoanProduct
+        - CurrentAccountProduct
+        - SavingAccountProduct
+      type: string
+      description: ">\r\n* `LoanProduct` - \r\n* `CurrentAccountProduct` - \r\n* `SavingAccountProduct` - \r\n"
+    productlifecyclestatustypevalues:
+      enum:
+        - Initiated
+        - Announced
+        - Sold
+        - Obsolete
+        - Active
+      type: string
+      description: ">\r\n* `Initiated` - \r\n* `Announced` - \r\n* `Sold` - \r\n* `Obsolete` - \r\n* `Active` - \r\n"
+    productlifecyclestatus:
+      type: object
+      properties:
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/status'
+        ProductLifecycleStatusType:
+          $ref: '#/components/schemas/productlifecyclestatustypevalues'
+      description: 'Refers to the lifecycle of a product (e.g., initiated, announced, active, obsolete, withdrawn).'
+    bankingproduct:
+      type: object
+      properties:
+        ProductIdentification:
+          $ref: '#/components/schemas/productidentification'
+        ProductType:
+          $ref: '#/components/schemas/bankingproducttypevalues'
+        ProductLifecycleStatus:
+          $ref: '#/components/schemas/productlifecyclestatus'
+        ProductPriority:
+          $ref: '#/components/schemas/text'
+        ProductDescription:
+          $ref: '#/components/schemas/text'
+        ProductVersion:
+          $ref: '#/components/schemas/text'
+      description: "Reference to the product which is linked to Project Finance Facility ||\r\n|"
+    limittypevalues:
+      type: object
+      properties:
+        LimitTypeValues:
+          type: string
+          format: enumeration
+      description: ''
+    limittype:
+      type: object
+      properties:
+        LimitTypeName:
+          $ref: '#/components/schemas/name'
+        LimitType:
+          $ref: '#/components/schemas/limittypevalues'
+      description: Nature of the limit.
+    limitstatustypevalues:
+      enum:
+        - Requested
+        - Deleted
+        - Disabled
+        - Enabled
+      type: string
+      description: ">\r\n* `Requested` - \r\n* `Deleted` - \r\n* `Disabled` - \r\n* `Enabled` - \r\n"
+    limitstatus:
+      type: object
+      properties:
+        LimitStatus:
+          $ref: '#/components/schemas/status'
+        LimitStatusType:
+          $ref: '#/components/schemas/limitstatustypevalues'
+      description: Current status of the limit.
+    rate:
+      type: object
+      properties:
+        RateValue:
+          type: string
+          description: ''
+          format: string
+        RateUnit:
+          type: string
+          description: "The unit of measure like Percentage or BPS\n\nBasis points (BPS) refers to a common unit of measure for interest rates and other percentages in finance."
+          format: string
+        RatePeriod:
+          type: string
+          description: ''
+          format: string
+        RateCapitalUnit:
+          type: string
+          description: ''
+          format: string
+      description: Specifies that the limit is a percentage of a related amount. (ISO20022)
+    frequencycodevalues:
+      enum:
+        - Upfront
+        - Weekly
+        - Overnight
+        - TriggeredByMovement
+        - Hourly
+        - TenDays
+        - Quarterly
+        - Adhoc
+        - Annual
+        - Monthly
+        - Rate
+        - Fortnightly
+        - IntraDay
+        - Daily
+        - OnCreditEvent
+        - SemiAnnual
+        - Never
+        - OnExpiry
+      type: string
+      description: ">\r\n* `Upfront` - \r\n* `Weekly` - \r\n* `Overnight` - \r\n* `TriggeredByMovement` - \r\n* `Hourly` - \r\n* `TenDays` - \r\n* `Quarterly` - \r\n* `Adhoc` - \r\n* `Annual` - \r\n* `Monthly` - \r\n* `Rate` - \r\n* `Fortnightly` - \r\n* `IntraDay` - \r\n* `Daily` - \r\n* `OnCreditEvent` - \r\n* `SemiAnnual` - \r\n* `Never` - \r\n* `OnExpiry` - \r\n"
+    frequency:
+      type: object
+      properties:
+        FrequencyCode:
+          $ref: '#/components/schemas/frequencycodevalues'
+        FrequencyName:
+          $ref: '#/components/schemas/name'
+        FrequencyDefinition:
+          $ref: '#/components/schemas/text'
+      description: Specifies the periodicity linked to a limit for example the periodicity can indicate that the limit can be reached daily or monthly. (ISO20022)
+    limitarrangement:
+      type: object
+      properties:
+        LimitType:
+          $ref: '#/components/schemas/limittype'
+        LimitCurrency:
+          $ref: '#/components/schemas/currencycode'
+        LimitValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        LimitAmount:
+          $ref: '#/components/schemas/amount'
+        LimitStatus:
+          $ref: '#/components/schemas/limitstatus'
+        LimitRate:
+          $ref: '#/components/schemas/rate'
+        LimitFrequency:
+          $ref: '#/components/schemas/frequency'
+      description: "Reference to the limitation related to the position of Project Finance Facility ||\r\n|"
     ProjectFinanceFacility:
       type: object
       properties:
@@ -1146,73 +1713,39 @@ components:
           description: A Classification value that distinguishes between arrangements according to the type of business services within Project Finance Facility
           format: string
         ProjectFinanceFacilitySelectedOption:
-          type: string
-          description: A selected optional product feature as subject matter of Project Finance Facility
-          format: feature
+          $ref: '#/components/schemas/feature'
         ProjectFinanceFacilityType:
-          type: string
-          description: The type of Project Finance Facility
-          format: bankingproducttype
+          $ref: '#/components/schemas/bankingproducttype'
         ProjectFinanceFacilityCalendarReference:
-          type: string
-          description: Reference to the calendar used to fulfill Project Finance Facility
-          format: calendar
+          $ref: '#/components/schemas/calendar'
         ProjectFinanceFacilityStatus:
-          type: string
-          description: The status of Project Finance Facility
-          format: status
+          $ref: '#/components/schemas/status'
         ProjectFinanceFacilityAssociatedParty:
-          type: string
-          description: Reference to the party who is involved in Project Finance Facility
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         ProjectFinanceFacilityCurrency:
-          type: string
-          description: The curreny which is arranged in Project Finance Facility
-          format: currencycode
+          $ref: '#/components/schemas/currencycode'
         ProjectFinanceFacilityRegulationReference:
-          type: string
-          description: Reference to the regulation which is defined in Project Finance Facility
-          format: ruleset
+          $ref: '#/components/schemas/ruleset'
         ProjectFinanceFacilityRegulationType:
-          type: string
-          description: A Classification that distinguishes between the regularity domains of Project Finance Facility
-          format: rulesettype
+          $ref: '#/components/schemas/rulesettype'
         ProjectFinanceFacilityJurisdiction:
-          type: string
-          description: Reference to the jurisdiction that is assigned to Project Finance Facility in case of legal dispute.
-          format: jurisdiction
+          $ref: '#/components/schemas/jurisdiction'
         ProjectFinanceFacilityBookingLocation:
-          type: string
-          description: 'The financial accounting unit into which the financial events, with regard to the origination and fulfillment of the agreement in the context of Project Finance Facility, are entered.'
-          format: businessunit
+          $ref: '#/components/schemas/businessunit'
         ProjectFinanceFacilityAccountType:
-          type: string
-          description: The type of account which is linked to Project Finance Facility
-          format: actiontype
+          $ref: '#/components/schemas/actiontype'
         ProjectFinanceFacilityAccountReference:
-          type: string
-          description: Reference to the account which is linked to Project Finance Facility
-          format: account
+          $ref: '#/components/schemas/account'
         ProjectFinanceFacilityCustomerReference:
-          type: string
-          description: Reference to the customer who is involved in Project Finance Facility
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         ProjectFinanceFacilityPosition:
-          type: string
-          description: The position of Project Finance Facility
-          format: position
+          $ref: '#/components/schemas/position'
         ProjectFinanceFacilityProductReference:
-          type: string
-          description: Reference to the product which is linked to Project Finance Facility
-          format: bankingproduct
+          $ref: '#/components/schemas/bankingproduct'
         ProjectFinanceFacilityPositionLimit:
-          type: string
-          description: Reference to the limitation related to the position of Project Finance Facility
-          format: limitarrangement
+          $ref: '#/components/schemas/limitarrangement'
         ProjectFinanceFacilityReference:
-          type: string
-          description: An unique reference to an item or an occurrence of Project Finance Facility
-          format: financialfacility
+          $ref: '#/components/schemas/financialfacility'
       description: 'Fulfill any scheduled and ad-hoc obligations under a service arrangement, most typically for a financial product or facility within Project Finance. '
   responses:
     BadRequest:

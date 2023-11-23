@@ -1,0 +1,1076 @@
+openapi: 3.0.1
+info:
+  title: Collateral Asset Administration
+  description: This service domain maintains the status of a customers collateral assets, including scheduled and ad-hoc valuations and confirmation of the correct completion of scheduled maintenance tasks.
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/CollateralAssetAdministration/10.0.0
+paths:
+  /CollateralAssetAdministration/Create:
+    post:
+      tags:
+      - CR - CollateralAssetAdministrativePlan
+      summary: CrCR Create a collateral asset administrative plan for a new item
+      description: CrCR Create a collateral asset administrative plan for a new item
+      operationId: Create
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCollateralAssetAdministrativePlanRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCollateralAssetAdministrativePlanResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Update:
+    put:
+      tags:
+      - CR - CollateralAssetAdministrativePlan
+      summary: UpCR Update details of the administrative plan
+      description: UpCR Update details of the administrative plan
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      requestBody:
+        $ref: '#/components/requestBodies/CollateralAssetAdministrativePlan'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollateralAssetAdministrativePlan'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Retrieve:
+    get:
+      tags:
+      - CR - CollateralAssetAdministrativePlan
+      summary: ReCR Retrieve details about an active collateral asset administrative plan
+      description: ReCR Retrieve details about an active collateral asset administrative plan
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollateralAssetAdministrativePlan'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Valuation/Create:
+    post:
+      tags:
+      - BQ - Valuation
+      summary: CrBQ Create a valuation for a collateral asset
+      description: CrBQ Create a valuation for a collateral asset
+      operationId: CreateValuation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateValuationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateValuationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Valuation/{valuationId}/Update:
+    put:
+      tags:
+      - BQ - Valuation
+      summary: UpBQ Update details for a valuation
+      description: UpBQ Update details for a valuation
+      operationId: UpdateValuation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      - $ref: '#/components/parameters/ValuationID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateValuationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateValuationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Valuation/{valuationId}/Request:
+    put:
+      tags:
+      - BQ - Valuation
+      summary: RqBQ Request an ad-hoc valuation (override the schedule)
+      description: RqBQ Request an ad-hoc valuation (override the schedule)
+      operationId: RequestValuation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      - $ref: '#/components/parameters/ValuationID'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestValuationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestValuationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Valuation/{valuationId}/Retrieve:
+    get:
+      tags:
+      - BQ - Valuation
+      summary: ReBQ Retrieve details about an valuation task
+      description: ReBQ Retrieve details about an valuation task
+      operationId: RetrieveValuation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      - $ref: '#/components/parameters/ValuationID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveValuationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Maintenance/Create:
+    post:
+      tags:
+      - BQ - Maintenance
+      summary: CrBQ Create a maintenance task for a collateral asset
+      description: CrBQ Create a maintenance task for a collateral asset
+      operationId: CreateMaintenance
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateMaintenanceRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMaintenanceResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Maintenance/{maintenanceId}/Update:
+    put:
+      tags:
+      - BQ - Maintenance
+      summary: UpBQ Update details for a maintenance task
+      description: UpBQ Update details for a maintenance task
+      operationId: UpdateMaintenance
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      - $ref: '#/components/parameters/MaintenanceID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateMaintenanceRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMaintenanceResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Maintenance/{maintenanceId}/Request:
+    put:
+      tags:
+      - BQ - Maintenance
+      summary: RqBQ Request an ad-hoc maintenance task (override the schedule)
+      description: RqBQ Request an ad-hoc maintenance task (override the schedule)
+      operationId: RequestMaintenance
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      - $ref: '#/components/parameters/MaintenanceID'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestMaintenanceRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestMaintenanceResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAssetAdministration/{collateralassetadministrationId}/Maintenance/{maintenanceId}/Retrieve:
+    get:
+      tags:
+      - BQ - Maintenance
+      summary: ReBQ Retrieve details about a maintenance task
+      description: ReBQ Retrieve details about a maintenance task
+      operationId: RetrieveMaintenance
+      parameters:
+      - $ref: '#/components/parameters/CollateralAssetAdministrationID'
+      - $ref: '#/components/parameters/MaintenanceID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveMaintenanceResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    CollateralAssetAdministrativePlan:
+      type: object
+      properties:
+        CollateralAssetReference:
+          type: object
+          description: Reference to the collateral asset item
+        CollateralAssetRecord:
+          type: string
+          description: The details maintained for the asset
+        CollateralAssetType:
+          type: string
+          description: The type of asset (e.g. building, machinery, inventory, financial instrument, art)
+        CollateralAssetProperties:
+          type: string
+          description: Key properties of the asset that might influence administration and maintenance (e.g. rarity)
+        CollateralAssetDescription:
+          type: string
+          description: Description of significant details and properties of the asset
+        CollateralAssetTitle:
+          type: string
+          description: Details of title
+        CollateralAssetOwnership:
+          type: string
+          description: Breakdown of ownership where an asset has multiple owners with different entitlements
+        CollateralAssetInterestedParties:
+          type: string
+          description: Parties with same for of interest (e.g. custodian, insurer, user)
+        CollateralAssetLocation:
+          type: string
+          description: The location the asset is stored
+        CollateralAssetJurisdiction:
+          type: string
+          description: The jurisdiction that governs title and access to the asset
+        CollateralAssetDocumentReference:
+          type: object
+          description: Reference to supporting documentation
+        CollateralAssetDocumentType:
+          type: string
+          description: The type of document relating to the asset
+        CollateralAssetInsuranceReference:
+          type: object
+          description: Details of insurance arrangements covering the asset, including duration and renewal
+        CollateralAssetPledgedDate:
+          type: string
+          description: When the asset was provided as collateral
+        CollateralAssetValuationHistory:
+          type: string
+          description: Historical and current valuation, including loan to value ratios/qualifiers
+        CollateralAssetValuationSchedule:
+          type: string
+          description: The schedule for maintaining an up to date valuation
+        CollateralAssetMaintenanceSchedule:
+          type: string
+          description: The schedule planned and actual for undertaking asset maintenance checks)
+        CollateralAssetStatus:
+          type: string
+          description: A general status indicator for the asset (can cover multiple properties as necessary)
+    Maintenance:
+      type: object
+      properties:
+        CollateralAssetMaintenanceTaskType:
+          type: string
+          description: The type of action or check performed to oversee maintenance (e.g. insurance coverage, upkeep review)
+        CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
+          type: object
+          description: Reference to 3rd party maintenance service provider (e.g. insurer, custodian)
+        CollateralAssetVerificationandComplianceRecord:
+          type: string
+          description: A record of the verification checks performed against the schedule
+        CollateralAssetMaintenance/SafekeepingFees:
+          type: string
+          description: Record of any fees incurred in the collateral asset maintenance (e.g. 3rd party fees)
+    Valuation:
+      type: object
+      properties:
+        CollateralAssetValuationType:
+          type: string
+          description: The type of valuation applied (e.g. mark to market, book value, agency)
+        CollateralAssetValuationServiceReference:
+          type: object
+          description: Reference to 3rd party valuation service provider (e.g. property, art specialist)
+        CollateralAssetLoantoValueRatio:
+          type: string
+          description: The applied loan to value ratio used in determining collateral value
+        CollateralAssetValuation:
+          type: string
+          description: The result of a valuation
+        CollateralAssetValuationDate:
+          type: string
+          description: The date of a valuation
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    CreateCollateralAssetAdministrativePlanRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetRecord:
+              type: string
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetProperties:
+              type: string
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetTitle:
+              type: string
+              description: NA
+            CollateralAssetOwnership:
+              type: string
+              description: NA
+            CollateralAssetInterestedParties:
+              type: string
+              description: NA
+            CollateralAssetLocation:
+              type: string
+              description: NA
+            CollateralAssetJurisdiction:
+              type: string
+              description: NA
+            CollateralAssetDocumentType:
+              type: string
+              description: NA
+            CollateralAssetInsuranceReference:
+              type: object
+              description: NA
+            CollateralAssetPledgedDate:
+              type: string
+              description: NA
+            CollateralAssetValuationSchedule:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+    CreateCollateralAssetAdministrativePlanResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetRecord:
+              type: string
+              description: NA
+            CollateralAssetDocumentReference:
+              type: object
+              description: NA
+            CollateralAssetValuationHistory:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+    CreateValuationRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetRecord:
+              type: string
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetProperties:
+              type: string
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetTitle:
+              type: string
+              description: NA
+            CollateralAssetOwnership:
+              type: string
+              description: NA
+            CollateralAssetInterestedParties:
+              type: string
+              description: NA
+            CollateralAssetLocation:
+              type: string
+              description: NA
+            CollateralAssetJurisdiction:
+              type: string
+              description: NA
+            CollateralAssetDocumentReference:
+              type: object
+              description: NA
+            CollateralAssetDocumentType:
+              type: string
+              description: NA
+            CollateralAssetInsuranceReference:
+              type: object
+              description: NA
+            CollateralAssetPledgedDate:
+              type: string
+              description: NA
+            CollateralAssetValuationHistory:
+              type: string
+              description: NA
+            CollateralAssetValuationSchedule:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationType:
+              type: string
+              description: NA
+            CollateralAssetValuationServiceReference:
+              type: object
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+    CreateValuationResponse:
+      type: object
+      properties:
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationDate:
+              type: string
+              description: NA
+    UpdateValuationRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetValuationSchedule:
+              type: string
+              description: NA
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationType:
+              type: string
+              description: NA
+            CollateralAssetValuationServiceReference:
+              type: object
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+    UpdateValuationResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetValuationSchedule:
+              type: string
+              description: NA
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationType:
+              type: string
+              description: NA
+            CollateralAssetValuationServiceReference:
+              type: object
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+    RequestValuationRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetValuationSchedule:
+              type: string
+              description: NA
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationType:
+              type: string
+              description: NA
+            CollateralAssetValuationServiceReference:
+              type: object
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+    RequestValuationResponse:
+      type: object
+      properties:
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationDate:
+              type: string
+              description: NA
+    RetrieveValuationResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetRecord:
+              type: string
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetProperties:
+              type: string
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetTitle:
+              type: string
+              description: NA
+            CollateralAssetOwnership:
+              type: string
+              description: NA
+            CollateralAssetInterestedParties:
+              type: string
+              description: NA
+            CollateralAssetLocation:
+              type: string
+              description: NA
+            CollateralAssetJurisdiction:
+              type: string
+              description: NA
+            CollateralAssetDocumentReference:
+              type: object
+              description: NA
+            CollateralAssetDocumentType:
+              type: string
+              description: NA
+            CollateralAssetInsuranceReference:
+              type: object
+              description: NA
+            CollateralAssetPledgedDate:
+              type: string
+              description: NA
+            CollateralAssetValuationHistory:
+              type: string
+              description: NA
+            CollateralAssetValuationSchedule:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+        Valuation:
+          type: object
+          properties:
+            CollateralAssetValuationType:
+              type: string
+              description: NA
+            CollateralAssetValuationServiceReference:
+              type: object
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+            CollateralAssetValuationDate:
+              type: string
+              description: NA
+    CreateMaintenanceRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetRecord:
+              type: string
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetProperties:
+              type: string
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetTitle:
+              type: string
+              description: NA
+            CollateralAssetOwnership:
+              type: string
+              description: NA
+            CollateralAssetInterestedParties:
+              type: string
+              description: NA
+            CollateralAssetLocation:
+              type: string
+              description: NA
+            CollateralAssetJurisdiction:
+              type: string
+              description: NA
+            CollateralAssetDocumentReference:
+              type: object
+              description: NA
+            CollateralAssetDocumentType:
+              type: string
+              description: NA
+            CollateralAssetInsuranceReference:
+              type: object
+              description: NA
+            CollateralAssetPledgedDate:
+              type: string
+              description: NA
+            CollateralAssetValuationHistory:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetMaintenanceTaskType:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
+              type: object
+              description: NA
+    CreateMaintenanceResponse:
+      type: object
+      properties:
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetVerificationandComplianceRecord:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceOrSafekeepingFees:
+              type: string
+              description: NA
+    UpdateMaintenanceRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetMaintenanceTaskType:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
+              type: object
+              description: NA
+    UpdateMaintenanceResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetMaintenanceTaskType:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
+              type: object
+              description: NA
+    RequestMaintenanceRequest:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetMaintenanceTaskType:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
+              type: object
+              description: NA
+    RequestMaintenanceResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetVerificationandComplianceRecord:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceOrSafekeepingFees:
+              type: string
+              description: NA
+    RetrieveMaintenanceResponse:
+      type: object
+      properties:
+        CollateralAssetAdministrativePlan:
+          type: object
+          properties:
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetRecord:
+              type: string
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetProperties:
+              type: string
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetTitle:
+              type: string
+              description: NA
+            CollateralAssetOwnership:
+              type: string
+              description: NA
+            CollateralAssetInterestedParties:
+              type: string
+              description: NA
+            CollateralAssetLocation:
+              type: string
+              description: NA
+            CollateralAssetJurisdiction:
+              type: string
+              description: NA
+            CollateralAssetDocumentReference:
+              type: object
+              description: NA
+            CollateralAssetDocumentType:
+              type: string
+              description: NA
+            CollateralAssetInsuranceReference:
+              type: object
+              description: NA
+            CollateralAssetPledgedDate:
+              type: string
+              description: NA
+            CollateralAssetValuationHistory:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceSchedule:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+        Maintenance:
+          type: object
+          properties:
+            CollateralAssetMaintenanceTaskType:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceServiceProviderReference(3rdpartyserviceprovider):
+              type: object
+              description: NA
+            CollateralAssetVerificationandComplianceRecord:
+              type: string
+              description: NA
+            CollateralAssetMaintenanceOrSafekeepingFees:
+              type: string
+              description: NA
+  parameters:
+    CollateralAssetAdministrationID:
+      name: collateralassetadministrationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    MaintenanceID:
+      name: maintenanceId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ValuationID:
+      name: valuationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    CreateCollateralAssetAdministrativePlanRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCollateralAssetAdministrativePlanRequest'
+    CollateralAssetAdministrativePlan:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CollateralAssetAdministrativePlan'
+    CreateValuationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateValuationRequest'
+    UpdateValuationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateValuationRequest'
+    RequestValuationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestValuationRequest'
+    CreateMaintenanceRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateMaintenanceRequest'
+    UpdateMaintenanceRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateMaintenanceRequest'
+    RequestMaintenanceRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMaintenanceRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

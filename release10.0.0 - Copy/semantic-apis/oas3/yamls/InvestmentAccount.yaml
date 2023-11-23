@@ -1,0 +1,1416 @@
+openapi: 3.0.1
+info:
+  title: Investment Account
+  description: This service domain handles the non-cash holdings positions for a customer, covering multiple instruments as necessary
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/InvestmentAccount/10.0.0
+paths:
+  /InvestmentAccount/Initiate:
+    post:
+      tags:
+      - CR - InvestmentAccountFacility
+      summary: InCR Initiate a new securities investment account
+      description: InCR Initiate a new securities investment account
+      operationId: Initiate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateInvestmentAccountFacilityRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateInvestmentAccountFacilityResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/Update:
+    put:
+      tags:
+      - CR - InvestmentAccountFacility
+      summary: UpCR Update properties of an active investment account
+      description: UpCR Update properties of an active investment account
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateInvestmentAccountFacilityRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateInvestmentAccountFacilityResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/Retrieve:
+    get:
+      tags:
+      - CR - InvestmentAccountFacility
+      summary: ReCR Retrieve information about a current account - either standard canned reports or selected instance attribute values
+      description: ReCR Retrieve information about a current account - either standard canned reports or selected instance attribute values
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveInvestmentAccountFacilityResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/DepositsandWithdrawals/Initiate:
+    post:
+      tags:
+      - BQ - DepositsandWithdrawals
+      summary: InBQ Initiate/set-up securities deposit and withdrawal processing for the account
+      description: InBQ Initiate/set-up securities deposit and withdrawal processing for the account
+      operationId: InitiateDepositsandWithdrawals
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateDepositsandWithdrawalsRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateDepositsandWithdrawalsResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/DepositsandWithdrawals/{depositsandwithdrawalsId}/Update:
+    put:
+      tags:
+      - BQ - DepositsandWithdrawals
+      summary: UpBQ Update securities deposit and withdrawal settings or transactions
+      description: UpBQ Update securities deposit and withdrawal settings or transactions
+      operationId: UpdateDepositsandWithdrawals
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/DepositsandWithdrawalsID'
+      requestBody:
+        $ref: '#/components/requestBodies/DepositsandWithdrawals'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositsandWithdrawals'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/DepositsandWithdrawals/{depositsandwithdrawalsId}/Execute:
+    put:
+      tags:
+      - BQ - DepositsandWithdrawals
+      summary: ExBQ Execute a securities deposit or withdrawal transaction
+      description: ExBQ Execute a securities deposit or withdrawal transaction
+      operationId: ExecuteDepositsandWithdrawals
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/DepositsandWithdrawalsID'
+      requestBody:
+        $ref: '#/components/requestBodies/DepositsandWithdrawals'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteDepositsandWithdrawalsResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/DepositsandWithdrawals/{depositsandwithdrawalsId}/Retrieve:
+    get:
+      tags:
+      - BQ - DepositsandWithdrawals
+      summary: ReBQ Retrieve details about a securities deposit or withdrawal action
+      description: ReBQ Retrieve details about a securities deposit or withdrawal action
+      operationId: RetrieveDepositsandWithdrawals
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/DepositsandWithdrawalsID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositsandWithdrawals'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/CorporateAction/Initiate:
+    post:
+      tags:
+      - BQ - CorporateAction
+      summary: InBQ Initiate/set-up corporate action processing for the account
+      description: InBQ Initiate/set-up corporate action processing for the account
+      operationId: InitiateCorporateAction
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateCorporateActionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateCorporateActionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/CorporateAction/{corporateactionId}/Execute:
+    put:
+      tags:
+      - BQ - CorporateAction
+      summary: ExBQ Execute the processing of a corporate action
+      description: ExBQ Execute the processing of a corporate action
+      operationId: ExecuteCorporateAction
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/CorporateActionID'
+      requestBody:
+        $ref: '#/components/requestBodies/ExecuteCorporateActionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteCorporateActionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/CorporateAction/{corporateactionId}/Retrieve:
+    get:
+      tags:
+      - BQ - CorporateAction
+      summary: ReBQ Retrieve details about corporate action processing
+      description: ReBQ Retrieve details about corporate action processing
+      operationId: RetrieveCorporateAction
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/CorporateActionID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorporateAction'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/ServiceFees/Initiate:
+    post:
+      tags:
+      - BQ - ServiceFees
+      summary: InBQ Initiate, set-up service fee processing for the account
+      description: InBQ Initiate, set-up service fee processing for the account
+      operationId: InitiateServiceFees
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateServiceFeesRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateServiceFeesResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/ServiceFees/{servicefeesId}/Execute:
+    put:
+      tags:
+      - BQ - ServiceFees
+      summary: ExBQ Execute a service fee transaction
+      description: ExBQ Execute a service fee transaction
+      operationId: ExecuteServiceFees
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/ServiceFeesID'
+      requestBody:
+        $ref: '#/components/requestBodies/ExecuteServiceFeesRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecuteServiceFeesResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /InvestmentAccount/{investmentaccountId}/ServiceFees/{servicefeesId}/Retrieve:
+    get:
+      tags:
+      - BQ - ServiceFees
+      summary: ReBQ Retrieve details about service fees for the investment account
+      description: ReBQ Retrieve details about service fees for the investment account
+      operationId: RetrieveServiceFees
+      parameters:
+      - $ref: '#/components/parameters/InvestmentAccountID'
+      - $ref: '#/components/parameters/ServiceFeesID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceFees'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    InvestmentAccountFacility:
+      type: object
+      properties:
+        ProductInstanceReference:
+          type: object
+          description: Reference to the investment account product instance
+        InvestmentAccountNumber:
+          type: string
+          description: The associated investment account number in any suitable format
+        CustomerReference:
+          type: object
+          description: Reference to the account primary party/owner
+        BankBranchOrLocationReference:
+          type: object
+          description: Bank branch associated with the account for booking purposes
+        LinkedCashAccount:
+          type: string
+          description: Definition of the linked cash account used as the source or target of cash to support securities deposits and withdrawals
+        LinkType:
+          type: string
+          description: The type and purpose for the link (e.g. funding/margin account)
+        AccountDetails:
+          type: string
+          description: Details of the linked cash account
+        InvestmentAccountType:
+          type: string
+          description: The type of investment account (e.g. discretionary, retirement, margin, restricted instrument category - securities, off-balance sheet)
+        InvestmentAccountInstrumentProfile:
+          type: string
+          description: Details the range of instruments that are tracked by the facility (each instrument has its own transaction record/holding position
+        InvestmentAccountInstrumentRecord:
+          type: string
+          description: Details for an individual tracked instrument type - the investment account can track the holdings for multiple securities
+        InstrumentType:
+          type: string
+          description: Reference to the type of investment instrument being tracked (e.g. equity, commodity, FX/MM, derivative)
+        InstrumentReference:
+          type: object
+          description: The specific instrument trading identifier (e.g. NASDAQ Id)
+        TradingMarketplaceReference:
+          type: object
+          description: Reference to the market where the instrument is quoted/traded (e.g. ISE Equities Marketplace)
+        InstrumentPositionRecord:
+          type: string
+          description: Position limits and holding position that are tracked by the account
+        InstrumentPositionLimitType:
+          type: string
+          description: The type of position maintained for the account (e.g. min/max holdings,)
+        InstrumentPositionLimitSettings:
+          type: string
+          description: The position definition, associated limit settings and rules
+        InstrumentPositionHolding:
+          type: string
+          description: The current calculated holding/position
+        InstrumentProcessingSchedule:
+          type: string
+          description: Details of known scheduled events related to the instrument (e.g. dividend payment date)
+        InstrumentEventType:
+          type: string
+          description: The type of event impacting the state of the instrument (e.g. corporate actions)
+        InstrumentEventDescription:
+          type: string
+          description: Details of the event associated actions or impact
+        InstrumentEventDate:
+          type: string
+          description: The date/time the event is anticipated/occurs
+        TaxReference:
+          type: object
+          description: Reference identifier linking the investment account to appropriate tax handling
+        EntitlementOptionDefinition:
+          type: string
+          description: The definition of an applicable entitlement option
+        EntitlementOptionSetting:
+          type: string
+          description: The setting for the entitlement option
+        RestrictionOptionDefinition:
+          type: string
+          description: The definition of an applicable restriction option
+        RestrictionOptionSetting:
+          type: string
+          description: The setting for the restriction option
+        LinkedAccounts:
+          type: string
+          description: Definition of the associations to the account
+        DateType:
+          type: string
+          description: Key dates associated with the investment account (e.g. opening date, closing date)
+        Date:
+          type: string
+          description: Value of the date type
+    ServiceFees:
+      type: object
+      properties:
+        FeeConfigurationProfile:
+          type: string
+          description: The profile of applicable fees and penalties
+        FeeDefinition:
+          type: string
+          description: Definition of the fee or penalty including when and how to apply
+        FeeType:
+          type: string
+          description: The fee or penalty type applied
+        FeeApplicationRecord:
+          type: string
+          description: The record of applied fees and penalties including transactions and accrued amounts
+        FeeTransaction:
+          type: string
+          description: A record of an applied fee or penalty
+        TransactionDescription:
+          type: string
+          description: General description of the fee or penalty transaction
+        TransactionFeeType:
+          type: string
+          description: The fee or penalty type applied
+        TransactionFeeCharge:
+          type: string
+          description: The derived fee or penalty amount applied
+        PaymentOrderProcedureInstanceReference:
+          type: object
+          description: Reference to the payment order raised to apply the fees (will move funds to/from the appropriate accounts)
+        FeeProjectionsandCommitments:
+          type: string
+          description: A record of projected fees and penalties
+        ProjectedTransactionDescription:
+          type: string
+          description: General description of the projected fee or penalty
+        ProjectedTransactionFeeType:
+          type: string
+          description: The fee or penalty type
+        ProjectedTransactionFeeCharge:
+          type: string
+          description: The anticipated fee or penalty amount
+        FeeAccrualAmount:
+          type: number
+          description: Tracking of accumulated fees and penalties
+        AccrualFeeType:
+          type: string
+          description: The fee or penalty type being tracked
+        AccrualFeeCharge:
+          type: string
+          description: The accrued amount of fees and penalties
+    CorporateAction:
+      type: object
+      properties:
+        CorporateActionType:
+          type: string
+          description: The type of corporate action that can be applied
+        CorporateActionApplicationSchedule:
+          type: string
+          description: The processing schedule for applying the type of corporate action to the investment account
+        CorporateActionInstrumentType:
+          type: string
+          description: The instrument type that the corporate action impacts (will be one that the investment account tracks)
+        CorporateActionTransaction:
+          type: string
+          description: Details of the transaction and its impact on the securities holding in the investment account
+        CorporateActionTransactionType:
+          type: string
+          description: The type of corporate action applied to the securities holdings
+        CorporateActionTransactionDescription:
+          type: string
+          description: Details describing the purpose and impact of processing the action
+        CorporateActionWorkProducts:
+          type: string
+          description: File of consolidated notes, forms and documents for the corporate action
+        DocumentDirectoryEntryInstanceReference:
+          type: object
+          description: Reference to associated documents
+        CorporateActionTransactionResult:
+          type: string
+          description: The outcome of applying the action to the account (can be simple confirmation)
+        CorporateActionTransactionDate:
+          type: string
+          description: The date and time the corporate action was processed to the account
+    DepositsandWithdrawals:
+      type: object
+      properties:
+        SecuritiesDepositType:
+          type: string
+          description: The type of securities deposit transaction that can be applied to the investment account (e.g. immediate, scheduled, earmarked)
+        SecuritiesWithdrawalType:
+          type: string
+          description: The type of securities withdrawal transaction that can be applied to the account (e.g. immediate, scheduled, earmarked)
+        SecuritiesDepositTransaction:
+          type: string
+          description: Details of the securities deposit transaction
+        SecuritiesDepositTransactionSourceReference:
+          type: object
+          description: Identifies the source of the deposit
+        SecuritiesDepositTransactionDepositType:
+          type: string
+          description: The type of securities deposit made with the transaction
+        SecuritiesDepositTransactionDescription:
+          type: string
+          description: Any necessary details describing the purpose or reference properties of the deposit
+        SecuritiesDepositTransactionAmount:
+          type: number
+          description: The volume or value of securities deposited
+        SecuritiesDepositTransactionDate:
+          type: string
+          description: The date and time the deposit was initiated
+        SecuritiesWithdrawalTransaction:
+          type: string
+          description: Details of the securities withdrawal transaction
+        SecuritiesWithdrawalTransactionSourceReference:
+          type: object
+          description: Identifies the target for the withdrawal
+        SecuritiesWithdrawalTransactionWithdrawalType:
+          type: string
+          description: The type of securities withdrawal made with the transaction
+        SecuritiesWithdrawalTransactionDescription:
+          type: string
+          description: Any necessary details describing the purpose or reference properties of the withdrawal
+        SecuritiesWithdrawalTransactionAmount:
+          type: number
+          description: The volume or value of the withdrawn securities
+        SecuritiesWithdrawalTransactionDate:
+          type: string
+          description: The date and time the withdrawal was initiated
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    InitiateInvestmentAccountFacilityRequest:
+      type: object
+      properties:
+        InvestmentAccountFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            BankBranchOrLocationReference:
+              type: object
+              description: NA
+            LinkedCashAccount:
+              type: string
+              description: NA
+            LinkType:
+              type: string
+              description: NA
+            AccountDetails:
+              type: string
+              description: NA
+            InvestmentAccountType:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentProfile:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentRecord:
+              type: string
+              description: NA
+            InstrumentType:
+              type: string
+              description: NA
+            InstrumentReference:
+              type: object
+              description: NA
+            TradingMarketplaceReference:
+              type: object
+              description: NA
+            InstrumentPositionRecord:
+              type: string
+              description: NA
+            InstrumentPositionLimitType:
+              type: string
+              description: NA
+            InstrumentPositionLimitSettings:
+              type: string
+              description: NA
+            InstrumentProcessingSchedule:
+              type: string
+              description: NA
+            InstrumentEventType:
+              type: string
+              description: NA
+            InstrumentEventDescription:
+              type: string
+              description: NA
+            InstrumentEventDate:
+              type: string
+              description: NA
+            TaxReference:
+              type: object
+              description: NA
+            EntitlementOptionDefinition:
+              type: string
+              description: NA
+            EntitlementOptionSetting:
+              type: string
+              description: NA
+            RestrictionOptionSetting:
+              type: string
+              description: NA
+            LinkedAccounts:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    InitiateInvestmentAccountFacilityResponse:
+      type: object
+      properties:
+        InvestmentAccountFacility:
+          type: object
+          properties:
+            InvestmentAccountNumber:
+              type: string
+              description: NA
+            LinkedCashAccount:
+              type: string
+              description: NA
+            LinkType:
+              type: string
+              description: NA
+            AccountDetails:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentProfile:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentRecord:
+              type: string
+              description: NA
+            InstrumentType:
+              type: string
+              description: NA
+            InstrumentReference:
+              type: object
+              description: NA
+            TradingMarketplaceReference:
+              type: object
+              description: NA
+            InstrumentPositionRecord:
+              type: string
+              description: NA
+            InstrumentPositionLimitType:
+              type: string
+              description: NA
+            InstrumentPositionLimitSettings:
+              type: string
+              description: NA
+            InstrumentPositionHolding:
+              type: string
+              description: NA
+            InstrumentProcessingSchedule:
+              type: string
+              description: NA
+            InstrumentEventType:
+              type: string
+              description: NA
+            InstrumentEventDescription:
+              type: string
+              description: NA
+            InstrumentEventDate:
+              type: string
+              description: NA
+            EntitlementOptionDefinition:
+              type: string
+              description: NA
+            EntitlementOptionSetting:
+              type: string
+              description: NA
+            RestrictionOptionDefinition:
+              type: string
+              description: NA
+            RestrictionOptionSetting:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    UpdateInvestmentAccountFacilityRequest:
+      type: object
+      properties:
+        InvestmentAccountFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: NA
+            InvestmentAccountNumber:
+              type: string
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            BankBranchOrLocationReference:
+              type: object
+              description: NA
+            LinkedCashAccount:
+              type: string
+              description: NA
+            LinkType:
+              type: string
+              description: NA
+            AccountDetails:
+              type: string
+              description: NA
+            InvestmentAccountType:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentProfile:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentRecord:
+              type: string
+              description: NA
+            InstrumentType:
+              type: string
+              description: NA
+            InstrumentReference:
+              type: object
+              description: NA
+            TradingMarketplaceReference:
+              type: object
+              description: NA
+            InstrumentPositionRecord:
+              type: string
+              description: NA
+            InstrumentPositionLimitType:
+              type: string
+              description: NA
+            InstrumentPositionLimitSettings:
+              type: string
+              description: NA
+            InstrumentPositionHolding:
+              type: string
+              description: NA
+            InstrumentProcessingSchedule:
+              type: string
+              description: NA
+            InstrumentEventType:
+              type: string
+              description: NA
+            InstrumentEventDescription:
+              type: string
+              description: NA
+            InstrumentEventDate:
+              type: string
+              description: NA
+            TaxReference:
+              type: object
+              description: NA
+            EntitlementOptionDefinition:
+              type: string
+              description: NA
+            EntitlementOptionSetting:
+              type: string
+              description: NA
+            RestrictionOptionDefinition:
+              type: string
+              description: NA
+            RestrictionOptionSetting:
+              type: string
+              description: NA
+            LinkedAccounts:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    UpdateInvestmentAccountFacilityResponse:
+      type: object
+      properties:
+        InvestmentAccountFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: NA
+            InvestmentAccountNumber:
+              type: string
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            BankBranchOrLocationReference:
+              type: object
+              description: NA
+            LinkedCashAccount:
+              type: string
+              description: NA
+            LinkType:
+              type: string
+              description: NA
+            AccountDetails:
+              type: string
+              description: NA
+            InvestmentAccountType:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentProfile:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentRecord:
+              type: string
+              description: NA
+            InstrumentType:
+              type: string
+              description: NA
+            InstrumentReference:
+              type: object
+              description: NA
+            TradingMarketplaceReference:
+              type: object
+              description: NA
+            InstrumentPositionRecord:
+              type: string
+              description: NA
+            InstrumentPositionLimitType:
+              type: string
+              description: NA
+            InstrumentPositionLimitSettings:
+              type: string
+              description: NA
+            InstrumentPositionHolding:
+              type: string
+              description: NA
+            InstrumentProcessingSchedule:
+              type: string
+              description: NA
+            InstrumentEventType:
+              type: string
+              description: NA
+            InstrumentEventDescription:
+              type: string
+              description: NA
+            InstrumentEventDate:
+              type: string
+              description: NA
+            TaxReference:
+              type: object
+              description: NA
+            EntitlementOptionDefinition:
+              type: string
+              description: NA
+            EntitlementOptionSetting:
+              type: string
+              description: NA
+            RestrictionOptionDefinition:
+              type: string
+              description: NA
+            RestrictionOptionSetting:
+              type: string
+              description: NA
+            LinkedAccounts:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    RetrieveInvestmentAccountFacilityResponse:
+      type: object
+      properties:
+        InvestmentAccountFacility:
+          type: object
+          properties:
+            ProductInstanceReference:
+              type: object
+              description: NA
+            InvestmentAccountNumber:
+              type: string
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            BankBranchOrLocationReference:
+              type: object
+              description: NA
+            LinkedCashAccount:
+              type: string
+              description: NA
+            LinkType:
+              type: string
+              description: NA
+            AccountDetails:
+              type: string
+              description: NA
+            InvestmentAccountType:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentProfile:
+              type: string
+              description: NA
+            InvestmentAccountInstrumentRecord:
+              type: string
+              description: NA
+            InstrumentType:
+              type: string
+              description: NA
+            InstrumentReference:
+              type: object
+              description: NA
+            TradingMarketplaceReference:
+              type: object
+              description: NA
+            InstrumentPositionRecord:
+              type: string
+              description: NA
+            InstrumentPositionLimitType:
+              type: string
+              description: NA
+            InstrumentPositionLimitSettings:
+              type: string
+              description: NA
+            InstrumentPositionHolding:
+              type: string
+              description: NA
+            InstrumentProcessingSchedule:
+              type: string
+              description: NA
+            InstrumentEventType:
+              type: string
+              description: NA
+            InstrumentEventDescription:
+              type: string
+              description: NA
+            InstrumentEventDate:
+              type: string
+              description: NA
+            TaxReference:
+              type: object
+              description: NA
+            EntitlementOptionDefinition:
+              type: string
+              description: NA
+            EntitlementOptionSetting:
+              type: string
+              description: NA
+            RestrictionOptionDefinition:
+              type: string
+              description: NA
+            RestrictionOptionSetting:
+              type: string
+              description: NA
+            LinkedAccounts:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    InitiateDepositsandWithdrawalsRequest:
+      type: object
+      properties:
+        DepositsandWithdrawals:
+          type: object
+          properties:
+            SecuritiesDepositType:
+              type: string
+              description: NA
+            SecuritiesWithdrawalType:
+              type: string
+              description: NA
+    InitiateDepositsandWithdrawalsResponse:
+      type: object
+      properties:
+        DepositsandWithdrawals:
+          type: object
+          properties:
+            SecuritiesDepositType:
+              type: string
+              description: NA
+            SecuritiesWithdrawalType:
+              type: string
+              description: NA
+    ExecuteDepositsandWithdrawalsResponse:
+      type: object
+      properties:
+        DepositsandWithdrawals:
+          type: object
+          properties:
+            SecuritiesDepositTransaction:
+              type: string
+              description: NA
+            SecuritiesDepositTransactionDepositType:
+              type: string
+              description: NA
+            SecuritiesDepositTransactionAmount:
+              type: number
+              description: NA
+            SecuritiesDepositTransactionDate:
+              type: string
+              description: NA
+            SecuritiesWithdrawalTransaction:
+              type: string
+              description: NA
+            SecuritiesWithdrawalTransactionWithdrawalType:
+              type: string
+              description: NA
+            SecuritiesWithdrawalTransactionAmount:
+              type: number
+              description: NA
+            SecuritiesWithdrawalTransactionDate:
+              type: string
+              description: NA
+    InitiateCorporateActionRequest:
+      type: object
+      properties:
+        CorporateAction:
+          type: object
+          properties:
+            CorporateActionType:
+              type: string
+              description: NA
+            CorporateActionApplicationSchedule:
+              type: string
+              description: NA
+            CorporateActionInstrumentType:
+              type: string
+              description: NA
+    InitiateCorporateActionResponse:
+      type: object
+      properties:
+        CorporateAction:
+          type: object
+          properties:
+            CorporateActionApplicationSchedule:
+              type: string
+              description: NA
+            CorporateActionInstrumentType:
+              type: string
+              description: NA
+    ExecuteCorporateActionRequest:
+      type: object
+      properties:
+        CorporateAction:
+          type: object
+          properties:
+            CorporateActionType:
+              type: string
+              description: NA
+            CorporateActionApplicationSchedule:
+              type: string
+              description: NA
+            CorporateActionInstrumentType:
+              type: string
+              description: NA
+            CorporateActionTransaction:
+              type: string
+              description: NA
+            CorporateActionTransactionType:
+              type: string
+              description: NA
+            CorporateActionTransactionDescription:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorporateActionTransactionDate:
+              type: string
+              description: NA
+    ExecuteCorporateActionResponse:
+      type: object
+      properties:
+        CorporateAction:
+          type: object
+          properties:
+            CorporateActionTransaction:
+              type: string
+              description: NA
+            CorporateActionTransactionDescription:
+              type: string
+              description: NA
+            CorporateActionWorkProducts:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            CorporateActionTransactionResult:
+              type: string
+              description: NA
+            CorporateActionTransactionDate:
+              type: string
+              description: NA
+    InitiateServiceFeesRequest:
+      type: object
+      properties:
+        ServiceFees:
+          type: object
+          properties:
+            FeeConfigurationProfile:
+              type: string
+              description: NA
+            FeeType:
+              type: string
+              description: NA
+    InitiateServiceFeesResponse:
+      type: object
+      properties:
+        ServiceFees:
+          type: object
+          properties:
+            FeeDefinition:
+              type: string
+              description: NA
+    ExecuteServiceFeesRequest:
+      type: object
+      properties:
+        ServiceFees:
+          type: object
+          properties:
+            FeeConfigurationProfile:
+              type: string
+              description: NA
+            FeeType:
+              type: string
+              description: NA
+            FeeApplicationRecord:
+              type: string
+              description: NA
+            FeeTransaction:
+              type: string
+              description: NA
+            TransactionDescription:
+              type: string
+              description: NA
+            TransactionFeeType:
+              type: string
+              description: NA
+            FeeProjectionsandCommitments:
+              type: string
+              description: NA
+            ProjectedTransactionDescription:
+              type: string
+              description: NA
+            ProjectedTransactionFeeType:
+              type: string
+              description: NA
+            AccrualFeeType:
+              type: string
+              description: NA
+    ExecuteServiceFeesResponse:
+      type: object
+      properties:
+        ServiceFees:
+          type: object
+          properties:
+            FeeConfigurationProfile:
+              type: string
+              description: NA
+            FeeDefinition:
+              type: string
+              description: NA
+            FeeApplicationRecord:
+              type: string
+              description: NA
+            FeeTransaction:
+              type: string
+              description: NA
+            TransactionFeeType:
+              type: string
+              description: NA
+            TransactionFeeCharge:
+              type: string
+              description: NA
+            PaymentOrderProcedureInstanceReference:
+              type: object
+              description: NA
+            FeeProjectionsandCommitments:
+              type: string
+              description: NA
+            ProjectedTransactionFeeType:
+              type: string
+              description: NA
+            ProjectedTransactionFeeCharge:
+              type: string
+              description: NA
+            FeeAccrualAmount:
+              type: number
+              description: NA
+            AccrualFeeType:
+              type: string
+              description: NA
+            AccrualFeeCharge:
+              type: string
+              description: NA
+  parameters:
+    InvestmentAccountID:
+      name: investmentaccountId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ServiceFeesID:
+      name: servicefeesId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    CorporateActionID:
+      name: corporateactionId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    DepositsandWithdrawalsID:
+      name: depositsandwithdrawalsId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    InitiateInvestmentAccountFacilityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateInvestmentAccountFacilityRequest'
+    UpdateInvestmentAccountFacilityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateInvestmentAccountFacilityRequest'
+    InitiateDepositsandWithdrawalsRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateDepositsandWithdrawalsRequest'
+    DepositsandWithdrawals:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DepositsandWithdrawals'
+    InitiateCorporateActionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateCorporateActionRequest'
+    ExecuteCorporateActionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteCorporateActionRequest'
+    InitiateServiceFeesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateServiceFeesRequest'
+    ExecuteServiceFeesRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExecuteServiceFeesRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

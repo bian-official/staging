@@ -109,7 +109,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerAccessEntitlement/{customeraccessentitlementid}/Restrictions/{restrictionsid}/Evaluate':
+  '/CustomerAccessEntitlement/{customeraccessentitlementid}/Restrictions/Evaluate':
     post:
       tags:
         - BQ - Restrictions
@@ -118,7 +118,6 @@ paths:
       operationId: EvaluateRestrictions
       parameters:
         - $ref: '#/components/parameters/customeraccessentitlementid'
-        - $ref: '#/components/parameters/restrictionsid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateRestrictionsRequest'
       responses:
@@ -188,7 +187,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CustomerAccessEntitlement/{customeraccessentitlementid}/Preferences/{preferencesid}/Evaluate':
+  '/CustomerAccessEntitlement/{customeraccessentitlementid}/Preferences/Evaluate':
     post:
       tags:
         - BQ - Preferences
@@ -197,7 +196,6 @@ paths:
       operationId: EvaluatePreferences
       parameters:
         - $ref: '#/components/parameters/customeraccessentitlementid'
-        - $ref: '#/components/parameters/preferencesid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluatePreferencesRequest'
       responses:
@@ -342,6 +340,14 @@ components:
           description: Details restrictions on allowed product/service by schedule and cumulative access duration
           format: string
       description: "A collection of terms (within some jurisdiction) that can be selected and configured to define a contract /agreement\n\nExamples: Required disclosures"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: "The duration that the agreement is in force ||\r\n|"
     CustomerAccessProfileAgreement:
       type: object
       properties:
@@ -354,9 +360,7 @@ components:
           description: 'The overall access profile, combining the restrictions and preferences from subordinate qualifiers'
           format: string
         CustomerAccessAgreementValidFromToDate:
-          type: string
-          description: The duration that the agreement is in force
-          format: date
+          $ref: '#/components/schemas/date'
         CustomerAccessAgreementSignaturesResponsibleParties:
           type: string
           description: Reference to signatories as appropriate
@@ -381,9 +385,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             CustomerAccessAgreementSignaturesResponsibleParties:
               type: string
               description: "\r\n"
@@ -408,9 +410,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Restrictions:
           type: object
           properties:
@@ -492,9 +492,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Restrictions:
           type: object
           properties:
@@ -538,9 +536,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Restrictions:
           type: object
           properties:
@@ -584,9 +580,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Restrictions:
           type: object
           properties:
@@ -630,9 +624,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Preferences:
           type: object
           properties:
@@ -710,9 +702,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: UpBQ Update details for the preferences in the agreement'
     UpdatePreferencesResponse:
       type: object
@@ -729,9 +719,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: UpBQ Update details for the preferences in the agreement'
     RetrievePreferencesResponse:
       type: object
@@ -748,9 +736,7 @@ components:
               description: "\r\n"
               format: string
             CustomerAccessAgreementValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
         Preferences:
           type: object
           properties:

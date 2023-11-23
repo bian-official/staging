@@ -1,0 +1,572 @@
+openapi: 3.0.1
+info:
+  title: Collateral Allocation Management
+  description: This service domain manages the holding, valuation and allocation of a customer's collateral assets to products on behalf of a customer
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/CollateralAllocationManagement/10.0.0
+paths:
+  /CollateralAllocationManagement/Provide:
+    post:
+      tags:
+      - CR - CollateralAssetAllocation
+      summary: PrCR Record an asset provided for collateralization
+      description: PrCR Record an asset provided for collateralization
+      operationId: Provide
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/ProvideCollateralAssetAllocationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvideCollateralAssetAllocationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAllocationManagement/{collateralallocationmanagementId}/Update:
+    put:
+      tags:
+      - CR - CollateralAssetAllocation
+      summary: UpCR Update details and status of a collateral asset and its allocation
+      description: UpCR Update details and status of a collateral asset and its allocation
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/CollateralAllocationManagementID'
+      requestBody:
+        $ref: '#/components/requestBodies/CollateralAssetAllocation'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollateralAssetAllocation'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAllocationManagement/{collateralallocationmanagementId}/Retrieve:
+    get:
+      tags:
+      - CR - CollateralAssetAllocation
+      summary: ReCR Retrieve details and status of a collateral asset and its allocation
+      description: ReCR Retrieve details and status of a collateral asset and its allocation
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/CollateralAllocationManagementID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollateralAssetAllocation'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAllocationManagement/{collateralallocationmanagementId}/Allocation/Provide:
+    post:
+      tags:
+      - BQ - Allocation
+      summary: PrBQ Allocate a collateral asset to a lending product
+      description: PrBQ Allocate a collateral asset to a lending product
+      operationId: ProvideAllocation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAllocationManagementID'
+      requestBody:
+        $ref: '#/components/requestBodies/ProvideAllocationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvideAllocationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAllocationManagement/{collateralallocationmanagementId}/Allocation/{allocationId}/Update:
+    put:
+      tags:
+      - BQ - Allocation
+      summary: UpBQ Update details about an allocation request and in force
+      description: UpBQ Update details about an allocation request and in force
+      operationId: UpdateAllocation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAllocationManagementID'
+      - $ref: '#/components/parameters/AllocationID'
+      requestBody:
+        $ref: '#/components/requestBodies/Allocation'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocation'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAllocationManagement/{collateralallocationmanagementId}/Allocation/{allocationId}/Capture:
+    put:
+      tags:
+      - BQ - Allocation
+      summary: CaBQ Record usage details for a collateral allocation
+      description: CaBQ Record usage details for a collateral allocation
+      operationId: CaptureAllocation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAllocationManagementID'
+      - $ref: '#/components/parameters/AllocationID'
+      requestBody:
+        $ref: '#/components/requestBodies/CaptureAllocationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureAllocationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /CollateralAllocationManagement/{collateralallocationmanagementId}/Allocation/{allocationId}/Retrieve:
+    get:
+      tags:
+      - BQ - Allocation
+      summary: ReBQ Retrieve details about a collateral allocation
+      description: ReBQ Retrieve details about a collateral allocation
+      operationId: RetrieveAllocation
+      parameters:
+      - $ref: '#/components/parameters/CollateralAllocationManagementID'
+      - $ref: '#/components/parameters/AllocationID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollateralAssetAllocation'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    CollateralAssetAllocation:
+      type: object
+      properties:
+        CustomerReference:
+          type: object
+          description: Reference to the title owner of the collateral asset
+        CollateralAssetType:
+          type: string
+          description: The type of asset (e.g. building, machinery, inventory, financial instrument, art)
+        CollateralAssetReference:
+          type: object
+          description: Reference to the collateral item (e.g. address, account reference)
+        CollateralAssetDescription:
+          type: string
+          description: Description of significant details and properties of the asset
+        CollateralAssetAdministrationInstanceReference:
+          type: object
+          description: Reference to the administration record of the asset item
+        CollateralAssetStatus:
+          type: string
+          description: A general status indicator for the asset (can cover multiple properties as needed)
+        CollateralAssetValuation:
+          type: string
+          description: The current and historical valuation of the asset
+        CollateralAssetAllocationProfile:
+          type: string
+          description: A record of past and current allocations of the collateral asset
+        CollateralAssetValuationDate:
+          type: string
+          description: The date of the last valuation (and next planned valuation)
+        CollateralAssetLoantoValueRatio:
+          type: string
+          description: The ratio of the valuation that can be used as collateral (depends on liquidity, title, etc.)
+    Allocation:
+      type: object
+      properties:
+        RequestedAllocationRequestType:
+          type: string
+          description: Defines  the requested action (e.g. earmark for future allocation, allocate or recall an allocation of a collateral asset)
+        ProductInstanceReference:
+          type: object
+          description: Reference to the product to which the collateral is allocated
+        CustomerOfferReference:
+          type: object
+          description: Reference to a offer process during which the collateral allocation is defined and agreed
+        CollateralEarmarkAmount:
+          type: number
+          description: Applies for initial earmarking of collateral during an offer process
+        CollateralEarmarkDuration:
+          type: string
+          description: Time for which the earmarking is enforced
+        CollateralAllocationAmount:
+          type: number
+          description: The amount of the overall asset value that is allocated in this instance
+        CollateralAllocationDuration:
+          type: string
+          description: The intended duration of the allocation (can be finite or open ended)
+        CollateralAllocationRecallAmount:
+          type: number
+          description: Applies when part or all of the allocation is recalled (e.g. due to revaluation of the asset)
+        CollateralAllocationRecallTimetable:
+          type: string
+          description: The schedule for processing allocation recall
+        CollateralAllocationRecallResult:
+          type: string
+          description: The result of the allocation recall
+        CollateralAssetAllocationState:
+          type: string
+          description: State of the allocation as there can be different states for the allocation of a single asset to several products
+        CollateralAllocationRequestResult:
+          type: string
+          description: Record of the workstep and result of the allocation process
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    ProvideCollateralAssetAllocationRequest:
+      type: object
+      properties:
+        CollateralAssetAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+            CollateralAssetValuation:
+              type: string
+              description: NA
+            CollateralAssetAllocationProfile:
+              type: string
+              description: NA
+            CollateralAssetValuationDate:
+              type: string
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+    ProvideCollateralAssetAllocationResponse:
+      type: object
+      properties:
+        CollateralAssetAllocation:
+          type: object
+          properties:
+            CollateralAssetAdministrationInstanceReference:
+              type: object
+              description: NA
+    ProvideAllocationRequest:
+      type: object
+      properties:
+        CollateralAssetAllocation:
+          type: object
+          properties:
+            CustomerReference:
+              type: object
+              description: NA
+            CollateralAssetType:
+              type: string
+              description: NA
+            CollateralAssetReference:
+              type: object
+              description: NA
+            CollateralAssetDescription:
+              type: string
+              description: NA
+            CollateralAssetStatus:
+              type: string
+              description: NA
+            CollateralAssetValuation:
+              type: string
+              description: NA
+            CollateralAssetAllocationProfile:
+              type: string
+              description: NA
+            CollateralAssetValuationDate:
+              type: string
+              description: NA
+            CollateralAssetLoantoValueRatio:
+              type: string
+              description: NA
+        Allocation:
+          type: object
+          properties:
+            RequestedAllocationRequestType:
+              type: string
+              description: NA
+            ProductInstanceReference:
+              type: object
+              description: NA
+            CustomerOfferReference:
+              type: object
+              description: NA
+            CollateralEarmarkAmount:
+              type: number
+              description: NA
+            CollateralEarmarkDuration:
+              type: string
+              description: NA
+            CollateralAllocationAmount:
+              type: number
+              description: NA
+            CollateralAllocationDuration:
+              type: string
+              description: NA
+            CollateralAllocationRecallAmount:
+              type: number
+              description: NA
+            CollateralAllocationRecallTimetable:
+              type: string
+              description: NA
+            CollateralAssetAllocationState:
+              type: string
+              description: NA
+    ProvideAllocationResponse:
+      type: object
+      properties:
+        CollateralAssetAllocation:
+          type: object
+          properties:
+            CollateralAssetAdministrationInstanceReference:
+              type: object
+              description: NA
+        Allocation:
+          type: object
+          properties:
+            CollateralAllocationRecallResult:
+              type: string
+              description: NA
+            CollateralAssetAllocationState:
+              type: string
+              description: NA
+            CollateralAllocationRequestResult:
+              type: string
+              description: NA
+    CaptureAllocationRequest:
+      type: object
+      properties:
+        Allocation:
+          type: object
+          properties:
+            CollateralAllocationAmount:
+              type: number
+              description: NA
+            CollateralAllocationDuration:
+              type: string
+              description: NA
+            CollateralAllocationRecallAmount:
+              type: number
+              description: NA
+            CollateralAllocationRecallTimetable:
+              type: string
+              description: NA
+            CollateralAllocationRecallResult:
+              type: string
+              description: NA
+            CollateralAssetAllocationState:
+              type: string
+              description: NA
+    CaptureAllocationResponse:
+      type: object
+      properties:
+        Allocation:
+          type: object
+          properties:
+            CollateralAllocationAmount:
+              type: number
+              description: NA
+            CollateralAllocationDuration:
+              type: string
+              description: NA
+            CollateralAllocationRecallAmount:
+              type: number
+              description: NA
+            CollateralAllocationRecallTimetable:
+              type: string
+              description: NA
+            CollateralAllocationRecallResult:
+              type: string
+              description: NA
+            CollateralAssetAllocationState:
+              type: string
+              description: NA
+  parameters:
+    CollateralAllocationManagementID:
+      name: collateralallocationmanagementId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    AllocationID:
+      name: allocationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    ProvideCollateralAssetAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProvideCollateralAssetAllocationRequest'
+    CollateralAssetAllocation:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CollateralAssetAllocation'
+    ProvideAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProvideAllocationRequest'
+    Allocation:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Allocation'
+    CaptureAllocationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CaptureAllocationRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

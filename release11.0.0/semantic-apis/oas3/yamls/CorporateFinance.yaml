@@ -427,7 +427,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CorporateFinance/{corporatefinanceid}/CapitalStructuringTopic/{capitalstructuringtopicid}/Initiate':
+  '/CorporateFinance/{corporatefinanceid}/CapitalStructuringTopic/Initiate':
     post:
       tags:
         - BQ - CapitalStructuringTopic
@@ -436,7 +436,6 @@ paths:
       operationId: InitiateCapitalStructuringTopic
       parameters:
         - $ref: '#/components/parameters/corporatefinanceid'
-        - $ref: '#/components/parameters/capitalstructuringtopicid'
       requestBody:
         $ref: '#/components/requestBodies/CapitalStructuringTopic'
       responses:
@@ -454,7 +453,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CorporateFinance/{corporatefinanceid}/StrategicFundingTopic/{strategicfundingtopicid}/Initiate':
+  '/CorporateFinance/{corporatefinanceid}/StrategicFundingTopic/Initiate':
     post:
       tags:
         - BQ - StrategicFundingTopic
@@ -463,7 +462,6 @@ paths:
       operationId: InitiateStrategicFundingTopic
       parameters:
         - $ref: '#/components/parameters/corporatefinanceid'
-        - $ref: '#/components/parameters/strategicfundingtopicid'
       requestBody:
         $ref: '#/components/requestBodies/StrategicFundingTopic'
       responses:
@@ -481,7 +479,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CorporateFinance/{corporatefinanceid}/TacticalFundingTopic/{tacticalfundingtopicid}/Initiate':
+  '/CorporateFinance/{corporatefinanceid}/TacticalFundingTopic/Initiate':
     post:
       tags:
         - BQ - TacticalFundingTopic
@@ -490,7 +488,6 @@ paths:
       operationId: InitiateTacticalFundingTopic
       parameters:
         - $ref: '#/components/parameters/corporatefinanceid'
-        - $ref: '#/components/parameters/tacticalfundingtopicid'
       requestBody:
         $ref: '#/components/requestBodies/TacticalFundingTopic'
       responses:
@@ -508,7 +505,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CorporateFinance/{corporatefinanceid}/TaxOptimizationTopic/{taxoptimizationtopicid}/Initiate':
+  '/CorporateFinance/{corporatefinanceid}/TaxOptimizationTopic/Initiate':
     post:
       tags:
         - BQ - TaxOptimizationTopic
@@ -517,7 +514,6 @@ paths:
       operationId: InitiateTaxOptimizationTopic
       parameters:
         - $ref: '#/components/parameters/corporatefinanceid'
-        - $ref: '#/components/parameters/taxoptimizationtopicid'
       requestBody:
         $ref: '#/components/requestBodies/TaxOptimizationTopic'
       responses:
@@ -966,6 +962,175 @@ components:
           type: string
           format: string
       description: Status Attributes
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: "The type of Strategic Funding Topic ||\r\n| ||\r\n| ||\r\n|"
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Strategic Funding Topic specific Business Service
+    partytypevalues:
+      enum:
+        - Person
+        - Organisation
+      type: string
+      description: ">\r\n* `Person` - Human entity, as distinguished from a corporate entity (which is sometimes referred to as an 'artificial person'). ISO20022\r\n* `Organisation` - Organised structure that is set up for a particular purpose. For example, a business, government body, department, charity, or financial institution. ISO20022\r\n"
+    datetime:
+      type: object
+      properties:
+        DateTimeContent:
+          type: string
+          description: ''
+          format: string
+        TimeZoneCode:
+          type: string
+          description: ''
+          format: string
+        DaylightSavingIndicator:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    partyidentificationtypevalues:
+      enum:
+        - LEI(LegalEntityIdentifier)
+        - TaxIdentificationNumber
+        - NationalRegistrationNumber
+        - RegistrationAuthorityIdentification
+        - PassportNumber
+        - AlienRegistrationNumber
+        - TaxExemptIdentificationNumber
+        - ForeignInvestmentIdentityNumber
+        - DriverLicenseNumber
+        - CorporateIdentification
+        - SocialSecurityNumber
+        - IdentityCardNumber
+        - NationalRegistrationIdentificationNumber
+        - Concat
+      type: string
+      description: ">\r\n* `LEI(LegalEntityIdentifier)` - \r\n* `TaxIdentificationNumber` - \r\n* `NationalRegistrationNumber` - \r\n* `RegistrationAuthorityIdentification` - \r\n* `PassportNumber` - \r\n* `AlienRegistrationNumber` - \r\n* `TaxExemptIdentificationNumber` - \r\n* `ForeignInvestmentIdentityNumber` - \r\n* `DriverLicenseNumber` - \r\n* `CorporateIdentification` - \r\n* `SocialSecurityNumber` - \r\n* `IdentityCardNumber` - \r\n* `NationalRegistrationIdentificationNumber` - \r\n* `Concat` - \r\n"
+    value:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: 'A value is the concept of worth in general that is assigned or is determined by measurement, assessment or calculation. (UN/CEFACT)'
+          format: datatype
+      description: ''
+    identifier:
+      type: object
+      properties:
+        IdentifierValue:
+          $ref: '#/components/schemas/value'
+        IdentifierIssuingAuthority:
+          $ref: '#/components/schemas/involvedparty'
+        IdentifierStartDate:
+          $ref: '#/components/schemas/datetime'
+        IdentifierEndDate:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyidentification:
+      type: object
+      properties:
+        PartyIdentificationType:
+          $ref: '#/components/schemas/partyidentificationtypevalues'
+        PartyIdentification:
+          $ref: '#/components/schemas/identifier'
+      description: ''
+    party:
+      type: object
+      properties:
+        PartyName:
+          $ref: '#/components/schemas/name'
+        PartyType:
+          $ref: '#/components/schemas/partytypevalues'
+        PartyDateTime:
+          $ref: '#/components/schemas/datetime'
+        PartyIdentification:
+          $ref: '#/components/schemas/partyidentification'
+      description: ''
+    datetimeperiod:
+      type: object
+      properties:
+        FromDateTime:
+          $ref: '#/components/schemas/datetime'
+        ToDateTime:
+          $ref: '#/components/schemas/datetime'
+      description: ''
+    partyinvolvementtypevalues:
+      enum:
+        - Agreementinvolvement
+        - Partyinvolvement
+        - Arrangementinvolvement
+        - Designspecificationinvolvement
+        - Relationshipinvolvement
+        - Locationinvolvement
+        - Bankguaranteeinvolvement
+      type: string
+      description: ">\r\n* `Agreementinvolvement` - \r\n* `Partyinvolvement` - \r\n* `Arrangementinvolvement` - \r\n* `Designspecificationinvolvement` - \r\n* `Relationshipinvolvement` - \r\n* `Locationinvolvement` - \r\n* `Bankguaranteeinvolvement` - \r\n"
+    partyrole:
+      type: object
+      properties:
+        PartyRoleType:
+          $ref: '#/components/schemas/text'
+        PartyRoleName:
+          $ref: '#/components/schemas/name'
+        PartyRoleValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        PartyInvolvementType:
+          $ref: '#/components/schemas/partyinvolvementtypevalues'
+      description: ''
+    involvedparty:
+      type: object
+      properties:
+        PartyReference:
+          $ref: '#/components/schemas/party'
+        PartyInvolvement:
+          $ref: '#/components/schemas/partyrole'
+      description: The operating unit/employee responsible for providing the advice/recommendation
+    condition:
+      type: object
+      properties:
+        Condition:
+          type: string
+          description: "Condition is a premise upon which the fulfillment of an agreement depends \n\nGeneral and special arrangements, provisions, requirements, rules, specifications, and standards that form an integral part of an agreement or contract.\n\nRead more: http://www.businessdictionary.com/definition/terms-and-conditions.html\n\n"
+          format: class
+      description: The completion status once the advice/recommendation has been provided
+    schedule:
+      type: object
+      properties:
+        ScheduleType:
+          type: string
+          description: ''
+          format: string
+      description: The timing and key actions/milestones involved in providing the advice/recommendation
     StrategicFundingTopic:
       type: object
       properties:
@@ -978,29 +1143,17 @@ components:
           description: Reference to Strategic Funding Topic
           format: object
         StrategicFundingTopicType:
-          type: string
-          description: The type of Strategic Funding Topic
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Strategic Funding Topic specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         BusinessUnitEmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for providing the advice/recommendation
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Postconditions:
-          type: string
-          description: The completion status once the advice/recommendation has been provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Preconditions:
-          type: string
-          description: The required status/situation before the advice/recommendation can be provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in providing the advice/recommendation
-          format: schedule
+          $ref: '#/components/schemas/schedule'
       description: The Strategic Funding Topic advice is one specific topic that can be included in providing Strategic Funding Topic
     CapitalStructuringTopic:
       type: object
@@ -1014,29 +1167,17 @@ components:
           description: Reference to Capital Structuring Topic
           format: object
         CapitalStructuringTopicType:
-          type: string
-          description: The type of Capital Structuring Topic
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Capital Structuring Topic specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         BusinessUnitEmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for providing the advice/recommendation
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Postconditions:
-          type: string
-          description: The completion status once the advice/recommendation has been provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Preconditions:
-          type: string
-          description: The required status/situation before the advice/recommendation can be provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in providing the advice/recommendation
-          format: schedule
+          $ref: '#/components/schemas/schedule'
       description: The Strategic Funding Topic advice is one specific topic that can be included in providing Strategic Funding Topic
     TaxOptimizationTopic:
       type: object
@@ -1050,29 +1191,17 @@ components:
           description: Reference to Tax Optimization Topic
           format: object
         TaxOptimizationTopicType:
-          type: string
-          description: The type of Tax Optimization Topic
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Tax Optimization Topic specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         BusinessUnitEmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for providing the advice/recommendation
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Postconditions:
-          type: string
-          description: The completion status once the advice/recommendation has been provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Preconditions:
-          type: string
-          description: The required status/situation before the advice/recommendation can be provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in providing the advice/recommendation
-          format: schedule
+          $ref: '#/components/schemas/schedule'
       description: The Strategic Funding Topic advice is one specific topic that can be included in providing Strategic Funding Topic
     TacticalFundingTopic:
       type: object
@@ -1086,85 +1215,337 @@ components:
           description: Reference to Tactical Funding Topic
           format: object
         TacticalFundingTopicType:
-          type: string
-          description: The type of Tactical Funding Topic
-          format: text
+          $ref: '#/components/schemas/text'
         BusinessService:
-          type: string
-          description: The Tactical Funding Topic specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         BusinessUnitEmployeeReference:
-          type: string
-          description: The operating unit/employee responsible for providing the advice/recommendation
-          format: involvedparty
+          $ref: '#/components/schemas/involvedparty'
         Postconditions:
-          type: string
-          description: The completion status once the advice/recommendation has been provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Preconditions:
-          type: string
-          description: The required status/situation before the advice/recommendation can be provided
-          format: condition
+          $ref: '#/components/schemas/condition'
         Schedule:
-          type: string
-          description: The timing and key actions/milestones involved in providing the advice/recommendation
-          format: schedule
+          $ref: '#/components/schemas/schedule'
       description: The Strategic Funding Topic advice is one specific topic that can be included in providing Strategic Funding Topic
+    task:
+      type: object
+      properties:
+        Task:
+          type: string
+          format: datatype
+      description: ''
+    project:
+      type: object
+      properties:
+        ProjectName:
+          type: string
+          description: The name of project
+          format: string
+        ProjectType:
+          type: string
+          description: A classification of the project
+          format: string
+        ProjectDescription:
+          type: string
+          description: 'A description of the scope, goal and make-up of the project'
+          format: string
+        ProjectOrganisation:
+          type: string
+          description: ''
+          format: string
+        ProjectSchedule:
+          type: string
+          description: ''
+          format: string
+        ProjectDateTime:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    workproducttypevalues:
+      enum:
+        - File
+        - ActivityLog
+        - WorkingPaper
+        - MeetingSchedule
+        - Form
+        - MeetingMinute
+        - Document
+      type: string
+      description: ">\r\n* `File` - \r\n* `ActivityLog` - \r\n* `WorkingPaper` - \r\n* `MeetingSchedule` - \r\n* `Form` - \r\n* `MeetingMinute` - \r\n* `Document` - \r\n"
+    workproduct:
+      type: object
+      properties:
+        WorkProductType:
+          $ref: '#/components/schemas/workproducttypevalues'
+        WorkProductIdentifoication:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    analysistypevalues:
+      enum:
+        - PerformanceAnalysis
+        - ActivityAnalysis
+      type: string
+      description: ">\r\n* `PerformanceAnalysis` - \r\n* `ActivityAnalysis` - \r\n"
+    financialdocumenttypevalues:
+      enum:
+        - Meteredserviceinvoice
+        - Creditnoterelatedtofinancialadjustment
+        - Debitnoterelatedtofinancialadjustment
+        - Commercialinvoice
+        - Creditnote
+        - Debitnote
+        - Hireinvoice
+        - Selfbilledinvoice
+        - Remittanceadvicemessage
+        - Relatedpaymentinstruction
+        - Commercialcontract
+        - Foreignexchangedealreference
+        - Statementofaccount
+        - Dispatchadvice
+        - Purchaseorder
+        - Structuredcommunicationreference
+        - Billoflading
+        - Voucher
+        - Accountreceivableopenitem
+        - Tradeservicesutilitytransaction
+        - Cashierreceipt
+        - Customerreceipt
+        - Journal
+        - Salereceipt
+      type: string
+      description: ">\r\n* `Meteredserviceinvoice` - Document is an invoice claiming payment for the supply of metered services, for example gas or electricity supplied to a fixed meter.\r\n* `Creditnoterelatedtofinancialadjustment` - Document is a credit note for the final amount settled for a commercial transaction.\r\n* `Debitnoterelatedtofinancialadjustment` - Document is a debit note for the final amount settled for a commercial transaction.\r\n* `Commercialinvoice` - Document is an invoice.\r\n* `Creditnote` - Document is a credit note.\r\n* `Debitnote` - Document is a debit note.\r\n* `Hireinvoice` - Document is an invoice for the hiring of human resources or renting goods or equipment.\r\n* `Selfbilledinvoice` - Document is an invoice issued by the debtor.\r\n* `Remittanceadvicemessage` - Document is a remittance advice sent separately from the current transaction.\r\n* `Relatedpaymentinstruction` - Document is a linked payment instruction to which the current payment instruction is related, for example, in a cover scenario.\r\n* `Commercialcontract` - Document is an agreement between the parties, stipulating the terms and conditions of the delivery of goods or services.\r\n* `Foreignexchangedealreference` - Document is a pre-agreed or pre-arranged foreign exchange transaction to which the payment transaction refers.\r\n* `Statementofaccount` - Document is a statement of the transactions posted to the debtor's account at the supplier.\r\n* `Dispatchadvice` - Document is a dispatch advice.\r\n* `Purchaseorder` - Document is a purchase order.\r\n* `Structuredcommunicationreference` - Document is a structured communication reference provided by the creditor to identify the referred transaction.\r\n* `Billoflading` - Document is a shipping notice.\r\n* `Voucher` - Document is an electronic payment document.\r\n* `Accountreceivableopenitem` - Document is a payment that applies to a specific source document.\r\n* `Tradeservicesutilitytransaction` - Document is a transaction identifier as assigned by the Trade Services Utility.\r\n* `Cashierreceipt` - When the Sale system print the Cashier copy of the Payment receipt.\r\n* `Customerreceipt` - When the Sale System requires   the POI system to print the Customer receipt.\r\n* `Journal` - When the POI or the Sale System wants to store a message on the journal printer or electronic journal of the Sale Terminal (it is sometimes a Sale Logging/Journal Printer).\r\n* `Salereceipt` - When the Sale System requires the POI system to print the Sale receipt.\r\n"
+    status:
+      type: object
+      properties:
+        StatusReason:
+          $ref: '#/components/schemas/text'
+        StatusDateTime:
+          $ref: '#/components/schemas/datetime'
+        StatusValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        StatusInvolvedParty:
+          $ref: '#/components/schemas/involvedparty'
+      description: 'Status of the document (e.g. delivered, paid, etc.). ISO20022'
+    documentdatetimetypevalues:
+      enum:
+        - CreationDate
+        - CapturingDate
+        - VersionDate
+        - ValueDate
+        - IssueDate
+      type: string
+      description: ">\r\n* `CreationDate` - \r\n* `CapturingDate` - \r\n* `VersionDate` - \r\n* `ValueDate` - \r\n* `IssueDate` - \r\n"
+    document:
+      type: object
+      properties:
+        DocumentIdentifer:
+          $ref: '#/components/schemas/identifier'
+        DocumentVersion:
+          type: string
+          description: ''
+          format: number
+        DocumentType:
+          $ref: '#/components/schemas/financialdocumenttypevalues'
+        DocumentStatus:
+          $ref: '#/components/schemas/status'
+        DocumentDateTime:
+          $ref: '#/components/schemas/datetime'
+        DocumentName:
+          $ref: '#/components/schemas/name'
+        DocumentDateTimeType:
+          $ref: '#/components/schemas/documentdatetimetypevalues'
+        DocumentPurpose:
+          $ref: '#/components/schemas/text'
+        DocumentFormat:
+          $ref: '#/components/schemas/text'
+        DocumentSubject:
+          $ref: '#/components/schemas/text'
+        DocumentDescription:
+          $ref: '#/components/schemas/text'
+        DocumentValidityPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+      description: ''
+    analysis:
+      type: object
+      properties:
+        AnalysisType:
+          $ref: '#/components/schemas/analysistypevalues'
+        AnalysisResult:
+          $ref: '#/components/schemas/text'
+        AnalysisPeriod:
+          $ref: '#/components/schemas/datetimeperiod'
+        AnalysisDocument:
+          $ref: '#/components/schemas/document'
+        AnalysisDateTime:
+          $ref: '#/components/schemas/datetime'
+        AnalysisSpecification:
+          $ref: '#/components/schemas/text'
+      description: ''
+    assignment:
+      type: object
+      properties:
+        SubjectMatter:
+          type: string
+        PartyInvolvement:
+          type: string
+        PartyReference:
+          type: string
+      description: ''
     CorporateFinanceOutcome:
       type: object
       properties:
         CorporateFinanceTask:
-          type: string
-          description: ''
-          format: task
+          $ref: '#/components/schemas/task'
         CorporateFinanceProject:
-          type: string
-          description: ''
-          format: project
+          $ref: '#/components/schemas/project'
         CorporateFinanceWorkProduct:
-          type: string
-          description: ''
-          format: workproduct
+          $ref: '#/components/schemas/workproduct'
         CorporateFinanceWorkforceAnalysis:
-          type: string
-          description: ''
-          format: analysis
+          $ref: '#/components/schemas/analysis'
         CorporateFinanceWorkforceAssignment:
+          $ref: '#/components/schemas/assignment'
+      description: The Strategic Funding Topic advice is one specific topic that can be included in providing Strategic Funding Topic
+    feature:
+      type: object
+      properties:
+        FeatureType:
           type: string
           description: ''
-          format: assignment
-      description: The Strategic Funding Topic advice is one specific topic that can be included in providing Strategic Funding Topic
+          format: string
+      description: "A selected option, identified by Parameter Type ||\r\n|"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: ''
+    instructiondatetypevalues:
+      enum:
+        - FulfillmentDate
+        - DueDate
+        - ExecutionDate
+      type: string
+      description: ">\r\n* `FulfillmentDate` - \r\n* `DueDate` - \r\n* `ExecutionDate` - \r\n"
+    instructiondate:
+      type: object
+      properties:
+        InstructionDate:
+          $ref: '#/components/schemas/date'
+        InstructionDateType:
+          $ref: '#/components/schemas/instructiondatetypevalues'
+      description: ''
+    instructionlifecylestatustypevalues:
+      enum:
+        - Fulfilled
+        - OnHold
+        - Requested
+        - Failed
+        - Prepared
+        - Inprogress
+      type: string
+      description: ">\r\n* `Fulfilled` - \r\n* `OnHold` - \r\n* `Requested` - \r\n* `Failed` - \r\n* `Prepared` - \r\n* `Inprogress` - \r\n"
+    instructionlifecyclestatus:
+      type: object
+      properties:
+        InstructionLifecycleStatusType:
+          $ref: '#/components/schemas/instructionlifecylestatustypevalues'
+        InstructionLifecycleStatus:
+          $ref: '#/components/schemas/status'
+      description: 'A characteristic of instruction which refers to the LifecycleStatus of instruction (e.g., requested, executed, fulfilled, etc.); '
+    instructionidentificationtypevalues:
+      enum:
+        - OrderNumber
+        - InstructionNumber
+      type: string
+      description: ">\r\n* `OrderNumber` - \r\n* `InstructionNumber` - \r\n"
+    instructionidentification:
+      type: object
+      properties:
+        InstructionIdentifier:
+          $ref: '#/components/schemas/identifier'
+        InstructionIdentifierType:
+          $ref: '#/components/schemas/instructionidentificationtypevalues'
+      description: "An identifier that allows to uniquely refer to an instance of an Instruction.\n"
+    instructiontypevalues:
+      enum:
+        - PaymentInstruction
+        - DeliveryOrder
+        - InformationRequest
+        - ExchangeInstruction
+        - AllocationInstruction
+        - MaintenanceInstruction
+      type: string
+      description: ">\r\n* `PaymentInstruction` - \r\n* `DeliveryOrder` - \r\n* `InformationRequest` - \r\n* `ExchangeInstruction` - \r\n* `AllocationInstruction` - \r\n* `MaintenanceInstruction` - \r\n"
+    log:
+      type: object
+      properties:
+        LogType:
+          type: string
+          description: ''
+          format: string
+        LogPeriod:
+          type: string
+          description: ''
+          format: string
+        LogDate:
+          type: string
+          description: Key dates associated with the log (e.g. start time).
+          format: string
+        LogIdentification:
+          type: string
+          description: ''
+          format: string
+      description: " ||\r\n|"
+    instruction:
+      type: object
+      properties:
+        InstructionDate:
+          $ref: '#/components/schemas/instructiondate'
+        InstructionStatus:
+          $ref: '#/components/schemas/instructionlifecyclestatus'
+        InstructionIdentifier:
+          $ref: '#/components/schemas/instructionidentification'
+        InstructionType:
+          $ref: '#/components/schemas/instructiontypevalues'
+        InstructionResult:
+          $ref: '#/components/schemas/text'
+        InstructionDescription:
+          $ref: '#/components/schemas/text'
+        InstructionLog:
+          $ref: '#/components/schemas/log'
+        InstructionPurpose:
+          $ref: '#/components/schemas/text'
+      description: "Request to advise ||\r\n|"
+    actiontype:
+      type: object
+      properties:
+        ActionType:
+          type: string
+        ActionTypeName:
+          type: string
+      description: "A Classification value that distinguishes between the type of actions undertaken within Corporate Finance Services Advice ||\r\n|"
     CorporateFinanceServicesAdvice:
       type: object
       properties:
         CorporateFinanceServicesAdviceSubjectAreaType:
-          type: string
-          description: A Classification value that distinguishes between the subject matters of Corporate Finance Services Advice
-          format: text
+          $ref: '#/components/schemas/text'
         CorporateFinanceServicesAdviceParameterType:
-          type: string
-          description: A Classification value that distinguishes between Options defined within Corporate Finance Services Advice
-          format: text
+          $ref: '#/components/schemas/text'
         CorporateFinanceServicesAdviceSelectedOption:
-          type: string
-          description: 'A selected option, identified by Parameter Type'
-          format: feature
+          $ref: '#/components/schemas/feature'
         CorporateFinanceServicesAdviceRequest:
-          type: string
-          description: Request to advise
-          format: instruction
+          $ref: '#/components/schemas/instruction'
         CorporateFinanceServicesAdviceUsageLog:
-          type: string
-          description: Reference to the log of (usage) ativities/events of Corporate Finance Services Advice
-          format: log
+          $ref: '#/components/schemas/log'
         CorporateFinanceServicesAdviceFeedback:
-          type: string
-          description: Information about reactions to an Advise which is used as a basis for improvement for the Corporate Finance Services Advice.
-          format: text
+          $ref: '#/components/schemas/text'
         CorporateFinanceServicesAdviceType:
-          type: string
-          description: A Classification value that distinguishes between the type of actions undertaken within Corporate Finance Services Advice
-          format: actiontype
+          $ref: '#/components/schemas/actiontype'
         CorporateFinanceServicesAdviceReference:
           type: string
           description: An unique reference to an item or an occurrence of Corporate Finance Services Advice

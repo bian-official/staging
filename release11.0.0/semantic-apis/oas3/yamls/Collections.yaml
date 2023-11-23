@@ -268,7 +268,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/Collections/{collectionsid}/CollateralLiquidation/{collateralliquidationid}/Initiate':
+  '/Collections/{collectionsid}/CollateralLiquidation/Initiate':
     post:
       tags:
         - BQ - CollateralLiquidation
@@ -277,7 +277,6 @@ paths:
       operationId: InitiateCollateralLiquidation
       parameters:
         - $ref: '#/components/parameters/collectionsid'
-        - $ref: '#/components/parameters/collateralliquidationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateCollateralLiquidationRequest'
       responses:
@@ -295,7 +294,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/Collections/{collectionsid}/CollateralValuation/{collateralvaluationid}/Initiate':
+  '/Collections/{collectionsid}/CollateralValuation/Initiate':
     post:
       tags:
         - BQ - CollateralValuation
@@ -304,7 +303,6 @@ paths:
       operationId: InitiateCollateralValuation
       parameters:
         - $ref: '#/components/parameters/collectionsid'
-        - $ref: '#/components/parameters/collateralvaluationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateCollateralValuationRequest'
       responses:
@@ -322,7 +320,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/Collections/{collectionsid}/CollectionsAssessment/{collectionsassessmentid}/Initiate':
+  '/Collections/{collectionsid}/CollectionsAssessment/Initiate':
     post:
       tags:
         - BQ - CollectionsAssessment
@@ -331,7 +329,6 @@ paths:
       operationId: InitiateCollectionsAssessment
       parameters:
         - $ref: '#/components/parameters/collectionsid'
-        - $ref: '#/components/parameters/collectionsassessmentid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateCollectionsAssessmentRequest'
       responses:
@@ -349,7 +346,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/Collections/{collectionsid}/DebtFactoring/{debtfactoringid}/Initiate':
+  '/Collections/{collectionsid}/DebtFactoring/Initiate':
     post:
       tags:
         - BQ - DebtFactoring
@@ -358,7 +355,6 @@ paths:
       operationId: InitiateDebtFactoring
       parameters:
         - $ref: '#/components/parameters/collectionsid'
-        - $ref: '#/components/parameters/debtfactoringid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateDebtFactoringRequest'
       responses:
@@ -651,6 +647,40 @@ components:
           type: string
           format: string
       description: Status Attributes
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Collateral Asset Liquidation Procedure specific Business Service
     CollateralValuation:
       type: object
       properties:
@@ -667,9 +697,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         CollateralValuation:
-          type: string
-          description: The Collateral Asset Liquidation Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CollateralValuationPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -723,9 +751,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         CollectionsAccountUpdate:
-          type: string
-          description: The Collateral Asset Liquidation Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CollectionsAccountUpdatePostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -767,9 +793,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         CollateralLiquidation:
-          type: string
-          description: The Collateral Asset Liquidation Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CollateralLiquidationPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -811,9 +835,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         CollectionsAssessment:
-          type: string
-          description: The Collateral Asset Liquidation Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CollectionsAssessmentPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -855,9 +877,7 @@ components:
           description: The timing and key actions/milestones making up the workstep
           format: string
         Factoring:
-          type: string
-          description: The Collateral Asset Liquidation Procedure specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         DebtFactoringPostconditions:
           type: string
           description: The completion status and reference to subsequent actions that may be triggered on completion of the workstep
@@ -3167,15 +3187,15 @@ components:
       style: simple
       schema:
         type: string
-    collectionsassessmentid:
-      name: collectionsassessmentid
+    collectionsaccountupdateid:
+      name: collectionsaccountupdateid
       in: path
       required: true
       style: simple
       schema:
         type: string
-    collectionsaccountupdateid:
-      name: collectionsaccountupdateid
+    collectionsassessmentid:
+      name: collectionsassessmentid
       in: path
       required: true
       style: simple

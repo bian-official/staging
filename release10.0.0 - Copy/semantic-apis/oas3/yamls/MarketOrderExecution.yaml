@@ -1,0 +1,1098 @@
+openapi: 3.0.1
+info:
+  title: Market Order Execution
+  description: The Market Order Execution Service Domain is responsible for the booking of securities transactions (e.g. resulting from market orders or some types of corporate actions) on investment accounts, so in terms of security name plus quantity.
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/MarketOrderExecution/10.0.0
+paths:
+  /MarketOrderExecution/Initiate:
+    post:
+      tags:
+      - CR - MarketTradeTransaction
+      summary: InCR Initiate a market trade
+      description: InCR Initiate a market trade
+      operationId: Initiate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateMarketTradeTransactionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateMarketTradeTransactionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Update:
+    put:
+      tags:
+      - CR - MarketTradeTransaction
+      summary: UpCR Update details on an active market trade request
+      description: UpCR Update details on an active market trade request
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateMarketTradeTransactionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMarketTradeTransactionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Request:
+    put:
+      tags:
+      - CR - MarketTradeTransaction
+      summary: RqCR Request manual intervention to an active market trade
+      description: RqCR Request manual intervention to an active market trade
+      operationId: Request
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestMarketTradeTransactionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestMarketTradeTransactionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Retrieve:
+    get:
+      tags:
+      - CR - MarketTradeTransaction
+      summary: ReCR Retrieve details about a market trade
+      description: ReCR Retrieve details about a market trade
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveMarketTradeTransactionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Quote/Initiate:
+    post:
+      tags:
+      - BQ - Quote
+      summary: InBQ Obtain a trading quote for a proposed order
+      description: InBQ Obtain a trading quote for a proposed order
+      operationId: InitiateQuote
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateQuoteRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateQuoteResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Quote/{quoteId}/Retrieve:
+    get:
+      tags:
+      - BQ - Quote
+      summary: ReBQ Retrieve details about quotation activity
+      description: ReBQ Retrieve details about quotation activity
+      operationId: RetrieveQuote
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      - $ref: '#/components/parameters/QuoteID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveQuoteResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/TradeInitiation/Initiate:
+    post:
+      tags:
+      - BQ - TradeInitiation
+      summary: InBQ Initiate a market trade
+      description: InBQ Initiate a market trade
+      operationId: InitiateTradeInitiation
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      requestBody:
+        $ref: '#/components/requestBodies/InitiateTradeInitiationRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateTradeInitiationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/TradeInitiation/{tradeinitiationId}/Retrieve:
+    get:
+      tags:
+      - BQ - TradeInitiation
+      summary: ReBQ Retrieve details about a market trade
+      description: ReBQ Retrieve details about a market trade
+      operationId: RetrieveTradeInitiation
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      - $ref: '#/components/parameters/TradeInitiationID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveTradeInitiationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Position/{positionId}/Request:
+    put:
+      tags:
+      - BQ - Position
+      summary: RqBQ Request manual intervention for position management
+      description: RqBQ Request manual intervention for position management
+      operationId: RequestPosition
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      - $ref: '#/components/parameters/PositionID'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestPositionRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /MarketOrderExecution/{marketorderexecutionId}/Position/{positionId}/Retrieve:
+    get:
+      tags:
+      - BQ - Position
+      summary: ReBQ Retrieve details about position wholesale trading activity
+      description: ReBQ Retrieve details about position wholesale trading activity
+      operationId: RetrievePosition
+      parameters:
+      - $ref: '#/components/parameters/MarketOrderExecutionID'
+      - $ref: '#/components/parameters/PositionID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    MarketTradeTransaction:
+      type: object
+      properties:
+        MarketOrderTransactionInstanceReference:
+          type: object
+          description: Reference to the market order that is to be executed in the markets
+        CustomerReference:
+          type: object
+          description: Reference to the account primary party/owner for the market order
+        EmployeeOrBusinessUnitReference:
+          type: object
+          description: The employee/business unit placing the market order
+        CustomerMarketOrderProcessingInstruction:
+          type: string
+          description: Any customer specific processing preferences or requirements
+        MarketOrderTransaction:
+          type: string
+          description: The details of the market order transaction
+        InvestmentAccountArrangementInstanceReference:
+          type: object
+          description: Reference to the underlying investment account supporting the transaction
+        CurrentAccountArrangementInstanceReference:
+          type: object
+          description: Reference to the underlying cash account supporting the transaction
+        MarketOrderType:
+          type: string
+          description: The type of market order (e.g. Day Order. Order on Open/Close, Fill or Kill, Limit Order)
+        SecurityType:
+          type: string
+          description: The security to be traded
+        Amount:
+          type: string
+          description: The volume of shares to be bought or sold. This can include different amount types - quoted/committed, traded etc.)
+        DateType:
+          type: string
+          description: Key dates associated with the transaction (e.g. order capture, trade execution, order completion)
+        Date:
+          type: string
+          description: Value of the specific date type
+        MarketOrderTradeInitiationInstanceReference:
+          type: object
+          description: Reference to the associated market trade if the order is executed in the market directly
+    Quote:
+      type: object
+      properties:
+        QuoteSecurityType:
+          type: string
+          description: The security for which the quote is provided
+        QuoteType:
+          type: string
+          description: The type of quote being provided (e.g. current market, bank committed)
+        Quote:
+          type: string
+          description: The buy/sell quote by trade type and volume as appropriate
+    Position:
+      type: object
+      properties:
+        BankSecurityPositionSecurityType:
+          type: string
+          description: The security that the bank position is traded for
+        PositionMarketOrderTradeInitiationInstanceReference:
+          type: object
+          description: Reference to market trades impacting the position during the current trading period
+        BankSecurityPositionSecurityPAndLRecord:
+          type: string
+          description: The consolidated record of trading activity against the position during the trading period, including the derived position P&L
+        WholesaleTrade:
+          type: string
+          description: The record of trades made in the wholesale markets by the bank to manage its net security position. Note for larger market orders/trades there may be a corresponding wholesale transaction as appropriate)
+        WholesaleTradeSecurityType:
+          type: string
+          description: The traded security
+        WholesaleTradeVolume:
+          type: string
+          description: The volume of share bought/sold
+        WholesaleTradePrice:
+          type: string
+          description: The security and cash flow details of the trade
+        WholesaleTradeClearingandSettlementTerms:
+          type: string
+          description: The terms covering the clearing and settlement of the trade
+        DocumentDirectoryEntryInstanceReference:
+          type: object
+          description: The document reference for the trade confirmation notice
+        CorrespondenceInstanceReference:
+          type: object
+          description: Reference to the correspondence generated for the trade confirmation
+        WholesaleTradeStatus:
+          type: string
+          description: Status tracking for the wholesale trade
+    TradeInitiation:
+      type: object
+      properties:
+        WholesaleTradeReference:
+          type: object
+          description: If the market trade is not executed against the bank position, but directly in the wholesale market, this refers to the actual wholesale trading record
+        MarketTradeTransactionInstanceProcessingStatus:
+          type: string
+          description: The tracked and returned processing status of the market trade (e.g. pending, partially complete, complete)
+        MarketTradeInitiationTaskResult:
+          type: string
+          description: Details of the market trade initiation task
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    InitiateMarketTradeTransactionRequest:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    InitiateMarketTradeTransactionResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    UpdateMarketTradeTransactionRequest:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    UpdateMarketTradeTransactionResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    RequestMarketTradeTransactionRequest:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    RequestMarketTradeTransactionResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    RetrieveMarketTradeTransactionResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+    InitiateQuoteRequest:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+        Quote:
+          type: object
+          properties:
+            QuoteSecurityType:
+              type: string
+              description: NA
+            QuoteType:
+              type: string
+              description: NA
+    InitiateQuoteResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+        Quote:
+          type: object
+          properties:
+            QuoteSecurityType:
+              type: string
+              description: NA
+            QuoteType:
+              type: string
+              description: NA
+    RetrieveQuoteResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+        Quote:
+          type: object
+          properties:
+            QuoteSecurityType:
+              type: string
+              description: NA
+            QuoteType:
+              type: string
+              description: NA
+    InitiateTradeInitiationRequest:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+        TradeInitiation:
+          type: object
+          properties:
+            WholesaleTradeReference:
+              type: object
+              description: NA
+            MarketTradeTransactionInstanceProcessingStatus:
+              type: string
+              description: NA
+    InitiateTradeInitiationResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+        TradeInitiation:
+          type: object
+          properties:
+            WholesaleTradeReference:
+              type: object
+              description: NA
+            MarketTradeTransactionInstanceProcessingStatus:
+              type: string
+              description: NA
+            MarketTradeInitiationTaskResult:
+              type: string
+              description: NA
+    RetrieveTradeInitiationResponse:
+      type: object
+      properties:
+        MarketTradeTransaction:
+          type: object
+          properties:
+            MarketOrderTransactionInstanceReference:
+              type: object
+              description: NA
+            CustomerReference:
+              type: object
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            CustomerMarketOrderProcessingInstruction:
+              type: string
+              description: NA
+            InvestmentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            CurrentAccountArrangementInstanceReference:
+              type: object
+              description: NA
+            MarketOrderType:
+              type: string
+              description: NA
+            SecurityType:
+              type: string
+              description: NA
+            Amount:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+            MarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+        TradeInitiation:
+          type: object
+          properties:
+            WholesaleTradeReference:
+              type: object
+              description: NA
+            MarketTradeTransactionInstanceProcessingStatus:
+              type: string
+              description: NA
+            MarketTradeInitiationTaskResult:
+              type: string
+              description: NA
+    RequestPositionRequest:
+      type: object
+      properties:
+        Position:
+          type: object
+          properties:
+            BankSecurityPositionSecurityType:
+              type: string
+              description: NA
+            PositionMarketOrderTradeInitiationInstanceReference:
+              type: object
+              description: NA
+            WholesaleTrade:
+              type: string
+              description: NA
+            WholesaleTradeClearingandSettlementTerms:
+              type: string
+              description: NA
+            WholesaleTradeStatus:
+              type: string
+              description: NA
+  parameters:
+    MarketOrderExecutionID:
+      name: marketorderexecutionId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    QuoteID:
+      name: quoteId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    PositionID:
+      name: positionId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    TradeInitiationID:
+      name: tradeinitiationId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    InitiateMarketTradeTransactionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateMarketTradeTransactionRequest'
+    UpdateMarketTradeTransactionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateMarketTradeTransactionRequest'
+    RequestMarketTradeTransactionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestMarketTradeTransactionRequest'
+    InitiateQuoteRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateQuoteRequest'
+    InitiateTradeInitiationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitiateTradeInitiationRequest'
+    RequestPositionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestPositionRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

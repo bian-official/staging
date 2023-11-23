@@ -135,7 +135,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/PartyAuthentication/{partyauthenticationid}/Password/{passwordid}/Evaluate':
+  '/PartyAuthentication/{partyauthenticationid}/Password/Evaluate':
     post:
       tags:
         - BQ - Password
@@ -144,7 +144,6 @@ paths:
       operationId: EvaluatePassword
       parameters:
         - $ref: '#/components/parameters/partyauthenticationid'
-        - $ref: '#/components/parameters/passwordid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluatePasswordRequest'
       responses:
@@ -187,7 +186,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/PartyAuthentication/{partyauthenticationid}/Question/{questionid}/Evaluate':
+  '/PartyAuthentication/{partyauthenticationid}/Question/Evaluate':
     post:
       tags:
         - BQ - Question
@@ -196,7 +195,6 @@ paths:
       operationId: EvaluateQuestion
       parameters:
         - $ref: '#/components/parameters/partyauthenticationid'
-        - $ref: '#/components/parameters/questionid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateQuestionRequest'
       responses:
@@ -239,7 +237,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/PartyAuthentication/{partyauthenticationid}/Document/{documentid}/Evaluate':
+  '/PartyAuthentication/{partyauthenticationid}/Document/Evaluate':
     post:
       tags:
         - BQ - Document
@@ -248,7 +246,6 @@ paths:
       operationId: EvaluateDocument
       parameters:
         - $ref: '#/components/parameters/partyauthenticationid'
-        - $ref: '#/components/parameters/documentid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateDocumentRequest'
       responses:
@@ -291,7 +288,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/PartyAuthentication/{partyauthenticationid}/Device/{deviceid}/Evaluate':
+  '/PartyAuthentication/{partyauthenticationid}/Device/Evaluate':
     post:
       tags:
         - BQ - Device
@@ -300,7 +297,6 @@ paths:
       operationId: EvaluateDevice
       parameters:
         - $ref: '#/components/parameters/partyauthenticationid'
-        - $ref: '#/components/parameters/deviceid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateDeviceRequest'
       responses:
@@ -343,7 +339,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/PartyAuthentication/{partyauthenticationid}/Biometric/{biometricid}/Evaluate':
+  '/PartyAuthentication/{partyauthenticationid}/Biometric/Evaluate':
     post:
       tags:
         - BQ - Biometric
@@ -352,7 +348,6 @@ paths:
       operationId: EvaluateBiometric
       parameters:
         - $ref: '#/components/parameters/partyauthenticationid'
-        - $ref: '#/components/parameters/biometricid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateBiometricRequest'
       responses:
@@ -395,7 +390,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/PartyAuthentication/{partyauthenticationid}/Behavior/{behaviorid}/Evaluate':
+  '/PartyAuthentication/{partyauthenticationid}/Behavior/Evaluate':
     post:
       tags:
         - BQ - Behavior
@@ -404,7 +399,6 @@ paths:
       operationId: EvaluateBehavior
       parameters:
         - $ref: '#/components/parameters/partyauthenticationid'
-        - $ref: '#/components/parameters/behaviorid'
       requestBody:
         $ref: '#/components/requestBodies/EvaluateBehaviorRequest'
       responses:
@@ -570,6 +564,14 @@ components:
           description: The result of the biometric check
           format: string
       description: "All kind of verifications \n\nExamples: Password verification"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The valid period for the stored password
     Password:
       type: object
       properties:
@@ -598,9 +600,7 @@ components:
           description: The bank maintained value (can be customer provided or a bank generated value - encryption applies)
           format: string
         AuthenticationPasswordValidFromToDate:
-          type: string
-          description: The valid period for the stored password
-          format: date
+          $ref: '#/components/schemas/date'
         AuthenticationPasswordPresentedValue:
           type: string
           description: The customer provided value is matched to the bank's maintained value
@@ -865,9 +865,7 @@ components:
               description: "\r\n"
               format: string
             AuthenticationPasswordValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             AuthenticationPasswordPresentedValue:
               type: string
               description: "\r\n"
@@ -953,9 +951,7 @@ components:
               description: "\r\n"
               format: string
             AuthenticationPasswordValidFromToDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             AuthenticationPasswordPresentedValue:
               type: string
               description: "\r\n"

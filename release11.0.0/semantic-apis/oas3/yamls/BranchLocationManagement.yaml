@@ -348,7 +348,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/BranchLocationManagement/{branchlocationmanagementid}/CustomerLiaison/{customerliaisonid}/Initiate':
+  '/BranchLocationManagement/{branchlocationmanagementid}/CustomerLiaison/Initiate':
     post:
       tags:
         - BQ - CustomerLiaison
@@ -357,7 +357,6 @@ paths:
       operationId: InitiateCustomerLiaison
       parameters:
         - $ref: '#/components/parameters/branchlocationmanagementid'
-        - $ref: '#/components/parameters/customerliaisonid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateCustomerLiaisonRequest'
       responses:
@@ -375,7 +374,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/BranchLocationManagement/{branchlocationmanagementid}/Troubleshooting/{troubleshootingid}/Initiate':
+  '/BranchLocationManagement/{branchlocationmanagementid}/Troubleshooting/Initiate':
     post:
       tags:
         - BQ - Troubleshooting
@@ -384,7 +383,6 @@ paths:
       operationId: InitiateTroubleshooting
       parameters:
         - $ref: '#/components/parameters/branchlocationmanagementid'
-        - $ref: '#/components/parameters/troubleshootingid'
       requestBody:
         $ref: '#/components/requestBodies/Troubleshooting'
       responses:
@@ -733,6 +731,40 @@ components:
           type: string
           format: string
       description: Status Attributes
+    name:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: 'A name is a word or phrase that constitutes the distinctive designation of a person, place, thing or concept. (UN/CEFAT)'
+          format: datatype
+      description: ''
+    businessservicetypevalues:
+      type: object
+      properties:
+        Businessservicetypevalues:
+          type: string
+          description: ''
+          format: enumeration
+      description: ''
+    text:
+      type: object
+      properties:
+        Text:
+          type: string
+          description: Text is a character string such as a finite set of characters generally in the form of words of a language. (UN/CEFACT)
+          format: datatype
+      description: ''
+    businessservice:
+      type: object
+      properties:
+        BusinessServiceName:
+          $ref: '#/components/schemas/name'
+        BusinessServiceType:
+          $ref: '#/components/schemas/businessservicetypevalues'
+        BusinessServiceDescription:
+          $ref: '#/components/schemas/text'
+      description: The Branch Location Management Plan specific Business Service
     Troubleshooting:
       type: object
       properties:
@@ -749,9 +781,7 @@ components:
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         BusinessService:
-          type: string
-          description: The Branch Location Management Plan specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         TroubleshootingPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -793,9 +823,7 @@ components:
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         CustomerLiaison:
-          type: string
-          description: The Branch Location Management Plan specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         CustomerLiaisonPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -861,9 +889,7 @@ components:
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         StaffandLocationPlanning:
-          type: string
-          description: The Branch Location Management Plan specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         StaffandLocationPlanningPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -905,9 +931,7 @@ components:
           description: The timing and key actions/milestones involved in fulfilling the duty
           format: string
         ProductandServicePlanning:
-          type: string
-          description: The Branch Location Management Plan specific Business Service
-          format: businessservice
+          $ref: '#/components/schemas/businessservice'
         ProductandServicePlanningPostconditions:
           type: string
           description: The completion status once the duty has been complied with (note the need to fulfill a duty may recur frequently)
@@ -1580,9 +1604,7 @@ components:
               description: "\r\n"
               format: string
             ProductandServicePlanning:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             ProductandServicePlanningPostconditions:
               type: string
               description: "\r\n"
@@ -1627,9 +1649,7 @@ components:
               description: "\r\n"
               format: string
             StaffandLocationPlanning:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             StaffandLocationPlanningPostconditions:
               type: string
               description: "\r\n"
@@ -1674,9 +1694,7 @@ components:
               description: "\r\n"
               format: string
             BusinessService:
-              type: string
-              description: "\r\n"
-              format: businessservice
+              $ref: '#/components/schemas/businessservice'
             TroubleshootingPostconditions:
               type: string
               description: "\r\n"

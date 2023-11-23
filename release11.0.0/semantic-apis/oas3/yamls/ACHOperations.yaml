@@ -59,7 +59,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ACHOperations/{achoperationsid}/InboundACH/{inboundachid}/Initiate':
+  '/ACHOperations/{achoperationsid}/InboundACH/Initiate':
     post:
       tags:
         - BQ - InboundACH
@@ -68,7 +68,6 @@ paths:
       operationId: InitiateInboundACH
       parameters:
         - $ref: '#/components/parameters/achoperationsid'
-        - $ref: '#/components/parameters/inboundachid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateInboundACHRequest'
       responses:
@@ -138,7 +137,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ACHOperations/{achoperationsid}/OutboundACH/{outboundachid}/Initiate':
+  '/ACHOperations/{achoperationsid}/OutboundACH/Initiate':
     post:
       tags:
         - BQ - OutboundACH
@@ -147,7 +146,6 @@ paths:
       operationId: InitiateOutboundACH
       parameters:
         - $ref: '#/components/parameters/achoperationsid'
-        - $ref: '#/components/parameters/outboundachid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateOutboundACHRequest'
       responses:
@@ -217,7 +215,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ACHOperations/{achoperationsid}/Warehousing/{warehousingid}/Initiate':
+  '/ACHOperations/{achoperationsid}/Warehousing/Initiate':
     post:
       tags:
         - BQ - Warehousing
@@ -226,7 +224,6 @@ paths:
       operationId: InitiateWarehousing
       parameters:
         - $ref: '#/components/parameters/achoperationsid'
-        - $ref: '#/components/parameters/warehousingid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateWarehousingRequest'
       responses:
@@ -296,7 +293,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ACHOperations/{achoperationsid}/ClearingandSettlement/{clearingandsettlementid}/Initiate':
+  '/ACHOperations/{achoperationsid}/ClearingandSettlement/Initiate':
     post:
       tags:
         - BQ - ClearingandSettlement
@@ -305,7 +302,6 @@ paths:
       operationId: InitiateClearingandSettlement
       parameters:
         - $ref: '#/components/parameters/achoperationsid'
-        - $ref: '#/components/parameters/clearingandsettlementid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateClearingandSettlementRequest'
       responses:
@@ -375,7 +371,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/ACHOperations/{achoperationsid}/Reconciliation/{reconciliationid}/Initiate':
+  '/ACHOperations/{achoperationsid}/Reconciliation/Initiate':
     post:
       tags:
         - BQ - Reconciliation
@@ -384,7 +380,6 @@ paths:
       operationId: InitiateReconciliation
       parameters:
         - $ref: '#/components/parameters/achoperationsid'
-        - $ref: '#/components/parameters/reconciliationid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateReconciliationRequest'
       responses:
@@ -477,13 +472,19 @@ components:
           description: Details of the reconciliation resolution
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The schedule for handling the warehoused transaction batch
     Warehousing:
       type: object
       properties:
         ScheduleReleaseDateTime:
-          type: string
-          description: The schedule for handling the warehoused transaction batch
-          format: date
+          $ref: '#/components/schemas/date'
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
     InboundACH:
       type: object
@@ -1219,9 +1220,7 @@ components:
           type: object
           properties:
             ScheduleReleaseDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: InBQ Initiate a warehoused outbound ACH transaction batch'
     InitiateWarehousingResponse:
       type: object
@@ -1303,9 +1302,7 @@ components:
           type: object
           properties:
             ScheduleReleaseDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Input: UpBQ Update a warehoused outbound ACH transaction batch'
     UpdateWarehousingResponse:
       type: object
@@ -1376,9 +1373,7 @@ components:
           type: object
           properties:
             ScheduleReleaseDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: UpBQ Update a warehoused outbound ACH transaction batch'
     RetrieveWarehousingResponse:
       type: object
@@ -1449,9 +1444,7 @@ components:
           type: object
           properties:
             ScheduleReleaseDateTime:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
       description: 'Output: ReBQ Retrieve details about a warehoused outbound ACH transaction batch'
     InitiateClearingandSettlementRequest:
       type: object

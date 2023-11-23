@@ -133,7 +133,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/CardCollections/{cardcollectionsid}/Payment/{paymentid}/Initiate':
+  '/CardCollections/{cardcollectionsid}/Payment/Initiate':
     post:
       tags:
         - BQ - Payment
@@ -142,7 +142,6 @@ paths:
       operationId: InitiatePayment
       parameters:
         - $ref: '#/components/parameters/cardcollectionsid'
-        - $ref: '#/components/parameters/paymentid'
       requestBody:
         $ref: '#/components/requestBodies/InitiatePaymentRequest'
       responses:
@@ -307,6 +306,14 @@ components:
           description: Processing record received for payments made against the collections account
           format: string
       description: "The main worsteps to be followed in th eexecution of the procedure\n\nExamples: Invoice generation"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: The date and time of the contact
     PaymentTerms:
       type: object
       properties:
@@ -319,9 +326,7 @@ components:
           description: Content of the reminder message
           format: string
         ContactDate:
-          type: string
-          description: The date and time of the contact
-          format: date
+          $ref: '#/components/schemas/date'
         ContactResult:
           type: string
           description: Any response arising from the contact
@@ -710,9 +715,7 @@ components:
               description: "\r\n"
               format: string
             ContactDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             ContactResult:
               type: string
               description: "\r\n"

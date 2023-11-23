@@ -1,0 +1,858 @@
+openapi: 3.0.1
+info:
+  title: Production Release
+  description: Maintain and apply production release tests for new and updated systems
+  version: 10.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/B154/ProductionRelease/10.0.0
+paths:
+  /ProductionRelease/Evaluate:
+    post:
+      tags:
+      - CR - ProductionSystemAssessment
+      summary: EvCR Evaluate various risk exposures for a production release
+      description: EvCR Evaluate various risk exposures for a production release
+      operationId: Evaluate
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/EvaluateProductionSystemAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluateProductionSystemAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/Update:
+    put:
+      tags:
+      - CR - ProductionSystemAssessment
+      summary: UpCR Update aspects of an active production release evaluation
+      description: UpCR Update aspects of an active production release evaluation
+      operationId: Update
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateProductionSystemAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateProductionSystemAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/Request:
+    put:
+      tags:
+      - CR - ProductionSystemAssessment
+      summary: RqCR Request manual intervention in an evaluation
+      description: RqCR Request manual intervention in an evaluation
+      operationId: Request
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      requestBody:
+        $ref: '#/components/requestBodies/RequestProductionSystemAssessmentRequest'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestProductionSystemAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/Retrieve:
+    get:
+      tags:
+      - CR - ProductionSystemAssessment
+      summary: ReCR Retrieve details about a production release evaluation
+      description: ReCR Retrieve details about a production release evaluation
+      operationId: Retrieve
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveProductionSystemAssessmentResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/FunctionalRisk/{functionalriskId}/Retrieve:
+    get:
+      tags:
+      - BQ - FunctionalRisk
+      summary: ReBQ Retrieve details about a functional risk assessment
+      description: ReBQ Retrieve details about a functional risk assessment
+      operationId: RetrieveFunctionalRisk
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      - $ref: '#/components/parameters/FunctionalRiskID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveFunctionalRiskResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/ProductionRisk/{productionriskId}/Retrieve:
+    get:
+      tags:
+      - BQ - ProductionRisk
+      summary: ReBQ Retrieve details about a production risk assessment
+      description: ReBQ Retrieve details about a production risk assessment
+      operationId: RetrieveProductionRisk
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      - $ref: '#/components/parameters/ProductionRiskID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveProductionRiskResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/BusinessRisk/{businessriskId}/Retrieve:
+    get:
+      tags:
+      - BQ - BusinessRisk
+      summary: ReBQ Retrieve details about a business risk assessment
+      description: ReBQ Retrieve details about a business risk assessment
+      operationId: RetrieveBusinessRisk
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      - $ref: '#/components/parameters/BusinessRiskID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveBusinessRiskResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /ProductionRelease/{productionreleaseId}/OperationalRisk/{operationalriskId}/Retrieve:
+    get:
+      tags:
+      - BQ - OperationalRisk
+      summary: ReBQ Retrieve details about a operational risk assessment
+      description: ReBQ Retrieve details about a operational risk assessment
+      operationId: RetrieveOperationalRisk
+      parameters:
+      - $ref: '#/components/parameters/ProductionReleaseID'
+      - $ref: '#/components/parameters/OperationalRiskID'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveOperationalRiskResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        403:
+          $ref: '#/components/responses/ForbiddenError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        429:
+          $ref: '#/components/responses/TooManyRequestsError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ProductionSystemAssessment:
+      type: object
+      properties:
+        ProductionReleaseName:
+          type: string
+          description: The reference to and descriptive name of the production release system
+        EmployeeOrBusinessUnitReference:
+          type: object
+          description: Reference to the business units responsible for the testing and deployment
+        ProductionReleaseType:
+          type: string
+          description: The type of production release (e.g. production service update, new production system)
+        ProductionReleaseDescription:
+          type: string
+          description: A description of the scope, goal and make-up of the production release
+        ProductionReleaseTestProfile:
+          type: string
+          description: Details the types of production release tests to be and actually applied
+        ProductionReleaseTestSchedule:
+          type: string
+          description: The schedule for performing the range of release tests (planned and actual)
+        ProductionReleaseConsolidationRecord:
+          type: string
+          description: The consolidated release evaluation combining the results of all underlying tests
+        DocumentDirectoryEntryInstanceReference:
+          type: object
+          description: Reference to associated documents
+        DateType:
+          type: string
+          description: Key dates associated with the assessment (e.g. notification date, commencement  date, completion date)
+        Date:
+          type: string
+          description: Value of the specific date type
+    FunctionalRisk:
+      type: object
+      properties:
+        FunctionalRiskSystemTestType:
+          type: string
+          description: The type of functional test being performed (e.g. functional coverage/integrity, usability, application integration)
+        FunctionalRiskSystemTestDescription:
+          type: string
+          description: Detailed description of the test, including expected results
+        FunctionalRiskSystemTestWorkProduct:
+          type: string
+          description: Reference to testing materials, results, assessments and other documents
+        FunctionalRiskSystemTestResult:
+          type: string
+          description: The result of the functional risk test (including required remedial actions/fixes where appropriate)
+    ProductionRisk:
+      type: object
+      properties:
+        ProductionRiskSystemTestType:
+          type: string
+          description: The type of production test being performed (e.g. division of responsibilities, access control, audit trail, back-up and recovery)
+        ProductionRiskSystemTestDescription:
+          type: string
+          description: Detailed description of the test, including expected results
+        ProductionRiskSystemTestWorkProduct:
+          type: string
+          description: Reference to testing materials, results, assessments and other documents
+        ProductionRiskSystemTestResult:
+          type: string
+          description: The result of the production risk test (including required remedial actions/fixes where appropriate)
+    OperationalRisk:
+      type: object
+      properties:
+        OperationalRiskSystemTestType:
+          type: string
+          description: The type of operational risk test being performed (e.g. operator error recovery, major IT component failure recovery/continuity)
+        OperationalRiskSystemTestDescription:
+          type: string
+          description: Detailed description of the test, including expected results
+        OperationalRiskSystemTestWorkProduct:
+          type: string
+          description: Reference to testing materials, results, assessments and other documents
+        OperationalRiskSystemTestResult:
+          type: string
+          description: The result of the operational risk test (including required remedial actions/fixes where appropriate)
+    BusinessRisk:
+      type: object
+      properties:
+        BusinessRiskSystemTestType:
+          type: string
+          description: The type of business risk test being performed (e.g. compliance, pricing, exposure)
+        BusinessRiskSystemTestDescription:
+          type: string
+          description: Detailed description of the test, including expected results
+        BusinessRiskTestWorkProduct:
+          type: string
+          description: Reference to testing materials, results, assessments and other documents
+        BusinessRiskTestResult:
+          type: string
+          description: The result of the business risk test (including required remedial actions/fixes where appropriate)
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          description: NA
+        status:
+          type: string
+          description: NA
+        message:
+          type: string
+          description: NA
+    EvaluateProductionSystemAssessmentRequest:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    EvaluateProductionSystemAssessmentResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    UpdateProductionSystemAssessmentRequest:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    UpdateProductionSystemAssessmentResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    RequestProductionSystemAssessmentRequest:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    RequestProductionSystemAssessmentResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    RetrieveProductionSystemAssessmentResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+    RetrieveFunctionalRiskResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+        FunctionalRisk:
+          type: object
+          properties:
+            FunctionalRiskSystemTestType:
+              type: string
+              description: NA
+            FunctionalRiskSystemTestDescription:
+              type: string
+              description: NA
+            FunctionalRiskSystemTestWorkProduct:
+              type: string
+              description: NA
+            FunctionalRiskSystemTestResult:
+              type: string
+              description: NA
+    RetrieveProductionRiskResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+        ProductionRisk:
+          type: object
+          properties:
+            ProductionRiskSystemTestType:
+              type: string
+              description: NA
+            ProductionRiskSystemTestDescription:
+              type: string
+              description: NA
+            ProductionRiskSystemTestWorkProduct:
+              type: string
+              description: NA
+            ProductionRiskSystemTestResult:
+              type: string
+              description: NA
+    RetrieveBusinessRiskResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+        BusinessRisk:
+          type: object
+          properties:
+            BusinessRiskSystemTestType:
+              type: string
+              description: NA
+            BusinessRiskSystemTestDescription:
+              type: string
+              description: NA
+            BusinessRiskTestWorkProduct:
+              type: string
+              description: NA
+            BusinessRiskTestResult:
+              type: string
+              description: NA
+    RetrieveOperationalRiskResponse:
+      type: object
+      properties:
+        ProductionSystemAssessment:
+          type: object
+          properties:
+            ProductionReleaseName:
+              type: string
+              description: NA
+            EmployeeOrBusinessUnitReference:
+              type: object
+              description: NA
+            ProductionReleaseType:
+              type: string
+              description: NA
+            ProductionReleaseDescription:
+              type: string
+              description: NA
+            ProductionReleaseTestProfile:
+              type: string
+              description: NA
+            ProductionReleaseTestSchedule:
+              type: string
+              description: NA
+            ProductionReleaseConsolidationRecord:
+              type: string
+              description: NA
+            DocumentDirectoryEntryInstanceReference:
+              type: object
+              description: NA
+            DateType:
+              type: string
+              description: NA
+        OperationalRisk:
+          type: object
+          properties:
+            OperationalRiskSystemTestType:
+              type: string
+              description: NA
+            OperationalRiskSystemTestDescription:
+              type: string
+              description: NA
+            OperationalRiskSystemTestWorkProduct:
+              type: string
+              description: NA
+            OperationalRiskSystemTestResult:
+              type: string
+              description: NA
+  parameters:
+    ProductionReleaseID:
+      name: productionreleaseId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    FunctionalRiskID:
+      name: functionalriskId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ProductionRiskID:
+      name: productionriskId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    OperationalRiskID:
+      name: operationalriskId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    BusinessRiskID:
+      name: businessriskId
+      in: path
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+  requestBodies:
+    EvaluateProductionSystemAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EvaluateProductionSystemAssessmentRequest'
+    UpdateProductionSystemAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateProductionSystemAssessmentRequest'
+    RequestProductionSystemAssessmentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestProductionSystemAssessmentRequest'
+  responses:
+    HTTPError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    ForbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequestsError:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+...

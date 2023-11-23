@@ -109,7 +109,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/FinancialGateway/{financialgatewayid}/Inbound/{inboundid}/Initiate':
+  '/FinancialGateway/{financialgatewayid}/Inbound/Initiate':
     post:
       tags:
         - BQ - Inbound
@@ -118,7 +118,6 @@ paths:
       operationId: InitiateInbound
       parameters:
         - $ref: '#/components/parameters/financialgatewayid'
-        - $ref: '#/components/parameters/inboundid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateInboundRequest'
       responses:
@@ -161,7 +160,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
-  '/FinancialGateway/{financialgatewayid}/Outbound/{outboundid}/Initiate':
+  '/FinancialGateway/{financialgatewayid}/Outbound/Initiate':
     post:
       tags:
         - BQ - Outbound
@@ -170,7 +169,6 @@ paths:
       operationId: InitiateOutbound
       parameters:
         - $ref: '#/components/parameters/financialgatewayid'
-        - $ref: '#/components/parameters/outboundid'
       requestBody:
         $ref: '#/components/requestBodies/InitiateOutboundRequest'
       responses:
@@ -272,6 +270,14 @@ components:
           description: 'Used to track delivery  (e.g. pending, delivered, possible duplicate, error)'
           format: string
       description: "The collection of operational serivces/functions offered by the operational facility\n\nExamples: messages, capture, routines"
+    date:
+      type: object
+      properties:
+        DateContent:
+          type: string
+          description: ''
+          format: string
+      description: "Key dates and times for the session ||\r\n|"
     FinancialGatewayOperatingSession:
       type: object
       properties:
@@ -292,9 +298,7 @@ components:
           description: The session activity report
           format: string
         FinancialGatewayServiceSessionDate:
-          type: string
-          description: Key dates and times for the session
-          format: date
+          $ref: '#/components/schemas/date'
         FinancialGatewayServiceSessionIssueRecord:
           type: string
           description: A record of any production issues arising during the gateway session
@@ -347,9 +351,7 @@ components:
               description: "\r\n"
               format: string
             FinancialGatewayServiceSessionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             FinancialGatewayServiceSessionIssueRecord:
               type: string
               description: "\r\n"
@@ -386,9 +388,7 @@ components:
               description: "\r\n"
               format: string
             FinancialGatewayServiceSessionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             FinancialGatewayServiceSessionIssueRecord:
               type: string
               description: "\r\n"
@@ -429,9 +429,7 @@ components:
               description: "\r\n"
               format: string
             FinancialGatewayServiceSessionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             FinancialGatewayServiceSessionIssueRecord:
               type: string
               description: "\r\n"
@@ -488,9 +486,7 @@ components:
               description: "\r\n"
               format: string
             FinancialGatewayServiceSessionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             FinancialGatewayServiceSessionIssueRecord:
               type: string
               description: "\r\n"
@@ -617,9 +613,7 @@ components:
               description: "\r\n"
               format: string
             FinancialGatewayServiceSessionDate:
-              type: string
-              description: "\r\n"
-              format: date
+              $ref: '#/components/schemas/date'
             FinancialGatewayServiceSessionIssueRecord:
               type: string
               description: "\r\n"
